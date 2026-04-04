@@ -6,11 +6,22 @@ Entry point: streamlit run app.py
 """
 
 import json
+import os
 from pathlib import Path
 
 import streamlit as st
 
 from ui.styles import inject_styles
+
+# ── Bridge st.secrets → os.environ for Streamlit Cloud ──
+# The app reads API keys via os.getenv(), but Streamlit Cloud
+# serves them through st.secrets. Copy them over early.
+try:
+    for key in ("GOOGLE_AI_STUDIO_KEY", "OPENROUTER_API_KEY"):
+        if key not in os.environ and key in st.secrets:
+            os.environ[key] = st.secrets[key]
+except Exception:
+    pass
 
 
 # ── Page config (must be first Streamlit call) ─────────────
@@ -68,7 +79,6 @@ with st.sidebar:
 
 
 # ── Demo mode banner ──────────────────────────────────────
-import os
 api_key = os.getenv("GOOGLE_AI_STUDIO_KEY", "")
 if not api_key or api_key == "your_api_key_here":
     st.info(
