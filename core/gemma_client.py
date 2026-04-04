@@ -140,7 +140,7 @@ class GemmaClient:
         config = types.GenerateContentConfig(
             system_instruction=system,
             thinking_config=types.ThinkingConfig(
-                thinking_budget_tokens=2048
+                includeThoughts=True
             ),
         )
         response = self.client.models.generate_content(
