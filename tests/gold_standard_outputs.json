@@ -1,0 +1,621 @@
+{
+  "vision_reader": {
+    "maya_math_worksheet": {
+      "problems": [
+        {"num": 1, "expression": "3+4", "answer": "7", "correct": true},
+        {"num": 2, "expression": "2+5", "answer": "7", "correct": true},
+        {"num": 3, "expression": "7+1", "answer": "8", "correct": true},
+        {"num": 4, "expression": "6+2", "answer": "8", "correct": true},
+        {"num": 5, "expression": "5+3", "answer": "8", "correct": true},
+        {"num": 6, "expression": "8+0", "answer": "8", "correct": true},
+        {"num": 7, "expression": "4+4", "answer": "9", "correct": false, "student_answer": "8"},
+        {"num": 8, "expression": "1+6", "answer": "7", "correct": true},
+        {"num": 9, "expression": "9+0", "answer": "9", "correct": true},
+        {"num": 10, "expression": "3+2", "answer": "5", "correct": false, "student_answer": "6"}
+      ],
+      "summary": {
+        "total_problems": 10,
+        "correct": 7,
+        "incorrect": 2,
+        "skipped": 1,
+        "accuracy_percent": 70,
+        "notes": ["Problem #9 skipped (no answer written)", "Problem #7: student wrote 8 (8+0 confusion?)", "Problem #10: student wrote 6 (transposition)"],
+        "observation": "Strong foundational addition skills. Errors suggest fatigue or number confusion rather than conceptual gaps. Skipped problem may indicate processing time needed."
+      }
+    },
+    "maya_behavior_tally": {
+      "measurement_date_range": "2026-03-25 to 2026-04-03",
+      "behaviors_tracked": [
+        {
+          "behavior": "Greets peer",
+          "monday": 3,
+          "tuesday": 4,
+          "wednesday": 2,
+          "thursday": 5,
+          "friday": 6,
+          "daily_average": 4.0,
+          "daily_totals": [3, 4, 2, 5, 6],
+          "notes_by_day": {
+            "wednesday": "Fire drill - sensory overload; lower count expected"
+          }
+        },
+        {
+          "behavior": "Follows direction",
+          "monday": 5,
+          "tuesday": 4,
+          "wednesday": 3,
+          "thursday": 5,
+          "friday": 6,
+          "daily_average": 4.6,
+          "daily_totals": [5, 4, 3, 5, 6]
+        },
+        {
+          "behavior": "Calming strategy used",
+          "monday": 1,
+          "tuesday": 2,
+          "wednesday": 4,
+          "thursday": 2,
+          "friday": 1,
+          "daily_average": 2.0,
+          "daily_totals": [1, 2, 4, 2, 1],
+          "notes": "Wednesday spike due to fire drill disruption; returned to baseline by Friday"
+        }
+      ],
+      "overall_trend": "Positive across all behaviors; greetings and directions improving, calming strategies showing good use"
+    },
+    "jaylen_task_checklist": {
+      "task_steps": [
+        {"step": 1, "description": "Hands-on sensory bin", "completed": true, "checked": true},
+        {"step": 2, "description": "Morning snack", "completed": true, "checked": true},
+        {"step": 3, "description": "AAC warm-up", "completed": true, "checked": true},
+        {"step": 4, "description": "Visual schedule review", "completed": true, "checked": true},
+        {"step": 5, "description": "Transition song", "completed": false, "checked": false},
+        {"step": 6, "description": "Work task", "completed": true, "checked": true},
+        {"step": 7, "description": "Clean-up", "completed": false, "checked": false}
+      ],
+      "summary": {
+        "total_steps": 7,
+        "completed_steps": 5,
+        "pending_steps": 2,
+        "pending_description": ["Transition song", "Clean-up"],
+        "completion_percentage": 71,
+        "completed_indices": [1, 2, 3, 4, 6],
+        "observation": "Jaylen successfully completed majority of routine. Pending steps at end of checklist suggest fatigue or task saturation. Monitor if clean-up is consistently skipped."
+      }
+    },
+    "sofia_writing_sample": {
+      "text": "George Washington was the first president. He lived in Virginia. The Constitution was creaded in 1787. Washinton was an army leader before he was president.",
+      "transcription": {
+        "sentence_count": 4,
+        "word_count": 38,
+        "sentences": [
+          "George Washington was the first president.",
+          "He lived in Virginia.",
+          "The Constitution was creaded in 1787.",
+          "Washinton was an army leader before he was president."
+        ]
+      },
+      "content_analysis": {
+        "style": "factual, encyclopedia-style",
+        "emotional_language": "none",
+        "opinion_statements": 0,
+        "abstract_thinking": "minimal - all concrete facts"
+      },
+      "errors": [
+        {"type": "spelling", "location": "sentence 3", "word": "creaded", "correction": "created", "severity": "major"},
+        {"type": "spelling", "location": "sentence 4", "word": "Washinton", "correction": "Washington", "severity": "major"}
+      },
+      "error_summary": "2 spelling errors detected. Both are phonetically reasonable attempts. No capitalization or punctuation errors.",
+      "rubric_estimate": {
+        "score": 2,
+        "max_score": 4,
+        "rationale": "Content accurate and well-organized (strength). Spelling errors moderate impact. Critical gap: lacks any emotional language, opinion, or abstract thinking. Meets baseline but not grade-level expectations for voice/emotion."
+      }
+    }
+  },
+  "iep_mapper": {
+    "maya_math_worksheet": {
+      "input_source": "Vision Reader output - math worksheet (7/10 correct)",
+      "goal_mapping": [
+        {
+          "goal_id": "G2",
+          "goal_name": "Following Directions",
+          "goal_description": "Maya will follow two-step verbal directions without visual supports with 75% accuracy across 8 trials",
+          "alignment_confidence": 0.85,
+          "rationale": "Math worksheet represents multi-step task execution: 'read problem, write answer.' Independent work task demands direction-following and sustained attention.",
+          "trial_data": {
+            "successes": 7,
+            "total_trials": 10,
+            "percent": 70,
+            "measurement_alignment": "Within G2 measurement window; worksheet performance maps to direction-following domain"
+          },
+          "secondary_goals": [
+            {"goal_id": "G1", "confidence": 0.15, "reason": "Not applicable - greetings not observed in worksheet context"},
+            {"goal_id": "G3", "confidence": 0.20, "reason": "Low probability - no behavioral dysregulation observed during task"}
+          ]
+        }
+      ],
+      "notes": "Worksheet performance provides objective data point for G2. The 70% accuracy aligns well with recent trial history (6/8=75% on 4/3). One skipped problem and two errors suggest need for visual supports during multi-step tasks."
+    },
+    "jaylen_pecs_log": {
+      "input_source": "Vision Reader output - PECS communication log (5 attempts)",
+      "goal_mapping": [
+        {
+          "goal_id": "G1",
+          "goal_name": "AAC Communication (via PECS/Device)",
+          "goal_description": "Jaylen will request wants/needs using AAC device with 80% accuracy across 15 opportunities per day",
+          "alignment_confidence": 0.95,
+          "primary_measurement": {
+            "total_attempts": 5,
+            "attempts_via_aac_device": 2,
+            "attempts_via_pecs_card": 1,
+            "attempts_via_gesture_plus_picture": 1,
+            "attempts_via_gesture_only": 1,
+            "success_rate_total": 0.8,
+            "success_rate_with_notes": "4 out of 5 attempts successful if counting picture+gesture hybrid as assisted success; 2 out of 5 if requiring AAC-only independence"
+          },
+          "independence_analysis": {
+            "truly_independent_aac_device_only": 2,
+            "independent_percent": 0.4,
+            "semi_independent_with_picture_support": 1,
+            "semi_independent_percent": 0.2,
+            "prompted_gesture_primary": 2,
+            "prompted_percent": 0.4,
+            "note": "Goal target is 80% accuracy (success on demand). AAC device trending upward; gesture-reliance still present but decreasing."
+          },
+          "trial_mapping": {
+            "observation_date": "2026-04-03",
+            "recent_trial_history_context": "From IEP data: 3/15=33%, 3/22=47%, 3/29=60%, 4/1=73%, 4/3=80%. This PECS log confirms 4/3 target achievement."
+          }
+        }
+      ],
+      "coaching_notes": "AAC device use is increasing rapidly. The gesture responses should be acknowledged but gently redirected to AAC-first approach. Current trajectory suggests device preference will increase further.",
+      "recommendation": "Continue Thomas sticker reinforcement. Recommend rotating/reducing gesture acceptance in next phase to push AAC-only independence toward 90%+"
+    },
+    "sofia_writing_sample": {
+      "input_source": "Vision Reader output - Sofia's paragraph about Presidents",
+      "goal_mapping": [
+        {
+          "goal_id": "G3",
+          "goal_name": "Written Expression (Creative/Emotional)",
+          "goal_description": "Sofia will demonstrate ability to write creatively beyond facts with 4 out of 5 writing samples meeting grade-level rubric expectations for voice, emotion, and abstract thinking",
+          "alignment_confidence": 0.95,
+          "content_analysis": {
+            "style_characterization": "All-facts, no-opinion",
+            "emotional_language_count": 0,
+            "opinion_statements_count": 0,
+            "abstract_thinking_present": false,
+            "organization": "chronological facts, encyclopedia-style"
+          },
+          "rubric_assessment": {
+            "score": 2,
+            "max_score": 4,
+            "strength_areas": ["Content accuracy", "Fact selection relevant to topic", "Organization"],
+            "gap_areas": ["Voice/personality", "Emotional expression", "Abstract thinking", "Opinion/inference"]
+          },
+          "trend_context": {
+            "baseline_40_percent": "3/15-3/29 (15 days at 40%)",
+            "recent_breakthrough": "4/1 onward with personal narrative + reflective essay assignments",
+            "current_performance": "Moving toward target but still fact-heavy"
+          }
+        }
+      ],
+      "coaching_recommendation": "Sofia is ready for opinion-insertion and feeling-extraction prompts. Model: 'Washington lived in Virginia AND I think that was interesting because [OPINION].' Use scaffold: 'What does this make you think/feel?'",
+      "note": "Sample represents transition point - beginning to emerge from purely factual mode but not yet at target 80% (4/4 samples with rubric score 3+). Continue current instructional approach."
+    }
+  },
+  "progress_analyst": {
+    "maya_g1": {
+      "goal_id": "G1",
+      "goal_name": "Peer Greetings",
+      "trial_data": [
+        {"date": "2026-03-15", "percent": 30},
+        {"date": "2026-03-22", "percent": 40},
+        {"date": "2026-03-29", "percent": 60},
+        {"date": "2026-04-01", "percent": 70},
+        {"date": "2026-04-03", "percent": 80}
+      ],
+      "trend_analysis": {
+        "trend_direction": "improving",
+        "trend_confidence": "high",
+        "linear_regression": {
+          "slope": 12.5,
+          "r_squared": 0.985,
+          "interpretation": "Strong linear improvement; nearly perfect fit suggests consistent, measurable progress"
+        },
+        "data_quality": {
+          "data_points": 5,
+          "variance": "low",
+          "note": "Clean, consistent upward trajectory with minimal noise"
+        }
+      },
+      "status": "Target Met",
+      "target": 80,
+      "current": 80,
+      "alert": false,
+      "alert_threshold": 85,
+      "days_to_mastery": 0,
+      "mastery_achieved_date": "2026-04-03",
+      "confidence_level": "Very High",
+      "intervention_effectiveness": {
+        "intervention": "Peer buddy program + dinosaur reinforcer stickers + visual schedule of greeting scenarios",
+        "effectiveness_rating": "Excellent",
+        "note": "All three components appear to contribute to success. Peer buddy provides relationship context; stickers provide immediate reinforcement; visual schedule provides structure."
+      },
+      "recommendations": [
+        "Continue peer buddy program - highly effective",
+        "Begin fading sticker reinforcement frequency (shift from every-day to 2x/week) to build intrinsic motivation",
+        "Generalize greeting skills to new peers/settings (specials teachers, lunch aide)"
+      ]
+    },
+    "maya_g2": {
+      "goal_id": "G2",
+      "goal_name": "Following Two-Step Directions",
+      "trial_data": [
+        {"date": "2026-03-15", "percent": 50},
+        {"date": "2026-03-22", "percent": 38},
+        {"date": "2026-03-29", "percent": 50},
+        {"date": "2026-04-01", "percent": 63},
+        {"date": "2026-04-03", "percent": 75}
+      ],
+      "trend_analysis": {
+        "trend_direction": "improving",
+        "trend_confidence": "high",
+        "plateau_detected": {
+          "plateau_period": "2026-03-15 to 2026-03-29",
+          "plateau_duration_days": 14,
+          "plateau_percent": 46,
+          "plateau_reason": "New peer buddy; distraction from routine. Added verbal cueing on 3/29."
+        },
+        "breakthrough_detected": {
+          "breakthrough_date": "2026-03-29",
+          "breakthrough_intervention": "Visual checklist added + verbal cueing ('listen with your whole body')",
+          "breakthrough_magnitude": "+25% in 5 days"
+        },
+        "linear_regression": {
+          "slope": 6.25,
+          "r_squared": 0.78,
+          "note": "Moderate fit due to plateau. But recent 5-day trend (3/29-4/3) shows slope of ~6.25% per day."
+        }
+      },
+      "status": "Target Met",
+      "target": 75,
+      "current": 75,
+      "alert": false,
+      "alert_threshold": 80,
+      "days_to_mastery": 0,
+      "mastery_achieved_date": "2026-04-03",
+      "confidence_level": "Medium-High",
+      "confidence_note": "Plateau followed by breakthrough. Target met, but continued monitoring recommended. If performance dips below 70% next week, consider intervention reinforcement.",
+      "intervention_analysis": {
+        "initial_intervention": "Visual schedule (was helping but not sufficient)",
+        "added_intervention": "Visual checklist + verbal cueing",
+        "combined_effectiveness": "Highly effective; immediate improvement post-implementation"
+      },
+      "recommendations": [
+        "Generalize visual checklist to novel contexts: specials classes, transitions, lunch period",
+        "Use peer buddy to model two-step directions (peer demonstrates, Maya follows)",
+        "Monitor for week 2-3 to ensure improvement is maintained; plateau risk remains"
+      ]
+    },
+    "jaylen_g1": {
+      "goal_id": "G1",
+      "goal_name": "AAC Device Communication",
+      "trial_data": [
+        {"date": "2026-03-15", "percent": 33},
+        {"date": "2026-03-22", "percent": 47},
+        {"date": "2026-03-29", "percent": 60},
+        {"date": "2026-04-01", "percent": 73},
+        {"date": "2026-04-03", "percent": 80}
+      ],
+      "trend_analysis": {
+        "trend_direction": "on_track",
+        "trend_confidence": "very_high",
+        "growth_pattern": "steady_climb",
+        "weekly_gains": [14, 13, 13, 7],
+        "weekly_gains_average": 11.75,
+        "interpretation": "Consistent 12-15% weekly improvement suggests sustainable learning curve, not fluky gains"
+      },
+      "linear_regression": {
+        "slope": 11.75,
+        "r_squared": 0.995,
+        "interpretation": "Almost perfect linear fit. Jaylen is learning AAC device use at a very predictable, steady rate."
+      },
+      "status": "Target Met",
+      "target": 80,
+      "current": 80,
+      "alert": false,
+      "alert_threshold": 85,
+      "days_to_mastery": 0,
+      "mastery_achieved_date": "2026-04-03",
+      "confidence_level": "Very High",
+      "mastery_projection": {
+        "projected_continuation": "At current slope, Jaylen could reach 90-95% by end of April",
+        "confidence": "High - trend is very stable"
+      },
+      "intervention_effectiveness": {
+        "interventions": ["AAC device setup with pre-programmed phrases", "Thomas the Tank Engine sticker reinforcement", "Speech therapist starting 3/22", "Staff praising every attempt"],
+        "most_effective": "Thomas sticker reinforcement + speech therapy + AAC device design"
+      },
+      "recommendations": [
+        "Continue Thomas sticker motivation - working excellently",
+        "Expand AAC device phrase library to include more complex requests (multi-word combinations)",
+        "Monitor for gesture regression; gently redirect to AAC-first when gestures emerge",
+        "Plan fading of sticker reinforcement starting late April"
+      ]
+    },
+    "sofia_g3": {
+      "goal_id": "G3",
+      "goal_name": "Written Expression (Creative/Emotional)",
+      "trial_data": [
+        {"date": "2026-03-15", "percent": 40},
+        {"date": "2026-03-22", "percent": 40},
+        {"date": "2026-03-29", "percent": 40},
+        {"date": "2026-04-01", "percent": 60},
+        {"date": "2026-04-03", "percent": 80}
+      ],
+      "trend_analysis": {
+        "trend_direction": "improving_with_plateau",
+        "trend_confidence": "high",
+        "plateau_detected": {
+          "plateau_period": "2026-03-15 to 2026-03-29",
+          "plateau_duration_days": 14,
+          "plateau_percent": 40,
+          "plateau_characterization": "Long, resistant plateau. Sofia was stuck in fact-only mode despite coaching."
+        },
+        "breakthrough_detected": {
+          "breakthrough_date": "~2026-03-31",
+          "breakthrough_intervention": "Shift to personal narrative assignments + reflective essay prompts",
+          "breakthrough_magnitude": "+20% in 2 days (3/29→4/1), +20% again in 2 days (4/1→4/3)"
+        },
+        "linear_regression": {
+          "slope": 10,
+          "r_squared": 0.88,
+          "note": "Moderate fit overall due to plateau. But slope post-breakthrough (4/1-4/3) would be ~20%/day."
+        }
+      },
+      "status": "Target Met",
+      "target": 80,
+      "current": 80,
+      "alert": true,
+      "alert_threshold": 80,
+      "alert_reason": "ESCALATION RECOMMENDED - Long plateau (14 days) before breakthrough is concerning. If performance reverts below 75%, immediate intervention change required.",
+      "days_to_mastery": 0,
+      "mastery_achieved_date": "2026-04-03",
+      "confidence_level": "Medium-High",
+      "confidence_note": "Just met target, but trajectory suggests fragility. Plateau was long and resistant. Breakthrough only occurred with significant instructional shift.",
+      "intervention_analysis": {
+        "initial_intervention": "Social skills coaching + writing coach assigned",
+        "effectiveness_of_initial": "Minimal - Sofia remained stuck at 40%"
+      },
+      "critical_intervention": {
+        "new_approach": "Personal narrative assignments + reflective/emotion-focused prompts",
+        "effectiveness": "Highly effective - immediate breakthrough",
+        "change_magnitude": "Major instructional pivot required, not just coaching"
+      },
+      "recommendations": [
+        "CONTINUE CURRENT APPROACH - Personal narrative + reflection is working. This is not the time for change.",
+        "MONITOR CLOSELY - If performance drops below 75% in next 2 data points, escalate immediately to:",
+        "  - 1:1 writing coaching with focus on emotion/opinion language",
+        "  - Mentor-based peer feedback on drafts",
+        "  - Consider scaffolded emotion/opinion sentence starters",
+        "PLAN PROACTIVELY - When establishing new goals, use 'front-load' instructional design rather than waiting for plateau"
+      ],
+      "risk_flag": "Sofia's learning profile suggests she benefits from explicit, scaffolded instruction when transitioning to abstract thinking. Monitor for similar plateaus in future goals."
+    }
+  },
+  "material_forge": {
+    "lesson_plan_maya_g1": {
+      "title": "Maya's Dinosaur Greeting Adventures",
+      "student": "Maya",
+      "grade": 3,
+      "goal": "G1 - Peer Greetings (80% accuracy)",
+      "current_performance": "80% - TARGET MET. Plan focuses on maintenance and generalization.",
+      "duration": "2 weeks",
+      "theme": "Blue the Raptor (Jurassic World character)",
+      "activities": [
+        {
+          "activity_num": 1,
+          "title": "Blue the Raptor Greeting Game",
+          "description": "Daily warm-up (5 minutes). Maya approaches a Blue raptor toy during morning arrival. She practices greeting the toy in different ways: wave, 'hi Blue', dinosaur roar + gesture, etc.",
+          "materials": ["Blue raptor plush toy or figure", "greeting phrase cards (laminated)"],
+          "implementation": "Teacher models greeting first day. By day 3-4, Maya leads. Practice across different times of day.",
+          "reinforcer": "2 dinosaur stickers per successful greeting interaction"
+        },
+        {
+          "activity_num": 2,
+          "title": "Dinosaur Handshake",
+          "description": "Peer greeting variation. Two students (Maya + peer buddy) perform a special 'dinosaur handshake' before transitioning: high-five, low-five, roar together.",
+          "materials": ["Visual diagram of handshake steps (3 steps with pictures)", "dinosaur sound effects audio clip"],
+          "implementation": "Introduce with familiar peer buddy first. Fade to introducing to new peers.",
+          "settings": "Morning arrival, lunch, specials transitions, free play"
+        },
+        {
+          "activity_num": 3,
+          "title": "Dino Sticker Challenge - 7-Day Greeting Goal",
+          "description": "Visual tracker. Maya earns 1 sticker per successful greeting across 3 different settings per day. After 7 stickers, choose reinforcer (5 min water table OR iPad counting app).",
+          "materials": ["Clipboard-friendly sticker chart (7 boxes)", "dinosaur sticker pack", "reinforcer visual"],
+          "reinforcers": ["5 minutes at water table", "10 minutes iPad counting app", "choice of next activity"],
+          "measurement": "Teacher tally across morning (arrival), lunch, specials, and free play = 4 daily opportunities"
+        }
+      ],
+      "reinforcement_schedule": {
+        "immediate": "Dinosaur stickers (1 per greeting)",
+        "delayed": "After 7 stickers: 5 min water table or app time",
+        "fading_plan": "Week 1-2: continuous stickers. Week 3-4: intermittent (every 2nd greeting). Ongoing: verbal praise + high-fives"
+      },
+      "visual_supports": [
+        "Greeting phrase cards: 'Hi [name]', 'Hey [name]!', wave + smile",
+        "Dinosaur Handshake diagram (3-step visual)",
+        "7-box sticker tracker"
+      ],
+      "sensory_considerations": {
+        "seeks": "proprioceptive (high-five), water play",
+        "avoids": "loud transitions",
+        "supports": ["Noise-canceling headphones available during transitions", "Weighted lap pad during wait times"]
+      },
+      "data_collection": "Teacher tally of successful greetings per setting; weekly graph of % success",
+      "generalization_plan": "Expand from peer buddy + familiar peers → unfamiliar peers → specials teachers → lunch aide (by week 2-3)",
+      "notes": "Maya has met target (80%). This lesson plan maintains achievement and generalizes to new settings. Fading stickers to build intrinsic motivation."
+    },
+    "social_story_maya_transitions": {
+      "title": "I Am Brave Like Blue the Raptor",
+      "format": "Carol Gray (first person, 2:1 ratio: descriptive:coaching sentences)",
+      "student": "Maya",
+      "age": 8,
+      "reading_level": "Grade 2-3 (3-4 word phrases)",
+      "purpose": "Reduce anxiety during transitions",
+      "target_situations": ["Transition to lunch", "Transition to specials", "Fire drill procedures"],
+      "text": "My name is Maya.\nI like dinosaurs.\nBlue the raptor is brave.\nBlue knows how to move from one place to another.\n\nTransitions mean we move from one activity to another.\nEveryone in our class has transitions.\nI can be brave during transitions like Blue.\n\nSometimes transitions feel bumpy or loud.\nMy body might feel worried.\nI can use my noise-canceling headphones to help.\n\nI have special tools to help me.\nI have a fidget cube.\nI have a weighted lap pad.\nI can go to the water table and play.\nThese tools help me feel calm like Blue feels safe in her den.\n\nI am learning to be brave during transitions.\nI am like Blue the raptor.",
+      "structure": {
+        "opening": "Self-identification + character interest + definition of transitions",
+        "body": [
+          {
+            "section": "Section 1 - Definition + Coaching",
+            "descriptive": 2,
+            "coaching": 1
+          },
+          {
+            "section": "Section 2 - Sensory Reality + Coping",
+            "descriptive": 2,
+            "coaching": 1
+          },
+          {
+            "section": "Section 3 - Tools Available",
+            "descriptive": 4,
+            "coaching": 1
+          }
+        ],
+        "closing": "Affirmation of identity + parallel to Blue"
+      },
+      "visuals": [
+        "Blue raptor image (friendly, smiling expression)",
+        "Transition icons (clock, arrow, movement symbol)",
+        "3 coping strategy boxes: headphones icon, fidget cube, weighted pad, water table"
+      ],
+      "2_to_1_ratio_verification": "10 descriptive sentences : 5 coaching sentences = 2:1 (exact)",
+      "implementation": "Read together each morning. Teacher points to visuals. Keep printed copy in Maya's sensory kit for reference before transitions.",
+      "reinforcement": "After successful use of strategy during transition, earn dinosaur sticker",
+      "notes": "Story normalizes transitions, acknowledges sensory reality, and provides concrete coping tools. Blue serves as brave role model (Maya's special interest)."
+    },
+    "admin_report_maya": {
+      "report_title": "Maya — IEP Progress Summary Report",
+      "report_period": "March 15 - April 3, 2026",
+      "student_name": "Maya",
+      "grade": "3",
+      "date_of_report": "April 4, 2026",
+      "prepared_by": "[Teacher Name]",
+      "goals_summary": {
+        "total_goals": 3,
+        "goals_at_target": 3,
+        "goals_exceeded": 0,
+        "goals_progressing": 3,
+        "goals_concerning": 0
+      },
+      "goal_1": {
+        "goal_id": "G1",
+        "domain": "Communication - Peer Greetings",
+        "description": "Maya will initiate or respond to peer greetings (verbal or gesture-based) with 80% accuracy across 10 trials in a variety of settings",
+        "baseline": "20% (October 2025)",
+        "target": "80%",
+        "current_performance": "80%",
+        "status": "MET",
+        "measurement_method": "Teacher observation tally across 4 settings: arrival, lunch, specials, free play",
+        "trial_data": {
+          "march_15": "30%",
+          "march_22": "40%",
+          "march_29": "60%",
+          "april_1": "70%",
+          "april_3": "80%"
+        },
+        "trend": "Consistent upward trajectory across 3+ weeks",
+        "intervention": "Peer buddy program + dinosaur sticker reinforcement + visual greeting scenario cards",
+        "intervention_effectiveness": "Excellent - clear correlation between peer buddy introduction (3/15) and immediate improvement trajectory",
+        "observation_notes": "Maya now initiates greetings with familiar peers and responds consistently to peer initiations. Still somewhat withdrawn in large groups but one-on-one greeting skills solidified. Peer buddy program highly effective; stickers are strong reinforcer.",
+        "recommendation": "Continue peer buddy program. Begin fading sticker frequency to promote intrinsic motivation (shift to 2x/week by end of April). Introduce generalization to unfamiliar peers and specials teachers."
+      },
+      "goal_2": {
+        "goal_id": "G2",
+        "domain": "Following Directions - Two-Step Verbal",
+        "description": "Maya will follow two-step verbal directions without visual supports with 75% accuracy across 8 trials during independent work, routines, and transitions",
+        "baseline": "45% (October 2025)",
+        "target": "75%",
+        "current_performance": "75%",
+        "status": "MET",
+        "measurement_method": "Teacher checklist across 8 trials during independent work time and transitions",
+        "trial_data": {
+          "march_15": "50%",
+          "march_22": "38% (dip due to peer buddy distraction)",
+          "march_29": "50% (verbal cueing added)",
+          "april_1": "63% (visual checklist introduced)",
+          "april_3": "75%"
+        },
+        "trend": "Plateau 3/15-3/29, improvement 3/29 onward with visual checklist + verbal cueing intervention",
+        "intervention": "Added verbal cue 'Listen with your whole body' + visual checklist of two-step tasks paired with verbal direction",
+        "intervention_effectiveness": "High - immediate improvement correlates with intervention introduction",
+        "observation_notes": "Maya benefits significantly from visual support (checklist) paired with verbal direction. Still struggles with novel/unpracticed two-step tasks but excels with routine directions (routines, transitions). Requires brief processing time before task initiation.",
+        "recommendation": "Generalize visual checklist approach to specials classes, lunch, and transitions. Introduce 'checklist buddy' system where peer helps Maya access visual support. Monitor for continued 70%+ performance; if dips below, reinforce visual checklist protocol."
+      },
+      "goal_3": {
+        "goal_id": "G3",
+        "domain": "Self-Regulation - Outburst Frequency & Duration",
+        "description": "Maya will reduce the frequency and duration of outbursts to an average of 1 or fewer per school day, with duration under 5 minutes",
+        "baseline": "3.2 outbursts/day (October 2025)",
+        "target": "1.0 outburst/day",
+        "current_performance": "1.0 outburst/day (most recent week average)",
+        "status": "MET",
+        "measurement_method": "Behavior log (frequency per day, duration in minutes) tracked across 5-day weeks",
+        "trial_data": {
+          "march_15": "2.4 outbursts/day average (40% toward target)",
+          "march_22": "2.6 outbursts/day (40%)",
+          "march_29": "1.8 outbursts/day (60% - fire drill disruption noted)",
+          "april_1": "1.2 outbursts/day (80%)",
+          "april_3": "1.0 outburst/week (100% - 6 outbursts last week, down from 12-13 previously)"
+        },
+        "trend": "Steady decline in frequency; durations consistently under 5 minutes by week of 3/29",
+        "intervention": "Sensory support package: weighted lap pad (proprioceptive), noise-canceling headphones (auditory protection), fidget cube (fine motor regulation)",
+        "intervention_effectiveness": "Excellent - clear correlation between sensory supports introduction (around 3/29) and dramatic frequency reduction",
+        "observation_notes": "Outbursts were most commonly triggered by: loud transitions, fluorescent lighting in art room, unexpected schedule changes. With sensory supports in place, triggers are manageable. Outbursts when they occur are brief (2-4 min) and Maya recovers well with fidget cube + quiet space. Fire drill (3/29) caused 2 major meltdowns but was manageable with weighted vest + headphones.",
+        "risk_note": "One concerning outburst early April related to inability to access water table during scheduled time - suggests external control/access is still important for regulation. Monitor.",
+        "recommendation": "Continue sensory support package. Consider fading one support element at a time in May to assess true maintenance (vs. external crutch). Ensure water table access remains available as preferred coping mechanism. Introduce breathing exercises as complementary self-regulation tool for use alongside sensory supports."
+      },
+      "summary_statement": "Maya has made significant progress across all three IEP goals, meeting targets in Communication, Following Directions, and Self-Regulation over a 3-week period. Her success reflects a combination of effective peer relationship building (peer buddy program), consistent visual support strategies (checklists, schedules), and proactive sensory accommodations (headphones, weighted pad, fidget tools). Maya demonstrates emerging self-awareness of her sensory needs and can now request sensory breaks when needed. Her communication improvements are most evident in structured, familiar contexts; continued generalization to novel settings and unfamiliar peers is recommended.",
+      "next_steps": [
+        "Schedule IEP review meeting to celebrate progress and set new goals for next school year",
+        "Plan sensory support fading protocol (beginning May) to assess durability of learned skills",
+        "Introduce generalization activities for peer greetings across specials classes",
+        "Document effective interventions (peer buddy, visual checklist, sensory kit) for transition to next teacher"
+      ],
+      "overall_rating": "Excellent progress. All goals met. Intervention strategies evidence-based and effective. Maya is on track for strong end-of-year outcomes."
+    },
+    "parent_communication_maya": {
+      "letter_format": "Warm, conversational tone; positive, growth-focused",
+      "date": "April 4, 2026",
+      "greeting": "Hi [Parent Name],\n\nMaya had another great day!",
+      "body": {
+        "section_1_math": "Today Maya completed a math worksheet with 7 out of 10 correct (70%). This is showing she's getting better at following multi-step directions! The problems she missed were the harder ones (4+4, 3+2), and she skipped one problem, which might mean she was working fast or needed a little break.",
+        "section_2_progress": "I also wanted to celebrate some big wins this week:\n\n• Greetings with Classmates: Maya is now greeting her classmates 80% of the time — that was her goal! We met it! She's especially confident with her peer buddy and is starting to say hi to other students too.\n\n• Following Directions: Maya is doing really well following two-step directions (like 'Get your pencil and sit down'). She's at 75% — her target!\n\n• Staying Calm: The weighted lap pad and noise-canceling headphones are making a big difference. Maya is having fewer big feelings and bouncing back faster when transitions are hard.",
+        "section_3_home_activity": "Here's something fun to try at home:\n\nPractice two-step directions during play time. For example: 'Get your dinosaur and put it in the purple box.' Or 'Find the number 5 and show me.' Maya loves dinosaurs and counting, so this might be a great way to practice AND have fun together!",
+        "section_4_sensory_note": "The sensory tools we talked about are really helping Maya feel better during the day. When you pick her up, you might notice she's calmer — that's the weighted lap pad and fidget cube working! Let's keep those strategies going at home too.",
+        "section_5_closing": "Maya is working so hard, and we're celebrating her progress every single day. Keep up the great work!"
+      },
+      "sign_off": "Warmly,\n[Teacher Name]\n\n[Date]",
+      "visual_elements": "Small dinosaur clip-art in corner; simple layout; approximately half-page (fits in backpack folder)"
+    },
+    "parent_communication_jaylen": {
+      "letter_format": "Celebratory tone; AAC/communication-focused; short sentences",
+      "date": "April 4, 2026",
+      "greeting": "Hi [Parent Name],\n\nBig celebration this week!",
+      "body": {
+        "section_1_aac_win": "Jaylen met his communication goal! He is now using his AAC device to ask for what he wants 80% of the time. This is HUGE! It means Jaylen is communicating his needs independently.",
+        "section_2_specific_examples": "This week, Jaylen asked for:\n• Snack time (using AAC)\n• A sensory break (using AAC + picture card)\n• The Thomas trains (using AAC device)\n\nThese are all things Jaylen used to ask for with gestures or pointing. Now he's using words (via his device) — that's real communication!",
+        "section_3_thomas_reinforcer": "The Thomas the Tank Engine stickers are super motivating for Jaylen. Every time he uses his AAC, his eyes light up when he earns a sticker. We're collecting them for him to trade for Thomas train time. It's working beautifully!",
+        "section_4_home_practice": "At home, you can practice the same way:\n• Give Jaylen choices: 'Do you want snack or drink?' Let him point to his AAC button.\n• Wait quietly for him to respond (give him a few seconds).\n• Celebrate when he communicates — big smiles, thumbs up, stickers!\n• Gently encourage AAC over gestures ('Show me with your device first, then we can sign').",
+        "section_5_schedule_note": "Jaylen is also doing great with his visual schedule! He's following it almost by himself, which means he's becoming more independent every day.",
+        "section_6_closing": "Jaylen is an amazing communicator. We're so proud of his hard work! Keep celebrating his AAC use — it's building his confidence every day."
+      },
+      "sign_off": "Warmly,\n[Teacher Name]\n\n[Date]",
+      "visual_elements": "Train clip-art (Thomas-style); enthusiastic tone throughout; short paragraphs; approximately half-page"
+    }
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "student_id": "sofia_2026",
+  "name": "Sofia",
+  "grade": 5,
+  "age": 10,
+  "asd_level": 1,
+  "communication_level": "full sentences, advanced reader (reads at 7th grade level), strong vocabulary",
+  "interests": [
+    "US Presidents (knows all 47 in order)",
+    "maps and geography",
+    "organizing and categorizing things",
+    "the periodic table"
+  ],
+  "sensory_profile": {
+    "seeks": [
+      "organization and order",
+      "rhythmic tapping",
+      "categorization activities"
+    ],
+    "avoids": [
+      "unexpected touch",
+      "crowded noisy spaces",
+      "schedule changes"
+    ],
+    "calming_strategies": [
+      "list-making",
+      "deep breathing with counting",
+      "fidget ring"
+    ]
+  },
+  "reinforcers": [
+    "5 minutes free reading",
+    "geography puzzle app",
+    "organizing supply closet"
+  ],
+  "family_language": "English",
+  "iep_goals": [
+    {
+      "goal_id": "G1",
+      "domain": "social_communication",
+      "description": "Sofia will initiate social conversation with peers (beyond fact-sharing) with 80% consistency across 10 structured and unstructured opportunities per week, using evidence-based conversation strategies (asking questions, showing genuine interest, maintaining eye contact), as measured by teacher/counselor observation.",
+      "baseline": {
+        "value": 45,
+        "date": "2025-10-15"
+      },
+      "target": 80,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "teacher/counselor observation",
+      "trial_history": [
+        {
+          "date": "2026-03-15",
+          "trials": 10,
+          "successes": 4,
+          "pct": 40,
+          "notes": "Initiates conversations about Presidents/maps but doesn't ask peers about their interests"
+        },
+        {
+          "date": "2026-03-22",
+          "trials": 10,
+          "successes": 5,
+          "pct": 50,
+          "notes": "Social skills coaching started; using question prompts when coached ('ask about their hobbies')"
+        },
+        {
+          "date": "2026-03-29",
+          "trials": 10,
+          "successes": 6,
+          "pct": 60,
+          "notes": "Fire drill created unexpected schedule change; retracted socially but rebounded next day"
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 10,
+          "successes": 7,
+          "pct": 70,
+          "notes": "More genuine peer interactions; still fact-focused but asking follow-up questions occasionally"
+        },
+        {
+          "date": "2026-04-03",
+          "trials": 10,
+          "successes": 8,
+          "pct": 80,
+          "notes": "Met target! Initiating conversations about shared interests; peer group project helped"
+        }
+      ]
+    },
+    {
+      "goal_id": "G2",
+      "domain": "executive_function",
+      "description": "Sofia will manage transitions and schedule changes without protest or anxiety escalation in 85% of opportunities (3+ transitions per day), using self-regulation techniques (deep breathing, transition warnings, list-making), as measured by teacher observation and mood log.",
+      "baseline": {
+        "value": 55,
+        "date": "2025-10-15"
+      },
+      "target": 85,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "teacher observation + mood log",
+      "trial_history": [
+        {
+          "date": "2026-03-15",
+          "trials": 15,
+          "successes": 8,
+          "pct": 53,
+          "notes": "Struggles with unannounced schedule changes; high anxiety; needs detailed warnings"
+        },
+        {
+          "date": "2026-03-22",
+          "trials": 15,
+          "successes": 10,
+          "pct": 67,
+          "notes": "5-minute warning protocol started; helping but still prefers schedule in writing"
+        },
+        {
+          "date": "2026-03-29",
+          "trials": 15,
+          "successes": 11,
+          "pct": 73,
+          "notes": "Fire drill = unexpected schedule disruption; significant anxiety (3.5 hours to recover); taught coping strategy"
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 15,
+          "successes": 12,
+          "pct": 80,
+          "notes": "Using written transition list effectively; deep breathing with counting helping; minor transition anxiety"
+        },
+        {
+          "date": "2026-04-03",
+          "trials": 15,
+          "successes": 13,
+          "pct": 87,
+          "notes": "Met target! Consistently managing transitions; self-initiating breathing exercises when anxious"
+        }
+      ]
+    },
+    {
+      "goal_id": "G3",
+      "domain": "written_expression",
+      "description": "Sofia will demonstrate ability to write creatively beyond facts (expressing opinions, feelings, inferences) with 4 out of 5 writing samples per week meeting grade-level rubric expectations for voice, emotion, and abstract thinking, as measured by rubric assessment (1-4 scale).",
+      "baseline": {
+        "value": 40,
+        "date": "2025-10-15"
+      },
+      "target": 80,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "writing rubric (4/5 samples scoring 3+)",
+      "trial_history": [
+        {
+          "date": "2026-03-15",
+          "trials": 5,
+          "successes": 2,
+          "pct": 40,
+          "notes": "Writing heavily fact-based (lists, encyclopedia-style); minimal emotional language or opinion"
+        },
+        {
+          "date": "2026-03-22",
+          "trials": 5,
+          "successes": 2,
+          "pct": 40,
+          "notes": "Writing coach assigned; struggling with 'why do you feel?' prompts; prefers what/who/when questions"
+        },
+        {
+          "date": "2026-03-29",
+          "trials": 5,
+          "successes": 2,
+          "pct": 40,
+          "notes": "Fire drill essay shows anxiety but no emotional reflection; still in factual recounting mode"
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 5,
+          "successes": 3,
+          "pct": 60,
+          "notes": "Personal narrative assignment improving; including some feelings ('I was worried'); still surface-level"
+        },
+        {
+          "date": "2026-04-03",
+          "trials": 5,
+          "successes": 4,
+          "pct": 80,
+          "notes": "Met target! Reflective essay shows emerging abstract thinking; 'why characters felt this way' in book response"
+        }
+      ]
+    }
+  ]
+}

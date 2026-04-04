@@ -1,0 +1,32 @@
+[theme]
+primaryColor = "#5B8FB9"
+backgroundColor = "#FAFAFA"
+secondaryBackgroundColor = "#F0F4F8"
+textColor = "#2C3E50"
+font = "sans serif"
+
+[client]
+# Security: Disable detailed error messages in production
+showErrorDetails = false
+# Security: Disable client-side caching of forms
+forceRerunOnWidgetChange = true
+
+[logger]
+# Security: Log errors only, not debug info
+level = "error"
+
+[server]
+# Security: Cross-site request forgery protection
+enableXsrfProtection = true
+# Security: Prevent embedding in iframes
+headerConfirmation = "reuse"
+# File upload limits (prevent DOS attacks)
+maxUploadSize = 10  # 10 MB max per file
+# Security: Allow external requests but monitor them
+enableCORS = false
+# Run timeouts
+scriptRunContext = "always_run_app"
+
+[browser]
+# Security: Disable developer console in production
+gatherUsageStats = false

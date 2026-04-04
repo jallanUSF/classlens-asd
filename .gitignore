@@ -1,0 +1,97 @@
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.hypothesis/
+.cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Streamlit
+.streamlit/cache/
+.streamlit/logger/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.bak
+*.orig
+.tmp/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Application-specific
+data/sample_work/  # Don't commit real work samples
+demo_assets/screenshots/  # Don't commit demo screenshots
+uploads/  # Don't commit user uploads
+
+# Compiled files
+*.o
+*.a
+*.dylib
+*.dll
+
+# Backup and recovery files
+*.backup
+*.recovery
+
+# Environment-specific configs
+config.local.py
+local_settings.py

@@ -1,0 +1,186 @@
+{
+  "student_id": "maya_2026",
+  "name": "Maya",
+  "grade": 3,
+  "age": 8,
+  "asd_level": 2,
+  "communication_level": "verbal, 3-4 word phrases, can read sight words",
+  "interests": [
+    "Jurassic World raptors (specifically Blue the raptor)",
+    "water play",
+    "the color purple",
+    "counting things"
+  ],
+  "sensory_profile": {
+    "seeks": [
+      "proprioceptive input",
+      "deep pressure",
+      "water play"
+    ],
+    "avoids": [
+      "loud sudden noises",
+      "fluorescent lighting",
+      "certain food textures (mushy foods, vegetables)"
+    ],
+    "calming_strategies": [
+      "weighted lap pad",
+      "noise-canceling headphones",
+      "fidget cube"
+    ]
+  },
+  "reinforcers": [
+    "dinosaur stickers",
+    "5 minutes at water table",
+    "iPad counting app"
+  ],
+  "family_language": "English",
+  "iep_goals": [
+    {
+      "goal_id": "G1",
+      "domain": "communication",
+      "description": "Maya will initiate or respond to peer greetings (verbal or gesture-based) with 80% accuracy across 10 trials in a variety of settings (classroom arrival, lunch, specials, free play) as measured by teacher observation tally.",
+      "baseline": {
+        "value": 20,
+        "date": "2025-10-15"
+      },
+      "target": 80,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "teacher observation tally",
+      "trial_history": [
+        {
+          "date": "2026-03-15",
+          "trials": 10,
+          "successes": 3,
+          "pct": 30,
+          "notes": "Peer buddy program just starting; shy during group transition"
+        },
+        {
+          "date": "2026-03-22",
+          "trials": 10,
+          "successes": 4,
+          "pct": 40,
+          "notes": "More responsive to familiar peers; still avoids larger groups"
+        },
+        {
+          "date": "2026-03-29",
+          "trials": 10,
+          "successes": 6,
+          "pct": 60,
+          "notes": "Fire drill caused sensory overload; but recovered well in 1:1 interactions"
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 10,
+          "successes": 7,
+          "pct": 70,
+          "notes": "Morning routine established; consistent greeting responses in familiar context"
+        },
+        {
+          "date": "2026-04-03",
+          "trials": 10,
+          "successes": 8,
+          "pct": 80,
+          "notes": "Met target! Consistent across multiple settings; reinforcer stickers helping"
+        }
+      ]
+    },
+    {
+      "goal_id": "G2",
+      "domain": "following_directions",
+      "description": "Maya will follow two-step verbal directions (without visual supports) with 75% accuracy across 8 trials during independent work time, classroom routines, and transitions, as measured by teacher checklist.",
+      "baseline": {
+        "value": 45,
+        "date": "2025-10-15"
+      },
+      "target": 75,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "teacher checklist",
+      "trial_history": [
+        {
+          "date": "2026-03-15",
+          "trials": 8,
+          "successes": 4,
+          "pct": 50,
+          "notes": "Relies on visual schedule; struggles with verbal-only two-step directions"
+        },
+        {
+          "date": "2026-03-22",
+          "trials": 8,
+          "successes": 3,
+          "pct": 38,
+          "notes": "Down from baseline; distracted by new peer buddy; needs refocus"
+        },
+        {
+          "date": "2026-03-29",
+          "trials": 8,
+          "successes": 4,
+          "pct": 50,
+          "notes": "Back to baseline; added verbal cueing helping (e.g., 'listen with your whole body')"
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 8,
+          "successes": 5,
+          "pct": 63,
+          "notes": "Improvement with routine directions; still needs support for novel two-step tasks"
+        },
+        {
+          "date": "2026-04-03",
+          "trials": 8,
+          "successes": 6,
+          "pct": 75,
+          "notes": "Met target! Positive trend when directions paired with visual checklist as prompt"
+        }
+      ]
+    },
+    {
+      "goal_id": "G3",
+      "domain": "self_regulation",
+      "description": "Maya will reduce the frequency and duration of outbursts (tantrums, crying, verbal aggression) to an average of 1 or fewer per school day, with duration under 5 minutes, monitored across 5-week intervals using behavior log tracking.",
+      "baseline": {
+        "value": 3.2,
+        "date": "2025-10-15"
+      },
+      "target": 1,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "behavior log (frequency per day, duration)",
+      "trial_history": [
+        {
+          "date": "2026-03-15",
+          "trials": 5,
+          "successes": 2,
+          "pct": 40,
+          "notes": "2.4 outbursts/day average; loud fluorescent lights in art room triggering"
+        },
+        {
+          "date": "2026-03-22",
+          "trials": 5,
+          "successes": 2,
+          "pct": 40,
+          "notes": "2.6 outbursts/day; transition to recess still difficult"
+        },
+        {
+          "date": "2026-03-29",
+          "trials": 5,
+          "successes": 3,
+          "pct": 60,
+          "notes": "1.8 outbursts/day; fire drill = 2 major meltdowns but weighted vest helped calm"
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 5,
+          "successes": 4,
+          "pct": 80,
+          "notes": "1.2 outbursts/day average; noise-canceling headphones during transitions working well"
+        },
+        {
+          "date": "2026-04-03",
+          "trials": 5,
+          "successes": 5,
+          "pct": 100,
+          "notes": "1 outburst this week (down from 6 last week); fidget cube + weighted lap pad routine established"
+        }
+      ]
+    }
+  ]
+}

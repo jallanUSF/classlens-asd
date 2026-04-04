@@ -1,0 +1,186 @@
+{
+  "student_id": "jaylen_2026",
+  "name": "Jaylen",
+  "grade": 1,
+  "age": 6,
+  "asd_level": 3,
+  "communication_level": "non-verbal, uses PECS (Picture Exchange Communication System) and AAC device",
+  "interests": [
+    "Thomas the Tank Engine (specifically Gordon and Percy)",
+    "spinning wheels",
+    "deep pressure squeezes",
+    "the number 5"
+  ],
+  "sensory_profile": {
+    "seeks": [
+      "deep pressure",
+      "spinning/vestibular input",
+      "vibration"
+    ],
+    "avoids": [
+      "bright overhead lights",
+      "paper textures",
+      "high-pitched sounds"
+    ],
+    "calming_strategies": [
+      "body sock",
+      "sensory swing",
+      "chew tube"
+    ]
+  },
+  "reinforcers": [
+    "2 minutes with Thomas trains",
+    "spinning top",
+    "deep pressure hugs"
+  ],
+  "family_language": "English",
+  "iep_goals": [
+    {
+      "goal_id": "G1",
+      "domain": "communication",
+      "description": "Jaylen will request wants and needs using his AAC device with 80% accuracy across 15 opportunities per day (snack, activity choice, break time, attention, sensory activity) as measured by teacher observation and AAC device log.",
+      "baseline": {
+        "value": 35,
+        "date": "2025-10-15"
+      },
+      "target": 80,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "teacher observation + AAC device log",
+      "trial_history": [
+        {
+          "date": "2026-03-15",
+          "trials": 15,
+          "successes": 5,
+          "pct": 33,
+          "notes": "Relies on pointing and gestures; AAC device less preferred; new speech therapist starting"
+        },
+        {
+          "date": "2026-03-22",
+          "trials": 15,
+          "successes": 7,
+          "pct": 47,
+          "notes": "Using AAC for snack choice consistently; still prefers gesture for most requests"
+        },
+        {
+          "date": "2026-03-29",
+          "trials": 15,
+          "successes": 9,
+          "pct": 60,
+          "notes": "Thomas stickers as reinforcer helping; fire drill disrupted routine but recovered quickly"
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 15,
+          "successes": 11,
+          "pct": 73,
+          "notes": "Consistent AAC use for transitions; staff praising every attempt building confidence"
+        },
+        {
+          "date": "2026-04-03",
+          "trials": 15,
+          "successes": 12,
+          "pct": 80,
+          "notes": "Met target! Using AAC spontaneously for activity choice and sensory break requests"
+        }
+      ]
+    },
+    {
+      "goal_id": "G2",
+      "domain": "independence",
+      "description": "Jaylen will follow a visual schedule independently, transitioning between 3-4 activities per day without adult physical prompting, with 90% independence across 5-day weeks, as measured by teacher tally of unprompted transitions.",
+      "baseline": {
+        "value": 60,
+        "date": "2025-10-15"
+      },
+      "target": 90,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "teacher tally of unprompted transitions",
+      "trial_history": [
+        {
+          "date": "2026-03-15",
+          "trials": 20,
+          "successes": 12,
+          "pct": 60,
+          "notes": "Needs hand-over-hand guidance for most transitions; attached to spinning wheel toy"
+        },
+        {
+          "date": "2026-03-22",
+          "trials": 20,
+          "successes": 13,
+          "pct": 65,
+          "notes": "Visual schedule now includes photos of Jaylen with each activity; slight improvement"
+        },
+        {
+          "date": "2026-03-29",
+          "trials": 20,
+          "successes": 15,
+          "pct": 75,
+          "notes": "Using Thomas sticker chart to track completed transitions; fire drill disrupted but adapted next day"
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 20,
+          "successes": 17,
+          "pct": 85,
+          "notes": "Verbal cue + pointing to schedule sufficient for most transitions; still needs touch prompt occasionally"
+        },
+        {
+          "date": "2026-04-03",
+          "trials": 20,
+          "successes": 18,
+          "pct": 90,
+          "notes": "Met target! Using visual schedule to self-initiate transitions most of the time"
+        }
+      ]
+    },
+    {
+      "goal_id": "G3",
+      "domain": "social_reciprocity",
+      "description": "Jaylen will take turns during preferred activities (turn-taking with spinning top, trains, adult-led games) for 4 out of 5 consecutive opportunities per session, allowing peer/adult turn before requesting another turn, as measured by therapist observation.",
+      "baseline": {
+        "value": 20,
+        "date": "2025-10-15"
+      },
+      "target": 80,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "therapist observation (4/5 opportunities per session)",
+      "trial_history": [
+        {
+          "date": "2026-03-15",
+          "trials": 5,
+          "successes": 1,
+          "pct": 20,
+          "notes": "Resists peer interaction; monopolizes spinning toy; needs adult redirection"
+        },
+        {
+          "date": "2026-03-22",
+          "trials": 5,
+          "successes": 1,
+          "pct": 20,
+          "notes": "Still very resistant; parallel play only; avoids direct turn-taking"
+        },
+        {
+          "date": "2026-03-29",
+          "trials": 5,
+          "successes": 2,
+          "pct": 40,
+          "notes": "1:1 adult-led turn-taking with Thomas trains more successful; peer situation still difficult"
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 5,
+          "successes": 3,
+          "pct": 60,
+          "notes": "Accepting turns with adult present; brief 2-3 second peer exchanges emerging"
+        },
+        {
+          "date": "2026-04-03",
+          "trials": 5,
+          "successes": 4,
+          "pct": 80,
+          "notes": "Met target! Consistently taking turns with adult in preferred activities; beginning peer turn-taking"
+        }
+      ]
+    }
+  ]
+}
