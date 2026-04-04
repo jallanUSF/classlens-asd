@@ -1,7 +1,7 @@
-# Sprint 4 TODO
+# Sprint 5 TODO — Ship It
 
-- [ ] Fix competition writeup placeholders
-- [ ] Smoke-test Streamlit app end-to-end
-- [ ] Fix UI bugs found during smoke test
-- [ ] Polish demo flow for judges
-- [ ] Finalize ADR and security docs
+- [ ] Deploy app to public URL (Streamlit Cloud / HF Spaces)
+- [ ] Upload Kaggle notebook + set API secret
+- [ ] Record 3-min demo video per VIDEO-SCRIPT.md
+- [ ] Submit to Kaggle competition
+- [ ] Optional: Ollama edge demo (Special Tech track)
