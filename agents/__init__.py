@@ -1,17 +1,14 @@
 """
 ClassLens ASD Agent Module
-Handles multi-agent orchestration for IEP tracking and analysis.
+Four-agent pipeline for IEP tracking and analysis.
 """
 
-# Agent imports will be added as agents are implemented
-# from .iep_analyzer import IEPAnalyzer
-# from .trial_monitor import TrialMonitor
-# from .recommendation_engine import RecommendationEngine
-# from .narrative_builder import NarrativeBuilder
+from .vision_reader import VisionReader
+from .iep_mapper import IEPMapper
+from .progress_analyst import ProgressAnalyst
 
 __all__ = [
-    # "IEPAnalyzer",
-    # "TrialMonitor",
-    # "RecommendationEngine",
-    # "NarrativeBuilder",
+    "VisionReader",
+    "IEPMapper",
+    "ProgressAnalyst",
 ]
