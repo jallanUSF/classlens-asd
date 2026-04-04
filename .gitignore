@@ -78,7 +78,7 @@ Thumbs.db
 .DS_Store
 
 # Application-specific
-data/sample_work/  # Don't commit real work samples
+# data/sample_work/ — committed for demo; these are synthetic images, not real student data
 demo_assets/screenshots/  # Don't commit demo screenshots
 uploads/  # Don't commit user uploads
 

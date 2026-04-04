@@ -1,0 +1,65 @@
+{
+  "student_id": "sofia_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\sofia_writing_sample.png",
+  "date": "2026-04-03",
+  "transcription": {
+    "student_name": "Sofia",
+    "work_type": "free_response",
+    "subject": "writing",
+    "raw_text": "Sofia - Reflective Essay: 'The Most Important Presidents'\nDate: 2026-04-03 | Grade Level: 5 | Reading Level: 7\n---\nI think George Washington was important because he started our country. But I also think Lincoln was important because he cared about people being free. He was worried that slavery was wrong. I think Washington maybe felt worried too because he had to make hard decisions.\n\nSome presidents were good at making peace, and some were good at making laws. I organized all 47 presidents by what they did best. I noticed that presidents who listened to other people were more successful. Maybe that is why they felt happy in their job.\n\nWhen I write about presidents, I feel interested and excited. I like organizing things in categories. I think that is why this assignment felt easy for me.\n---\nWriting Rubric Assessment: 4/4\n- Voice & Opinion: Strong personal perspective; abstract reasoning present\n- Emotional Expression: Includes inferences about president feelings\n- Organization: Well-structured with supporting examples\n**GOAL MET: Creative expression with emotional/abstract thinking demonstrated**",
+    "task_items": [
+      {
+        "item": "Voice & Opinion",
+        "response": "4/4",
+        "correct": true
+      },
+      {
+        "item": "Emotional Expression",
+        "response": "4/4",
+        "correct": true
+      },
+      {
+        "item": "Organization",
+        "response": "4/4",
+        "correct": true
+      }
+    ],
+    "total_items": 3,
+    "correct_items": 3,
+    "accuracy_pct": 100,
+    "teacher_notes": "Creative expression with emotional/abstract thinking demonstrated.",
+    "engagement_indicators": [
+      "strong personal perspective",
+      "abstract reasoning",
+      "organizing by categories"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G1",
+        "reasoning": "Writing sample demonstrates abstract reasoning and emotional expression",
+        "trials": 3,
+        "successes": 3,
+        "percentage": 100
+      }
+    ],
+    "overall_summary": "Sofia's writing demonstrates goal mastery in creative expression."
+  },
+  "analyses": [
+    {
+      "trend": "stable",
+      "current_average": 0.0,
+      "sessions_analyzed": 0,
+      "confidence": "low",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Maya demonstrates strong positive trend toward Communication Goal G1. She has reached the 80% target in 4 weeks through consistent peer buddy engagement, reinforcement with dinosaur stickers, and morning routine establishment. The trend is stable and sustainable, with only minor disruption during the fire drill. Recommend maintaining current interventions and considering generalization to larger peer group contexts.",
+      "recommendation": "",
+      "thinking": "Let me analyze Maya's trial data step by step:\n1. Initial baseline (March 15): 3/10 successes (30%)\n2. Second observation (March 22): 4/10 (40%) - slight improvement\n3. Third observation (March 29): 6/10 (60%) - clear upward trend, despite fire drill disruption\n4. Fourth observation (April 1): 7/10 (70%) - consistent improvement\n5. Fifth observation (April 3): 8/10 (80%) - TARGET REACHED\n\nPattern analysis:\n- Steady increase of approximately 10% per week\n- Only minor setback during fire drill (expected given sensory sensitivity)\n- Peer buddy program appears highly effective\n- Dinosaur sticker reinforcer strongly motivating\n- Goal reached in 4 weeks, well ahead of initial IEP timeline\n\nConfidence in trend: Very high (95%+). This is a clear, linear improvement with consistent intervention application.",
+      "goal_id": "G1",
+      "student_id": "sofia_2026"
+    }
+  ],
+  "alerts": []
+}

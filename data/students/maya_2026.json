@@ -81,6 +81,20 @@
           "successes": 8,
           "pct": 80,
           "notes": "Met target! Consistent across multiple settings; reinforcer stickers helping"
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 10,
+          "successes": 8,
+          "pct": 80,
+          "notes": "Peer greeting tally directly measures communication goal"
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 10,
+          "successes": 8,
+          "pct": 80,
+          "notes": "Peer greeting tally directly measures communication goal"
         }
       ]
     },
@@ -130,6 +144,20 @@
           "successes": 6,
           "pct": 75,
           "notes": "Met target! Positive trend when directions paired with visual checklist as prompt"
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 8,
+          "successes": 6,
+          "pct": 75,
+          "notes": "Math accuracy and engagement indicate direction-following progress"
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 8,
+          "successes": 6,
+          "pct": 75,
+          "notes": "Math accuracy and engagement indicate direction-following progress"
         }
       ]
     },

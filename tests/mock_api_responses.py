@@ -117,6 +117,7 @@ class MockGemmaClient:
         prompt: str,
         tools: List[Dict[str, Any]],
         system: Optional[str] = None,
+        image_path: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Generate a response with function calling capability.
@@ -135,7 +136,10 @@ class MockGemmaClient:
         prompt_lower = prompt.lower()
         tool_names = [t.get("name", "").lower() for t in tools] if tools else []
 
-        if "map" in prompt_lower and "goal" in prompt_lower:
+        # Vision Reader: image_path provided means OCR/transcription
+        if image_path:
+            return self._mock_vision_reader_call(image_path, prompt)
+        elif "map" in prompt_lower and "goal" in prompt_lower:
             return self._mock_iep_mapper_call(prompt)
         elif "analyze" in prompt_lower and "progress" in prompt_lower:
             return self._mock_progress_analyst_call(prompt)
@@ -338,21 +342,171 @@ class MockGemmaClient:
             ]
         }
 
+    def _mock_vision_reader_call(self, image_path: str, prompt: str) -> Dict[str, Any]:
+        """Mock Vision Reader function call response (transcription via tool use)."""
+        filename = Path(image_path).stem.lower()
+
+        if "maya_math" in filename:
+            return {
+                "function": "transcribe_student_work",
+                "args": {
+                    "student_name": "Maya",
+                    "work_type": "worksheet",
+                    "subject": "math",
+                    "raw_text": self._mock_maya_math_worksheet(),
+                    "task_items": [
+                        {"item": "Count the dinosaurs", "response": "5", "correct": True},
+                        {"item": "Count and write the number", "response": "7", "correct": True},
+                        {"item": "2 + 3 = ?", "response": "5", "correct": True},
+                    ],
+                    "total_items": 3,
+                    "correct_items": 3,
+                    "accuracy_pct": 100,
+                    "teacher_notes": "Excellent focus today. Stayed engaged for 15 minutes.",
+                    "engagement_indicators": ["sustained focus", "dinosaur imagery as engagement tool"],
+                },
+            }
+        elif "maya_behavior" in filename or "tally" in filename:
+            return {
+                "function": "transcribe_student_work",
+                "args": {
+                    "student_name": "Maya",
+                    "work_type": "tally_sheet",
+                    "subject": "communication",
+                    "raw_text": self._mock_maya_behavior_tally(),
+                    "task_items": [
+                        {"item": "Monday greetings", "response": "3/10", "correct": False},
+                        {"item": "Tuesday greetings", "response": "4/10", "correct": False},
+                        {"item": "Wednesday greetings", "response": "6/10", "correct": False},
+                        {"item": "Thursday greetings", "response": "7/10", "correct": False},
+                        {"item": "Friday greetings", "response": "8/10", "correct": True},
+                    ],
+                    "total_items": 5,
+                    "correct_items": 1,
+                    "accuracy_pct": 80,
+                    "teacher_notes": "Peer buddy reinforcement working. Goal met Friday.",
+                    "engagement_indicators": ["consistent daily improvement", "sticker reinforcer effective"],
+                },
+            }
+        elif "jaylen" in filename or "checklist" in filename:
+            return {
+                "function": "transcribe_student_work",
+                "args": {
+                    "student_name": "Jaylen",
+                    "work_type": "checklist",
+                    "subject": "daily_living",
+                    "raw_text": self._mock_jaylen_task_checklist(),
+                    "task_items": [
+                        {"item": "Arrival to Mat Time", "response": "unprompted", "correct": True},
+                        {"item": "Mat Time to Work Station", "response": "verbal cue + point", "correct": True},
+                        {"item": "Work Station to Lunch", "response": "unprompted", "correct": True},
+                        {"item": "Lunch to Fine Motor", "response": "verbal cue only", "correct": True},
+                        {"item": "Fine Motor to Sensory", "response": "unprompted", "correct": True},
+                    ],
+                    "total_items": 5,
+                    "correct_items": 5,
+                    "accuracy_pct": 100,
+                    "teacher_notes": "90% independence achieved. Visual schedule with photos working.",
+                    "engagement_indicators": ["self-initiating transitions", "Thomas train motivation"],
+                },
+            }
+        elif "sofia" in filename or "writing" in filename:
+            return {
+                "function": "transcribe_student_work",
+                "args": {
+                    "student_name": "Sofia",
+                    "work_type": "free_response",
+                    "subject": "writing",
+                    "raw_text": self._mock_sofia_writing_sample(),
+                    "task_items": [
+                        {"item": "Voice & Opinion", "response": "4/4", "correct": True},
+                        {"item": "Emotional Expression", "response": "4/4", "correct": True},
+                        {"item": "Organization", "response": "4/4", "correct": True},
+                    ],
+                    "total_items": 3,
+                    "correct_items": 3,
+                    "accuracy_pct": 100,
+                    "teacher_notes": "Creative expression with emotional/abstract thinking demonstrated.",
+                    "engagement_indicators": ["strong personal perspective", "abstract reasoning", "organizing by categories"],
+                },
+            }
+        else:
+            return {
+                "function": "transcribe_student_work",
+                "args": {
+                    "student_name": "Unknown",
+                    "work_type": "worksheet",
+                    "subject": "general",
+                    "raw_text": f"Mock transcription of {Path(image_path).name}",
+                    "task_items": [],
+                    "total_items": 0,
+                    "correct_items": 0,
+                    "accuracy_pct": 0,
+                    "teacher_notes": "",
+                    "engagement_indicators": [],
+                },
+            }
+
     def _mock_iep_mapper_call(self, prompt: str) -> Dict[str, Any]:
         """Mock IEP mapper function call response."""
-        return {
-            "function": "map_transcription_to_goals",
-            "args": {
-                "transcription": "Maya's math worksheet transcription",
-                "student_id": "maya_2026",
-                "goal_ids": ["G1", "G2"],
-                "success_indicators": [
-                    "Math accuracy: 100% (3/3 problems correct)",
-                    "Engagement: 15-minute sustained focus",
-                    "Interest integration: Dinosaur theming used effectively",
-                ],
-            },
-        }
+        prompt_lower = prompt.lower()
+
+        if "jaylen" in prompt_lower:
+            return {
+                "function": "map_work_to_goals",
+                "args": {
+                    "matched_goals": [
+                        {
+                            "goal_id": "G1",
+                            "reasoning": "Visual schedule independence directly measures G1 target",
+                            "trials": 5,
+                            "successes": 5,
+                            "percentage": 100,
+                        }
+                    ],
+                    "overall_summary": "Jaylen met 90% independence target on visual schedule transitions.",
+                },
+            }
+        elif "sofia" in prompt_lower:
+            return {
+                "function": "map_work_to_goals",
+                "args": {
+                    "matched_goals": [
+                        {
+                            "goal_id": "G1",
+                            "reasoning": "Writing sample demonstrates abstract reasoning and emotional expression",
+                            "trials": 3,
+                            "successes": 3,
+                            "percentage": 100,
+                        }
+                    ],
+                    "overall_summary": "Sofia's writing demonstrates goal mastery in creative expression.",
+                },
+            }
+        else:
+            # Default to Maya
+            return {
+                "function": "map_work_to_goals",
+                "args": {
+                    "matched_goals": [
+                        {
+                            "goal_id": "G1",
+                            "reasoning": "Peer greeting tally directly measures communication goal",
+                            "trials": 10,
+                            "successes": 8,
+                            "percentage": 80,
+                        },
+                        {
+                            "goal_id": "G2",
+                            "reasoning": "Math accuracy and engagement indicate direction-following progress",
+                            "trials": 8,
+                            "successes": 6,
+                            "percentage": 75,
+                        },
+                    ],
+                    "overall_summary": "Maya shows strong progress on both communication and direction-following goals.",
+                },
+            }
 
     def _mock_progress_analyst_call(self, prompt: str) -> Dict[str, Any]:
         """Mock progress analyst function call response."""
@@ -374,20 +528,80 @@ class MockGemmaClient:
 
     def _mock_material_forge_call(self, prompt: str) -> Dict[str, Any]:
         """Mock material forge function call response."""
-        return {
-            "function": "generate_lesson_plan",
-            "args": {
-                "goal_id": "G1",
-                "student_interests": [
-                    "Jurassic World raptors (Blue)",
-                    "water play",
-                    "purple",
-                    "counting",
-                ],
-                "grade_level": 3,
-                "lesson_structure": {
+        prompt_lower = prompt.lower()
+
+        if "tracking" in prompt_lower or "sheet" in prompt_lower:
+            return {
+                "function": "generate_tracking_sheet",
+                "args": {
+                    "title": "Communication Goal G1 — Tracking Sheet",
+                    "student_name": "Maya",
+                    "goal_description": "Initiate/respond to peer greetings with 80% accuracy",
+                    "columns": ["Date", "Setting", "Trials", "Successes", "Pct", "Prompting", "Notes"],
+                    "measurement_method": "teacher observation tally",
+                    "target": 80,
+                    "baseline": 20,
+                },
+            }
+        elif "social story" in prompt_lower or "scenario" in prompt_lower:
+            return {
+                "function": "generate_social_story",
+                "args": {
+                    "title": "When My Friends Say Hello",
+                    "pages": [
+                        "Sometimes my friends say 'Hi Maya!' when I get to school. This is called a greeting.",
+                        "When someone says hi, I can wave, say 'hi' back, or smile. All of these are good!",
+                        "My friend Blue the raptor always greets his pack. I can greet my friends too.",
+                        "If I feel nervous, I can squeeze my fidget cube. Then I can try to say hi.",
+                        "When I greet my friends, they feel happy. And I might get a dinosaur sticker!",
+                    ],
+                    "skill_targeted": "Responding to peer greetings",
+                    "interest_integration": "Jurassic World raptors (Blue)",
+                },
+            }
+        elif "parent" in prompt_lower:
+            return {
+                "function": "generate_parent_comm",
+                "args": {
+                    "subject": "Maya's Weekly Progress Update",
+                    "greeting": "Dear Maya's family,",
+                    "progress_summary": "Maya had a great week! She's been greeting her friends more and more each day.",
+                    "highlights": [
+                        "Met her peer greeting goal (8 out of 10 greetings!)",
+                        "Stayed focused for 15 minutes during math",
+                        "Used her calming strategies well after the fire drill",
+                    ],
+                    "home_tips": [
+                        "Practice greetings with family members at dinner",
+                        "Use dinosaur stickers as rewards for saying hi to neighbors",
+                    ],
+                    "closing": "Maya is making wonderful progress. Thank you for your support at home!",
+                },
+            }
+        elif "admin" in prompt_lower or "report" in prompt_lower:
+            return {
+                "function": "generate_admin_report",
+                "args": {
+                    "student_name": "Maya",
+                    "period": "Monthly",
+                    "executive_summary": "Maya demonstrates strong upward trend across all IEP goals.",
+                    "goal_summaries": [
+                        {"goal_id": "G1", "status": "Met", "trend": "improving", "current_pct": 80},
+                        {"goal_id": "G2", "status": "Met", "trend": "improving", "current_pct": 75},
+                        {"goal_id": "G3", "status": "Approaching", "trend": "improving", "current_pct": 80},
+                    ],
+                    "recommendations": "Continue current interventions; consider expanding peer contexts.",
+                },
+            }
+        else:
+            # Default: lesson plan
+            return {
+                "function": "generate_lesson_plan",
+                "args": {
                     "title": "Blue Raptor Peer Greeting Game",
                     "duration": "15-20 minutes",
+                    "goal_id": "G1",
+                    "objective": "Practice peer greetings in a dinosaur-themed game context",
                     "materials": [
                         "Blue raptor figurines",
                         "Dinosaur stickers",
@@ -395,14 +609,15 @@ class MockGemmaClient:
                         "Purple paper",
                     ],
                     "activities": [
-                        "Greeting practice with raptor character voices",
-                        "Count successful peer greetings",
-                        "Earn sticker rewards",
+                        {"step": 1, "description": "Greeting practice with raptor character voices", "duration": "5 min"},
+                        {"step": 2, "description": "Count successful peer greetings on purple tally", "duration": "5 min"},
+                        {"step": 3, "description": "Earn dinosaur sticker rewards for each greeting", "duration": "5 min"},
                     ],
                     "reinforcers": ["Dinosaur stickers", "5 min water table time"],
+                    "sensory_supports": ["Weighted lap pad available", "Noise-canceling headphones nearby"],
+                    "data_collection": "Tally greetings on tracking sheet; note prompting level",
                 },
-            },
-        }
+            }
 
     def _mock_trend_analysis(self) -> Dict[str, str]:
         """Mock trend analysis with thinking process."""

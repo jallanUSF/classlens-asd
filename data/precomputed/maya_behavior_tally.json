@@ -1,0 +1,94 @@
+{
+  "student_id": "maya_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\maya_behavior_tally.png",
+  "date": "2026-04-03",
+  "transcription": {
+    "student_name": "Maya",
+    "work_type": "tally_sheet",
+    "subject": "communication",
+    "raw_text": "Maya - Peer Interaction Behavior Tally - Week of 2026-03-29 to 2026-04-03\n---\nMonday (03/29): III (3/10 greetings) - Fire drill disrupted; recovered well\nTuesday (03/30): IIII (4/10) - Morning routine establishing pattern\nWednesday (03/31): IIII I (6/10) - Better with familiar peers\nThursday (04/01): IIII II (7/10) - Consistent responses in greeting time\nFriday (04/02): IIII III (8/10) - **GOAL MET** Peer buddy reinforcement working\n---\nReinforcer used: Dinosaur stickers (5 per successful greeting)\nContext: Classroom arrivals, lunch, specials, free play\nTeacher observations: Maya shows clear preference for familiar peers. Sticker reinforcer highly motivating. Recommendation: Expand to new peer contexts.",
+    "task_items": [
+      {
+        "item": "Monday greetings",
+        "response": "3/10",
+        "correct": false
+      },
+      {
+        "item": "Tuesday greetings",
+        "response": "4/10",
+        "correct": false
+      },
+      {
+        "item": "Wednesday greetings",
+        "response": "6/10",
+        "correct": false
+      },
+      {
+        "item": "Thursday greetings",
+        "response": "7/10",
+        "correct": false
+      },
+      {
+        "item": "Friday greetings",
+        "response": "8/10",
+        "correct": true
+      }
+    ],
+    "total_items": 5,
+    "correct_items": 1,
+    "accuracy_pct": 80,
+    "teacher_notes": "Peer buddy reinforcement working. Goal met Friday.",
+    "engagement_indicators": [
+      "consistent daily improvement",
+      "sticker reinforcer effective"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G1",
+        "reasoning": "Peer greeting tally directly measures communication goal",
+        "trials": 10,
+        "successes": 8,
+        "percentage": 80
+      },
+      {
+        "goal_id": "G2",
+        "reasoning": "Math accuracy and engagement indicate direction-following progress",
+        "trials": 8,
+        "successes": 6,
+        "percentage": 75
+      }
+    ],
+    "overall_summary": "Maya shows strong progress on both communication and direction-following goals."
+  },
+  "analyses": [
+    {
+      "trend": "stable",
+      "current_average": 0.0,
+      "sessions_analyzed": 0,
+      "confidence": "low",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Maya demonstrates strong positive trend toward Communication Goal G1. She has reached the 80% target in 4 weeks through consistent peer buddy engagement, reinforcement with dinosaur stickers, and morning routine establishment. The trend is stable and sustainable, with only minor disruption during the fire drill. Recommend maintaining current interventions and considering generalization to larger peer group contexts.",
+      "recommendation": "",
+      "thinking": "Let me analyze Maya's trial data step by step:\n1. Initial baseline (March 15): 3/10 successes (30%)\n2. Second observation (March 22): 4/10 (40%) - slight improvement\n3. Third observation (March 29): 6/10 (60%) - clear upward trend, despite fire drill disruption\n4. Fourth observation (April 1): 7/10 (70%) - consistent improvement\n5. Fifth observation (April 3): 8/10 (80%) - TARGET REACHED\n\nPattern analysis:\n- Steady increase of approximately 10% per week\n- Only minor setback during fire drill (expected given sensory sensitivity)\n- Peer buddy program appears highly effective\n- Dinosaur sticker reinforcer strongly motivating\n- Goal reached in 4 weeks, well ahead of initial IEP timeline\n\nConfidence in trend: Very high (95%+). This is a clear, linear improvement with consistent intervention application.",
+      "goal_id": "G1",
+      "student_id": "maya_2026"
+    },
+    {
+      "trend": "stable",
+      "current_average": 0.0,
+      "sessions_analyzed": 0,
+      "confidence": "low",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Maya demonstrates strong positive trend toward Communication Goal G1. She has reached the 80% target in 4 weeks through consistent peer buddy engagement, reinforcement with dinosaur stickers, and morning routine establishment. The trend is stable and sustainable, with only minor disruption during the fire drill. Recommend maintaining current interventions and considering generalization to larger peer group contexts.",
+      "recommendation": "",
+      "thinking": "Let me analyze Maya's trial data step by step:\n1. Initial baseline (March 15): 3/10 successes (30%)\n2. Second observation (March 22): 4/10 (40%) - slight improvement\n3. Third observation (March 29): 6/10 (60%) - clear upward trend, despite fire drill disruption\n4. Fourth observation (April 1): 7/10 (70%) - consistent improvement\n5. Fifth observation (April 3): 8/10 (80%) - TARGET REACHED\n\nPattern analysis:\n- Steady increase of approximately 10% per week\n- Only minor setback during fire drill (expected given sensory sensitivity)\n- Peer buddy program appears highly effective\n- Dinosaur sticker reinforcer strongly motivating\n- Goal reached in 4 weeks, well ahead of initial IEP timeline\n\nConfidence in trend: Very high (95%+). This is a clear, linear improvement with consistent intervention application.",
+      "goal_id": "G2",
+      "student_id": "maya_2026"
+    }
+  ],
+  "alerts": []
+}

@@ -1,0 +1,74 @@
+{
+  "student_id": "jaylen_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\jaylen_task_checklist.png",
+  "date": "2026-04-03",
+  "transcription": {
+    "student_name": "Jaylen",
+    "work_type": "checklist",
+    "subject": "daily_living",
+    "raw_text": "Jaylen - Visual Schedule Independence Checklist - Date: 2026-04-03\n---\nTransition 1 (Arrival to Mat Time): \u2713 unprompted\nTransition 2 (Mat Time to Work Station): \u2713 with verbal cue + point\nTransition 3 (Work Station to Lunch): \u2713 unprompted\nTransition 4 (Lunch to Fine Motor): \u2713 with verbal cue only\nTransition 5 (Fine Motor to Sensory): \u2713 unprompted\n---\nScore: 5/5 transitions completed\nIndependence rating: 4/5 (mostly unprompted, minimal cues needed)\nReinforcer: 2 minutes with Thomas train toys\nNotes: Jaylen's visual schedule now includes photos of him engaged in activities. Using Thomas sticker chart for motivation. Self-initiating transitions most of the time. **GOAL MET: 90% independence achieved**",
+    "task_items": [
+      {
+        "item": "Arrival to Mat Time",
+        "response": "unprompted",
+        "correct": true
+      },
+      {
+        "item": "Mat Time to Work Station",
+        "response": "verbal cue + point",
+        "correct": true
+      },
+      {
+        "item": "Work Station to Lunch",
+        "response": "unprompted",
+        "correct": true
+      },
+      {
+        "item": "Lunch to Fine Motor",
+        "response": "verbal cue only",
+        "correct": true
+      },
+      {
+        "item": "Fine Motor to Sensory",
+        "response": "unprompted",
+        "correct": true
+      }
+    ],
+    "total_items": 5,
+    "correct_items": 5,
+    "accuracy_pct": 100,
+    "teacher_notes": "90% independence achieved. Visual schedule with photos working.",
+    "engagement_indicators": [
+      "self-initiating transitions",
+      "Thomas train motivation"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G1",
+        "reasoning": "Visual schedule independence directly measures G1 target",
+        "trials": 5,
+        "successes": 5,
+        "percentage": 100
+      }
+    ],
+    "overall_summary": "Jaylen met 90% independence target on visual schedule transitions."
+  },
+  "analyses": [
+    {
+      "trend": "stable",
+      "current_average": 0.0,
+      "sessions_analyzed": 0,
+      "confidence": "low",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Maya demonstrates strong positive trend toward Communication Goal G1. She has reached the 80% target in 4 weeks through consistent peer buddy engagement, reinforcement with dinosaur stickers, and morning routine establishment. The trend is stable and sustainable, with only minor disruption during the fire drill. Recommend maintaining current interventions and considering generalization to larger peer group contexts.",
+      "recommendation": "",
+      "thinking": "Let me analyze Maya's trial data step by step:\n1. Initial baseline (March 15): 3/10 successes (30%)\n2. Second observation (March 22): 4/10 (40%) - slight improvement\n3. Third observation (March 29): 6/10 (60%) - clear upward trend, despite fire drill disruption\n4. Fourth observation (April 1): 7/10 (70%) - consistent improvement\n5. Fifth observation (April 3): 8/10 (80%) - TARGET REACHED\n\nPattern analysis:\n- Steady increase of approximately 10% per week\n- Only minor setback during fire drill (expected given sensory sensitivity)\n- Peer buddy program appears highly effective\n- Dinosaur sticker reinforcer strongly motivating\n- Goal reached in 4 weeks, well ahead of initial IEP timeline\n\nConfidence in trend: Very high (95%+). This is a clear, linear improvement with consistent intervention application.",
+      "goal_id": "G1",
+      "student_id": "jaylen_2026"
+    }
+  ],
+  "alerts": []
+}

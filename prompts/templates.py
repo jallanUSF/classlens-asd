@@ -653,10 +653,10 @@ FORMAT:
 Dear [Parent name/family],
 
 [Paragraph 1: Celebrate progress]
-I wanted to share some wonderful progress {student_name} is making! Since we last met, {student_name} has been working on [goal in plain language]. Over the past [time period], I've seen {student_name} [specific example #1] and [specific example #2]. This shows {he/she/they} is building [skill name]!
+I wanted to share some wonderful progress {student_name} is making! Since we last met, {student_name} has been working on [goal in plain language]. Over the past [time period], I've seen {student_name} [specific example #1] and [specific example #2]. This shows the student is building [skill name]!
 
 [Paragraph 2: Explain the goal & give data]
-Here's what this looks like: [goal description in everyday language]. {student_name} started at [baseline in plain language], and now {he/she/they} is achieving this skill about [success_rate]% of the time. That's real progress! [Brief mention of trend: if improving, acknowledge; if plateau, suggest adjustment.]
+Here's what this looks like: [goal description in everyday language]. {student_name} started at [baseline in plain language], and now the student is achieving this skill about [success_rate]% of the time. That's real progress! [Brief mention of trend: if improving, acknowledge; if plateau, suggest adjustment.]
 
 [Paragraph 3: How parents can help]
 You can help {student_name} practice at home by: [2-3 specific, doable activities]. For example, [give a concrete scenario]. Even 10 minutes a few times a week helps!

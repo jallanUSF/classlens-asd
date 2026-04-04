@@ -81,6 +81,13 @@
           "successes": 12,
           "pct": 80,
           "notes": "Met target! Using AAC spontaneously for activity choice and sensory break requests"
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 5,
+          "successes": 5,
+          "pct": 100,
+          "notes": "Visual schedule independence directly measures G1 target"
         }
       ]
     },
