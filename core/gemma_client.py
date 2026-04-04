@@ -20,7 +20,7 @@ load_dotenv()
 class GemmaClient:
     """Single interface for all Gemma 4 interactions."""
 
-    def __init__(self, model: str = "gemma-4-27b-it"):
+    def __init__(self, model: str = "gemma-4-31b-it"):
         api_key = os.getenv("GOOGLE_AI_STUDIO_KEY")
         if not api_key:
             raise ValueError(
