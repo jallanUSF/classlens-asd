@@ -83,9 +83,14 @@ class GemmaClient:
             {"function": name, "args": {...}} if function call succeeded
             {"text": response_text} if model returned text instead
         """
+        # Wrap raw dicts as proper Tool objects with function_declarations
+        wrapped_tools = [
+            types.Tool(function_declarations=[t]) if isinstance(t, dict) else t
+            for t in tools
+        ]
         config = types.GenerateContentConfig(
             system_instruction=system,
-            tools=tools,
+            tools=wrapped_tools,
             tool_config=types.ToolConfig(
                 function_calling_config=types.FunctionCallingConfig(
                     mode="AUTO"
