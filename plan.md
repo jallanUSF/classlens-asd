@@ -1,43 +1,33 @@
-# Sprint 1 Plan — Foundation + Agent Pipeline
+# Sprint 2 Plan — Material Forge + Demo App
 
 ## Goal
-Complete Phase 1 (foundation) and Phase 2 (agent pipeline) from IMPLEMENTATION-PLAN.md.
-End state: full pipeline runs image → transcription → IEP mapping → progress analysis.
+Complete Phase 3 (Material Forge agent) and Phase 4 (Streamlit demo app).
+End state: working Streamlit app with upload, dashboard, materials viewer, and admin reports.
 
-## What's Done (Phase 1 partial)
-- Project structure, all __init__.py files
-- schemas/student_profile.py — Pydantic models
-- core/state_store.py — CRUD for student JSON
-- 3 student profiles in data/students/
-- Sample work images in data/sample_work/
-- prompts/templates.py — all prompt templates
-- tests/conftest.py + tests/mock_api_responses.py
+## What's Done (Sprint 1)
+- core/gemma_client.py — Gemma 4 API wrapper
+- schemas/tools.py — All 8 function calling schemas
+- agents/base.py, vision_reader.py, iep_mapper.py, progress_analyst.py
+- core/pipeline.py — End-to-end orchestration with precomputed caching
+- prompts/templates.py — All prompt templates ready
 
-## Sprint 1 Build Order
+## Sprint 2 Build Order
 
-### 1. core/gemma_client.py — API wrapper (Phase 1 Day 1)
-Single wrapper for text, multimodal, function calling, thinking mode.
-Spec is in IMPLEMENTATION-PLAN.md §4.1.
+### Phase 3: Material Forge (Agent 4)
+1. agents/material_forge.py — All 7 output types using function calling
+   - generate_lesson_plan() — Sarah's #1 request
+   - generate_tracking_sheet()
+   - generate_social_story() — Carol Gray framework
+   - generate_visual_schedule()
+   - generate_first_then()
+   - generate_parent_comm()
+   - generate_admin_report()
 
-### 2. schemas/tools.py — Function calling schemas (Phase 1 Day 2)
-All JSON schemas for Gemma 4 function calling declarations.
-Spec is in IMPLEMENTATION-PLAN.md §4.2.
-
-### 3. agents/base.py — Base agent class (Phase 2)
-Shared GemmaClient instance, common _parse_fallback() method.
-
-### 4. agents/vision_reader.py — Agent 1 (Phase 2 Days 4-5)
-Multimodal OCR: image → structured JSON via function calling.
-KEY TEST: correctly reads Maya's 7/10 math worksheet.
-
-### 5. agents/iep_mapper.py — Agent 2 (Phase 2 Days 6-7)
-Maps transcribed work → IEP goals, records trial data.
-KEY TEST: maps Maya's math worksheet to Goal G2.
-
-### 6. agents/progress_analyst.py — Agent 3 (Phase 2 Days 8-9)
-Thinking mode: trend detection, alerts, progress notes.
-KEY TEST: detects Maya's G2 plateau.
-
-### 7. core/pipeline.py — Wire it all together (Phase 2 Day 10)
-End-to-end: image → transcription → mapping → analysis.
-KEY TEST: full pipeline runs in <30s for one image.
+### Phase 4: Demo App
+2. app.py — Streamlit entry point with navigation
+3. ui/styles.py — ASD-friendly CSS
+4. ui/upload.py — Student selector + image upload + process
+5. ui/dashboard.py — Per-student goal cards with Plotly trend charts
+6. ui/outputs.py — Tabbed view of generated materials with approve/edit
+7. ui/lesson_planner.py — Goal → lesson plan + tracking sheet
+8. ui/reports.py — Admin progress reports

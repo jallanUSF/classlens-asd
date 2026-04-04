@@ -1,7 +1,7 @@
-# Sprint 1 TODO
+# Sprint 2 TODO
 
-- [x] Build core/gemma_client.py (text, multimodal, function calling, thinking)
-- [x] Build schemas/tools.py (all 8 function calling schemas)
-- [x] Build agents/base.py + agents/vision_reader.py (Agent 1)
-- [x] Build agents/iep_mapper.py + agents/progress_analyst.py (Agents 2-3)
-- [x] Build core/pipeline.py (end-to-end orchestration)
+- [x] Build agents/material_forge.py (7 output types)
+- [x] Build app.py + ui/styles.py (Streamlit shell + ASD-friendly CSS)
+- [x] Build ui/upload.py + ui/dashboard.py (upload flow + goal charts)
+- [x] Build ui/outputs.py + ui/lesson_planner.py (materials + lesson plans)
+- [x] Build ui/reports.py (admin reports)
