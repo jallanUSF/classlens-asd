@@ -1,33 +1,44 @@
-# Sprint 2 Plan — Material Forge + Demo App
+# Sprint 3 Plan — Polish, Test, Deploy
 
 ## Goal
-Complete Phase 3 (Material Forge agent) and Phase 4 (Streamlit demo app).
-End state: working Streamlit app with upload, dashboard, materials viewer, and admin reports.
+Fix known issues, add tests, generate precomputed demo data, deploy to Streamlit Cloud.
+End state: public URL that judges can visit and get a flawless demo experience.
 
-## What's Done (Sprint 1)
-- core/gemma_client.py — Gemma 4 API wrapper
-- schemas/tools.py — All 8 function calling schemas
-- agents/base.py, vision_reader.py, iep_mapper.py, progress_analyst.py
-- core/pipeline.py — End-to-end orchestration with precomputed caching
-- prompts/templates.py — All prompt templates ready
+## What's Done (Sprints 1-2)
+- All 4 agents built and wired into pipeline
+- Full Streamlit app with 5 tabs
+- Works in demo mode (mock client) but MockGemmaClient interface incomplete
+- No precomputed results cached yet
+- No tests written yet
 
-## Sprint 2 Build Order
+## Sprint 3 Build Order
 
-### Phase 3: Material Forge (Agent 4)
-1. agents/material_forge.py — All 7 output types using function calling
-   - generate_lesson_plan() — Sarah's #1 request
-   - generate_tracking_sheet()
-   - generate_social_story() — Carol Gray framework
-   - generate_visual_schedule()
-   - generate_first_then()
-   - generate_parent_comm()
-   - generate_admin_report()
+### 1. Fix MockGemmaClient (Critical — unblocks everything else)
+Update `tests/mock_api_responses.py` so MockGemmaClient has:
+- `generate(prompt, system)` → returns text
+- `generate_multimodal(image_path, prompt, system)` → returns text
+- `generate_with_tools(prompt, tools, system, image_path)` → returns {"function": ..., "args": {...}}
+- `generate_with_thinking(prompt, system)` → returns {"thinking": ..., "output": ...}
+Returns realistic mock data for each student's sample work images.
 
-### Phase 4: Demo App
-2. app.py — Streamlit entry point with navigation
-3. ui/styles.py — ASD-friendly CSS
-4. ui/upload.py — Student selector + image upload + process
-5. ui/dashboard.py — Per-student goal cards with Plotly trend charts
-6. ui/outputs.py — Tabbed view of generated materials with approve/edit
-7. ui/lesson_planner.py — Goal → lesson plan + tracking sheet
-8. ui/reports.py — Admin progress reports
+### 2. Generate precomputed demo results
+Run full pipeline on all sample images with either real API or fixed mock.
+Populate `data/precomputed/` so demo loads instantly.
+
+### 3. Reconcile Pydantic models (optional, low priority)
+Either update student JSON to match Pydantic schema, or update Pydantic to match JSON.
+Not blocking — agents use raw dicts.
+
+### 4. Write core tests
+- test_state_store.py — CRUD operations
+- test_pipeline.py — end-to-end with mock client
+- test_agents.py — each agent with mock responses
+
+### 5. Deploy to Streamlit Cloud (Phase 5)
+- Connect GitHub repo to Streamlit Cloud
+- Set GOOGLE_AI_STUDIO_KEY as secret
+- Verify public URL works
+- Test on mobile
+
+### 6. Kaggle notebook (Phase 5)
+- `notebooks/classlens_demo.ipynb` — step-by-step pipeline walkthrough

@@ -1,7 +1,7 @@
-# Sprint 2 TODO
+# Sprint 3 TODO
 
-- [x] Build agents/material_forge.py (7 output types)
-- [x] Build app.py + ui/styles.py (Streamlit shell + ASD-friendly CSS)
-- [x] Build ui/upload.py + ui/dashboard.py (upload flow + goal charts)
-- [x] Build ui/outputs.py + ui/lesson_planner.py (materials + lesson plans)
-- [x] Build ui/reports.py (admin reports)
+- [ ] Fix MockGemmaClient to match GemmaClient interface
+- [ ] Generate precomputed demo results for all sample images
+- [ ] Write tests (state_store, agents, pipeline)
+- [ ] Deploy to Streamlit Cloud with public URL
+- [ ] Create Kaggle notebook demo
