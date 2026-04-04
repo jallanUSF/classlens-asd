@@ -59,7 +59,7 @@ htmlcov/
 
 # Jupyter Notebook
 .ipynb_checkpoints
-*.ipynb
+# *.ipynb — committed for Kaggle submission
 
 # Streamlit
 .streamlit/cache/
