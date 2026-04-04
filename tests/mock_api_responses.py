@@ -132,21 +132,25 @@ class MockGemmaClient:
         Returns:
             Response dict with "function" and "args" keys
         """
-        # Detect which tool/function is being called based on prompt context or tool names
+        # Detect which tool/function is being called based on tool names first, then prompt
         prompt_lower = prompt.lower()
         tool_names = [t.get("name", "").lower() for t in tools] if tools else []
 
         # Vision Reader: image_path provided means OCR/transcription
         if image_path:
             return self._mock_vision_reader_call(image_path, prompt)
+        # Tool-name routing (most reliable signal)
+        elif any("generate_" in t for t in tool_names):
+            # Pass the tool name for accurate sub-routing
+            tool_hint = next((t for t in tool_names if "generate_" in t), "")
+            return self._mock_material_forge_call(prompt, tool_hint=tool_hint)
+        elif any("map_work" in t for t in tool_names):
+            return self._mock_iep_mapper_call(prompt)
+        elif any("analyze_" in t for t in tool_names):
+            return self._mock_progress_analyst_call(prompt)
+        # Fallback to prompt-based routing
         elif "map" in prompt_lower and "goal" in prompt_lower:
             return self._mock_iep_mapper_call(prompt)
-        elif "analyze" in prompt_lower and "progress" in prompt_lower:
-            return self._mock_progress_analyst_call(prompt)
-        elif ("generate" in prompt_lower and "lesson" in prompt_lower) or \
-             any("generate_lesson" in t for t in tool_names) or \
-             any("generate_social" in t for t in tool_names):
-            return self._mock_material_forge_call(prompt)
         else:
             return {
                 "function": "analyze_content",
@@ -526,11 +530,34 @@ class MockGemmaClient:
             },
         }
 
-    def _mock_material_forge_call(self, prompt: str) -> Dict[str, Any]:
-        """Mock material forge function call response."""
-        prompt_lower = prompt.lower()
+    def _detect_material_type(self, tool_hint: str, prompt_lower: str) -> str:
+        """Detect material type from tool name (primary) or prompt (fallback)."""
+        # Tool name is the most reliable signal
+        if "tracking" in tool_hint:
+            return "tracking_sheet"
+        if "social" in tool_hint:
+            return "social_story"
+        if "parent" in tool_hint:
+            return "parent_comm"
+        if "admin" in tool_hint or "report" in tool_hint:
+            return "admin_report"
+        if "lesson" in tool_hint:
+            return "lesson_plan"
+        # Fallback to prompt keywords (less reliable)
+        if "data collection sheet" in prompt_lower:
+            return "tracking_sheet"
+        if "social story" in prompt_lower:
+            return "social_story"
+        if "parent" in prompt_lower and "letter" in prompt_lower:
+            return "parent_comm"
+        return "lesson_plan"  # default
 
-        if "tracking" in prompt_lower or "sheet" in prompt_lower:
+    def _mock_material_forge_call(self, prompt: str, tool_hint: str = "") -> Dict[str, Any]:
+        """Mock material forge function call response."""
+        # Route by tool name first (most reliable), then fall back to prompt content
+        material_type = self._detect_material_type(tool_hint, prompt.lower())
+
+        if material_type == "tracking_sheet":
             return {
                 "function": "generate_tracking_sheet",
                 "args": {
@@ -543,7 +570,7 @@ class MockGemmaClient:
                     "baseline": 20,
                 },
             }
-        elif "social story" in prompt_lower or "scenario" in prompt_lower:
+        elif material_type == "social_story":
             return {
                 "function": "generate_social_story",
                 "args": {
@@ -559,7 +586,7 @@ class MockGemmaClient:
                     "interest_integration": "Jurassic World raptors (Blue)",
                 },
             }
-        elif "parent" in prompt_lower:
+        elif material_type == "parent_comm":
             return {
                 "function": "generate_parent_comm",
                 "args": {
@@ -578,7 +605,7 @@ class MockGemmaClient:
                     "closing": "Maya is making wonderful progress. Thank you for your support at home!",
                 },
             }
-        elif "admin" in prompt_lower or "report" in prompt_lower:
+        elif material_type == "admin_report":
             return {
                 "function": "generate_admin_report",
                 "args": {

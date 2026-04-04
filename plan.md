@@ -1,44 +1,37 @@
-# Sprint 3 Plan — Polish, Test, Deploy
+# Sprint 4 Plan — Polish & Submission Prep
 
 ## Goal
-Fix known issues, add tests, generate precomputed demo data, deploy to Streamlit Cloud.
-End state: public URL that judges can visit and get a flawless demo experience.
+Finalize competition writeup, polish the demo experience, fix any UI bugs.
+End state: everything a judge touches works flawlessly.
 
-## What's Done (Sprints 1-2)
+## What's Done (Sprints 1-3)
 - All 4 agents built and wired into pipeline
 - Full Streamlit app with 5 tabs
-- Works in demo mode (mock client) but MockGemmaClient interface incomplete
-- No precomputed results cached yet
-- No tests written yet
+- MockGemmaClient complete, 35 tests passing
+- Precomputed demo results cached
+- Kaggle notebook created
+- GitHub repo pushed
 
-## Sprint 3 Build Order
+## Sprint 4 Build Order
 
-### 1. Fix MockGemmaClient (Critical — unblocks everything else)
-Update `tests/mock_api_responses.py` so MockGemmaClient has:
-- `generate(prompt, system)` → returns text
-- `generate_multimodal(image_path, prompt, system)` → returns text
-- `generate_with_tools(prompt, tools, system, image_path)` → returns {"function": ..., "args": {...}}
-- `generate_with_thinking(prompt, system)` → returns {"thinking": ..., "output": ...}
-Returns realistic mock data for each student's sample work images.
+### 1. Fix competition writeup placeholders
+Update COMPETITION-WRITEUP.md: real GitHub link, remove stale placeholders,
+ensure code snippets match actual implementation.
 
-### 2. Generate precomputed demo results
-Run full pipeline on all sample images with either real API or fixed mock.
-Populate `data/precomputed/` so demo loads instantly.
+### 2. Smoke-test the Streamlit app end-to-end
+Run the app, click through every tab with each student, verify:
+- Sidebar student selection works
+- Upload tab: sample images load, pipeline runs, results display
+- Dashboard: Plotly charts render for all 3 students
+- Materials: all 7 output types generate
+- Lesson Planner: generates and displays
+- Admin Reports: charts + report generate
 
-### 3. Reconcile Pydantic models (optional, low priority)
-Either update student JSON to match Pydantic schema, or update Pydantic to match JSON.
-Not blocking — agents use raw dicts.
+### 3. Fix any UI bugs found during smoke test
 
-### 4. Write core tests
-- test_state_store.py — CRUD operations
-- test_pipeline.py — end-to-end with mock client
-- test_agents.py — each agent with mock responses
+### 4. Polish demo flow for judges
+- Ensure first-time experience is clear (no student selected → helpful message)
+- Precomputed results load instantly
+- Error states handled gracefully
 
-### 5. Deploy to Streamlit Cloud (Phase 5)
-- Connect GitHub repo to Streamlit Cloud
-- Set GOOGLE_AI_STUDIO_KEY as secret
-- Verify public URL works
-- Test on mobile
-
-### 6. Kaggle notebook (Phase 5)
-- `notebooks/classlens_demo.ipynb` — step-by-step pipeline walkthrough
+### 5. Finalize ADR and security docs

@@ -1,7 +1,7 @@
-# Sprint 3 TODO
+# Sprint 4 TODO
 
-- [x] Fix MockGemmaClient to match GemmaClient interface
-- [x] Generate precomputed demo results for all sample images
-- [x] Write tests (state_store, agents, pipeline)
-- [ ] Deploy to Streamlit Cloud with public URL
-- [x] Create Kaggle notebook demo
+- [ ] Fix competition writeup placeholders
+- [ ] Smoke-test Streamlit app end-to-end
+- [ ] Fix UI bugs found during smoke test
+- [ ] Polish demo flow for judges
+- [ ] Finalize ADR and security docs

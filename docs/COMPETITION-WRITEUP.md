@@ -500,28 +500,25 @@ Google AI Studio (free) + Streamlit Cloud (free) = $0 infrastructure. Scales fro
 ## Try It Yourself
 
 ### Live Demo
-[PLACEHOLDER: ClassLens ASD Live Demo - https://classlens-asd-demo.streamlit.app/]
+[ClassLens ASD Live Demo](https://classlens-asd.streamlit.app/) *(Streamlit Cloud — free, public URL)*
 
 ### Quick Start (Local)
 ```bash
 # Prerequisites: Python 3.11+, Git
 
-git clone https://github.com/[TEAM]/classlens-asd.git
+git clone https://github.com/jallanUSF/classlens-asd.git
 cd classlens-asd
 
 # Install dependencies
 pip install -r requirements.txt
 
 # Set up API key (Google AI Studio)
-export GOOGLE_AI_STUDIO_API_KEY="your-free-api-key-here"
+cp .env.example .env  # Then set GOOGLE_AI_STUDIO_KEY in .env
 
 # Run locally
 streamlit run app.py
 
-# For Ollama edge demo (optional)
-ollama pull gemma4:27b
-export USE_OLLAMA=true
-streamlit run app.py
+# The app works in demo mode without an API key (precomputed results)
 ```
 
 ### Demo Data Included
@@ -842,15 +839,15 @@ The three demo students—Maya, Jaylen, and Sofia—represent 1.4 million childr
 
 ## Resources & Links
 
-- **GitHub**: [PLACEHOLDER: github.com/[TEAM]/classlens-asd]
-- **Live Demo**: [PLACEHOLDER: https://classlens-asd-demo.streamlit.app/]
-- **Technical Docs**: [PLACEHOLDER: /docs/TECHNICAL-ARCHITECTURE.md]
-- **Research References**: [PLACEHOLDER: /docs/RESEARCH.md] (ASD prevalence, evidence-based practices, teacher burnout studies)
-- **Video Demo**: [PLACEHOLDER: Submitted separately to video track]
+- **GitHub**: [github.com/jallanUSF/classlens-asd](https://github.com/jallanUSF/classlens-asd)
+- **Live Demo**: [classlens-asd.streamlit.app](https://classlens-asd.streamlit.app/)
+- **Kaggle Notebook**: See `notebooks/classlens_demo.ipynb` for step-by-step pipeline walkthrough
+- **Architecture Decisions**: See `docs/ADR.md` in the repository
+- **Video Demo**: Submitted separately to video track
 
 ---
 
-**Team:** Sarah Mitchell (Special Education Specialist, 15+ years), Jeff Allan (AI Engineer, VP AI Transformation)
+**Team:** Sarah Allan (Special Education Specialist, 15+ years), Jeff Allan (VP of AI Engineering)
 **Built with:** Google Gemma 4 27B-A4B-it, Gemma 4 E4B (Ollama), Python 3.11, Streamlit, Pydantic
 **Frameworks:** None (direct API integration for transparency & auditability)
 **Infrastructure Cost:** $0 (Google AI Studio free + Streamlit Cloud free)

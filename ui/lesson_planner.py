@@ -74,13 +74,15 @@ def render_lesson_planner():
         st.markdown("### Lesson Plan")
         result = st.session_state[lp_key]
         if isinstance(result, dict):
-            if result.get("lesson_title"):
-                st.markdown(f"**{result['lesson_title']}**")
+            title = result.get("lesson_title") or result.get("title")
+            if title:
+                st.markdown(f"**{title}**")
             if result.get("objective"):
                 st.markdown(f"**Objective:** {result['objective']}")
-            if result.get("materials_needed"):
+            materials = result.get("materials_needed") or result.get("materials")
+            if materials:
                 st.markdown("**Materials:**")
-                for m in result["materials_needed"]:
+                for m in materials:
                     st.markdown(f"- {m}")
             for section in ["warm_up", "main_activity", "guided_practice", "independent_practice", "assessment_check"]:
                 if result.get(section):
@@ -90,8 +92,9 @@ def render_lesson_planner():
                 st.markdown(f"**Interest Integration:** {result['interest_integration']}")
             if result.get("scaffolding_notes"):
                 st.markdown(f"**Scaffolding Notes:** {result['scaffolding_notes']}")
-            if result.get("estimated_duration_minutes"):
-                st.markdown(f"**Duration:** {result['estimated_duration_minutes']} minutes")
+            duration = result.get("estimated_duration_minutes") or result.get("duration")
+            if duration:
+                st.markdown(f"**Duration:** {duration}")
         else:
             st.markdown(str(result))
 
@@ -109,18 +112,27 @@ def render_lesson_planner():
         st.markdown("### Tracking Sheet")
         result = st.session_state[ts_key]
         if isinstance(result, dict):
-            if result.get("sheet_title"):
-                st.markdown(f"**{result['sheet_title']}**")
+            title = result.get("sheet_title") or result.get("title")
+            if title:
+                st.markdown(f"**{title}**")
             if result.get("instructions"):
                 st.markdown(f"_{result['instructions']}_")
-            if result.get("columns"):
+            columns = result.get("columns")
+            if columns:
                 st.markdown("**Columns:**")
-                for col in result["columns"]:
-                    st.markdown(f"- {col.get('header', '?')} ({col.get('width', 'auto')})")
-            if result.get("goal_text"):
-                st.markdown(f"**Goal:** {result['goal_text']}")
-            if result.get("target_criterion"):
-                st.markdown(f"**Target:** {result['target_criterion']}")
+                for col in columns:
+                    if isinstance(col, dict):
+                        st.markdown(f"- {col.get('header', '?')} ({col.get('width', 'auto')})")
+                    else:
+                        st.markdown(f"- {col}")
+            goal_text = result.get("goal_text") or result.get("goal_description")
+            if goal_text:
+                st.markdown(f"**Goal:** {goal_text}")
+            target = result.get("target_criterion") or result.get("target")
+            if target:
+                st.markdown(f"**Target:** {target}")
+            if result.get("measurement_method"):
+                st.markdown(f"**Measurement:** {result['measurement_method']}")
         else:
             st.markdown(str(result))
 
