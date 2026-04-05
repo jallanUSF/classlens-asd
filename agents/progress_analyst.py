@@ -106,10 +106,9 @@ class ProgressAnalyst(BaseAgent):
         Tries structured JSON first, then extracts key fields from text.
         """
         # Try JSON extraction first
-        try:
-            return self._parse_fallback(text)
-        except ValueError:
-            pass
+        parsed = self._parse_fallback(text)
+        if "trend" in parsed or "progress_note" in parsed:
+            return parsed
 
         # Fall back to extracting key fields from text
         analysis = {

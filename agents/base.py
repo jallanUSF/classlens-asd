@@ -39,7 +39,8 @@ class BaseAgent:
             except json.JSONDecodeError:
                 pass
 
-        raise ValueError(f"Could not parse agent output: {text[:200]}")
+        # If no JSON found, return the text as-is in a dict
+        return {"text": text}
 
     def _load_student_raw(self, student_id: str, data_dir: str = "data") -> dict:
         """
