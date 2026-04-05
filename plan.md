@@ -1,39 +1,28 @@
-# Sprint 5 Plan — Ship It (continued)
+# UI/UX Redesign Plan
 
 ## Goal
-Finish submission: update writeup with live URLs, re-upload notebook to Kaggle, record video, submit.
-Deadline: May 18, 2026.
+Reorganize 5 feature-tabs into 3 workflow-views. Modernize visual design.
+Full design spec: `docs/plans/2026-04-04-ui-redesign.md`
 
-## What's Done
-- Streamlit Cloud deployed and public
-- Kaggle notebook uploaded (needs re-upload with executed outputs)
-- PDF report generator working (21 PDFs across 3 students)
-- All SDK compatibility issues fixed (model name, tools, thinking)
-- 35 tests passing
+## Phase 1: Layout + Navigation
+- [ ] Replace tabs with 3-view nav in app.py
+- [ ] Update ui/styles.py with new design system CSS
+- [ ] Wire st.session_state["active_view"] routing
 
-## Remaining Tasks
+## Phase 2: My Students View
+- [ ] Create ui/students_view.py — card grid
+- [ ] Click handler: select student + switch to Capture
 
-### 1. Update COMPETITION-WRITEUP.md
-- Add live demo URL: `classlens-asd-bbdjgeutrjozwopvsyw6qo.streamlit.app`
-- Update model name: `gemma-4-31b-it` (not `gemma-4-27b-it`)
-- Add PDF report generation as a feature (5th agent capability)
-- Add link to sample PDF outputs in `outputs/`
+## Phase 3: Capture & Create View
+- [ ] Create ui/capture_view.py — two-column layout
+- [ ] Left: upload + analyze + results
+- [ ] Right: material tile grid + inline generation
 
-### 2. Re-upload Kaggle notebook
-- Upload `notebooks/classlens_demo_executed.ipynb` (has all outputs baked in)
-- Just save — no need to run. Judges see the outputs immediately.
-- Rename from `notebook0df7597f7c` to `ClassLens ASD Demo`
+## Phase 4: Progress & Reports View
+- [ ] Create ui/progress_view.py — dashboard + admin reports merged
+- [ ] Fix underscore labels in domain names
 
-### 3. Record video (Jeff + Sarah)
-- Follow `docs/VIDEO-SCRIPT.md`
-- 3 minutes max, 1080p
-- Show: live demo URL, pipeline results, PDF reports, dashboard
-
-### 4. Submit to Kaggle
-- Competition writeup from `docs/COMPETITION-WRITEUP.md`
-- Links: GitHub, live demo, Kaggle notebook, video
-
-### 5. Optional: Ollama edge demo
-- Install ollama, pull gemma-4-e4b (or gemma-3n-e4b-it which is available)
-- Add OLLAMA backend to `core/gemma_client.py`
-- Qualifies for Special Tech track
+## Phase 5: Polish + QA
+- [ ] Playwright visual QA — every view, every state
+- [ ] Test all 3 students end-to-end
+- [ ] Verify Streamlit Cloud deployment
