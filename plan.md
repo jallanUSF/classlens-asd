@@ -1,28 +1,45 @@
-# UI/UX Redesign Plan
+# Next.js + FastAPI Redesign Plan
 
 ## Goal
-Reorganize 5 feature-tabs into 3 workflow-views. Modernize visual design.
-Full design spec: `docs/plans/2026-04-04-ui-redesign.md`
+Replace Streamlit with Next.js frontend + FastAPI backend. Gemma 4 as visible conversational assistant. Professional outputs.
 
-## Phase 1: Layout + Navigation ✅
-- [x] Replace tabs with 3-view nav in app.py
-- [x] Update ui/styles.py with new design system CSS
-- [x] Wire st.session_state["active_view"] routing
+Full design: `docs/plans/2026-04-05-nextjs-redesign.md`
+Full implementation: `docs/plans/2026-04-05-implementation-plan.md`
 
-## Phase 2: My Students View ✅
-- [x] Create ui/students_view.py — card grid
-- [x] Click handler: select student + switch to Capture
+## Sprint 1: FastAPI Backend ✅
+- [x] Project scaffold + dependencies
+- [x] Student CRUD endpoints (list, get, create, update, delete)
+- [x] Capture endpoint (pipeline integration)
+- [x] Materials generation endpoint
+- [x] Chat endpoint (mock responses, context-aware)
+- [x] Alerts endpoint (plateau/regression detection)
+- [x] Documents upload endpoint
+- [x] 10 API tests passing
 
-## Phase 3: Capture & Create View ✅
-- [x] Create ui/capture_view.py — two-column layout
-- [x] Left: upload + analyze + results
-- [x] Right: material tile grid + inline generation
+## Sprint 2: Next.js Frontend — Layout & Shell
+- [ ] Scaffold Next.js + Tailwind + shadcn/ui
+- [ ] Three-column layout (sidebar, content, chat panel)
+- [ ] Design system: colors, typography, spacing
+- [ ] Student sidebar wired to API
+- [ ] Class dashboard (greeting + alerts + activity)
 
-## Phase 4: Progress & Reports View ✅
-- [x] Create ui/progress_view.py — dashboard + admin reports merged
-- [x] Fix underscore labels in domain names
+## Sprint 3: Student Detail + Chat
+- [ ] Student page: header, goals, work, materials, quick actions
+- [ ] Chat panel: streaming, context-aware, action cards
+- [ ] Add Student flow (conversational via chat)
 
-## Phase 5: Polish + QA ✅
-- [x] Playwright visual QA — every view, every state
-- [x] Test all 3 students end-to-end
-- [x] 35/35 tests passing
+## Sprint 4: Professional Output Rendering
+- [ ] Lesson plan, parent letter, admin report renderers
+- [ ] Social story, tracking sheet, visual schedule renderers
+- [ ] Print CSS + PDF export
+
+## Sprint 5: Polish + Deploy
+- [ ] Mobile responsive
+- [ ] OpenRouter integration
+- [ ] Vercel (frontend) + Railway (backend) deploy
+- [ ] Precomputed demo data
+
+## Sprint 6: Video + Submission
+- [ ] Demo recording
+- [ ] Video production
+- [ ] Kaggle submission
