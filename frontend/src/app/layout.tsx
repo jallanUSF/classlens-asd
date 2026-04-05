@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { StudentSidebar } from "@/components/sidebar/StudentSidebar";
 import { ChatPanel } from "@/components/chat/ChatPanel";
+import { ChatProvider } from "@/context/ChatContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -23,10 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="h-full flex">
-        {/* Three-column layout */}
-        <StudentSidebar />
-        <main className="flex-1 overflow-y-auto">{children}</main>
-        <ChatPanel />
+        <ChatProvider>
+          <StudentSidebar />
+          <main className="flex-1 overflow-y-auto">{children}</main>
+          <ChatPanel />
+        </ChatProvider>
       </body>
     </html>
   );

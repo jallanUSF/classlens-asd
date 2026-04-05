@@ -1,40 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Send, Sparkles } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-
-interface Message {
-  role: "assistant" | "user";
-  content: string;
-}
-
-const WELCOME_MESSAGE: Message = {
-  role: "assistant",
-  content:
-    "Hi! I'm your ClassLens assistant — think of me as an experienced IEP co-teacher. Select a student to get started, or ask me anything about your class.",
-};
+import { useChatContext } from "@/context/ChatContext";
+import { ChatMessage } from "./ChatMessage";
 
 export function ChatPanel() {
-  const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
+  const {
+    messages,
+    sendMessage,
+    isStreaming,
+    pendingInput,
+    clearPendingInput,
+  } = useChatContext();
   const [input, setInput] = useState("");
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Pick up pre-filled input from context (e.g. quick actions)
+  useEffect(() => {
+    if (pendingInput) {
+      setInput(pendingInput);
+      clearPendingInput();
+    }
+  }, [pendingInput, clearPendingInput]);
+
+  // Auto-scroll to bottom on new messages
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!input.trim()) return;
-
-    const userMsg: Message = { role: "user", content: input.trim() };
-    setMessages((prev) => [
-      ...prev,
-      userMsg,
-      {
-        role: "assistant",
-        content:
-          "I'm not connected to the backend yet — streaming integration is coming in Sprint 3. For now, explore the student sidebar and dashboard!",
-      },
-    ]);
+    if (!input.trim() || isStreaming) return;
+    const text = input.trim();
     setInput("");
+    sendMessage(text);
   }
 
   return (
@@ -51,40 +55,33 @@ export function ChatPanel() {
       </div>
 
       {/* Messages */}
-      <ScrollArea className="flex-1">
+      <div className="flex-1 overflow-y-auto" ref={scrollRef}>
         <div className="p-4 space-y-4">
-          {messages.map((msg, i) => (
-            <div
-              key={i}
-              className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-            >
-              <div
-                className={`
-                  max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed
-                  ${msg.role === "user"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-card text-foreground shadow-sm"
-                  }
-                `}
-              >
-                {msg.content}
-              </div>
-            </div>
+          {messages.map((msg) => (
+            <ChatMessage key={msg.id} message={msg} />
           ))}
         </div>
-      </ScrollArea>
+      </div>
 
       {/* Input */}
-      <form onSubmit={handleSubmit} className="p-3 border-t border-border bg-card">
+      <form
+        onSubmit={handleSubmit}
+        className="p-3 border-t border-border bg-card"
+      >
         <div className="flex gap-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about a student..."
-            className="flex-1 rounded-lg border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+            disabled={isStreaming}
+            className="flex-1 rounded-lg border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring disabled:opacity-50"
           />
-          <Button type="submit" size="icon" disabled={!input.trim()}>
+          <Button
+            type="submit"
+            size="icon"
+            disabled={!input.trim() || isStreaming}
+          >
             <Send className="h-4 w-4" />
           </Button>
         </div>

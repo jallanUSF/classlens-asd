@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import Link from "next/link";
+import { useChatContext } from "@/context/ChatContext";
 
 interface Alert {
   id: string;
@@ -49,6 +50,7 @@ export default function DashboardPage() {
   const [students, setStudents] = useState<StudentSummary[]>([]);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [loading, setLoading] = useState(true);
+  const { prefillInput, setActiveStudent } = useChatContext();
 
   useEffect(() => {
     async function load() {
@@ -132,7 +134,14 @@ export default function DashboardPage() {
                           <Eye className="h-3.5 w-3.5 mr-1" />
                           View
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            setActiveStudent(alert.student_id);
+                            prefillInput(`Help with: ${alert.title} — ${alert.detail}`);
+                          }}
+                        >
                           <Sparkles className="h-3.5 w-3.5 mr-1" />
                           Ask Assistant
                         </Button>

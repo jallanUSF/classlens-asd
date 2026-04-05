@@ -1,44 +1,56 @@
 # HANDOFF.md — Session Summary
 
 **Date:** 2026-04-05
-**Session:** Sprint 6 continued — Next.js Frontend (Sprint 2 complete)
+**Session:** Sprint 3 complete — Chat integration + student detail enhancements
 **Branch:** `nextjs-redesign`
-**Next session:** Sprint 3 — Chat streaming + student detail enhancements
+**Next session:** Sprint 4 — Professional output rendering
 
 ## Goal
-Build the Next.js frontend shell: three-column layout, student sidebar, chat panel, dashboard, student detail page.
+Build Sprint 3: chat streaming integration, enhanced student detail page, recent work + materials components, Add Student flow.
 
 ## What Got Done
 
-### Sprint 2: Next.js Frontend (Tasks 8-10) — COMPLETE
-- **Task 8:** Scaffolded Next.js 16 + TypeScript + Tailwind v4 + shadcn/ui (Base UI variant)
-  - `frontend/` directory via `create-next-app`
-  - shadcn components: button, card, badge, scroll-area, separator, avatar, skeleton, sheet
-  - lucide-react for icons
-  - API proxy: `/api/*` → `http://localhost:8000/api/*` via next.config.ts rewrites
+### Sprint 3: Student Detail + Chat (Tasks 11-14) — COMPLETE
 
-- **Task 10:** ClassLens design system configured in globals.css
-  - Calm classroom palette: #4A7FA5 primary, #FAFAFA bg, #2C3E50 text
-  - ASD level badges: L1 teal, L2 blue, L3 purple (custom CSS tokens)
-  - Success (#4ECDC4), warning (#E8A838), danger (#D4726A) tokens
-  - Inter font (not Geist), 15px body, 12px border-radius
-  - Chat panel background (#F5F6F8) token
+- **Task 13:** Chat panel streaming integration
+  - `useChat` hook (`hooks/useChat.ts`) — manages conversation state, sends to POST `/api/chat`, handles loading/error states
+  - `ChatMessage` component — assistant (sparkle avatar) + user (blue bubbles), loading dots animation, bold markdown support
+  - `ActionCard` component — inline action cards for material_generated, profile_created, work_captured events
+  - `ChatContext` provider — shared state so any page can: set active student, pre-fill input, add context messages
+  - ChatPanel rewritten to use context, auto-scrolls, disables input while streaming
 
-- **Task 9:** Three-column layout shell
-  - `StudentSidebar` (240px): fetches `/api/students` + `/api/alerts`, sorts by alerts-first then alphabetical, shows level badges, alert indicators, active state highlighting
-  - `ChatPanel` (320px): stub with welcome message, input box, message bubbles styled per design doc
-  - Dashboard page (`/`): greeting, alert cards with View/Ask actions, student overview grid
-  - Student detail page (`/student/[id]`): header, IEP goals with progress bars + trend arrows, quick action buttons
+- **Task 11:** Enhanced student detail page
+  - `GoalCard` — expandable with Plotly mini-chart (sparkline + target line), last 3 sessions, "Scan Work for This Goal" button
+  - `AlertBanner` — dismissable alerts with "Generate Materials" + "Ask Assistant" action buttons
+  - `PlotlyChart` — dynamic import wrapper for react-plotly.js (SSR-safe)
+  - Page now sets chat context on load, sends greeting message with student name + goal count
+
+- **Task 12:** Recent work + materials library
+  - `RecentWork` — fetches `/api/students/{id}/documents`, expandable timeline cards, empty state
+  - `MaterialsLibrary` — fetches `/api/students/{id}/materials`, filter chips by type, status badges (draft/approved)
+  - `QuickActions` — sticky footer with "Scan Work" / "Generate Material" / "Write Parent Note", all pre-fill chat input
+
+- **Task 14:** Add Student conversational flow
+  - `/student/new` page with chat-driven onboarding
+  - Real-time profile preview card that updates as chat reveals student info
+  - IEP document upload drop zone (sends to `/api/documents/upload`)
+  - Create profile button that POSTs to `/api/students` and redirects
+
+### New packages
+- `react-plotly.js` + `plotly.js` — goal progress mini-charts
+- `react-markdown` — (installed, available for Sprint 4 material rendering)
+- `@types/react-plotly.js` — TypeScript types
 
 ### Key Decisions
-- shadcn init selected Base UI (not Radix) — Button uses `render` prop instead of `asChild`
-- Light mode only (no dark mode toggle) — design doc specifies calm classroom aesthetic
-- Client components with `useEffect` fetching for sidebar/dashboard (will optimize later if needed)
+- `ChatProvider` context at layout level — any page can trigger chat without prop drilling
+- Plotly dynamically imported (no SSR) to avoid window/document errors
+- Quick actions pre-fill chat input rather than auto-sending — teacher stays in control
+- Alert dismissal is fire-and-forget (optimistic UI)
 
 ## Test Status
 - **45 Python tests** (35 original + 10 API): all passing
 - **Next.js build**: compiles clean, no TypeScript errors
-- Frontend has no test suite yet (Sprint 5)
+- All 5 routes render: `/`, `/_not-found`, `/student/[id]`, `/student/new`
 
 ## Sprint Plan
 
@@ -46,16 +58,16 @@ Build the Next.js frontend shell: three-column layout, student sidebar, chat pan
 |--------|-------|--------|
 | Sprint 1 | FastAPI backend (7 tasks) | DONE |
 | Sprint 2 | Next.js frontend — layout & shell (3 tasks) | DONE |
-| Sprint 3 | Student detail page + chat integration (4 tasks) | NOT STARTED |
+| Sprint 3 | Student detail + chat integration (4 tasks) | DONE |
 | Sprint 4 | Professional output rendering (4 tasks) | NOT STARTED |
 | Sprint 5 | Polish + deploy (5 tasks) | NOT STARTED |
 | Sprint 6 | Video + submission (3 tasks) | NOT STARTED |
 
 ## Next Steps
-1. **Sprint 3, Task 13:** Chat panel streaming — `useChat` hook, SSE from `/api/chat`, context-aware greetings
-2. **Sprint 3, Task 11:** Enhance student detail — expandable goal cards with Plotly mini-charts
-3. **Sprint 3, Task 12:** Recent work timeline + materials library components
-4. **Sprint 3, Task 14:** Add Student conversational flow via chat
+1. **Sprint 4, Task 15:** Lesson plan renderer — professional layout with print CSS
+2. **Sprint 4, Task 16:** Social story + visual schedule renderers
+3. **Sprint 4, Task 17:** Parent letter + admin report renderers
+4. **Sprint 4, Task 18:** Print CSS + PDF export across all material types
 
 ## How to Run
 ```bash
@@ -66,11 +78,15 @@ cd C:/Projects/ClassLense && uvicorn backend.main:app --reload --port 8000
 cd C:/Projects/ClassLense/frontend && npm run dev
 ```
 
-## Key Files
-- Three-column layout: `frontend/src/app/layout.tsx`
-- Sidebar: `frontend/src/components/sidebar/StudentSidebar.tsx`
-- Chat panel: `frontend/src/components/chat/ChatPanel.tsx`
-- Dashboard: `frontend/src/app/page.tsx`
-- Student detail: `frontend/src/app/student/[id]/page.tsx`
-- Design tokens: `frontend/src/app/globals.css`
-- API proxy: `frontend/next.config.ts`
+## Key Files (New This Sprint)
+- Chat hook: `frontend/src/hooks/useChat.ts`
+- Chat context: `frontend/src/context/ChatContext.tsx`
+- Chat message: `frontend/src/components/chat/ChatMessage.tsx`
+- Action card: `frontend/src/components/chat/ActionCard.tsx`
+- Goal card (expandable): `frontend/src/components/student/GoalCard.tsx`
+- Plotly chart: `frontend/src/components/student/PlotlyChart.tsx`
+- Alert banner: `frontend/src/components/student/AlertBanner.tsx`
+- Recent work: `frontend/src/components/student/RecentWork.tsx`
+- Materials library: `frontend/src/components/student/MaterialsLibrary.tsx`
+- Quick actions: `frontend/src/components/student/QuickActions.tsx`
+- Add student page: `frontend/src/app/student/new/page.tsx`

@@ -16,17 +16,18 @@ Full implementation: `docs/plans/2026-04-05-implementation-plan.md`
 - [x] Documents upload endpoint
 - [x] 10 API tests passing
 
-## Sprint 2: Next.js Frontend — Layout & Shell
-- [ ] Scaffold Next.js + Tailwind + shadcn/ui
-- [ ] Three-column layout (sidebar, content, chat panel)
-- [ ] Design system: colors, typography, spacing
-- [ ] Student sidebar wired to API
-- [ ] Class dashboard (greeting + alerts + activity)
+## Sprint 2: Next.js Frontend — Layout & Shell ✅
+- [x] Scaffold Next.js + Tailwind + shadcn/ui
+- [x] Three-column layout (sidebar, content, chat panel)
+- [x] Design system: colors, typography, spacing
+- [x] Student sidebar wired to API
+- [x] Class dashboard (greeting + alerts + activity)
 
-## Sprint 3: Student Detail + Chat
-- [ ] Student page: header, goals, work, materials, quick actions
-- [ ] Chat panel: streaming, context-aware, action cards
-- [ ] Add Student flow (conversational via chat)
+## Sprint 3: Student Detail + Chat ✅
+- [x] Student page: expandable goals with Plotly charts, alert banner
+- [x] Recent work timeline + materials library + quick actions
+- [x] Chat panel: useChat hook, ChatMessage, ActionCard, context-aware
+- [x] Add Student flow (conversational via chat, profile preview, IEP upload)
 
 ## Sprint 4: Professional Output Rendering
 - [ ] Lesson plan, parent letter, admin report renderers
