@@ -12,6 +12,7 @@ import {
   CheckCircle,
   Clock,
 } from "lucide-react";
+import { MaterialViewer } from "@/components/materials/MaterialViewer";
 
 interface Material {
   id: string;
@@ -25,6 +26,7 @@ interface Material {
 
 interface Props {
   studentId: string;
+  studentName?: string;
 }
 
 const TYPE_LABELS: Record<string, { label: string; icon: typeof FileText }> = {
@@ -41,10 +43,11 @@ const STATUS_STYLES: Record<string, { class: string; icon: typeof Clock }> = {
   approved: { class: "bg-success/10 text-success-foreground", icon: CheckCircle },
 };
 
-export function MaterialsLibrary({ studentId }: Props) {
+export function MaterialsLibrary({ studentId, studentName }: Props) {
   const [materials, setMaterials] = useState<Material[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<string | null>(null);
+  const [viewingMaterial, setViewingMaterial] = useState<Material | null>(null);
 
   useEffect(() => {
     fetch(`/api/students/${studentId}/materials`)
@@ -109,6 +112,25 @@ export function MaterialsLibrary({ studentId }: Props) {
       )}
 
       {/* Material cards */}
+      {/* Material Viewer Sheet */}
+      <MaterialViewer
+        material={viewingMaterial}
+        studentName={studentName || "Student"}
+        open={viewingMaterial !== null}
+        onOpenChange={(open) => {
+          if (!open) setViewingMaterial(null);
+        }}
+        onApprove={(id) => {
+          setMaterials((prev) =>
+            prev.map((m) => (m.id === id ? { ...m, status: "approved" } : m))
+          );
+          setViewingMaterial(null);
+        }}
+        onRegenerate={() => {
+          setViewingMaterial(null);
+        }}
+      />
+
       {filtered.map((mat) => {
         const typeInfo = TYPE_LABELS[mat.material_type] || {
           label: mat.material_type,
@@ -143,7 +165,12 @@ export function MaterialsLibrary({ studentId }: Props) {
                     {mat.created_date}
                   </p>
                 </div>
-                <Button size="sm" variant="outline" className="text-xs h-7 gap-1">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="text-xs h-7 gap-1"
+                  onClick={() => setViewingMaterial(mat)}
+                >
                   <Eye className="h-3 w-3" />
                   View
                 </Button>

@@ -203,7 +203,7 @@ export default function StudentDetailPage() {
       {/* Materials Library */}
       <section>
         <h2 className="text-lg font-semibold mb-3">Materials</h2>
-        <MaterialsLibrary studentId={student.student_id} />
+        <MaterialsLibrary studentId={student.student_id} studentName={student.name} />
       </section>
 
       {/* Quick Actions sticky footer */}

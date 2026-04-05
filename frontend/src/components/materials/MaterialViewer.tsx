@@ -1,0 +1,214 @@
+"use client";
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
+import { Printer, CheckCircle, RefreshCw, X } from "lucide-react";
+import { LessonPlanView } from "./LessonPlanView";
+import { ParentLetterView } from "./ParentLetterView";
+import { AdminReportView } from "./AdminReportView";
+import { SocialStoryView } from "./SocialStoryView";
+import { TrackingSheetView } from "./TrackingSheetView";
+import { VisualScheduleView } from "./VisualScheduleView";
+
+interface Material {
+  id: string;
+  student_id: string;
+  goal_id: string;
+  material_type: string;
+  created_date: string;
+  status: string;
+  content: Record<string, unknown>;
+}
+
+interface Props {
+  material: Material | null;
+  studentName: string;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onApprove?: (materialId: string) => void;
+  onRegenerate?: (materialId: string) => void;
+}
+
+const TYPE_TITLES: Record<string, string> = {
+  lesson_plan: "Lesson Plan",
+  parent_comm: "Parent Letter",
+  admin_report: "Admin Report",
+  social_story: "Social Story",
+  tracking_sheet: "Tracking Sheet",
+  visual_schedule: "Visual Schedule",
+};
+
+export function MaterialViewer({
+  material,
+  studentName,
+  open,
+  onOpenChange,
+  onApprove,
+  onRegenerate,
+}: Props) {
+  const [approving, setApproving] = useState(false);
+
+  if (!material) return null;
+
+  const handleApprove = async () => {
+    setApproving(true);
+    try {
+      const res = await fetch(
+        `/api/materials/${material.student_id}/${material.id}/approve`,
+        { method: "PUT" }
+      );
+      if (res.ok) {
+        onApprove?.(material.id);
+      }
+    } finally {
+      setApproving(false);
+    }
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  function renderContent() {
+    if (!material) return null;
+    const c = material.content;
+    const date = material.created_date;
+    const goalId = material.goal_id;
+
+    switch (material.material_type) {
+      case "lesson_plan":
+        return (
+          <LessonPlanView
+            content={c as Parameters<typeof LessonPlanView>[0]["content"]}
+            studentName={studentName}
+            goalId={goalId}
+            date={date}
+          />
+        );
+      case "parent_comm":
+        return (
+          <ParentLetterView
+            content={c as Parameters<typeof ParentLetterView>[0]["content"]}
+            studentName={studentName}
+            date={date}
+          />
+        );
+      case "admin_report":
+        return (
+          <AdminReportView
+            content={c as Parameters<typeof AdminReportView>[0]["content"]}
+            studentName={studentName}
+            date={date}
+          />
+        );
+      case "social_story":
+        return (
+          <SocialStoryView
+            content={c as Parameters<typeof SocialStoryView>[0]["content"]}
+            studentName={studentName}
+            date={date}
+          />
+        );
+      case "tracking_sheet":
+        return (
+          <TrackingSheetView
+            content={c as Parameters<typeof TrackingSheetView>[0]["content"]}
+            studentName={studentName}
+            goalId={goalId}
+            date={date}
+          />
+        );
+      case "visual_schedule":
+        return (
+          <VisualScheduleView
+            content={c as Parameters<typeof VisualScheduleView>[0]["content"]}
+            studentName={studentName}
+            date={date}
+          />
+        );
+      default:
+        return (
+          <div className="text-sm text-muted-foreground">
+            <p>Unknown material type: {material.material_type}</p>
+            <pre className="mt-2 text-xs bg-muted p-3 rounded overflow-auto">
+              {JSON.stringify(c, null, 2)}
+            </pre>
+          </div>
+        );
+    }
+  }
+
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent
+        side="right"
+        showCloseButton={false}
+        className="w-full sm:max-w-2xl overflow-y-auto"
+      >
+        <SheetHeader className="print:hidden">
+          <div className="flex items-center justify-between">
+            <div>
+              <SheetTitle>
+                {TYPE_TITLES[material.material_type] || material.material_type}
+              </SheetTitle>
+              <SheetDescription>
+                {studentName} &middot; {material.created_date}
+              </SheetDescription>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              onClick={() => onOpenChange(false)}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+        </SheetHeader>
+
+        {/* Material content */}
+        <div className="px-4 pb-4">{renderContent()}</div>
+
+        {/* Footer */}
+        <div className="text-center text-[10px] text-muted-foreground mt-4 px-4">
+          Generated by ClassLens ASD &middot; Teacher review required
+        </div>
+
+        {/* Action buttons — hidden when printing */}
+        <div className="sticky bottom-0 bg-popover border-t border-border p-3 flex gap-2 justify-end print:hidden">
+          {material.status !== "approved" && (
+            <Button
+              size="sm"
+              variant="outline"
+              className="gap-1.5"
+              onClick={handleApprove}
+              disabled={approving}
+            >
+              <CheckCircle className="h-3.5 w-3.5" />
+              {approving ? "Approving..." : "Approve"}
+            </Button>
+          )}
+          <Button
+            size="sm"
+            variant="outline"
+            className="gap-1.5"
+            onClick={() => onRegenerate?.(material.id)}
+          >
+            <RefreshCw className="h-3.5 w-3.5" />
+            Regenerate
+          </Button>
+          <Button size="sm" className="gap-1.5" onClick={handlePrint}>
+            <Printer className="h-3.5 w-3.5" />
+            Print
+          </Button>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+}

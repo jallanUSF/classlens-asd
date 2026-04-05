@@ -29,10 +29,11 @@ Full implementation: `docs/plans/2026-04-05-implementation-plan.md`
 - [x] Chat panel: useChat hook, ChatMessage, ActionCard, context-aware
 - [x] Add Student flow (conversational via chat, profile preview, IEP upload)
 
-## Sprint 4: Professional Output Rendering
-- [ ] Lesson plan, parent letter, admin report renderers
-- [ ] Social story, tracking sheet, visual schedule renderers
-- [ ] Print CSS + PDF export
+## Sprint 4: Professional Output Rendering ✅
+- [x] Lesson plan, parent letter, admin report renderers
+- [x] Social story, tracking sheet, visual schedule renderers
+- [x] MaterialViewer sheet + approve/regenerate controls
+- [x] Print CSS (hides chrome, letter-size, clean layout)
 
 ## Sprint 5: Polish + Deploy
 - [ ] Mobile responsive

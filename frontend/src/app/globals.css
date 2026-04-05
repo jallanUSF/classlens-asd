@@ -126,3 +126,62 @@
     @apply font-sans;
   }
 }
+
+/* Print styles — show only material content */
+@media print {
+  /* Hide app chrome */
+  [data-slot="sheet-overlay"],
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Hide sidebar, chat panel, and main nav */
+  body > * {
+    display: none !important;
+  }
+
+  /* Show only the sheet content */
+  [data-slot="sheet-content"] {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  /* Let the portal render */
+  [data-slot="sheet-portal"],
+  [data-slot="sheet-content"] .material-print-content {
+    display: block !important;
+  }
+
+  /* Page setup */
+  @page {
+    margin: 0.75in;
+    size: letter;
+  }
+
+  /* Avoid breaking inside cards/sections */
+  .page-break-inside-avoid {
+    break-inside: avoid;
+  }
+
+  /* Clean typography for print */
+  .material-print-content {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: black;
+  }
+
+  .material-print-content h1 {
+    font-size: 16pt;
+  }
+
+  .material-print-content h2 {
+    font-size: 11pt;
+  }
+}

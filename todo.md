@@ -7,5 +7,7 @@
 - [x] Sprint 3: Enhanced student detail (expandable goals, Plotly charts, alerts)
 - [x] Sprint 3: Recent work timeline + materials library + quick actions
 - [x] Sprint 3: Add Student conversational flow
-- [ ] Sprint 4: Professional material renderers (lesson plan, social story, etc.)
-- [ ] Sprint 4: Print CSS + PDF export
+- [x] Sprint 4: Professional material renderers (6 types + MaterialViewer sheet)
+- [x] Sprint 4: Print CSS + approve/regenerate controls
+- [ ] Sprint 5: Mobile responsive layout
+- [ ] Sprint 5: OpenRouter integration + deployment
