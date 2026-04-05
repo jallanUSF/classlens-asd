@@ -1,45 +1,43 @@
 # HANDOFF.md — Session Summary
 
-**Date:** 2026-04-04
-**Session:** Sprint 5 (deploy + PDFs + UI redesign planning)
+**Date:** 2026-04-04 / 2026-04-05
+**Session:** Sprint 5 — UI/UX Redesign Implementation
 
 ## What Got Done
 
-### Deployment
-- **Streamlit Cloud live** at `classlens-asd-bbdjgeutrjozwopvsyw6qo.streamlit.app` (public)
-- `st.secrets` bridge in app.py, `.python-version` pinned to 3.11
-- Auto-redeploys on push
+### UI/UX Redesign (5 phases complete)
+- **5 tabs → 3 workflow views:** My Students, Capture & Create, Progress & Reports
+- **New CSS design system** (`ui/styles.py`): 12px rounded cards, gradient metric borders, ASD level badges (teal/blue/purple), material tiles, calm colors
+- **My Students view** (`ui/students_view.py`): 3-column card grid with emoji, grade, level badge, trend %, session count. Click → selects student + switches to Capture
+- **Capture & Create view** (`ui/capture_view.py`): Two-column layout. Left: image upload/sample + analyze pipeline. Right: 3x2 material tile grid (Lesson Plan, Tracking Sheet, Social Story, Visual Schedule, Parent Letter, Admin Report) + inline generation with approve/regenerate
+- **Progress & Reports view** (`ui/progress_view.py`): Summary metrics row (4 cards), multi-goal Plotly chart, per-goal detail cards with trend charts, admin report generator at bottom
+- **Navigation:** 3 styled buttons with primary/secondary highlighting, `st.session_state["active_view"]` routing
+- **Sidebar redesign:** Compact student buttons with emoji, selected student profile summary (comm level, interests, calming strategies, goal/session counts)
+- **Fixed:** Underscore labels in domain names (Following_Directions → Following Directions), truncated trend text
 
-### SDK Fixes
-- Model: `gemma-4-27b-it` → `gemma-4-31b-it`
-- Tool wrapping: `types.Tool(function_declarations=[...])` for SDK compat
-- Thinking: `thinking_budget_tokens` → `includeThoughts=True`
-- Fallback parser: returns `{"text": ...}` instead of crashing
-
-### Kaggle Notebook
-- Uploaded to `kaggle.com/code/jalloverit22/notebook0df7597f7c`
-- Executed locally with real Gemma 4 API — all cells pass
-- `notebooks/classlens_demo_executed.ipynb` has baked-in outputs
-
-### Polished PDF Reports
-- `scripts/generate_reports.py`: Material Forge → Gemma 4 polish → fpdf2 PDF
-- 21 PDFs (3 students x 7 doc types) in `outputs/{Student}_{datetime}/`
-- PDF renderer handles unicode sanitization (emoji, LaTeX, special chars)
-
-### UI/UX Redesign Plan
-- Full design spec: `docs/plans/2026-04-04-ui-redesign.md`
-- 5 tabs → 3 views: My Students, Capture & Create, Progress & Reports
-- New color palette, card design, material tile grid
-- 5-phase implementation plan ready to execute
+### Files Changed
+- **Modified:** `app.py`, `ui/styles.py`
+- **New:** `ui/students_view.py`, `ui/capture_view.py`, `ui/progress_view.py`
+- **Deprecated (kept, unused):** `ui/upload.py`, `ui/outputs.py`, `ui/lesson_planner.py`, `ui/dashboard.py`, `ui/reports.py`
 
 ## Repo State
-- **Branch:** `master`, up to date with `origin/master`
+- **Branch:** `master`
 - **Tests:** 35/35 passing
-- **GitHub:** https://github.com/jallanUSF/classlens-asd
-- **Commits:** 17 on master
+- **Streamlit:** Running locally on port 8501, verified with Playwright QA
+- **QA Screenshots:** `qa-01` through `qa-06` in project root
+
+## QA Results
+- ✅ My Students: 3 cards render with emoji, level badges, trends
+- ✅ Capture & Create (Jaylen): Two-column, sample image, material tiles
+- ✅ Capture & Create (Maya): Sample work detected, tile grid
+- ✅ Capture & Create (Sofia): Transition log sample, correct profile
+- ✅ Progress & Reports (Maya): 4 metrics, multi-goal chart, goal cards
+- ✅ Progress & Reports (Sofia): Trend "↑ Up" displays cleanly
+- ✅ Navigation: Active view highlighting works across all views
+- ✅ Sidebar: Student switching works, profile updates correctly
 
 ## Next Steps
-1. **Execute UI redesign** — follow `docs/plans/2026-04-04-ui-redesign.md` phases 1-5
-2. Read plan.md and todo.md for task breakdown
-3. Run Streamlit locally (`streamlit run app.py`) and use Playwright for visual QA
-4. After UI done: re-upload notebook to Kaggle, update competition writeup, record video
+1. **Verify Streamlit Cloud deployment** — push and check live URL
+2. **Re-upload notebook to Kaggle** with updated screenshots
+3. **Update competition writeup** with new UI screenshots
+4. **Record 3-min demo video** following `docs/VIDEO-SCRIPT.md`

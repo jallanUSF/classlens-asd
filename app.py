@@ -14,8 +14,6 @@ import streamlit as st
 from ui.styles import inject_styles
 
 # ── Bridge st.secrets → os.environ for Streamlit Cloud ──
-# The app reads API keys via os.getenv(), but Streamlit Cloud
-# serves them through st.secrets. Copy them over early.
 try:
     for key in ("GOOGLE_AI_STUDIO_KEY", "OPENROUTER_API_KEY"):
         if key not in os.environ and key in st.secrets:
@@ -31,8 +29,15 @@ st.set_page_config(
     layout="wide",
 )
 
-# ── Inject ASD-friendly CSS ───────────────────────────────
+# ── Inject design system CSS ─────────────────────────────
 inject_styles()
+
+# ── Emoji map for students ────────────────────────────────
+STUDENT_EMOJI = {
+    "maya_2026": "🦕",
+    "jaylen_2026": "🚂",
+    "sofia_2026": "🌍",
+}
 
 # ── Load student profiles into session state ──────────────
 if "profiles" not in st.session_state:
@@ -44,38 +49,14 @@ if "profiles" not in st.session_state:
         profiles[data["student_id"]] = data
     st.session_state["profiles"] = profiles
 
+# ── Initialize navigation state ──────────────────────────
+if "active_view" not in st.session_state:
+    st.session_state["active_view"] = "students"
+
 
 # ── App header ─────────────────────────────────────────────
 st.title("ClassLens ASD")
 st.markdown("**Multimodal IEP Intelligence for Autistic Learners**")
-
-
-# ── Sidebar: student selector ─────────────────────────────
-with st.sidebar:
-    st.markdown("### Select a Student")
-    st.caption("Your student roster. Click to view their profile and recent work.")
-
-    profiles = st.session_state["profiles"]
-    for sid, prof in profiles.items():
-        interests_short = prof.get("interests", [""])[0].split("(")[0].strip()
-        label = f"{prof['name']} (Grade {prof['grade']}) — {interests_short}"
-        if st.button(label, key=f"student_{sid}", use_container_width=True):
-            st.session_state["current_student"] = sid
-
-    st.markdown("---")
-
-    # Show current student info
-    current = st.session_state.get("current_student")
-    if current and current in profiles:
-        p = profiles[current]
-        st.markdown(f"**{p['name']}**")
-        st.caption(f"Grade {p['grade']} | ASD Level {p['asd_level']}")
-        st.caption(f"Comm: {p.get('communication_level', 'verbal')}")
-        st.caption(f"Goals: {len(p.get('iep_goals', []))}")
-
-    st.markdown("---")
-    st.caption("ClassLens ASD v0.1")
-    st.caption("Gemma 4 Good Hackathon 2026")
 
 
 # ── Demo mode banner ──────────────────────────────────────
@@ -87,31 +68,87 @@ if not api_key or api_key == "your_api_key_here":
     )
 
 
-# ── Main navigation tabs ──────────────────────────────────
-tab_upload, tab_dashboard, tab_materials, tab_lessons, tab_reports = st.tabs([
-    "📸 Upload Work",
-    "📊 Progress Dashboard",
-    "📝 Generated Materials",
-    "🎯 Lesson Planner",
-    "📋 Admin Reports",
-])
+# ── 3-view navigation ────────────────────────────────────
+def _switch_view(view: str):
+    st.session_state["active_view"] = view
 
-with tab_upload:
-    from ui.upload import render_upload
-    render_upload()
 
-with tab_dashboard:
-    from ui.dashboard import render_dashboard
-    render_dashboard()
+nav_cols = st.columns(3)
+views = [
+    ("students", "My Students"),
+    ("capture", "Capture & Create"),
+    ("progress", "Progress & Reports"),
+]
+for i, (key, label) in enumerate(views):
+    with nav_cols[i]:
+        btn_type = "primary" if st.session_state["active_view"] == key else "secondary"
+        if st.button(label, key=f"nav_{key}", use_container_width=True, type=btn_type):
+            _switch_view(key)
+            st.rerun()
 
-with tab_materials:
-    from ui.outputs import render_outputs
-    render_outputs()
+st.markdown("---")
 
-with tab_lessons:
-    from ui.lesson_planner import render_lesson_planner
-    render_lesson_planner()
 
-with tab_reports:
-    from ui.reports import render_reports
-    render_reports()
+# ── Sidebar: compact student list + profile ───────────────
+with st.sidebar:
+    st.markdown("### ClassLens ASD")
+    st.caption("Select a student to begin")
+
+    profiles = st.session_state["profiles"]
+    current = st.session_state.get("current_student")
+
+    for sid, prof in profiles.items():
+        emoji = STUDENT_EMOJI.get(sid, "👤")
+        is_active = sid == current
+        badge_class = "sidebar-student-active" if is_active else ""
+
+        if st.button(
+            f"{emoji} {prof['name']} — Grade {prof['grade']}",
+            key=f"sidebar_{sid}",
+            use_container_width=True,
+        ):
+            st.session_state["current_student"] = sid
+            if st.session_state["active_view"] == "students":
+                st.session_state["active_view"] = "capture"
+            st.rerun()
+
+    st.markdown("---")
+
+    # Show selected student profile summary
+    if current and current in profiles:
+        p = profiles[current]
+        emoji = STUDENT_EMOJI.get(current, "👤")
+        st.markdown(f"**{emoji} {p['name']}**")
+        st.caption(f"Grade {p['grade']} | ASD Level {p['asd_level']}")
+        st.caption(f"Comm: {p.get('communication_level', 'verbal')[:50]}")
+
+        interests = p.get("interests", [])
+        if interests:
+            st.caption(f"Interests: {interests[0].split('(')[0].strip()}")
+
+        goals = p.get("iep_goals", [])
+        total_trials = sum(len(g.get("trial_history", [])) for g in goals)
+        st.caption(f"{len(goals)} goals · {total_trials} sessions")
+
+        sensory = p.get("sensory_profile", {})
+        calming = sensory.get("calming_strategies", [])
+        if calming:
+            st.caption(f"Calming: {', '.join(calming[:2])}")
+
+    st.markdown("---")
+    st.caption("ClassLens ASD v0.2")
+    st.caption("Gemma 4 Good Hackathon 2026")
+
+
+# ── Route to active view ──────────────────────────────────
+active = st.session_state["active_view"]
+
+if active == "students":
+    from ui.students_view import render_students
+    render_students()
+elif active == "capture":
+    from ui.capture_view import render_capture
+    render_capture()
+elif active == "progress":
+    from ui.progress_view import render_progress
+    render_progress()
