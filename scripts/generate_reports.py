@@ -35,6 +35,7 @@ document in clean Markdown. Requirements:
 - For tracking sheets: create a clear table layout
 - For lesson plans: organize into clear sections
 - Include the student name, date, and document title prominently
+- Do NOT use emoji, LaTeX, or special unicode symbols — use plain text only
 - Output ONLY the polished Markdown — no commentary or explanation"""
 
 POLISH_USER = """Polish this {doc_type} for student {student_name} (Grade {grade}, ASD Level {asd_level}).
@@ -252,8 +253,20 @@ def _sanitize(text):
     }
     for old, new in replacements.items():
         text = text.replace(old, new)
+    # Handle LaTeX from Gemma
+    text = re.sub(r'\$\\uparrow\$', '^', text)
+    text = re.sub(r'\$\\downarrow\$', 'v', text)
+    text = re.sub(r'\$\\rightarrow\$', '->', text)
+    text = re.sub(r'\$[^$]+\$', '', text)  # remove remaining LaTeX
+    # Remove bracket emoji replacements from headings
+    text = re.sub(r'\[TARGET\]\s*', '', text)
+    text = re.sub(r'\[TOOLS\]\s*', '', text)
+    text = re.sub(r'\[MATERIALS\]\s*', '', text)
+    text = re.sub(r'\[PUZZLE\]\s*', '', text)
     # Remove any remaining emoji/non-latin-1 chars
     text = text.encode('latin-1', errors='replace').decode('latin-1')
+    # Clean up ? replacements at start of lines (from sanitized emoji)
+    text = re.sub(r'^[?\s]+(?=[A-Z])', '', text)
     return text
 
 
