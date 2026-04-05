@@ -80,6 +80,7 @@ Thumbs.db
 # Application-specific
 # data/sample_work/ — committed for demo; these are synthetic images, not real student data
 demo_assets/screenshots/  # Don't commit demo screenshots
+screenshots/  # Chrome DevTools QA screenshots
 uploads/  # Don't commit user uploads
 
 # Compiled files
