@@ -1,50 +1,39 @@
-# Sprint 5 Plan — Ship It
+# Sprint 5 Plan — Ship It (continued)
 
 ## Goal
-Get everything submitted: live URL, Kaggle notebook, video, competition entry.
+Finish submission: update writeup with live URLs, re-upload notebook to Kaggle, record video, submit.
 Deadline: May 18, 2026.
 
-## What's Done (Sprints 1-4)
-- All 4 agents built and wired into pipeline
-- Full Streamlit app with 5 tabs, ASD-friendly CSS
-- MockGemmaClient complete with accurate routing
+## What's Done
+- Streamlit Cloud deployed and public
+- Kaggle notebook uploaded (needs re-upload with executed outputs)
+- PDF report generator working (21 PDFs across 3 students)
+- All SDK compatibility issues fixed (model name, tools, thinking)
 - 35 tests passing
-- 4 precomputed demo results cached
-- Kaggle notebook (32 cells, 10 sections)
-- Competition writeup finalized
-- ADR, security review, video script, UX copy all done
-- GitHub repo public: jallanUSF/classlens-asd
 
-## Sprint 5 Build Order
+## Remaining Tasks
 
-### 1. Deploy to public URL
-Options (pick one):
-- **Streamlit Cloud**: share.streamlit.io → New app → jallanUSF/classlens-asd, master, app.py
-- **HF Spaces**: Create new Space (Streamlit SDK), push code, set API key as secret
-- **Railway**: Connect GitHub, set GOOGLE_AI_STUDIO_KEY env var
+### 1. Update COMPETITION-WRITEUP.md
+- Add live demo URL: `classlens-asd-bbdjgeutrjozwopvsyw6qo.streamlit.app`
+- Update model name: `gemma-4-31b-it` (not `gemma-4-27b-it`)
+- Add PDF report generation as a feature (5th agent capability)
+- Add link to sample PDF outputs in `outputs/`
 
-App works without API key — precomputed results + MockGemmaClient fallback.
-
-### 2. Upload Kaggle notebook
-- Go to kaggle.com/code → New Notebook → Upload notebooks/classlens_demo.ipynb
-- Add-ons → Secrets → GOOGLE_AI_STUDIO_KEY
-- Settings → Enable Internet
-- Run all cells, verify outputs
-- Make notebook public
+### 2. Re-upload Kaggle notebook
+- Upload `notebooks/classlens_demo_executed.ipynb` (has all outputs baked in)
+- Just save — no need to run. Judges see the outputs immediately.
+- Rename from `notebook0df7597f7c` to `ClassLens ASD Demo`
 
 ### 3. Record video (Jeff + Sarah)
-- Follow docs/VIDEO-SCRIPT.md shot list
+- Follow `docs/VIDEO-SCRIPT.md`
 - 3 minutes max, 1080p
-- Demo flow: problem → solution → live demo → impact
-- Pre-bake all results (they're cached — demo never waits)
+- Show: live demo URL, pipeline results, PDF reports, dashboard
 
 ### 4. Submit to Kaggle
-- Competition writeup: paste from docs/COMPETITION-WRITEUP.md
-- Links: GitHub repo, live demo URL, Kaggle notebook, video
-- Tracks: Education + Main (possibly Special Tech if Ollama demo added)
+- Competition writeup from `docs/COMPETITION-WRITEUP.md`
+- Links: GitHub, live demo, Kaggle notebook, video
 
 ### 5. Optional: Ollama edge demo
-- Install ollama, pull gemma-4-e4b
-- Add OLLAMA backend to core/gemma_client.py
-- Demo: run pipeline fully local, no internet
+- Install ollama, pull gemma-4-e4b (or gemma-3n-e4b-it which is available)
+- Add OLLAMA backend to `core/gemma_client.py`
 - Qualifies for Special Tech track
