@@ -1,0 +1,24 @@
+{
+  "student_id": "maya_2026",
+  "goal_id": "G1",
+  "material_type": "parent_comm",
+  "created_date": "2026-04-05",
+  "status": "approved",
+  "content": {
+    "greeting": "Dear Maya's family,",
+    "highlights": [
+      "Maya met her peer greeting goal this week! She successfully greeted peers in 8 out of 10 opportunities — up from just 3 out of 10 three weeks ago.",
+      "She's been especially confident during morning arrival, consistently saying 'Hi' or waving to her peer buddies without any prompting.",
+      "The dinosaur sticker reinforcers are working wonderfully — Maya lights up when she earns one after greeting a friend.",
+      "Maya also showed great progress following two-step directions, hitting 75% accuracy this week. She responds best when directions are paired with her visual checklist."
+    ],
+    "try_at_home": [
+      "Practice greetings during everyday moments — when a neighbor waves, at the grocery store checkout, or when a family member arrives home. A simple 'Hi' or wave counts!",
+      "Use Maya's love of counting to make it a game: 'Let's count how many people we can say hi to today.' She enjoys tracking numbers.",
+      "If Maya seems overwhelmed in noisy settings, give her a moment with her fidget cube before encouraging a greeting. She recovers well with sensory support.",
+      "Try the 'raptor greeting' at home — Maya practiced greeting peers like Blue greets her pack. Ask her to show you!"
+    ],
+    "closing": "Maya is making wonderful progress and her confidence is growing every day. We're so proud of how hard she's working. Please don't hesitate to reach out if you have any questions or want to celebrate a greeting win at home!",
+    "teacher_name": "Mrs. Thompson"
+  }
+}

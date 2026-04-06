@@ -77,7 +77,7 @@ export function StudentSidebar() {
     : null;
 
   return (
-    <aside className="w-60 border-r border-border bg-card flex flex-col h-full">
+    <aside className="w-full md:w-60 border-r border-border bg-card flex flex-col h-full">
       {/* Header */}
       <div className="p-4 border-b border-border">
         <Link href="/" className="flex items-center gap-2 text-primary font-semibold text-lg">

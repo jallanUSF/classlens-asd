@@ -1,0 +1,54 @@
+{
+  "student_id": "sofia_2026",
+  "goal_id": "",
+  "material_type": "admin_report",
+  "created_date": "2026-04-05",
+  "status": "approved",
+  "content": {
+    "title": "IEP Progress Report — Sofia (Q3 2026)",
+    "executive_summary": "Sofia has made meaningful progress across all three IEP goal areas this quarter. She has met her targets for social communication (G1) and executive function (G2), and is now meeting her written expression target (G3) after a period of plateau. Her strengths in factual knowledge and organization continue to be effective scaffolding tools. Key strategies that worked this quarter include the 5-minute transition warning protocol, the periodic table of emotions reference card, and structured peer interaction through group projects.",
+    "goals": [
+      {
+        "goal_id": "G1",
+        "domain": "social_communication",
+        "present_level": "Sofia initiates social conversations with peers beyond fact-sharing in 80% of structured and unstructured opportunities. She has developed the skill of asking follow-up questions and showing interest in peers' topics, particularly during group project work.",
+        "target": "80% consistency across 10 structured/unstructured opportunities per week",
+        "current_pct": 80,
+        "target_pct": 80,
+        "trend": "Steady upward trend from 40% to 80% over 6 weeks. Peer group project was a turning point. Sofia now asks about peers' hobbies and weekend plans without prompting.",
+        "recommendation": "Maintain current social skills coaching. Consider fading structured prompts and monitoring Sofia's independent initiation in unstructured settings like recess and lunch."
+      },
+      {
+        "goal_id": "G2",
+        "domain": "executive_function",
+        "present_level": "Sofia manages transitions and schedule changes without protest or anxiety escalation in 87% of opportunities, exceeding her 85% target. She self-initiates deep breathing with counting when she notices anxiety rising.",
+        "target": "85% of 3+ daily transitions managed without protest/escalation",
+        "current_pct": 87,
+        "target_pct": 85,
+        "trend": "Strong improvement from 53% to 87%. The 5-minute warning protocol and written transition lists have been highly effective. Fire drill on 3/29 caused a significant setback (3.5 hours to recover), but taught valuable coping lessons.",
+        "recommendation": "Continue 5-minute warning protocol. Begin introducing minor, planned schedule changes to build flexibility. Consider updating target to 90% for next IEP review."
+      },
+      {
+        "goal_id": "G3",
+        "domain": "written_expression",
+        "present_level": "Sofia demonstrates ability to write creatively beyond facts in 4 out of 5 writing samples this week, meeting grade-level rubric expectations for voice, emotion, and abstract thinking. Reflective essay shows emerging abstract reasoning.",
+        "target": "4/5 writing samples scoring 3+ on voice, emotion, and abstract thinking rubric",
+        "current_pct": 80,
+        "target_pct": 80,
+        "trend": "Plateaued at 40% for 3 weeks (weeks 1-3), then breakthrough to 60% and 80%. The Periodic Table of Emotions reference card and 'fact-to-feeling bridge' sentence frames were the key interventions that unlocked progress.",
+        "recommendation": "Continue using sentence frames but begin fading scaffolding. Introduce journal writing with open-ended prompts about feelings. Sofia's interest in geography and presidents can be leveraged for opinion and perspective writing."
+      }
+    ],
+    "accommodations": [
+      "5-minute verbal and written warning before all transitions",
+      "Written daily schedule posted at desk (updated if changes occur)",
+      "Fidget ring available during all seated activities",
+      "Preferential seating away from noisy areas and unexpected traffic",
+      "Extended time for writing assignments (1.5x)",
+      "Periodic Table of Emotions reference card at desk",
+      "Deep breathing with counting protocol (taught and self-initiated)",
+      "List-making allowed as calming strategy during anxious moments"
+    ],
+    "next_steps": "1. Schedule IEP team meeting to discuss updating G2 target to 90% given Sofia's current performance.\n2. Begin planned schedule change exposure (1x per week) to build flexibility.\n3. Introduce open-ended journal writing prompts to fade written expression scaffolding.\n4. Monitor social communication in unstructured settings — consider adding a lunch group peer interaction goal.\n5. Continue parent communication about home strategies for transition management."
+  }
+}

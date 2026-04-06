@@ -42,7 +42,7 @@ export function ChatPanel() {
   }
 
   return (
-    <aside className="w-80 border-l border-border bg-chat-bg flex flex-col h-full">
+    <aside className="w-full md:w-80 border-l border-border bg-chat-bg flex flex-col h-full">
       {/* Header */}
       <div className="p-4 border-b border-border bg-card">
         <div className="flex items-center gap-2">

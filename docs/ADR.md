@@ -186,10 +186,10 @@ Logs + performance visible in Streamlit dashboard
 |--------|-----------------|-----|--------|--------|
 | Cost | $0 | $0* (*expires) | $0-5/mo | $5-50/mo |
 | Deploy time | 90s auto | 10min manual | 60s | 5min+ manual |
-| Simplicity | 📦 Built-in | ⚙️ Config heavy | 🔧 Adapter needed | 🛠️ DIY |
-| Judge experience | 1-click → web | VPC setup | Works | Works |
+| Simplicity | Built-in | Config heavy | Adapter needed | DIY |
+| Judge experience | 1-click web | VPC setup | Works | Works |
 
-**Status:** ✅ DECIDED
+**Status:** ⚠️ SUPERSEDED by ADR-010 — Now deploying Next.js frontend to Vercel (free) and FastAPI backend to Railway/Render (free tier). See ADR-010 for rationale.
 
 ---
 
@@ -349,6 +349,74 @@ Free tier rate limits make continuous live testing impractical. Need reproducibl
 
 ---
 
+## ADR-010: Replaced Streamlit with Next.js 16 + FastAPI
+
+**Context:**
+The original prototype used Streamlit for the UI layer. While Streamlit enabled rapid prototyping, it introduced significant limitations as the app matured:
+- **Narrow single-column layout:** Streamlit's layout model doesn't support a true multi-column application shell. Our design required a three-column layout (student sidebar, content area, chat panel) that Streamlit cannot achieve without fragile hacks.
+- **Session state quirks:** Streamlit reruns the entire script on every interaction. State management for multi-step workflows (upload → transcription → mapping → material generation) required constant workarounds with `st.session_state`.
+- **Limited component control:** Custom material renderers (lesson plans, social stories, admin reports) needed precise formatting, print stylesheets, and interactive controls (approve/regenerate/print) that Streamlit's component model cannot support.
+- **No mobile responsive design:** Streamlit has no responsive breakpoint system. Teachers need to use ClassLens from their phone in the classroom.
+- **Deployment flexibility:** Streamlit Community Cloud is the only free option; it limits hosting control and doesn't support a separate API layer.
+
+**Decision:**
+Replace Streamlit with **Next.js 16 + React 19 + Tailwind CSS v4 + shadcn/ui** for the frontend, and **FastAPI** as a REST backend wrapping the existing Python agent pipeline.
+
+**Architecture:**
+```
+Browser (Next.js 16)          FastAPI (Python)
+┌─────────────────────┐      ┌─────────────────────┐
+│ Three-column layout  │ ←→  │ /api/students        │
+│ - Student sidebar    │      │ /api/capture         │
+│ - Content area       │      │ /api/materials       │
+│ - Chat panel         │      │ /api/progress        │
+│ - MaterialViewer     │      │ /api/chat            │
+│ - Mobile hamburger   │      │ /api/alerts          │
+│   + chat FAB         │      └──────────┬──────────┘
+└─────────────────────┘                  ↓
+                              4-Agent Pipeline (unchanged)
+                              Vision Reader → IEP Mapper
+                              → Progress Analyst → Material Forge
+```
+
+**Key UI capabilities gained:**
+- **Three-column layout:** Student sidebar (left), content area (center), chat panel (right) — all independently scrollable
+- **MaterialViewer sheet:** Slides in from right, renders professional material output with Approve/Regenerate/Print buttons and "Teacher review required" footer
+- **Six material renderers:** LessonPlanView, ParentLetterView, AdminReportView, SocialStoryView, TrackingSheetView, VisualScheduleView — each with purpose-built formatting
+- **Print CSS:** `@media print` renders materials at letter size with clean typography, hiding all navigation chrome
+- **Mobile responsive:** Sidebar becomes hamburger menu; chat panel becomes floating action button (FAB)
+- **shadcn/ui components:** Accessible, composable primitives (Sheet, Accordion, Card, Badge) built on Radix UI
+
+**Model provider flexibility:**
+The FastAPI backend supports three model providers via a `MODEL_PROVIDER` environment variable:
+- **Google AI Studio** (default) — free tier, 15 RPM
+- **OpenRouter** — alternative access to Gemma 4 and other models, useful for failover
+- **Ollama** — fully offline local inference for privacy-conscious schools
+
+**Consequences:**
+
+| Aspect | Benefit | Cost |
+|--------|---------|------|
+| UX quality | Professional three-column layout, MaterialViewer, print support | More complex stack (JS + Python) |
+| Mobile support | Full responsive design with hamburger + FAB | Additional CSS/layout work |
+| Material rendering | Six dedicated renderers with approve/print workflow | More components to maintain |
+| Deployment | Vercel (frontend) + Railway/Render (backend) | Two services instead of one |
+| Developer experience | Hot reload, TypeScript safety, component composition | Requires Node.js + Python environments |
+| Agent pipeline | Completely unchanged — FastAPI wraps existing code | Thin REST layer to maintain |
+| Judge experience | Professional, polished UI that demonstrates real product potential | N/A (net positive) |
+
+**Trade-offs accepted:**
+- **Stack complexity:** Two processes (Next.js dev server + FastAPI) instead of one `streamlit run`. Mitigated by clear README instructions and Docker Compose (future).
+- **Deployment:** Two services to deploy. Mitigated by Vercel's zero-config Next.js deployment and Railway/Render's one-click Python deployment.
+- **Learning curve:** Next.js + React + Tailwind is a larger surface area than Streamlit. Acceptable because the UI quality improvement directly impacts judge scoring (Video = 30 points).
+
+**Why this was the right call:**
+The video demo (30% of score) and live demo URL (judges try it themselves) are critical scoring moments. A Streamlit app with a narrow column layout and basic widgets communicates "prototype." A three-column Next.js app with professional material renderers, approve/print controls, and mobile responsive design communicates "product." For a $200K prize pool competition, the UI investment is worth the added complexity.
+
+**Status:** ✅ DECIDED
+
+---
+
 ## Summary: Technical Depth Scorecard
 
 | Decision | Differentiator | Judge signal |
@@ -357,11 +425,12 @@ Free tier rate limits make continuous live testing impractical. Need reproducibl
 | ADR-002: 4-agent pipeline (not monolithic) | Modularity + transparency | ✅ Architectural maturity |
 | ADR-003: Cached demo mode | UX polish + rate limit strategy | ✅ Production thinking |
 | ADR-004: JSON + Pydantic (no DB) | Pragmatic simplicity | ✅ Scope discipline |
-| ADR-005: Streamlit Cloud (not custom) | Zero friction deployment | ✅ Judge experience |
+| ADR-005: ~~Streamlit Cloud~~ → Vercel + Railway (ADR-010) | Zero friction deployment | ✅ Judge experience |
 | ADR-006: Cloud + Ollama dual-track | Edge computing angle | ✅ Technical depth x2 |
 | ADR-007: 7 structured outputs × 3 audiences | Research-backed (Carol Gray) | ✅ Impact focus |
 | ADR-008: 3-tier fallback | Graceful degradation | ✅ Production resilience |
 | ADR-009: Fixture tests + weekly smoke test | CI/CD transparency | ✅ Code quality |
+| ADR-010: Next.js + FastAPI (not Streamlit) | Professional UX + mobile | ✅ Product maturity |
 
 **Expected Technical Depth Score: 26-30 / 30** (judges see deliberate engineering choices, not YOLO hacking)
 
@@ -372,9 +441,10 @@ Free tier rate limits make continuous live testing impractical. Need reproducibl
 | Date | Version | Notes |
 |------|---------|-------|
 | 2026-04-04 | 1.0 | Initial ADR for submission |
+| 2026-04-05 | 1.1 | Added ADR-010: Next.js + FastAPI replaces Streamlit |
 
 ---
 
 **Document prepared for:** Kaggle Gemma 4 Good Hackathon Judges
-**Last updated:** 2026-04-04
+**Last updated:** 2026-04-05
 **Next review:** 2026-05-10 (pre-submission final check)

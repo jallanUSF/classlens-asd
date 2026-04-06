@@ -1,0 +1,56 @@
+{
+  "student_id": "jaylen_2026",
+  "goal_id": "G3",
+  "material_type": "social_story",
+  "created_date": "2026-04-05",
+  "status": "approved",
+  "content": {
+    "title": "Taking Turns with My Thomas Trains",
+    "target_behavior": "Turn-taking during preferred activities",
+    "interest_theme": "Thomas the Tank Engine (Gordon and Percy)",
+    "scenes": [
+      {
+        "page": 1,
+        "text": "I like playing with Thomas trains. My favorites are Gordon and Percy.",
+        "sentence_type": "descriptive",
+        "illustration_note": "Photo of Jaylen's Thomas trains — Gordon (blue) and Percy (green)"
+      },
+      {
+        "page": 2,
+        "text": "Sometimes my friend wants to play with the trains too.",
+        "sentence_type": "descriptive",
+        "illustration_note": "Photo of peer sitting nearby, looking at trains"
+      },
+      {
+        "page": 3,
+        "text": "My friend feels happy when they get a turn with the trains.",
+        "sentence_type": "perspective",
+        "illustration_note": "Photo of smiling peer holding a train"
+      },
+      {
+        "page": 4,
+        "text": "I can give my friend a train and count to 5. Then it is my turn again.",
+        "sentence_type": "directive",
+        "illustration_note": "Visual: hand passing train + number 5"
+      },
+      {
+        "page": 5,
+        "text": "While I wait, I can squeeze my hands together or use my chew tube.",
+        "sentence_type": "directive",
+        "illustration_note": "Photo of hand squeeze and chew tube"
+      },
+      {
+        "page": 6,
+        "text": "When my friend gives the train back, I feel good. We played together!",
+        "sentence_type": "affirmative",
+        "illustration_note": "Photo of both children with trains, side by side"
+      },
+      {
+        "page": 7,
+        "text": "Taking turns makes playtime fun for everyone. Gordon and Percy like having more friends on the track.",
+        "sentence_type": "affirmative",
+        "illustration_note": "Photo of trains on track together"
+      }
+    ]
+  }
+}

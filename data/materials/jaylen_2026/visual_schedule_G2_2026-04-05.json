@@ -1,0 +1,52 @@
+{
+  "student_id": "jaylen_2026",
+  "goal_id": "G2",
+  "material_type": "visual_schedule",
+  "created_date": "2026-04-05",
+  "status": "approved",
+  "content": {
+    "title": "Jaylen's Morning Arrival Schedule",
+    "first_then": {
+      "first": "Put backpack in cubby",
+      "then": "2 minutes with Thomas trains"
+    },
+    "steps": [
+      {
+        "step_number": 1,
+        "label": "Walk to cubby — put backpack away",
+        "icon_note": "backpack + cubby photo",
+        "is_first_then": false
+      },
+      {
+        "step_number": 2,
+        "label": "Hang up coat on MY hook",
+        "icon_note": "coat hook photo (Jaylen's photo on hook)",
+        "is_first_then": false
+      },
+      {
+        "step_number": 3,
+        "label": "Give folder to Mrs. Thompson",
+        "icon_note": "folder + teacher photo",
+        "is_first_then": false
+      },
+      {
+        "step_number": 4,
+        "label": "Check my schedule board",
+        "icon_note": "schedule board photo",
+        "is_first_then": false
+      },
+      {
+        "step_number": 5,
+        "label": "Sit at my desk — get morning work",
+        "icon_note": "desk + worksheet photo",
+        "is_first_then": false
+      },
+      {
+        "step_number": 6,
+        "label": "Thomas train time! (2 minutes)",
+        "icon_note": "Thomas trains (Gordon + Percy)",
+        "is_first_then": true
+      }
+    ]
+  }
+}

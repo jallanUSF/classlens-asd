@@ -14,7 +14,7 @@
 
 ### Screen Recording Software
 - **ScreenFlow (Mac)** or **OBS (cross-platform)** or **Camtasia**
-- Record Streamlit app in a **maximized window** (no taskbar visible)
+- Record the Next.js app at **localhost:3000** in a **maximized browser window** (no taskbar visible)
 - Set browser to 125% zoom for readable text (Plotly charts must be crisp)
 - **Demo Mode:** Pre-bake all results so there's NO waiting for API calls
 
@@ -32,7 +32,7 @@
 - **Credits:** Small text at end with names + links to GitHub repo (5 sec)
 
 ### Technical Depth Moments (for judges who read code)
-- Record **one 3-5 second close-up of function calling JSON** in browser DevTools or terminal
+- Record **one 3-5 second close-up of function calling JSON** in browser DevTools Network tab or terminal
 - Show **thinking mode reasoning trace** (if accessible via API response)
 - Quick shot of **agent orchestration flow** (system prompt snippet or architecture diagram)
 - Make sure judges can read `tools.py` structure without pausing video
@@ -63,12 +63,12 @@
 
 ### DEMO: THE FOUR AGENTS IN ACTION (30-150 sec)
 
-#### Shot 2: Streamlit App Intro — SCREENSHOT + NARRATION
+#### Shot 2: App Dashboard — THREE-COLUMN LAYOUT INTRO
 - **Duration:** 5 seconds
-- **Visual:** Streamlit app open to student selector sidebar (Maya, Jaylen, Sofia visible)
+- **Visual:** Next.js app open to the dashboard at localhost:3000. Three-column layout visible: student sidebar (left) with Maya, Jaylen, Sofia cards; main content area (center) showing greeting + alert badges; chat panel collapsed (right).
 - **Narration (Jeff, voiceover):**
   > "ClassLens ASD is a multi-agent system built on Gemma 4. Watch what happens when we upload a simple worksheet photo."
-- **Editing:** Zoom on sidebar to highlight student cards, fast pan across UI
+- **Editing:** Zoom on student sidebar to highlight student cards, fast pan across the three-column UI
 - **Technical depth:** Students are Pydantic models with IEP goals listed — judges see that
 
 **Cumulative: 35 sec**
@@ -78,10 +78,11 @@
 #### Shot 3: Vision Reader Agent — UPLOAD & MAGIC
 - **Duration:** 15 seconds
 - **Visual:**
-  1. Click "Upload work artifact" button
-  2. Select Maya's dinosaur math worksheet (handwritten, messy, real student work)
-  3. Show the photo briefly (judges see it's legit hand work)
-  4. **[FAST CUT]** show transcription JSON result in sidebar:
+  1. Click Maya's card in the left sidebar to open her student detail page
+  2. Click "Upload work artifact" button in the content area
+  3. Select Maya's dinosaur math worksheet (handwritten, messy, real student work)
+  4. Show the photo briefly (judges see it's legit hand work)
+  5. **[FAST CUT]** show transcription JSON result:
      ```
      {
        "subject": "math",
@@ -104,7 +105,7 @@
 #### Shot 4: IEP Mapper Agent — GOAL DETECTION
 - **Duration:** 12 seconds
 - **Visual:**
-  1. Show Maya's student profile sidebar (lists her IEP goals):
+  1. Show Maya's student detail page with expandable IEP goals accordion:
      - Goal 1: Use peer greeting phrases ("Hi, how are you?")
      - Goal 2: Follow multi-step directions
      - Goal 3: Demonstrate self-regulation in group settings
@@ -115,11 +116,11 @@
      Trial data recorded: 1/3 trials completed independently
      Confidence: 0.88
      ```
-  3. Show a **progress chart snapshot** (small bar chart showing Goal 2 progress over time)
+  3. Show a **Plotly progress chart** (embedded in the student detail page, showing Goal 2 progress over time)
 - **Narration (Jeff, voiceover):**
   > "IEP Mapper uses function calling to match the transcribed work to Maya's specific IEP goals. Her worksheet wasn't just about math — it was about following multi-step directions. The agent records a trial. One student. One worksheet. One data point. But over time? Patterns emerge."
 - **Technical depth:** Show the `tools.py` snippet of the goal-mapping schema (0.5 sec) — judges see we built custom tools
-- **Editing:** Highlight the progress chart line going up (visual confirmation of impact)
+- **Editing:** Highlight the Plotly progress chart line going up (visual confirmation of impact)
 
 **Cumulative: 62 sec**
 
@@ -128,12 +129,12 @@
 #### Shot 5: Progress Analyst Agent — THINKING MODE
 - **Duration:** 10 seconds
 - **Visual:**
-  1. Click "Analyze Progress" button
+  1. Click "Analyze Progress" button on the student detail page
   2. Show a brief thinking animation or text overlay:
      ```
      Analyzing 12 data points for Maya over 4 weeks...
-     Trend detection... 📊
-     Regression alerts... ⚠️
+     Trend detection...
+     Regression alerts...
      ```
   3. Result panel shows:
      ```
@@ -141,7 +142,7 @@
      Maya is making steady progress on Goal 2.
      Last 3 data points show 100% completion.
      No regressions detected.
-     Recommendation: Increase complexity of directions (3→4 steps).
+     Recommendation: Increase complexity of directions (3 to 4 steps).
      ```
 - **Narration (Jeff, voiceover):**
   > "Progress Analyst uses Gemma 4's thinking mode to detect trends. It's not just counting data points — it's reasoning about patterns, flagging regressions, and recommending next steps for Maya's teacher."
@@ -152,11 +153,11 @@
 
 ---
 
-#### Shot 6: Material Forge Agent — DINOSAUR LESSON PLAN
+#### Shot 6: Material Forge Agent — DINOSAUR LESSON PLAN + MaterialViewer
 - **Duration:** 18 seconds (THIS IS THE SHOWSTOPPER)
 - **Visual:**
-  1. Click "Generate Materials" → select "Lesson Plan"
-  2. Show generated lesson plan appearing on screen:
+  1. Click "Generate Materials" dropdown on the student detail page, select "Lesson Plan"
+  2. **MaterialViewer sheet** slides in from the right side:
      ```
      GOAL-ALIGNED LESSON PLAN: FOLLOWING DIRECTIONS WITH DINOSAURS
      Grade 3 | Autism-Friendly | 15 minutes
@@ -179,13 +180,13 @@
      Praise: "You followed all 3 steps! You're a great paleontologist!"
      [Include colored clipart of dinosaur with checkmarks]
      ```
-  3. Scroll down to show it's **printable and ready to use**
-  4. Show a **PDF export button** (judges see it's production-ready)
+  3. Show the **Approve / Regenerate / Print** buttons at the bottom of the MaterialViewer sheet
+  4. Show the **"Generated by ClassLens ASD - Teacher review required"** footer
 - **Narration (Sarah, on camera — back to her, sitting in classroom):**
   > "This is what changed my mind about AI for ASD teaching. The system didn't just track Maya's progress — it **generated a lesson plan that uses her passion — dinosaurs — to teach her IEP goal.** I printed this yesterday, used it in class today, and it *worked*. Maya stayed engaged the whole 15 minutes. She followed all three steps."
 - **Sound design:** Uplifting chord when lesson plan appears
 - **Editing:**
-  - Slow pan through lesson plan content (let judges read)
+  - Slow pan through lesson plan content in the MaterialViewer sheet (let judges read)
   - Zoom on dinosaur clipart (shows Material Forge can integrate graphics)
   - Fade to Sarah reaction shot (emotional payoff)
   - Color grade: warm, encouraging
@@ -202,8 +203,8 @@
 #### Shot 7: Social Story for Jaylen — NON-VERBAL STUDENT
 - **Duration:** 12 seconds (Show inclusivity of system)
 - **Visual:**
-  1. Switch to Jaylen's profile (sidebar shows: Level 3, non-verbal, AAC user, loves Thomas the Tank Engine)
-  2. Show generated social story output:
+  1. Switch to Jaylen's profile by clicking his card in the left sidebar (Level 3, non-verbal, AAC user, loves Thomas the Tank Engine)
+  2. Open MaterialViewer sheet with generated social story:
      ```
      THOMAS THE TANK ENGINE SOCIAL STORY
      About: Asking for a choice at snack time
@@ -226,11 +227,11 @@
      Jaylen-like figure eating snack, happy
      Text: "Good job making a choice!"
      ```
-  3. Show **printable PDF layout** (4 pages, color, ready to print and laminate)
+  3. Show **Print button** in MaterialViewer — ready to print and laminate
 - **Narration (Jeff, voiceover):**
   > "Jaylen is non-verbal and uses AAC. ClassLens generates social stories using his interests — Thomas the Tank Engine — and aligns them to his IEP goals. Carol Gray framework built in. AAC symbols integrated. This teaches self-advocacy without assuming speech."
 - **Sound design:** Cheerful Thomas the Tank Engine-style chime (subtle)
-- **Editing:** Flip through pages like a picture book, emphasize the AAC symbols
+- **Editing:** Flip through pages like a picture book in the MaterialViewer, emphasize the AAC symbols
 
 **Cumulative: 102 sec**
 
@@ -239,17 +240,16 @@
 #### Shot 8: Admin Report — MULTI-STAKEHOLDER ANGLE
 - **Duration:** 10 seconds (Show judges this scales beyond one teacher)
 - **Visual:**
-  1. Click to "Admin Dashboard"
-  2. Show Plotly dashboard with:
-     - Three student cards showing IEP goal progress (Maya, Jaylen, Sofia)
-     - **Bar chart:** Goal completion rates across classroom
-     - **Line chart:** Regression alerts over time (none for this cohort = good)
-     - **Table:** Material outputs generated this week (12 lesson plans, 3 social stories, 2 admin reports)
+  1. Navigate to the dashboard (click ClassLens logo or home)
+  2. Show the dashboard layout with:
+     - Three student cards in the sidebar showing alert badges
+     - Main content area with Plotly charts: Goal completion rates, regression alerts over time
+     - Alert cards: green/yellow/red status for each student
   3. Show **"Generate Parent Report" button** (click it)
-  4. Brief preview of parent communication (translated to Spanish available)
+  4. Brief preview of parent communication in MaterialViewer sheet (translated to Spanish available)
 - **Narration (Jeff, voiceover):**
   > "This isn't just for teachers. Administrators see aggregated progress across all students. Parents get weekly updates in their preferred language. Everyone has visibility without doing manual work."
-- **Editing:** Zoom on charts, highlight the downward regression trend line (if present) — show judges the system catches problems
+- **Editing:** Zoom on Plotly charts, highlight the downward regression trend line (if present) — show judges the system catches problems
 - **Technical depth:** Plotly is rendering real data; judges see `plotly.graph_objects` quality
 
 **Cumulative: 112 sec**
@@ -313,16 +313,15 @@
 
 ### CLOSING: VISION & CALL TO ACTION (150-180 sec)
 
-#### Shot 11: Edge Computing Demo (SPECIAL TECH TRACK CREDENTIAL)
+#### Shot 11: Edge Computing + Mobile Demo
 - **Duration:** 8 seconds
 - **Visual:**
-  1. Show **Ollama running locally** with `gemma-4-e4b` model
-  2. Brief screenshot of model loading + inference
-  3. Show response time (should be fast if hardware is decent)
+  1. Show **Ollama running locally** with `gemma-4-e4b` model (2-3 sec)
+  2. Quick cut to **mobile view** of ClassLens: hamburger menu slides open showing student list, then close it and show the floating chat FAB button (3-5 sec)
 - **Narration (Jeff, voiceover):**
-  > "We also built an offline version using Ollama and Gemma 4E4B for privacy-conscious schools with unreliable internet. Same quality, zero cloud dependency."
-- **Editing:** Quick, show Ollama in action for 3-4 seconds
-- **Technical depth:** Judges see you can optimize for edge + privacy (Special Tech track points)
+  > "We also built an offline version using Ollama and Gemma 4E4B for privacy-conscious schools. And the whole interface is mobile responsive — teachers can use it right from their phone in the classroom."
+- **Editing:** Quick, show Ollama + mobile view back to back
+- **Technical depth:** Judges see edge computing + responsive design (Special Tech track points)
 
 **Cumulative: 133 sec**
 
@@ -350,10 +349,10 @@
 - **Duration:** 10 seconds
 - **Visual:**
   - Fast cuts of:
-    1. Sofia's lesson plan loading (Grade 5, US Presidents theme)
-    2. Admin report charts animating
-    3. Parent communication in Spanish
-    4. Printable materials stacked
+    1. Sofia's lesson plan in MaterialViewer (Grade 5, US Presidents theme)
+    2. Dashboard Plotly charts animating
+    3. Parent communication in Spanish via MaterialViewer
+    4. Mobile view with hamburger menu + chat FAB
 - **Sound design:** Energetic (match the pace)
 - **Narration (Jeff, quick voiceover):**
   > "Three students. Multiple learning profiles. Diverse IEP goals. One system. Built for scale."
@@ -381,16 +380,16 @@
 | Section | Duration | Cumulative | Notes |
 |---------|----------|-----------|-------|
 | Opening (Sarah emotional hook) | 30 sec | 30 | Problem framing |
-| Agent 1: Vision Reader | 5 sec | 35 | Screenshot + narration |
-| Agent 1 (continued): Upload + transcription | 15 sec | 50 | Handwritten worksheet magic |
-| Agent 2: IEP Mapper | 12 sec | 62 | Goal detection + trial data |
+| App Dashboard Intro (three-column layout) | 5 sec | 35 | Next.js UI overview |
+| Agent 1: Vision Reader — Upload + transcription | 15 sec | 50 | Handwritten worksheet magic |
+| Agent 2: IEP Mapper | 12 sec | 62 | Goal detection + Plotly chart |
 | Agent 3: Progress Analyst | 10 sec | 72 | Thinking mode reasoning |
-| Agent 4: Material Forge — Lesson Plan | 18 sec | 90 | SHOWSTOPPER (Sarah reaction) |
+| Agent 4: Material Forge — Lesson Plan + MaterialViewer | 18 sec | 90 | SHOWSTOPPER (Sarah reaction) |
 | Agent 4 (continued): Social Story for Jaylen | 12 sec | 102 | Non-verbal student inclusion |
-| Admin Dashboard | 10 sec | 112 | Multi-stakeholder angle |
+| Dashboard + Admin Report | 10 sec | 112 | Multi-stakeholder angle |
 | Technical Depth: Function Calling | 8 sec | 120 | Code snippet |
 | Technical Depth: Thinking Mode | 5 sec | 125 | Reasoning trace |
-| Edge Computing Demo (Ollama) | 8 sec | 133 | Special Tech track |
+| Edge Computing + Mobile Demo | 8 sec | 133 | Ollama + responsive design |
 | Sarah's Vision (closing) | 25 sec | 158 | Emotional payoff |
 | Demo Montage (optional buffer) | 10 sec | 168 | Rapid-fire showcase |
 | Closing Credits | 12 sec | 180 | Title + GitHub + team |
@@ -410,8 +409,8 @@
 - **Judges should feel:** Urgency. This teacher needs help.
 
 ### Act 2: The Solution (30-125 sec)
-- **Setting:** Streamlit app, live demo
-- **Journey:** Upload → transcription → goal mapping → analysis → material generation
+- **Setting:** Next.js app, live demo with three-column layout
+- **Journey:** Dashboard greeting + alerts → Student detail → Upload → transcription → goal mapping → Plotly charts → MaterialViewer with lesson plan + approve/print
 - **Key moment:** Sarah's reaction to the dinosaur lesson plan (72-90 sec)
 - **Emotional tone:** Wonder, relief, excitement
 - **Judges should feel:** "Oh wow, this actually works. And the teacher is IN CONTROL."
@@ -420,7 +419,7 @@
 - **Setting:** Back to Sarah in classroom
 - **Vision:** What becomes possible when AI handles the drudgery
 - **Payoff:** "I have Tuesdays again. I have afternoons to actually teach."
-- **Technical credibility:** Ollama + Gemma 4 depth for judges who need proof
+- **Technical credibility:** Ollama + Gemma 4 depth + mobile responsive design for judges who need proof
 - **Emotional tone:** Hopeful, grounded, human-centered
 - **Judges should feel:** This isn't about the AI. It's about liberating teachers to be teachers.
 
@@ -440,7 +439,8 @@
 - Plotly charts animate clearly (don't move too fast)
 - IEP goals and student profiles visible long enough to read
 - Sarah's face clearly lit and visible (builds trust)
-- Streamlit app fills most of the screen (demo-forward focus)
+- Next.js app fills most of the screen (three-column layout is demo-forward)
+- MaterialViewer sheet with Approve/Print buttons visible (shows teacher-in-the-loop)
 
 ---
 
@@ -474,12 +474,18 @@ These earn judges' respect and "proof of concept" points:
    - Proves you're thinking about privacy, offline scenarios, scalability
    - Positions ClassLens as enterprise-ready
 
+6. **Mobile Responsive Design** (Shot 11 + montage)
+   - Show hamburger menu replacing sidebar on mobile viewport
+   - Show floating chat FAB button
+   - Proves this is a real product, not a prototype
+
 ---
 
 ## SCREEN RECORDING GUIDE: EXACT DEMO FLOW
 
 ### Pre-Recording Checklist
-- [ ] Streamlit app running locally or deployed to Community Cloud
+- [ ] Next.js frontend running at localhost:3000 (`cd frontend && npm run dev`)
+- [ ] FastAPI backend running at localhost:8000 (`uvicorn backend.main:app --reload --port 8000`)
 - [ ] **Demo mode enabled** — all results pre-baked (NO API calls during recording)
 - [ ] Three student profiles loaded (Maya, Jaylen, Sofia)
 - [ ] Sample work artifacts ready:
@@ -492,98 +498,100 @@ These earn judges' respect and "proof of concept" points:
 
 ### Recording Sequence
 
-**[Screenshot: 0-5 sec]**
+**[Dashboard: 0-5 sec]**
 ```
-1. App opens to student selector sidebar
-2. Show Maya, Jaylen, Sofia cards
-3. Narration: "Three students, three learning profiles, one system..."
-4. Click on Maya's card
+1. App opens to dashboard at localhost:3000
+2. Three-column layout visible: student sidebar (left), greeting + alerts (center), chat panel (right, collapsed)
+3. Show Maya, Jaylen, Sofia cards with alert badges in left sidebar
+4. Narration: "Three students, three learning profiles, one system..."
+5. Click on Maya's card in the sidebar
 ```
 
-**[Upload + Vision Reader: 5-20 sec]**
+**[Student Detail + Vision Reader: 5-20 sec]**
 ```
-5. Click "Upload Work Artifact" button
-6. File picker opens, select: maya_math_worksheet.jpg
-7. Image appears in preview (show it's a real handwritten worksheet)
-8. Scroll down, show Vision Reader JSON result:
-   {
-     "transcribed_work": "5 dinosaurs + 3 dinosaurs = ___",
-     "student_answers": ["8"],
-     "confidence": 0.92
-   }
-9. Narration plays over this
+6. Maya's student detail page loads in center column
+7. Expandable IEP goals accordion visible, Plotly charts below
+8. Click "Upload Work Artifact" button
+9. File picker opens, select: maya_math_worksheet.jpg
+10. Image appears in preview (show it's a real handwritten worksheet)
+11. Vision Reader JSON result appears:
+    {
+      "transcribed_work": "5 dinosaurs + 3 dinosaurs = ___",
+      "student_answers": ["8"],
+      "confidence": 0.92
+    }
+12. Narration plays over this
 ```
 
 **[IEP Mapper: 20-32 sec]**
 ```
-10. Show Maya's IEP goals sidebar (3 goals, checkboxes)
-11. Scroll to see the mapped result:
+13. Show Maya's IEP goals in the expandable accordion (3 goals)
+14. Scroll to see the mapped result:
     ✓ Goal 2: "Follow directions"
     Trial: 1/3 completed independently
-12. Show small progress chart (Goal 2 trending up)
-13. Narration plays over this
+15. Show Plotly progress chart (Goal 2 trending up)
+16. Narration plays over this
 ```
 
 **[Progress Analyst: 32-42 sec]**
 ```
-14. Click "Analyze Progress" button
-15. Brief loading animation (2-3 sec, fade to result)
-16. Show result panel:
+17. Click "Analyze Progress" button
+18. Brief loading animation (2-3 sec, fade to result)
+19. Show result panel:
     "Steady progress on Goal 2. Last 3 trials: 100% completion.
      Recommendation: Increase to 4-step directions."
-17. Narration plays
+20. Narration plays
 ```
 
-**[Material Forge - Lesson Plan: 42-60 sec]** ← SHOWSTOPPER
+**[Material Forge - Lesson Plan + MaterialViewer: 42-60 sec]** (SHOWSTOPPER)
 ```
-18. Click "Generate Materials" dropdown
-19. Select "Lesson Plan"
-20. Panel loads (fade-in, 1 sec)
-21. Scroll through lesson plan slowly:
+21. Click "Generate Materials" dropdown
+22. Select "Lesson Plan"
+23. MaterialViewer sheet slides in from the right:
     - Header: "GOAL-ALIGNED LESSON PLAN: FOLLOWING DIRECTIONS WITH DINOSAURS"
     - Grade 3 | Autism-Friendly | 15 minutes
     - Objective + steps
     - Dinosaur clipart visible
-22. Show "Export as PDF" button (don't click)
-23. Fade to Sarah on camera (video switch, not screenshot)
-24. Sarah speaks about using this in class
+24. Show Approve / Regenerate / Print buttons at bottom
+25. Show "Generated by ClassLens ASD · Teacher review required" footer
+26. Fade to Sarah on camera (video switch, not screenshot)
+27. Sarah speaks about using this in class
 ```
 
-**[Material Forge - Social Story: 60-72 sec]**
+**[Material Forge - Social Story + MaterialViewer: 60-72 sec]**
 ```
-25. [Screen recording resumes] Switch to Jaylen's profile
-26. Show his student card (Level 3, non-verbal, AAC user)
-27. Click "Generate Materials" → "Social Story"
-28. Show first page of social story:
+28. [Screen recording resumes] Click Jaylen's card in left sidebar
+29. Show his student detail page (Level 3, non-verbal, AAC user)
+30. Click "Generate Materials" → "Social Story"
+31. MaterialViewer sheet slides in with social story:
     [Thomas the Tank Engine image]
     "I like snack time."
-29. Flip to page 2:
+32. Scroll to page 2:
     [Picture choices]
     "I can choose. Apple? Crackers? Yogurt?"
     [AAC symbols beneath each]
-30. Brief scroll through remaining pages
-31. Narration plays
+33. Brief scroll through remaining pages
+34. Show Print button (ready to print and laminate)
+35. Narration plays
 ```
 
-**[Admin Dashboard: 72-82 sec]**
+**[Dashboard + Admin Report: 72-82 sec]**
 ```
-32. Click "Admin Dashboard" button (or separate page)
-33. Show dashboard layout:
-    - 3 student progress cards at top
-    - Bar chart: Goal completion rates
-    - Line chart: Regression alerts (flat/low = good)
-    - Table: Materials generated this week
-34. Hover over a chart to show tooltip (proves it's interactive Plotly)
-35. Click "Generate Parent Report" button
-36. Brief preview of parent communication PDF
-37. Narration: "Not just teachers. Admins, parents, everyone has visibility."
+36. Navigate back to dashboard (click ClassLens logo)
+37. Show dashboard layout:
+    - 3 student cards with alert badges in sidebar
+    - Main content: Plotly charts, alert cards
+38. Hover over a Plotly chart to show tooltip (proves it's interactive)
+39. Click "Generate Parent Report" button
+40. MaterialViewer opens with parent communication preview
+41. Narration: "Not just teachers. Admins, parents, everyone has visibility."
 ```
 
 **[Code Deep Dive: 82-90 sec]**
 ```
-38. Switch to IDE window (or browser tab with GitHub)
-39. Show agents/vision_reader.py file
-40. Highlight function calling tools definition:
+42. Switch to IDE window (or browser tab with GitHub)
+43. Show agents/vision_reader.py file
+44. Highlight function calling tools definition:
     ```python
     tools = [
       {
@@ -592,7 +600,7 @@ These earn judges' respect and "proof of concept" points:
       }
     ]
     ```
-41. Show the Gemma 4 client call:
+45. Show the Gemma 4 client call:
     ```python
     response = gemma_client.generate(
       image_data=work_artifact_image,
@@ -600,39 +608,43 @@ These earn judges' respect and "proof of concept" points:
       system_prompt=VISION_READER_PROMPT
     )
     ```
-42. Zoom on `tools` parameter (judges see native function calling)
+46. Zoom on `tools` parameter (judges see native function calling)
 ```
 
-**[Ollama Edge Demo: 90-98 sec]**
+**[Ollama Edge + Mobile Demo: 90-98 sec]**
 ```
-43. Switch to terminal window
-44. Show Ollama running:
+47. Switch to terminal window
+48. Show Ollama running:
     $ ollama run gemma-4-e4b
     Loading model...
     Ready.
 
-45. Quick inference example (3-4 sec, don't wait for full response)
-    Prompt: "Transcribe this student work..."
-    [Response starts, then fade to narration]
+49. Quick inference example (2-3 sec)
+50. Switch to browser in mobile viewport (375px width):
+    - Show hamburger menu icon → tap to reveal student sidebar
+    - Show floating chat FAB button in bottom-right corner
+    - Show MaterialViewer rendering cleanly on mobile
+51. Narration covers both: offline + mobile
 ```
 
 **[Closing Montage: 98-108 sec]**
 ```
-46. Quick 10-second montage:
-    - Sofia's lesson plan (Presidents theme)
-    - Admin charts animating
+52. Quick 10-second montage:
+    - Sofia's lesson plan in MaterialViewer (Presidents theme)
+    - Dashboard Plotly charts animating
     - Parent comms in Spanish
+    - Mobile view with FAB
     - Materials stacked on desk (B-roll)
-47. Narration: "Scale. Diversity. Accessibility."
+53. Narration: "Scale. Diversity. Accessibility."
 ```
 
 **[Closing Cards: 108-120 sec]**
 ```
-48. Fade to black
-49. Title card: "ClassLens ASD | Gemma 4 Good Hackathon"
-50. Credits card: "Built with Gemma 4 | Multimodal | Function Calling | Thinking Mode"
-51. Links card: "github.com/jeffallan/classlens-asd | Jeff Allan, Sarah Allan"
-52. Final fade to black
+54. Fade to black
+55. Title card: "ClassLens ASD | Gemma 4 Good Hackathon"
+56. Credits card: "Built with Gemma 4 | Multimodal | Function Calling | Thinking Mode"
+57. Links card: "github.com/jeffallan/classlens-asd | Jeff Allan, Sarah Allan"
+58. Final fade to black
 ```
 
 ---
@@ -668,10 +680,11 @@ If live screen recording fails during video production:
    - Save as: `demo_reel_master.mp4`
 
 2. **Pre-bake specific showstopper moments:**
-   - Maya's dinosaur lesson plan appearing (3 sec)
-   - Jaylen's social story pages flipping (4 sec)
-   - Admin dashboard charts animating (5 sec)
-   - All three at high quality, no compression artifacts
+   - Maya's dinosaur lesson plan appearing in MaterialViewer (3 sec)
+   - Jaylen's social story pages in MaterialViewer (4 sec)
+   - Dashboard Plotly charts animating (5 sec)
+   - Mobile responsive view with hamburger + FAB (3 sec)
+   - All at high quality, no compression artifacts
 
 3. **If live app crashes:**
    - Switch to pre-recorded demo reel for 30-45 seconds
@@ -685,7 +698,7 @@ If live screen recording fails during video production:
    - Never apologize for technical issues in video (judges won't see production notes)
 
 ### Safety Checklist
-- [ ] Test Streamlit app 3 times before recording (deploy to Community Cloud to test)
+- [ ] Test Next.js frontend + FastAPI backend 3 times before recording
 - [ ] Have `data/precomputed/` results cached and validated
 - [ ] Record demo reel 1 week before final submission
 - [ ] Test screen recording software 2x on target machine
@@ -701,15 +714,15 @@ If live screen recording fails during video production:
 | Criteria | Points | How We Win |
 |----------|--------|-----------|
 | **Problem clarity** | 5 | Sarah's authentic 30-sec opening (teachers feel seen) |
-| **Solution demo** | 8 | Live working app, 4 agents in action, printable outputs |
+| **Solution demo** | 8 | Live working app, 4 agents in action, MaterialViewer with approve/print |
 | **Gemma 4 usage** | 7 | Multimodal vision + function calling + thinking mode shown explicitly |
 | **Impact/story** | 6 | Sarah's classroom moment + closing vision (emotional arc) |
-| **Technical depth** | 3 | Code snippets, architecture, edge computing option |
+| **Technical depth** | 3 | Code snippets, architecture, edge computing + mobile responsive |
 | **Production quality** | 1 | Lighting, audio, pacing, editing (don't be sloppy) |
 
 **Our winning formula:**
 1. **Make judges cry** (or at least care) — Sarah's sections
-2. **Make judges impressed** — Working app, real data, multiple agents
+2. **Make judges impressed** — Working app, real data, multiple agents, professional MaterialViewer
 3. **Make judges believe** — Code glimpses, Gemma 4 credential shots
 4. **Make judges want to try it** — GitHub link, hosted demo URL at end
 
@@ -731,19 +744,20 @@ Before submitting to Kaggle:
 - [ ] Credits legible (team names, GitHub, Gemma 4 credit)
 - [ ] File format: MP4, H.264, 1920x1080, 30 FPS, under 500 MB
 - [ ] Submission URL: YouTube unlisted link (public, no ads)
-- [ ] Backup URL: Community Cloud hosted app (judges can try live)
+- [ ] Backup URL: Hosted demo (judges can try live)
 
 ---
 
 ## DEPLOYMENT REQUIREMENTS (FOR DEMO)
 
-### Streamlit Community Cloud Setup
-- [ ] Push `main` branch to GitHub (public repo)
-- [ ] Connect Streamlit Community Cloud to GitHub
-- [ ] Set secrets: `GOOGLE_API_KEY` in Community Cloud dashboard
-- [ ] Deploy to public URL (judges must be able to click link and try)
+### Next.js + FastAPI Deployment
+- [ ] Push `nextjs-redesign` branch / merge to `main` on GitHub (public repo)
+- [ ] Deploy frontend to Vercel (auto-deploy from GitHub push)
+- [ ] Deploy FastAPI backend to Railway or Render (free tier)
+- [ ] Set environment variables: `GOOGLE_AI_STUDIO_KEY`, `MODEL_PROVIDER`, `NEXT_PUBLIC_API_URL`
 - [ ] Test from fresh browser session (no cache)
 - [ ] Verify demo mode works (pre-baked results load fast)
+- [ ] Confirm mobile responsive layout works on deployed URL
 
 ### GitHub Submission Checklist
 - [ ] README updated with video link
@@ -761,7 +775,7 @@ Before submitting to Kaggle:
 1. **Read submission blurb** (50 words) → "A multi-agent system for special ed teachers"
 2. **Click video link** → YouTube unlisted video opens
 3. **First 30 sec** → Sarah's problem statement (captures attention)
-4. **Next 90 sec** → Working demo, 4 agents, visible impact
+4. **Next 90 sec** → Working demo, 4 agents, three-column layout, MaterialViewer, Plotly charts
 5. **Last 60 sec** → Technical proof + emotional payoff
 6. **Final frame** → GitHub link visible (can explore code immediately)
 7. **Click GitHub link** → Repo is clean, README is clear, code is readable
@@ -771,6 +785,7 @@ Before submitting to Kaggle:
 - **Solution:** Gemma 4 agents handle transcription, mapping, analysis, material generation
 - **Result:** Teachers get time back. Students get better learning materials. Real human impact.
 - **Tech:** Native function calling + thinking mode + multimodal vision (Gemma 4 used deeply)
+- **UX:** Professional three-column layout, MaterialViewer with approve/print, mobile responsive
 - **Credibility:** Code visible, live demo available, team includes a 15-year special ed teacher
 
 ---
@@ -780,7 +795,7 @@ Before submitting to Kaggle:
 **Ideal schedule (assuming deadline May 18):**
 
 - **Day 1:** Shoot all live footage (Sarah on camera, 2-3 takes each segment)
-- **Day 2:** Record all screen capture (app demo flow, code snippets, Ollama demo)
+- **Day 2:** Record all screen capture (app demo flow, code snippets, Ollama + mobile demo)
 - **Day 3:** Record voiceover narration (Jeff, one long narration session with multiple takes)
 - **Day 4-5:** Edit video (assemble shots, color grade, add music, time to exact 180 sec)
 - **Day 6:** Test playback on multiple devices (laptop, phone, TV)
@@ -802,7 +817,7 @@ Before submitting to Kaggle:
 
 5. **Leave them wanting to try it.** GitHub link at end should be clickable. Hosted demo should be live and responsive.
 
-6. **This script informs the app design.** Build the UI specifically to support this demo sequence. Make sure student profiles, materials, and precomputed results all load instantly in the order we specified.
+6. **This script informs the app design.** The Next.js UI was built specifically to support this demo sequence. Three-column layout, MaterialViewer sheet, approve/print buttons, mobile hamburger + FAB — all designed for this video flow.
 
 ---
 

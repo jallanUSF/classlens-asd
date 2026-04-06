@@ -1,0 +1,36 @@
+[
+  {
+    "id": "fa158c6c",
+    "student_id": "maya_2026",
+    "alert_type": "plateau",
+    "goal_id": "G1",
+    "title": "Maya \u2014 Communication plateaued",
+    "detail": "Last 3 sessions: 80%, 80%, 80%. No meaningful change.",
+    "suggested_action": "Adjust prompting strategy or generate updated materials",
+    "created_date": "2026-04-05",
+    "dismissed": false
+  },
+  {
+    "id": "d7230ef9",
+    "student_id": "maya_2026",
+    "alert_type": "plateau",
+    "goal_id": "G2",
+    "title": "Maya \u2014 Following Directions plateaued",
+    "detail": "Last 3 sessions: 75%, 75%, 75%. No meaningful change.",
+    "suggested_action": "Adjust prompting strategy or generate updated materials",
+    "created_date": "2026-04-05",
+    "dismissed": false
+  },
+  {
+    "id": "reg-jaylen-g3",
+    "student_id": "jaylen_2026",
+    "alert_type": "regression",
+    "goal_id": "G3",
+    "title": "Jaylen \u2014 Social Reciprocity regression risk",
+    "detail": "Turn-taking progress is fragile. Jaylen met his 80% target in adult-led sessions, but peer turn-taking remains inconsistent. Any routine disruption (sub teacher, schedule change) could cause regression. Last peer-only session: 2/5 turns successful.",
+    "suggested_action": "Increase structured peer turn-taking practice with Thomas trains. Add visual turn-taking timer. Prepare social story for substitute teacher days.",
+    "created_date": "2026-04-05",
+    "dismissed": false,
+    "pinned": true
+  }
+]

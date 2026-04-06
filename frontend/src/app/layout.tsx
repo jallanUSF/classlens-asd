@@ -4,6 +4,7 @@ import "./globals.css";
 import { StudentSidebar } from "@/components/sidebar/StudentSidebar";
 import { ChatPanel } from "@/components/chat/ChatPanel";
 import { ChatProvider } from "@/context/ChatContext";
+import { MobileNav } from "@/components/layout/MobileNav";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,9 +26,14 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="h-full flex">
         <ChatProvider>
-          <StudentSidebar />
-          <main className="flex-1 overflow-y-auto">{children}</main>
-          <ChatPanel />
+          <MobileNav />
+          <div className="hidden md:flex md:flex-col md:h-full">
+            <StudentSidebar />
+          </div>
+          <main className="flex-1 overflow-y-auto pt-14 md:pt-0">{children}</main>
+          <div className="hidden md:flex md:flex-col md:h-full">
+            <ChatPanel />
+          </div>
         </ChatProvider>
       </body>
     </html>

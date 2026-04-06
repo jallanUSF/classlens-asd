@@ -127,6 +127,23 @@
   }
 }
 
+/* Mobile overlay animations */
+@keyframes slide-in-left {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes slide-in-bottom {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@utility animate-slide-in-left {
+  animation: slide-in-left 0.2s ease-out;
+}
+@utility animate-slide-in-bottom {
+  animation: slide-in-bottom 0.2s ease-out;
+}
+
 /* Print styles — show only material content */
 @media print {
   /* Hide app chrome */

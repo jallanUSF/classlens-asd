@@ -85,7 +85,7 @@ def _analyze_student_alerts(student_id: str, data: dict) -> list[dict]:
 async def get_alerts() -> list[dict[str, Any]]:
     """
     Get all active alerts across all students.
-    Regenerates alerts from current data each time.
+    Regenerates alerts from current data, plus any pinned alerts from file.
     """
     students_dir = DATA_DIR / "students"
     if not students_dir.exists():
@@ -98,9 +98,16 @@ async def get_alerts() -> list[dict[str, Any]]:
         student_id = json_file.stem
         all_alerts.extend(_analyze_student_alerts(student_id, data))
 
-    # Merge with previously dismissed alerts
+    # Merge with previously saved alerts
     existing = _load_alerts()
     dismissed_ids = {a["id"] for a in existing if a.get("dismissed")}
+
+    # Include pinned alerts from file (manually-created demo alerts)
+    pinned = [a for a in existing if a.get("pinned") and not a.get("dismissed")]
+    auto_ids = {a["id"] for a in all_alerts}
+    for p in pinned:
+        if p["id"] not in auto_ids:
+            all_alerts.append(p)
 
     # Filter out dismissed
     active = [a for a in all_alerts if a["id"] not in dismissed_ids]

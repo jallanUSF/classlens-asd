@@ -35,11 +35,12 @@ Full implementation: `docs/plans/2026-04-05-implementation-plan.md`
 - [x] MaterialViewer sheet + approve/regenerate controls
 - [x] Print CSS (hides chrome, letter-size, clean layout)
 
-## Sprint 5: Polish + Deploy
-- [ ] Mobile responsive
-- [ ] OpenRouter integration
-- [ ] Vercel (frontend) + Railway (backend) deploy
-- [ ] Precomputed demo data
+## Sprint 5: Polish + Deploy ✅
+- [x] Mobile responsive (hamburger + FAB + overlays)
+- [x] OpenRouter integration (google/openrouter/ollama toggle)
+- [x] Deploy config (Vercel + Railway/Render + CORS + env vars)
+- [x] Precomputed demo data (9 materials + 3 alerts)
+- [x] Competition assets updated (video script, writeup, ADR)
 
 ## Sprint 6: Video + Submission
 - [ ] Demo recording

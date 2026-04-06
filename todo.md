@@ -9,5 +9,7 @@
 - [x] Sprint 3: Add Student conversational flow
 - [x] Sprint 4: Professional material renderers (6 types + MaterialViewer sheet)
 - [x] Sprint 4: Print CSS + approve/regenerate controls
-- [ ] Sprint 5: Mobile responsive layout
-- [ ] Sprint 5: OpenRouter integration + deployment
+- [x] Sprint 5: Mobile responsive layout (hamburger + FAB)
+- [x] Sprint 5: OpenRouter integration + deployment config
+- [ ] Sprint 6: Demo recording + video production
+- [ ] Sprint 6: Kaggle submission

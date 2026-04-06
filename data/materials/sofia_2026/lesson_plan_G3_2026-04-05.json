@@ -1,0 +1,26 @@
+{
+  "student_id": "sofia_2026",
+  "goal_id": "G3",
+  "material_type": "lesson_plan",
+  "created_date": "2026-04-05",
+  "status": "approved",
+  "content": {
+    "title": "Presidential Perspectives — Creative Writing Through History",
+    "objective": "Sofia will write a reflective narrative expressing opinions, feelings, and inferences about a historical figure, scoring 3+ on the voice/emotion rubric.",
+    "interest_theme": "US Presidents and geography",
+    "duration": "40 minutes",
+    "warm_up": "Show Sofia a map of the Louisiana Purchase. Ask: 'President Jefferson made a huge decision here. How do you think he felt making that choice? Was he nervous? Excited? Both?' Use a feelings word bank taped to her desk. This bridges her strength (facts about presidents) to the target skill (expressing feelings and opinions).",
+    "main_activity": "1. Fact-to-Feeling Bridge (10 min): Sofia picks one president from her favorites list. She writes 3 facts she knows about this president (comfort zone). Then, for each fact, she completes the sentence frame: 'I think [president] felt _____ because _____.' Teacher models one example first.\n\n2. Perspective Letter (15 min): Sofia writes a short letter AS the president she chose, describing a difficult decision they faced. The letter must include at least 2 feeling words, 1 opinion ('I believe...'), and 1 inference ('I think this happened because...'). She can use her periodic table of emotions (laminated reference card organized like the periodic table).\n\n3. Peer Share (10 min): Sofia reads her letter to a partner. Partner asks one question about how the president felt. Sofia must answer using a feeling word, not a fact.\n\n4. Reflection (5 min): Sofia rates her own writing on the rubric. Circle the feeling words she used. Count them. She can organize her feeling words into categories (her calming strategy of categorizing).",
+    "materials_needed": [
+      "US Presidents reference cards (Sofia's personal collection)",
+      "Feelings word bank (laminated, desk-sized)",
+      "Periodic Table of Emotions reference card",
+      "Writing rubric (simplified, 1-4 scale)",
+      "Fidget ring (available at desk)",
+      "5-minute transition warning card",
+      "Map of the United States (for warm-up)"
+    ],
+    "scaffolding_notes": "Sofia excels at factual recall but struggles with abstract emotional expression. The sentence frames ('I think [president] felt ___ because ___') provide scaffolding without limiting her vocabulary. Let her organize and categorize her feeling words — this taps into her sensory-seeking behavior (organization) as a learning tool. Give a 5-minute warning before transitions. If she becomes anxious about 'getting it wrong,' remind her there are no wrong feelings. Avoid unexpected changes to the activity structure.",
+    "assessment": "Score the perspective letter using the class writing rubric (1-4) on three dimensions: voice (personal style), emotion (feeling words and empathy), and abstract thinking (inferences and opinions). Target: score of 3+ on at least 2 of 3 dimensions. Also count feeling words used — track growth over time."
+  }
+}

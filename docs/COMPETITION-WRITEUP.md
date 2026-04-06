@@ -415,13 +415,13 @@ We've modeled ClassLens around three real student archetypes, representing the d
 ### Broader Impact: The 1.4 Million Students
 
 **By District (projected Year 1):**
-- **Small rural district (200 students, 8 with ASD):** 8 teachers × 45 min/week = **6 hours/week** reclaimed. That's one full-time staff member's worth of time per week, reallocated to direct service.
-- **Mid-size suburban district (1,200 students, 45 with ASD):** 40 teachers × 45 min/week = **30 hours/week** reclaimed.
-- **Large urban district (5,000 students, 180 with ASD):** 150 teachers × 45 min/week = **112.5 hours/week** reclaimed—equivalent to 2.8 FTE positions.
+- **Small rural district (200 students, 8 with ASD):** 8 teachers x 45 min/week = **6 hours/week** reclaimed. That's one full-time staff member's worth of time per week, reallocated to direct service.
+- **Mid-size suburban district (1,200 students, 45 with ASD):** 40 teachers x 45 min/week = **30 hours/week** reclaimed.
+- **Large urban district (5,000 students, 180 with ASD):** 150 teachers x 45 min/week = **112.5 hours/week** reclaimed—equivalent to 2.8 FTE positions.
 
 **By Nation (14,000 US school districts, ~1.4M ASD students):**
 - Assuming 60% adoption rate within 5 years
-- Average teacher time savings: **45 min/student/week × 1.4M students × 0.60 adoption × 36 weeks/year**
+- Average teacher time savings: **45 min/student/week x 1.4M students x 0.60 adoption x 36 weeks/year**
 - **Total time reclaimed: 907,200,000 teacher-hours annually**
 - **Dollar value (at $35/hour fully-loaded cost):** $31.75 billion in reclaimed teaching capacity
 
@@ -450,107 +450,129 @@ We've modeled ClassLens around three real student archetypes, representing the d
 
 ### Impact & Vision (40 points): Demonstrated through Action, Not Promises
 
-✓ **We understand the problem from lived experience**, not research papers.
+- **We understand the problem from lived experience**, not research papers.
 Sarah teaches 10 children with autism. We've watched the 45-minute weekly productivity loss firsthand.
 
-✓ **Specific, measurable impact at scale.**
+- **Specific, measurable impact at scale.**
 Not "helps teachers," but "recovers 907M teacher-hours nationally" = $31.75B in reallocated capacity.
 
-✓ **Addresses a blind spot in existing edtech.**
+- **Addresses a blind spot in existing edtech.**
 1,000+ IEP software platforms exist. None solve the evidence-to-insight pipeline. We're filling a clear, urgent gap.
 
-✓ **Serves multiple stakeholders equally.**
+- **Serves multiple stakeholders equally.**
 Teachers get time back. Parents get real-time, accessible progress updates. Admins get compliance audit trails. Students get more instructional time.
 
-✓ **Accessibility-first design.**
+- **Accessibility-first design.**
 Built *by* a special educator, *for* neurodivergent users. Sensory-sensitive color palettes, clear typography, minimal animations—standard practice in inclusive design, rare in edtech.
 
-✓ **Privacy and equity built in from architecture.**
+- **Privacy and equity built in from architecture.**
 Gemma 4 runs locally (Ollama) or via secure Google AI Studio. Student work never leaves the school's infrastructure. FERPA-compliant by design, not retrofit.
 
 ---
 
 ### Technical Depth (30 points): Gemma 4 Mastery Across 4 Specialized Agents
 
-✓ **Multimodal vision** (Agent 1):
+- **Multimodal vision** (Agent 1):
 Real handwriting analysis + drawing interpretation goes beyond OCR. We extract motor control signals, engagement patterns, and visual reasoning—data teachers can't extract without spending 15 minutes per sample.
 
-✓ **Function calling** (Agents 1-4):
+- **Function calling** (Agents 1-4):
 Every agent uses structured function calls. No parsing. No hallucinations. Audit-ready.
 
-✓ **Thinking mode** (Agent 3):
+- **Thinking mode** (Agent 3):
 Trend detection *must* include reasoning about statistical confidence. With only 4-8 weekly data points, a plateau alert is premature without extended thinking. Gemma 4's thinking mode lets us explain "why" to teachers.
 
-✓ **Full stack Gemma 4 integration:**
-- Gemma 4 27B-A4B-it for primary inference (Google AI Studio)
-- Gemma 4 E4B for edge scenarios (Ollama special track)
-- Multimodal + function calling + thinking mode = comprehensive toolkit demonstration
+- **Full stack Gemma 4 integration:**
+  - Gemma 4 27B-A4B-it for primary inference (Google AI Studio)
+  - Gemma 4 E4B for edge scenarios (Ollama special track)
+  - Multimodal + function calling + thinking mode = comprehensive toolkit demonstration
 
-✓ **Production-ready architecture:**
-- Pydantic models enforce schema at every stage
-- Pre-baked demo mode handles rate limits gracefully
-- Explicit state machines, not framework abstraction
-- Logging/audit trail for every decision
+- **Production-ready architecture:**
+  - Pydantic models enforce schema at every stage
+  - Pre-baked demo mode handles rate limits gracefully
+  - Explicit state machines, not framework abstraction
+  - Logging/audit trail for every decision
 
-✓ **Zero-cost infrastructure:**
-Google AI Studio (free) + Streamlit Cloud (free) = $0 infrastructure. Scales from pilot to 1M students without capital expenditure.
+- **Flexible model provider system:**
+  - Google AI Studio (default, free tier)
+  - OpenRouter for alternative model access and failover
+  - Ollama for fully offline local inference
+  - Single `MODEL_PROVIDER` toggle switches between all three
 
----
-
-## Try It Yourself
-
-### Live Demo
-[ClassLens ASD Live Demo](https://classlens-asd.streamlit.app/) *(Streamlit Cloud — free, public URL)*
-
-### Quick Start (Local)
-```bash
-# Prerequisites: Python 3.11+, Git
-
-git clone https://github.com/jallanUSF/classlens-asd.git
-cd classlens-asd
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Set up API key (Google AI Studio)
-cp .env.example .env  # Then set GOOGLE_AI_STUDIO_KEY in .env
-
-# Run locally
-streamlit run app.py
-
-# The app works in demo mode without an API key (precomputed results)
-```
-
-### Demo Data Included
-We've included three complete student profiles (Maya, Jaylen, Sofia) with 8 weeks of sample evidence:
-- Photos of student work (synthetic but realistic)
-- IEP goals aligned to real special education curricula
-- Pre-computed trends so you can see the full pipeline without API calls
-
-### Try These Scenarios
-1. **Upload a student writing sample** → see Vision Reader transcription + IEP mapping
-2. **View 8-week trends** → watch Progress Analyst detect improvements and plateaus
-3. **Generate a lesson plan** → see Material Forge customize based on student interests
-4. **Create a parent progress letter** → see multilingual support in action
+- **Zero-cost infrastructure:**
+Google AI Studio (free) + Vercel (free) + Railway/Render (free tier) = $0 infrastructure. Scales from pilot to 1M students without capital expenditure.
 
 ---
 
-## Technical Architecture: Deep Dive for Engineers & Researchers
+## Technical Architecture: Full Stack Design
 
-### System Design Principles
+### System Design
+
 ```
-USER INPUT (Student Work Photo)
-           ↓
-      [Agent 1: Vision Reader]  ← Gemma 4 multimodal + function calling
-           ↓ (Structured Transcription)
-      [Agent 2: IEP Mapper]     ← Gemma 4 function calling
-           ↓ (Evidence-Goal Links)
-      [Agent 3: Progress Analyst] ← Gemma 4 thinking mode
-           ↓ (Trend Analysis + Alerts)
-      [Agent 4: Material Forge]   ← Gemma 4 multimodal + thinking
-           ↓ (7 Output Types)
-   TEACHER/PARENT/ADMIN OUTPUT
+  BROWSER (Next.js 16 + React 19 + Tailwind CSS v4 + shadcn/ui)
+  ┌──────────────────────────────────────────────────────────────┐
+  │  Student Sidebar  │   Content Area    │    Chat Panel        │
+  │  (left column)    │   (center)        │    (right column)    │
+  │                   │                   │                      │
+  │  - Student cards  │  - Dashboard      │  - Conversational    │
+  │  - Alert badges   │  - Student detail │    interactions      │
+  │  - Add student    │  - Plotly charts  │  - Agent responses   │
+  │                   │  - MaterialViewer │                      │
+  └──────────────────────────────────────────────────────────────┘
+           │                    │                     │
+           └────────────────────┼─────────────────────┘
+                                ↓
+                     FastAPI Backend (Python)
+                    ┌────────────────────────┐
+                    │  /api/students          │
+                    │  /api/capture           │
+                    │  /api/materials         │
+                    │  /api/progress          │
+                    │  /api/chat              │
+                    │  /api/alerts            │
+                    └────────┬───────────────┘
+                             ↓
+              ┌──────────────────────────────┐
+              │  4-Agent Pipeline (Python)    │
+              │                              │
+              │  Vision Reader → IEP Mapper  │
+              │       → Progress Analyst     │
+              │       → Material Forge       │
+              └──────────────┬───────────────┘
+                             ↓
+              ┌──────────────────────────────┐
+              │  Gemma 4 Model Providers     │
+              │                              │
+              │  Google AI Studio (default)  │
+              │  OpenRouter (alternative)    │
+              │  Ollama (offline/edge)       │
+              └──────────────────────────────┘
 ```
+
+### Frontend: Next.js 16 + React 19
+
+The UI is built as a **three-column responsive layout**:
+- **Left column:** Student sidebar with cards, alert badges, and search
+- **Center column:** Main content — dashboard with greeting/alerts, student detail with expandable IEP goals and Plotly charts, upload workflow
+- **Right column:** Chat panel for conversational interactions with agents
+
+**Key UI features:**
+- **MaterialViewer sheet:** Slides in from the right to display generated materials (lesson plans, social stories, admin reports, etc.) with professional formatting and Approve/Regenerate/Print controls
+- **Mobile responsive:** On mobile viewports, the sidebar becomes a hamburger menu and the chat panel becomes a floating action button (FAB)
+- **Print CSS:** Dedicated print stylesheet renders materials at letter size with clean typography, hiding all navigation chrome
+- **ASD-friendly design:** Calm color palette (#5B8FB9 primary, #FAFAFA background), predictable layouts, minimal animations
+
+**Component library:** shadcn/ui provides accessible, composable components (Sheet, Accordion, Card, Badge, etc.) built on Radix UI primitives.
+
+### Backend: FastAPI
+
+The Python backend wraps the existing four-agent pipeline with REST endpoints:
+- `GET /api/students` — list all students with profiles
+- `GET /api/students/{id}` — student detail with IEP goals and progress
+- `POST /api/capture` — upload work artifact, run Vision Reader + IEP Mapper
+- `POST /api/materials/generate` — run Material Forge for a student/type
+- `GET /api/progress/{student_id}` — run Progress Analyst, return trends
+- `POST /api/chat` — conversational interface to agents
+- `GET /api/alerts` — active alerts across all students
 
 ### Data Models (Pydantic-based)
 
@@ -646,11 +668,16 @@ class TeachingMaterial(BaseModel):
 **Gemma 4 Client Wrapper:**
 ```python
 class Gemma4Client:
-    """Thin wrapper around Google AI Studio + Ollama for flexibility"""
+    """Thin wrapper around Google AI Studio, OpenRouter, and Ollama"""
 
-    def __init__(self, backend: Literal["google", "ollama"] = "google"):
-        self.backend = backend
-        self.model = "gemma-4-27b" if backend == "google" else "gemma4:27b"
+    def __init__(self, provider: Literal["google", "openrouter", "ollama"] = "google"):
+        self.provider = provider
+        if provider == "google":
+            self.model = "gemma-4-27b"
+        elif provider == "openrouter":
+            self.model = "google/gemma-4-27b-it"
+        else:
+            self.model = "gemma4:27b"
         self.rate_limiter = RateLimiter(rpm=15)  # 15 req/min for free tier
 
     async def vision_analysis(
@@ -738,8 +765,9 @@ class DemoModeManager:
 - Demo: Jaylen's classroom (rural Idaho) runs ClassLens on local server
 
 **Digital Equity Track:**
-- Zero-cost infrastructure (Google AI Studio free tier + Streamlit Cloud free tier)
+- Zero-cost infrastructure (Google AI Studio free tier + Vercel free tier + Railway/Render free tier)
 - Works on any browser (no download, no installation)
+- Mobile responsive design — teachers use it from their phone in the classroom
 - Accessibility WCAG 2.1 AAA compliant
 - Sensory-friendly UI (high contrast, no auto-play, pausable animations)
 
@@ -837,10 +865,51 @@ The three demo students—Maya, Jaylen, and Sofia—represent 1.4 million childr
 
 ---
 
+## Try It Yourself
+
+### Live Demo
+[ClassLens ASD Live Demo](https://classlens-asd.vercel.app/) *(Vercel — free, public URL)*
+
+### Quick Start (Local)
+```bash
+# Prerequisites: Python 3.11+, Node.js 18+, Git
+
+git clone https://github.com/jallanUSF/classlens-asd.git
+cd classlens-asd
+
+# Backend
+pip install -r requirements.txt
+cp .env.example .env  # Then set GOOGLE_AI_STUDIO_KEY in .env
+uvicorn backend.main:app --reload --port 8000
+
+# Frontend (new terminal)
+cd frontend
+npm install
+npm run dev
+
+# Open http://localhost:3000
+# The app works in demo mode without an API key (precomputed results)
+```
+
+### Demo Data Included
+We've included three complete student profiles (Maya, Jaylen, Sofia) with 8 weeks of sample evidence:
+- Photos of student work (synthetic but realistic)
+- IEP goals aligned to real special education curricula
+- Pre-computed trends so you can see the full pipeline without API calls
+
+### Try These Scenarios
+1. **Upload a student writing sample** → see Vision Reader transcription + IEP mapping
+2. **View 8-week trends** → watch Progress Analyst detect improvements and plateaus with Plotly charts
+3. **Generate a lesson plan** → see Material Forge customize based on student interests in MaterialViewer
+4. **Create a parent progress letter** → see multilingual support in action
+5. **Try mobile view** → resize browser to see responsive hamburger menu + chat FAB
+
+---
+
 ## Resources & Links
 
 - **GitHub**: [github.com/jallanUSF/classlens-asd](https://github.com/jallanUSF/classlens-asd)
-- **Live Demo**: [classlens-asd.streamlit.app](https://classlens-asd.streamlit.app/)
+- **Live Demo**: [classlens-asd.vercel.app](https://classlens-asd.vercel.app/)
 - **Kaggle Notebook**: See `notebooks/classlens_demo.ipynb` for step-by-step pipeline walkthrough
 - **Architecture Decisions**: See `docs/ADR.md` in the repository
 - **Video Demo**: Submitted separately to video track
@@ -848,7 +917,7 @@ The three demo students—Maya, Jaylen, and Sofia—represent 1.4 million childr
 ---
 
 **Team:** Sarah Allan (Special Education Specialist, 15+ years), Jeff Allan (VP of AI Engineering)
-**Built with:** Google Gemma 4 27B-A4B-it, Gemma 4 E4B (Ollama), Python 3.11, Streamlit, Pydantic
-**Frameworks:** None (direct API integration for transparency & auditability)
-**Infrastructure Cost:** $0 (Google AI Studio free + Streamlit Cloud free)
+**Built with:** Google Gemma 4 27B-A4B-it, Gemma 4 E4B (Ollama), Python 3.11, Next.js 16, React 19, FastAPI, Tailwind CSS v4, shadcn/ui, Pydantic
+**Frameworks:** No LangChain — direct API integration for transparency & auditability
+**Infrastructure Cost:** $0 (Google AI Studio free + Vercel free + Railway/Render free tier)
 **Date:** April 2026

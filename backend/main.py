@@ -3,6 +3,7 @@ ClassLens ASD — FastAPI Backend
 Wraps existing Python agents with REST API endpoints.
 """
 
+import os
 import sys
 from pathlib import Path
 from contextlib import asynccontextmanager
@@ -33,13 +34,18 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS — allow Next.js dev server and Vercel deployment
+# CORS — allow Next.js dev server and production origins
+_default_origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+_env_origins = os.environ.get("CORS_ORIGINS", "")
+_cors_origins = [o.strip() for o in _env_origins.split(",") if o.strip()] if _env_origins else _default_origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=_cors_origins,
+    allow_origin_regex=r"https://[\w-]+\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
