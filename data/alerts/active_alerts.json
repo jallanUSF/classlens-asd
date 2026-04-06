@@ -1,6 +1,28 @@
 [
   {
-    "id": "fa158c6c",
+    "id": "efd7670b",
+    "student_id": "amara_2026",
+    "alert_type": "plateau",
+    "goal_id": "G2",
+    "title": "Amara \u2014 Social Communication plateaued",
+    "detail": "Last 3 sessions: 45%, 42%, 40%. No meaningful change.",
+    "suggested_action": "Adjust prompting strategy or generate updated materials",
+    "created_date": "2026-04-05",
+    "dismissed": false
+  },
+  {
+    "id": "66a8c8d7",
+    "student_id": "ethan_2026",
+    "alert_type": "plateau",
+    "goal_id": "G2",
+    "title": "Ethan \u2014 Fine Motor plateaued",
+    "detail": "Last 3 sessions: 45%, 45%, 45%. No meaningful change.",
+    "suggested_action": "Adjust prompting strategy or generate updated materials",
+    "created_date": "2026-04-05",
+    "dismissed": false
+  },
+  {
+    "id": "184240d7",
     "student_id": "maya_2026",
     "alert_type": "plateau",
     "goal_id": "G1",
@@ -11,7 +33,7 @@
     "dismissed": false
   },
   {
-    "id": "d7230ef9",
+    "id": "bf482f25",
     "student_id": "maya_2026",
     "alert_type": "plateau",
     "goal_id": "G2",

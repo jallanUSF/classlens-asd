@@ -1,0 +1,26 @@
+{
+  "student_id": "lily_2026",
+  "goal_id": "G2",
+  "material_type": "lesson_plan",
+  "created_date": "2026-04-05",
+  "status": "draft",
+  "content": {
+    "title": "Octopus Arms of Organization  -  Task Initiation Through Marine Biology",
+    "objective": "Lily will independently initiate and complete a multi-step classroom task within the allotted time, using her self-created checklist, in 7 out of 10 opportunities.",
+    "interest_theme": "Marine biology (octopuses)",
+    "duration": "35 minutes",
+    "warm_up": "Show Lily a 2-minute video clip of an octopus solving a jar puzzle (opening a lid to get food inside). Discuss: 'The octopus had a problem. What did it do first? Then what?' Map the octopus's steps onto a whiteboard. Bridge: 'Octopuses are amazing problem solvers because they break big tasks into steps  -  just like we're going to practice today.'",
+    "main_activity": "1. Octopus Checklist Creation (10 min): Give Lily a multi-step task card: 'Create a one-page ocean fact poster.' Before she starts, she must write her own checklist using the 'Octopus Arms' organizer  -  an octopus with 8 arms, each arm is a step. She fills in: (1) Read directions, (2) Gather materials, (3) Choose 3 facts, (4) Write facts on poster, (5) Add illustration, (6) Check spelling, (7) Add name and date, (8) Turn in. She numbers the arms in order.\n\n2. Timed Task Execution (15 min): Set a visual timer for 15 minutes. Lily works through her checklist, checking off each arm as she completes it. Teacher checks in at minute 5 and minute 10  -  not to help, but to note which step she's on. If she hasn't started by minute 3, use the prompt: 'Which arm comes first?'\n\n3. Reflection and Rock Reward (5 min): After finishing (or when time is up), Lily reviews which arms she completed and which were hard to start. If she completed 6/8 arms within time, she earns a smooth rock for her collection. Discuss: 'What made you get stuck? What could you do differently next time?'",
+    "materials_needed": [
+      "Octopus Arms organizer worksheet (octopus outline with 8 numbered arms)",
+      "Ocean fact reference sheet (pre-selected, grade-appropriate)",
+      "Blank poster paper and markers",
+      "Visual timer (15 minutes)",
+      "Smooth rock reinforcer",
+      "Compression vest (available for transitions)",
+      "Worry stone in pocket"
+    ],
+    "scaffolding_notes": "Lily excels when she can create her own structure  -  the octopus organizer lets her plan before doing. Avoid open-ended instructions; the task card must be specific. If she freezes at the start, point to arm 1 on her checklist rather than giving verbal instructions. She works best near the window (natural light, away from marker smell station). The rock reward is highly motivating  -  she'll want to add it to her sorted collection. If she finishes early, she can sort her existing rocks by a new category. Do NOT pair with a group for this activity  -  it targets independent task completion.",
+    "assessment": "Record: (1) Time to initiation (how many minutes before she begins step 1), (2) Number of checklist steps completed independently, (3) Whether she finished within 15 minutes. Target: initiation within 3 minutes, 6/8 steps completed, within time limit. Note if the octopus organizer helped or if she needed additional prompting."
+  }
+}

@@ -13,7 +13,7 @@
     "steps": [
       {
         "step_number": 1,
-        "label": "Walk to cubby — put backpack away",
+        "label": "Walk to cubby  -  put backpack away",
         "icon_note": "backpack + cubby photo",
         "is_first_then": false
       },
@@ -37,7 +37,7 @@
       },
       {
         "step_number": 5,
-        "label": "Sit at my desk — get morning work",
+        "label": "Sit at my desk  -  get morning work",
         "icon_note": "desk + worksheet photo",
         "is_first_then": false
       },

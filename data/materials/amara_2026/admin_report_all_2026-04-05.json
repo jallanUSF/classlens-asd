@@ -1,0 +1,63 @@
+{
+  "student_id": "amara_2026",
+  "goal_id": "all",
+  "material_type": "admin_report",
+  "created_date": "2026-04-05",
+  "status": "draft",
+  "content": {
+    "title": "IEP Progress Report  -  Amara",
+    "student_name": "Amara",
+    "report_date": "2026-04-05",
+    "period": "February 7, 2026  -  April 4, 2026",
+    "executive_summary": "Amara is a 6th-grade student (ASD Level 1) making mixed progress across her three IEP goals. Her reading comprehension has shown a significant breakthrough after a long plateau, reaching her 70% target through an interest-based character mapping strategy. Written expression is her strongest area, with steady upward growth from 35% to 75%. However, social communication in group settings is an active concern  -  Amara has shown a declining trend from 50% to 40% over the past four data points, and the IEP team should discuss intervention adjustments at the next meeting.",
+    "goals": [
+      {
+        "goal_id": "G1",
+        "domain": "reading_comprehension",
+        "description": "Answer inferential comprehension questions about grade-level text with 70% accuracy across 10-question probes.",
+        "current_pct": 70,
+        "target_pct": 70,
+        "trend": "plateau_then_breakthrough",
+        "analysis": "Amara plateaued at 40% for three consecutive probes (Feb - early March). The breakthrough came when the reading specialist introduced character motivation mapping using My Hero Academia characters as analogies. Amara can now independently map character feelings from unfamiliar text to characters she deeply understands, which unlocks her inferential reasoning. Target met as of April 4. Recommend maintaining this strategy and monitoring across different text genres to confirm generalization."
+      },
+      {
+        "goal_id": "G2",
+        "domain": "social_communication",
+        "description": "Participate in group conversations by limiting turns to 2-3 sentences and asking at least one on-topic question, in 6 out of 10 observed interactions.",
+        "current_pct": 40,
+        "target_pct": 70,
+        "trend": "regression",
+        "analysis": "This goal has shown a concerning downward trend: 50% → 50% → 48% → 45% → 42% → 40%. Contributing factors include a substitute teacher disruption in March, a new student changing her lunch group dynamics, and Amara's rejection of the 'talk ticket' tool (she felt it stigmatized her). She has eaten lunch alone 3 of the past 5 school days. The social skills facilitator is piloting a 'conversation detective' approach, but it has not yet shown behavioral impact. Recommend IEP team discussion to explore alternative supports, potential schedule adjustment for social skills group, and consideration of peer mentoring."
+      },
+      {
+        "goal_id": "G3",
+        "domain": "written_expression",
+        "description": "Write narrative passages (3+ paragraphs) with story arc, emotional expression through characters, and varied sentence structure, scoring 7/10 on district rubric.",
+        "current_pct": 75,
+        "target_pct": 80,
+        "trend": "strong_upward",
+        "analysis": "Amara's written expression has been her standout growth area this reporting period, climbing from 35% to 75%. Key strategies driving progress: (1) allowing fan fiction as a bridge genre to practice emotional writing, (2) the 'emotion menu' tool for showing rather than telling character feelings, and (3) connecting writing assignments to her interests (astronomy, anime). Her ELA teacher is recommending her for the creative writing club. She is on track to meet or exceed the 80% target by the IEP review date."
+      }
+    ],
+    "accommodations": [
+      "Written schedule card updated each morning (routine predictability)",
+      "Noise-canceling earbuds permitted during independent work",
+      "Advance notice of schedule changes (minimum 15 minutes when possible)",
+      "Preferential seating away from PA speaker and door",
+      "Extended time on assessments involving inferential questions",
+      "Option to complete writing assignments on topics of interest when aligned with standards"
+    ],
+    "recommendations": [
+      "Convene a brief IEP team check-in (not a full annual review) to address the social communication regression before it impacts Amara's overall wellbeing  -  she is increasingly isolating at lunch.",
+      "Explore whether the 'conversation detective' approach can be paired with a peer mentor who shares Amara's interests (anime club, creative writing club) to rebuild social motivation.",
+      "Continue the character mapping strategy for reading comprehension and document its effectiveness across text types for the annual review.",
+      "Consider adding a creative writing club referral to Amara's transition plan  -  this could provide a natural social context that aligns with her strengths."
+    ],
+    "next_steps": [
+      "Schedule IEP team check-in by April 15 to discuss G2 regression",
+      "Reading specialist to administer probes with non-fiction text to test generalization of character mapping strategy",
+      "Social skills facilitator to trial peer mentor pairing by April 12",
+      "ELA teacher to submit creative writing club referral"
+    ]
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "student_id": "ethan_2026",
+  "name": "Ethan",
+  "grade": 2,
+  "age": 7,
+  "asd_level": 2,
+  "communication_level": "verbal but heavily echolalic; uses delayed echolalia and scripted phrases from Weather Channel and YouTube tornado videos; emerging spontaneous 2-3 word utterances when highly motivated",
+  "interests": [
+    "weather systems (tornadoes, hurricanes, radar maps)",
+    "ceiling fans (knows brands and blade counts)",
+    "the number 7 (counts everything in sevens)",
+    "subway and transit maps (memorizes entire systems)"
+  ],
+  "sensory_profile": {
+    "seeks": [
+      "vestibular input (spinning, swinging, rocking)",
+      "visual spinning objects (fans, wheels, washing machines)",
+      "proprioceptive input (crashing into bean bags, heavy lifting)"
+    ],
+    "avoids": [
+      "wet or sticky textures (glue, paint, wet sand)",
+      "clothing tags and seams (only wears tagless shirts inside-out)",
+      "unexpected touch from peers"
+    ],
+    "calming_strategies": [
+      "spinning in desk chair (controlled, 30-second intervals)",
+      "hand-held fan toy",
+      "heavy work tasks (carrying books to library, pushing cart)"
+    ]
+  },
+  "reinforcers": [
+    "3 minutes watching ceiling fan videos on iPad",
+    "weather stickers for completed work",
+    "spinning in the desk chair"
+  ],
+  "family_language": "English",
+  "iep_goals": [
+    {
+      "goal_id": "G1",
+      "domain": "communication",
+      "description": "Ethan will use spontaneous (non-echolalic) speech to make requests, comment, or respond to questions in 7 out of 10 opportunities across classroom settings (circle time, centers, lunch), as measured by speech-language pathologist and teacher observation tally.",
+      "baseline": {"value": 25, "date": "2025-10-15"},
+      "target": 70,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "SLP and teacher observation tally  -  spontaneous vs. scripted utterances",
+      "trial_history": [
+        {
+          "date": "2026-02-07",
+          "trials": 10,
+          "successes": 3,
+          "pct": 30,
+          "notes": "Mostly scripted responses from Weather Channel. Said 'I want fan' spontaneously at center time  -  first clear request this month."
+        },
+        {
+          "date": "2026-02-21",
+          "trials": 10,
+          "successes": 4,
+          "pct": 40,
+          "notes": "Used 'more crackers' at snack unprompted. Still echoing peer responses during circle time but tone is more intentional."
+        },
+        {
+          "date": "2026-03-07",
+          "trials": 10,
+          "successes": 5,
+          "pct": 50,
+          "notes": "Breakthrough during weather unit  -  spontaneously told aide 'tornado watch today' while looking at window. Motivated topic pulls out real language."
+        },
+        {
+          "date": "2026-03-21",
+          "trials": 10,
+          "successes": 5,
+          "pct": 50,
+          "notes": "Holding steady. Spontaneous speech still mostly around weather and fans. Trying to generalize to other topics with visual supports."
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 10,
+          "successes": 6,
+          "pct": 60,
+          "notes": "Said 'no thank you' to peer offering Play-Doh (avoids wet textures but used polite refusal!). SLP thrilled with pragmatic function."
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 10,
+          "successes": 7,
+          "pct": 65,
+          "notes": "Strong session. Used 'look  -  seven birds!' on playground spontaneously. Asked aide 'what for lunch?' without modeling. Echolalia still present but ratio shifting."
+        }
+      ]
+    },
+    {
+      "goal_id": "G2",
+      "domain": "fine_motor",
+      "description": "Ethan will form uppercase and lowercase letters legibly (recognizable to an unfamiliar reader) on lined paper, completing 8 out of 10 letters correctly in a writing sample, as measured by bi-weekly OT writing probes.",
+      "baseline": {"value": 20, "date": "2025-10-15"},
+      "target": 80,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "OT bi-weekly writing probe  -  legibility scoring rubric",
+      "trial_history": [
+        {
+          "date": "2026-02-07",
+          "trials": 10,
+          "successes": 3,
+          "pct": 30,
+          "notes": "Grip pressure too heavy  -  breaking pencil tips. OT introduced pencil grip and slant board. Letters E, T, H recognizable but inconsistent sizing."
+        },
+        {
+          "date": "2026-02-21",
+          "trials": 10,
+          "successes": 4,
+          "pct": 40,
+          "notes": "Slant board helping. Can write name legibly most days. Lowercase letters still very large  -  not staying on lines."
+        },
+        {
+          "date": "2026-03-07",
+          "trials": 10,
+          "successes": 4,
+          "pct": 40,
+          "notes": "Plateau. Gets frustrated and starts scripting 'the weather today is...' when writing gets hard. Avoids glue stick activities entirely."
+        },
+        {
+          "date": "2026-03-21",
+          "trials": 10,
+          "successes": 5,
+          "pct": 45,
+          "notes": "OT tried weather-themed tracing worksheets (tornado paths, wind patterns). Slightly more engaged but letter formation still inconsistent."
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 10,
+          "successes": 5,
+          "pct": 45,
+          "notes": "Still at 45%. Uppercase letters stronger than lowercase. Resists writing tasks longer than 5 minutes. May need to explore adaptive tools."
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 10,
+          "successes": 5,
+          "pct": 45,
+          "notes": "Third session at 45%  -  clearly plateaued. OT recommending we try a vibrating pen and shorter writing bursts with fan breaks between."
+        }
+      ]
+    },
+    {
+      "goal_id": "G3",
+      "domain": "social_reciprocity",
+      "description": "Ethan will engage in interactive play with a peer (turn-taking, sharing materials, or cooperative activity) for at least 5 minutes during 5 out of 10 free play opportunities, as measured by teacher/aide observation log.",
+      "baseline": {"value": 15, "date": "2025-10-15"},
+      "target": 60,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "teacher/aide observation log during free play and recess",
+      "trial_history": [
+        {
+          "date": "2026-02-07",
+          "trials": 10,
+          "successes": 2,
+          "pct": 20,
+          "notes": "Mostly parallel play. Sits near peers at block center but builds alone. Will tolerate a peer nearby if they don't touch his structures."
+        },
+        {
+          "date": "2026-02-21",
+          "trials": 10,
+          "successes": 3,
+          "pct": 30,
+          "notes": "Paired with Caleb who also likes maps. They looked at a subway map together for 4 minutes  -  closest to interactive play yet."
+        },
+        {
+          "date": "2026-03-07",
+          "trials": 10,
+          "successes": 3,
+          "pct": 30,
+          "notes": "Caleb absent this week  -  Ethan went back to solo play. Interest-based pairing seems critical."
+        },
+        {
+          "date": "2026-03-21",
+          "trials": 10,
+          "successes": 4,
+          "pct": 40,
+          "notes": "Caleb back. Built a 'subway station' together with blocks. Ethan directed but did hand Caleb pieces  -  emerging cooperation."
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 10,
+          "successes": 4,
+          "pct": 45,
+          "notes": "Played weather reporter game with Caleb and aide. Ethan was the forecaster, Caleb moved cloud cutouts. Lasted 7 minutes with support."
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 10,
+          "successes": 5,
+          "pct": 50,
+          "notes": "Best session yet  -  initiated play with Caleb at recess ('want to find tornadoes?'). Played for 6 minutes before needing a spin break. Slow but genuine progress."
+        }
+      ]
+    }
+  ]
+}

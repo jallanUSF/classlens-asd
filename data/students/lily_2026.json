@@ -1,0 +1,198 @@
+{
+  "student_id": "lily_2026",
+  "name": "Lily",
+  "grade": 4,
+  "age": 9,
+  "asd_level": 1,
+  "communication_level": "highly verbal with advanced vocabulary; monotone delivery and literal interpretation; struggles with sarcasm, idioms, and reading nonverbal cues; tends to monologue about marine life",
+  "interests": [
+    "marine biology (especially octopuses  -  knows all 300+ species)",
+    "Minecraft (builds underwater bases exclusively)",
+    "collecting and sorting rocks by color, weight, and type",
+    "color-sorting anything (crayons, beads, books on shelves)"
+  ],
+  "sensory_profile": {
+    "seeks": [
+      "deep pressure (bear hugs, compression vest, weighted blanket)",
+      "weighted items (lap pad, heavy books to carry)",
+      "tactile input from smooth rocks and cool surfaces"
+    ],
+    "avoids": [
+      "strong smells (hand sanitizer, markers, cafeteria cooking)",
+      "cafeteria noise and echoing gymnasium",
+      "fluorescent light flicker (prefers natural light or lamp)"
+    ],
+    "calming_strategies": [
+      "compression vest worn during transitions",
+      "smooth worry stone in pocket",
+      "quiet corner with noise-reducing headphones and rock collection"
+    ]
+  },
+  "reinforcers": [
+    "5 minutes to read DK Oceans encyclopedia",
+    "adding a new rock to her classroom collection",
+    "Minecraft time on classroom iPad"
+  ],
+  "family_language": "English",
+  "iep_goals": [
+    {
+      "goal_id": "G1",
+      "domain": "social_communication",
+      "description": "Lily will demonstrate pragmatic language skills by (a) staying on a conversational topic chosen by a peer for at least 3 exchanges, and (b) identifying a peer's emotional state from facial/body cues in 8 out of 10 structured opportunities, as measured by SLP observation and social skills group data.",
+      "baseline": {"value": 35, "date": "2025-10-15"},
+      "target": 80,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "SLP observation during social skills group and classroom interactions",
+      "trial_history": [
+        {
+          "date": "2026-02-07",
+          "trials": 10,
+          "successes": 4,
+          "pct": 40,
+          "notes": "Stayed on peer's topic (soccer) for 2 exchanges before pivoting to octopuses. Identified 'happy' and 'sad' faces but missed 'frustrated' and 'nervous.'"
+        },
+        {
+          "date": "2026-02-21",
+          "trials": 10,
+          "successes": 5,
+          "pct": 50,
+          "notes": "Using the 'topic tracker' visual card  -  helped her notice when she's drifting. Correctly identified 6/10 emotions in photo cards."
+        },
+        {
+          "date": "2026-03-07",
+          "trials": 10,
+          "successes": 6,
+          "pct": 60,
+          "notes": "Had a real conversation with Mia about their pets  -  4 exchanges on topic! Still struggles in groups larger than 2. Emotion recognition improving with the 'body clue' checklist."
+        },
+        {
+          "date": "2026-03-21",
+          "trials": 10,
+          "successes": 6,
+          "pct": 65,
+          "notes": "Consistent in 1:1 conversations. Group settings still hard  -  she goes quiet or monologues. Noticed peer was upset at recess and said 'are you okay?' unprompted. Big moment."
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 10,
+          "successes": 7,
+          "pct": 70,
+          "notes": "Strong week. Topic maintenance at 4+ exchanges in 1:1. During group project, asked a peer 'what do you think?'  -  first time she's invited input."
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 10,
+          "successes": 8,
+          "pct": 75,
+          "notes": "Nearing target. Read peer's frustration during math partner work and offered help. SLP notes she's internalizing the body clue checklist. Group conversations still need support."
+        }
+      ]
+    },
+    {
+      "goal_id": "G2",
+      "domain": "executive_function",
+      "description": "Lily will independently initiate and complete assigned classroom tasks (including multi-step projects) within the allotted time in 7 out of 10 opportunities, using a visual checklist if needed, as measured by teacher task completion log.",
+      "baseline": {"value": 50, "date": "2025-10-15"},
+      "target": 75,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "teacher task completion log with timestamps",
+      "trial_history": [
+        {
+          "date": "2026-02-07",
+          "trials": 10,
+          "successes": 6,
+          "pct": 55,
+          "notes": "Initiates preferred tasks (reading, sorting) quickly. Avoids open-ended writing  -  stares at paper for 10+ minutes. Visual checklist helps once she starts."
+        },
+        {
+          "date": "2026-02-21",
+          "trials": 10,
+          "successes": 5,
+          "pct": 50,
+          "notes": "Regression. Science fair project assigned  -  multi-step with ambiguous instructions overwhelmed her. Shut down for 20 minutes. Need to pre-chunk unfamiliar projects."
+        },
+        {
+          "date": "2026-03-07",
+          "trials": 10,
+          "successes": 4,
+          "pct": 45,
+          "notes": "Still recovering from science fair stress. Refusing to start anything that 'doesn't have clear steps.' Added pre-task planning sheet where she writes her own checklist before starting."
+        },
+        {
+          "date": "2026-03-21",
+          "trials": 10,
+          "successes": 5,
+          "pct": 50,
+          "notes": "Pre-task planning sheet working  -  she writes detailed checklists. Initiated the ocean research project within 2 minutes (high interest). Math worksheet still takes 8 minutes to begin."
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 10,
+          "successes": 6,
+          "pct": 55,
+          "notes": "Slight uptick. Using a timer now  -  she sets it herself for 'start by' time. Completed 6/10 tasks within time. The 4 missed were all multi-step with unclear endpoints."
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 10,
+          "successes": 6,
+          "pct": 60,
+          "notes": "Continuing recovery. Self-checklist becoming habitual for familiar tasks. Still needs teacher support to break down novel multi-step assignments. Progress is real but slow."
+        }
+      ]
+    },
+    {
+      "goal_id": "G3",
+      "domain": "self_regulation",
+      "description": "Lily will use a learned coping strategy (deep breathing, requesting a break, using her worry stone, or asking for help) instead of crying or shutting down when frustrated during group work, in 7 out of 10 frustrating situations, as measured by behavior tracking log.",
+      "baseline": {"value": 25, "date": "2025-10-15"},
+      "target": 75,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "behavior tracking log  -  coping strategy used vs. shutdown/crying",
+      "trial_history": [
+        {
+          "date": "2026-02-07",
+          "trials": 10,
+          "successes": 3,
+          "pct": 30,
+          "notes": "Group math activity  -  cried when peer disagreed with her answer. Used worry stone afterward but not before the meltdown. Needs anticipatory cue."
+        },
+        {
+          "date": "2026-02-21",
+          "trials": 10,
+          "successes": 4,
+          "pct": 40,
+          "notes": "Introduced '5-point scale' rating card. Lily identifies she's at a 3 before it reaches 5. Used break card twice this week before shutting down."
+        },
+        {
+          "date": "2026-03-07",
+          "trials": 10,
+          "successes": 5,
+          "pct": 50,
+          "notes": "Science fair group work was rough but she asked for a break instead of crying  -  first time in a group setting. Peer conflict at lunch still triggers immediate tears."
+        },
+        {
+          "date": "2026-03-21",
+          "trials": 10,
+          "successes": 6,
+          "pct": 55,
+          "notes": "Using worry stone proactively during group transitions. Requested to work alone on one task  -  appropriate self-advocacy rather than shutdown."
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 10,
+          "successes": 7,
+          "pct": 65,
+          "notes": "Big week. During a disagreement about the group poster, Lily said 'I need a minute' and walked to the calm corner. Came back and compromised. Teacher almost cried."
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 10,
+          "successes": 7,
+          "pct": 70,
+          "notes": "Consistent use of strategies in familiar settings. Used deep breathing during a timed math test without prompting. Cafeteria meltdown on Thursday after spilled milk (smell trigger)  -  not counted as group work but worth noting."
+        }
+      ]
+    }
+  ]
+}

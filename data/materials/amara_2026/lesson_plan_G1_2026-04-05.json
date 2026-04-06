@@ -1,0 +1,26 @@
+{
+  "student_id": "amara_2026",
+  "goal_id": "G1",
+  "material_type": "lesson_plan",
+  "created_date": "2026-04-05",
+  "status": "approved",
+  "content": {
+    "title": "Hero Analysis \u00e2\u20ac\u201d Inferential Reading Through Anime Character Mapping",
+    "objective": "Amara will answer inferential comprehension questions about a new grade-level passage with 70% accuracy, using the character mapping strategy independently.",
+    "interest_theme": "My Hero Academia (character motivations and emotional complexity)",
+    "duration": "40 minutes",
+    "warm_up": "Begin with a 'Quirk Analysis' warm-up: show Amara a short passage about Todoroki's fight with Deku (printed excerpt from an approved MHA novel adaptation). Ask: 'Why did Todoroki finally use his fire side? What was he feeling inside?' This is inference practice in her comfort zone \u00e2\u20ac\u201d she knows these characters deeply and can articulate their internal states. Use her answers to build the bridge: 'You just made an inference about Todoroki. Today we're going to use that same skill on a brand-new character you've never met.'",
+    "main_activity": "1. Character Mapping Setup (8 min): Give Amara a new grade-level passage (selected from the reading curriculum \u00e2\u20ac\u201d realistic fiction about a girl starting at a new school). Before reading, set up the Character Mapping worksheet: left column is 'New Character,' right column is 'MHA Character Match.' She'll fill this in as she reads.\n\n2. Guided Reading with Inference Stops (15 min): Amara reads the passage independently. At three marked stopping points, she answers an inference question:\n   - Stop 1: 'Why did Elena sit alone at lunch?' \u00e2\u2020\u2019 Amara writes what she thinks AND maps Elena to an MHA character who might feel the same way.\n   - Stop 2: 'How did Elena feel when the other girl invited her to sit down?' \u00e2\u2020\u2019 Map to MHA character.\n   - Stop 3: 'Why did Elena say no at first, even though she wanted to say yes?' \u00e2\u2020\u2019 This is the hardest one \u00e2\u20ac\u201d abstract emotional conflict.\n\n3. Independent Probe (12 min): Give Amara a second short passage (different topic \u00e2\u20ac\u201d science fiction). She answers 5 inferential questions without the character mapping scaffold visible, though she can use it mentally. This tests whether the strategy is internalizing.",
+    "materials_needed": [
+      "MHA warm-up passage (Todoroki vs. Deku excerpt, printed)",
+      "Grade-level realistic fiction passage with 3 inference stopping points",
+      "Character Mapping worksheet (2-column format)",
+      "Second passage for independent probe (science fiction, 5 questions)",
+      "Fuzzy pencil topper (preferred tactile item)",
+      "Noise-canceling earbuds (available if classroom is noisy)",
+      "Sketchbook (available for drawing break if needed)"
+    ],
+    "scaffolding_notes": "The character mapping strategy is Amara's breakthrough tool \u00e2\u20ac\u201d it bridges her deep MHA knowledge to unfamiliar characters. For the independent probe, do NOT remove the strategy entirely; let her use it mentally. If she writes 'I don't know' on an inference question, prompt with: 'Which MHA character would be in this situation? What would THEY be feeling?' Avoid calling on her without warning \u00e2\u20ac\u201d let her write responses rather than speak them. The science fiction passage for the probe should have clear emotional content (not pure plot summary). If she finishes early, she can sketch the characters from the passage \u00e2\u20ac\u201d this processing time often helps her think inferentially. Do not rush the warm-up; it activates the bridging mindset she needs.",
+    "assessment": "Score the 3 guided inference questions (with mapping support) and the 5 independent probe questions separately. Target: 2/3 on guided (with scaffold) and 3/5 on independent (without visible scaffold). Compare to her baseline pattern of answering 'I don't know' \u00e2\u20ac\u201d any inference attempt, even partially correct, is progress. Note whether she used character mapping mentally on the independent probe."
+  }
+}

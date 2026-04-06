@@ -1,0 +1,198 @@
+{
+  "student_id": "amara_2026",
+  "name": "Amara",
+  "grade": 6,
+  "age": 11,
+  "asd_level": 1,
+  "communication_level": "fluent speaker and strong decoder-level reader; difficulty with inference, figurative language, sarcasm, and implied meaning; tends to interpret idioms literally; excellent written vocabulary but flat emotional expression in writing",
+  "interests": [
+    "anime (My Hero Academia  -  knows every character's quirk and backstory)",
+    "creative writing (fills notebooks with fan fiction)",
+    "astronomy (can identify constellations and explain stellar life cycles)",
+    "cats (has three cats at home, draws cat characters in every story)"
+  ],
+  "sensory_profile": {
+    "seeks": [
+      "visual stimulation (drawing, watching animated sequences, colorful notebooks)",
+      "rhythmic movement (tapping pen, bouncing knee, rocking in chair)",
+      "soft textures (fuzzy pencil toppers, velvet bookmark)"
+    ],
+    "avoids": [
+      "unexpected loud sounds (fire alarms, PA announcements, dropped books)",
+      "changes to routine or schedule (substitute teachers, room changes)",
+      "being called on without warning in class"
+    ],
+    "calming_strategies": [
+      "drawing in sketchbook (always in backpack)",
+      "noise-canceling earbuds with lo-fi playlist",
+      "written schedule card updated each morning"
+    ]
+  },
+  "reinforcers": [
+    "free drawing time (10 minutes)",
+    "reading My Hero Academia manga at the classroom library",
+    "choosing the class read-aloud book for the week"
+  ],
+  "family_language": "English",
+  "iep_goals": [
+    {
+      "goal_id": "G1",
+      "domain": "reading_comprehension",
+      "description": "Amara will answer inferential comprehension questions (requiring conclusions, predictions, or character motivation analysis) about grade-level text with 70% accuracy across 10-question probes, as measured by bi-weekly reading assessments administered by the reading specialist.",
+      "baseline": {"value": 35, "date": "2025-10-15"},
+      "target": 70,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "bi-weekly reading comprehension probes  -  inferential questions only",
+      "trial_history": [
+        {
+          "date": "2026-02-07",
+          "trials": 10,
+          "successes": 4,
+          "pct": 40,
+          "notes": "Strong on explicit/literal questions (90%+) but freezes on 'why do you think' and 'how might the character feel' questions. Defaults to restating what happened."
+        },
+        {
+          "date": "2026-02-21",
+          "trials": 10,
+          "successes": 4,
+          "pct": 40,
+          "notes": "Same pattern. Introduced 'evidence + inference' graphic organizer. Amara fills in evidence perfectly but the inference column stays blank or she writes 'I don't know.'"
+        },
+        {
+          "date": "2026-03-07",
+          "trials": 10,
+          "successes": 4,
+          "pct": 40,
+          "notes": "Third session at 40%. Tried using anime characters as analogies  -  'If Deku did this, why would he?' She got 3 inference questions right when reframed through MHA lens."
+        },
+        {
+          "date": "2026-03-21",
+          "trials": 10,
+          "successes": 5,
+          "pct": 55,
+          "notes": "Breakthrough! Reading specialist used MHA character motivation cards. Amara mapped character feelings from the book to MHA characters she understands. 5.5/10 rounded down."
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 10,
+          "successes": 6,
+          "pct": 65,
+          "notes": "Continuing with character mapping strategy. Can now answer 'how might X feel' independently for familiar emotional states (angry, scared, excited). Abstract states (conflicted, guilty) still hard."
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 10,
+          "successes": 7,
+          "pct": 70,
+          "notes": "Met target! Used character mapping without prompting on a new passage. Said 'this character is like Todoroki  -  he's angry but also sad inside.' Reading specialist wants to see if this holds across different text types."
+        }
+      ]
+    },
+    {
+      "goal_id": "G2",
+      "domain": "social_communication",
+      "description": "Amara will participate in group conversations by (a) limiting her turns to 2-3 sentences before allowing another speaker, and (b) asking at least one on-topic question per conversation, in 6 out of 10 observed group interactions, as measured by social skills facilitator tracking sheet.",
+      "baseline": {"value": 45, "date": "2025-10-15"},
+      "target": 70,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "social skills facilitator tracking sheet during structured and unstructured interactions",
+      "trial_history": [
+        {
+          "date": "2026-02-07",
+          "trials": 10,
+          "successes": 5,
+          "pct": 50,
+          "notes": "Monologued about My Hero Academia for 4 minutes during lunch table conversation. Peers tuned out. She didn't notice until facilitator intervened. Asked zero questions."
+        },
+        {
+          "date": "2026-02-21",
+          "trials": 10,
+          "successes": 5,
+          "pct": 50,
+          "notes": "Introduced 'talk ticket' system  -  3 tickets per conversation, each good for 2-3 sentences. Amara engaged with the system but described it as 'unfair' that she has limits. Asked 1 question in social skills group."
+        },
+        {
+          "date": "2026-03-07",
+          "trials": 10,
+          "successes": 5,
+          "pct": 48,
+          "notes": "Slight dip. Substitute teacher in social skills group threw off her routine  -  she went silent for the first 15 minutes, then overcompensated with a 5-minute monologue about constellations."
+        },
+        {
+          "date": "2026-03-21",
+          "trials": 10,
+          "successes": 4,
+          "pct": 45,
+          "notes": "Continued decline. New student in her lunch group disrupted the social dynamics. Amara withdrew and ate alone twice this week. When she did talk, it was all anime  -  no questions asked."
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 10,
+          "successes": 4,
+          "pct": 42,
+          "notes": "Regression continues. Refusing to use talk tickets ('they make me feel like something is wrong with me'). Need to reframe the tool. Facilitator trying a 'conversation detective' approach instead."
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 10,
+          "successes": 4,
+          "pct": 40,
+          "notes": "Fourth consecutive decline. Ate lunch alone 3 days this week. 'Conversation detective' worksheet was more acceptable but not yet impacting behavior. This goal needs team discussion."
+        }
+      ]
+    },
+    {
+      "goal_id": "G3",
+      "domain": "written_expression",
+      "description": "Amara will write narrative passages (3+ paragraphs) that include (a) a clear story arc (beginning, conflict, resolution), (b) at least 2 instances of characters expressing emotions through actions or dialogue, and (c) varied sentence structure, scoring 7 out of 10 on the district narrative rubric, as measured by bi-weekly writing samples graded by the ELA teacher.",
+      "baseline": {"value": 30, "date": "2025-10-15"},
+      "target": 80,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "bi-weekly writing samples scored on district narrative rubric (10-point scale)",
+      "trial_history": [
+        {
+          "date": "2026-02-07",
+          "trials": 10,
+          "successes": 4,
+          "pct": 35,
+          "notes": "Writes detailed plot summaries but no emotional depth. Characters 'did things' but never feel anything. Sentence structure is technically correct but monotonous (subject-verb-object repeated)."
+        },
+        {
+          "date": "2026-02-21",
+          "trials": 10,
+          "successes": 4,
+          "pct": 45,
+          "notes": "Introduced 'emotion menu'  -  list of feelings with associated actions (e.g., 'nervous = sweaty palms, couldn't look up'). Amara added 'she felt nervous' to her story. It's a start but still telling, not showing."
+        },
+        {
+          "date": "2026-03-07",
+          "trials": 10,
+          "successes": 5,
+          "pct": 55,
+          "notes": "Fan fiction assignment let her write in her comfort zone. Her MHA story had actual dialogue showing emotion: 'I can't lose again,' Deku whispered, clenching his fists.' Best showing-not-telling yet."
+        },
+        {
+          "date": "2026-03-21",
+          "trials": 10,
+          "successes": 6,
+          "pct": 60,
+          "notes": "Transferring skills from fan fiction to original writing. Her cat story had a clear conflict (cat lost in a storm) and resolution. Sentence variety improving  -  used questions and exclamations."
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 10,
+          "successes": 7,
+          "pct": 70,
+          "notes": "Strong piece about an astronaut who misses home. Three paragraphs, real story arc, and a line that made the ELA teacher pause: 'The stars didn't care that she was crying.' Amara is finding her voice."
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 10,
+          "successes": 8,
+          "pct": 75,
+          "notes": "Wrote a narrative from a villain's perspective (inspired by MHA). Showed internal conflict through dialogue and action. Varied sentence length intentionally. ELA teacher recommends creative writing club."
+        }
+      ]
+    }
+  ]
+}

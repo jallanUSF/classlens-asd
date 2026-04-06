@@ -1,0 +1,198 @@
+{
+  "student_id": "marcus_2026",
+  "name": "Marcus",
+  "grade": 0,
+  "age": 5,
+  "asd_level": 3,
+  "communication_level": "minimally verbal with 5-10 consistent spoken words (mama, no, more, go, up, done, eat, Bluey); uses PECS book for 15+ requests; learning 8 ASL signs; emerging use of AAC device (TouchChat) with 24-icon grid",
+  "interests": [
+    "Bluey (the cartoon  -  watches specific episodes on repeat, acts out scenes)",
+    "bubbles (will attend to any activity if bubbles are involved)",
+    "stacking and lining up blocks (builds towers to exact heights)",
+    "musical instruments (drums especially  -  loves rhythm patterns)"
+  ],
+  "sensory_profile": {
+    "seeks": [
+      "oral input (chews on chew tubes, clothing collars, crunchy foods)",
+      "auditory stimulation (drumming, music boxes, humming)",
+      "deep pressure (being squeezed, crawling through tunnels)"
+    ],
+    "avoids": [
+      "bright overhead fluorescent lights (covers eyes, drops to floor)",
+      "crowded spaces (hallways during transitions, assemblies)",
+      "hand-over-hand prompting (pulls away, becomes distressed)"
+    ],
+    "calming_strategies": [
+      "chewy tube necklace (always accessible)",
+      "body sock for full-body pressure",
+      "listening to Bluey theme song on headphones"
+    ]
+  },
+  "reinforcers": [
+    "bubbles (blown by adult or bubble machine)",
+    "2 minutes of Bluey on iPad",
+    "drumming on the classroom bongo drum"
+  ],
+  "family_language": "English",
+  "iep_goals": [
+    {
+      "goal_id": "G1",
+      "domain": "communication",
+      "description": "Marcus will independently use his AAC device (TouchChat) or PECS to make a request (for an item, activity, or help) in 5 out of 10 opportunities across school settings (classroom, cafeteria, playground), as measured by SLP and teacher communication log.",
+      "baseline": {"value": 10, "date": "2025-10-15"},
+      "target": 50,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "SLP and teacher communication log  -  independent requests via AAC/PECS",
+      "trial_history": [
+        {
+          "date": "2026-02-07",
+          "trials": 10,
+          "successes": 2,
+          "pct": 15,
+          "notes": "Uses PECS for 'bubbles' and 'more' consistently. AAC device still novel  -  presses random icons. Needs full physical prompt for AAC requests."
+        },
+        {
+          "date": "2026-02-21",
+          "trials": 10,
+          "successes": 2,
+          "pct": 20,
+          "notes": "Found the Bluey icon on AAC and pressed it independently 3 times. PECS requests expanding  -  added 'drum' and 'eat' cards. Still needs gestural prompt for most AAC use."
+        },
+        {
+          "date": "2026-03-07",
+          "trials": 10,
+          "successes": 3,
+          "pct": 30,
+          "notes": "Used AAC to request 'bubbles' in the cafeteria with only a point prompt to the device. SLP modeling AAC use during Bluey watching  -  Marcus imitating 'play' and 'more' buttons."
+        },
+        {
+          "date": "2026-03-21",
+          "trials": 10,
+          "successes": 3,
+          "pct": 35,
+          "notes": "Independently requested 'drum' on AAC during music time  -  no prompt! PECS still preferred for cafeteria. Combining modalities is fine  -  we want functional communication in any form."
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 10,
+          "successes": 4,
+          "pct": 40,
+          "notes": "Using AAC for 'help' when stuck on block tower  -  huge functional gain. Said 'more' verbally while pressing AAC button simultaneously. Multimodal communication emerging."
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 10,
+          "successes": 4,
+          "pct": 45,
+          "notes": "Consistent gains. Navigated to correct AAC page for 'playground' request independently. PECS used 6 times today across settings. Goal is achievable by review date at this pace."
+        }
+      ]
+    },
+    {
+      "goal_id": "G2",
+      "domain": "daily_living",
+      "description": "Marcus will independently complete the school toileting routine (enter bathroom, pull down pants, use toilet, wipe, pull up pants, flush, wash hands) with no more than 1 verbal prompt for 4 out of 5 scheduled bathroom trips, as measured by toileting data sheet.",
+      "baseline": {"value": 20, "date": "2025-10-15"},
+      "target": 80,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "toileting data sheet  -  steps completed independently per trip",
+      "trial_history": [
+        {
+          "date": "2026-02-07",
+          "trials": 5,
+          "successes": 1,
+          "pct": 25,
+          "notes": "Completes 4/7 steps independently. Needs physical prompt for wiping and verbal prompt for flushing. Visual schedule posted in bathroom stall. Resists hand washing (wet texture)."
+        },
+        {
+          "date": "2026-02-21",
+          "trials": 5,
+          "successes": 2,
+          "pct": 35,
+          "notes": "Flushing now independent after we added a Bluey sticker on the flush handle. Hand washing improving with warm water only (no cold). Still needs wiping support."
+        },
+        {
+          "date": "2026-03-07",
+          "trials": 5,
+          "successes": 2,
+          "pct": 45,
+          "notes": "Added Bluey visual sequence cards. Marcus checks each card and does the step. Wiping attempt is there but incomplete  -  OT working on motor planning. 5/7 steps independent."
+        },
+        {
+          "date": "2026-03-21",
+          "trials": 5,
+          "successes": 3,
+          "pct": 55,
+          "notes": "Big progress  -  completed full routine with only 1 verbal prompt (for wiping) on 3 out of 5 trips. Sings Bluey song during hand washing. Tolerating the routine well."
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 5,
+          "successes": 3,
+          "pct": 60,
+          "notes": "4 out of 5 trips with ≤1 prompt. One accident during afternoon (didn't signal in time  -  was engaged in block play). Adding a visual timer reminder for scheduled trips."
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 5,
+          "successes": 3,
+          "pct": 65,
+          "notes": "Wiping improving with the adapted wipe holder OT recommended. Full routine independent on 3 trips, 1 prompt needed on other 2. Mom reports similar progress at home."
+        }
+      ]
+    },
+    {
+      "goal_id": "G3",
+      "domain": "gross_motor",
+      "description": "Marcus will safely navigate playground equipment (climb ladder, go down slide, cross monkey bars with support) and follow playground safety rules (wait turn, sit on slide, feet first) in 4 out of 10 recess opportunities, as measured by adapted PE teacher and aide observation log.",
+      "baseline": {"value": 10, "date": "2025-10-15"},
+      "target": 50,
+      "iep_review_date": "2026-10-15",
+      "measurement_method": "adapted PE teacher and aide observation log during recess",
+      "trial_history": [
+        {
+          "date": "2026-02-07",
+          "trials": 10,
+          "successes": 1,
+          "pct": 10,
+          "notes": "Avoids climbing equipment  -  sits at base of slide watching other kids. Will go down slide only if aide carries him up. Crowd avoidance limits playground access."
+        },
+        {
+          "date": "2026-02-21",
+          "trials": 10,
+          "successes": 2,
+          "pct": 15,
+          "notes": "Introduced playground during quiet time (fewer kids). Climbed 3 ladder rungs with aide next to him. Went down small slide independently. Smiled after  -  first positive playground moment."
+        },
+        {
+          "date": "2026-03-07",
+          "trials": 10,
+          "successes": 2,
+          "pct": 20,
+          "notes": "Climbed full ladder to small slide platform. Went down feet first (safety rule followed!). Still won't attempt during crowded recess  -  only early access with 2-3 peers."
+        },
+        {
+          "date": "2026-03-21",
+          "trials": 10,
+          "successes": 3,
+          "pct": 25,
+          "notes": "Waited for turn behind one peer (first time!). Aide used Bluey visual card showing 'Bluey waits for her turn.' Motor planning on climbing improving  -  OT adding obstacle course practice."
+        },
+        {
+          "date": "2026-04-01",
+          "trials": 10,
+          "successes": 3,
+          "pct": 30,
+          "notes": "Attempted big slide with aide spotting  -  went halfway up, got scared, came back down safely (which counts as safe navigation!). Used 'help' on AAC when stuck."
+        },
+        {
+          "date": "2026-04-04",
+          "trials": 10,
+          "successes": 4,
+          "pct": 35,
+          "notes": "Completed big slide for the first time! Whole class cheered and he laughed. Followed 'feet first' rule. Tolerated 5 peers on equipment at same time. Aide stepping back gradually."
+        }
+      ]
+    }
+  ]
+}

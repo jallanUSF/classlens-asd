@@ -66,7 +66,16 @@ async def list_students() -> list[dict[str, Any]]:
 @router.get("/students/{student_id}")
 async def get_student(student_id: str) -> dict[str, Any]:
     """Get full student profile including goals and trial history."""
-    return _read_profile(student_id)
+    data = _read_profile(student_id)
+    # Transform goals for frontend: add target_pct, current_pct from raw fields
+    for goal in data.get("iep_goals", []):
+        goal["target_pct"] = goal.get("target_pct", goal.get("target", 0))
+        history = goal.get("trial_history", [])
+        if "current_pct" not in goal and history:
+            goal["current_pct"] = history[-1].get("pct", 0)
+        elif "current_pct" not in goal:
+            goal["current_pct"] = goal.get("baseline", {}).get("value", 0)
+    return data
 
 
 class CreateStudentRequest(BaseModel):

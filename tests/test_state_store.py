@@ -44,7 +44,7 @@ class TestGetAllStudents:
 
     def test_lists_students(self, store_with_data):
         students = store_with_data.get_all_students()
-        assert sorted(students) == ["jaylen_2026", "maya_2026", "sofia_2026"]
+        assert sorted(students) == ["amara_2026", "ethan_2026", "jaylen_2026", "lily_2026", "marcus_2026", "maya_2026", "sofia_2026"]
 
     def test_sorted_alphabetically(self, store_with_data):
         students = store_with_data.get_all_students()

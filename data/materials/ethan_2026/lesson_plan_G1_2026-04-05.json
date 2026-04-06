@@ -1,0 +1,26 @@
+{
+  "student_id": "ethan_2026",
+  "goal_id": "G1",
+  "material_type": "lesson_plan",
+  "created_date": "2026-04-05",
+  "status": "approved",
+  "content": {
+    "title": "Storm Chasers Talk \u00e2\u20ac\u201d Spontaneous Speech Through Weather Reporting",
+    "objective": "Ethan will use spontaneous (non-echolalic) speech to make requests, comment, or respond to questions in 7 out of 10 opportunities during a weather-themed structured activity.",
+    "interest_theme": "Weather systems (tornadoes, radar maps, forecasting)",
+    "duration": "25 minutes",
+    "warm_up": "Show Ethan a real-time radar map on the classroom tablet (weather.gov). Ask: 'What do you see on the map today?' Let him point and label weather features. Accept any spontaneous utterance \u00e2\u20ac\u201d even single words. If he scripts from Weather Channel, redirect gently: 'That's what the TV says. What do YOU see right now?'",
+    "main_activity": "1. Weather Reporter Station (10 min): Set up a pretend 'news desk' with a toy microphone and a printed radar map. Ethan is the weather reporter. Aide plays the anchor and asks simple questions: 'Is it going to rain today?' 'What should people bring?' Record each response as spontaneous or scripted. Use 3-second wait time before prompting.\n\n2. Tornado Warning Game (8 min): Spread weather picture cards (sunny, rainy, tornado, windy, snowy) face down. Ethan picks a card and must tell peer Caleb what it is using his own words (not 'severe thunderstorm warning in effect' \u00e2\u20ac\u201d just 'it's a tornado'). Caleb responds with what he'd do. Natural back-and-forth around a motivating topic.\n\n3. Weather Request Practice (7 min): Place preferred items (fan toy, weather stickers, spinning top) out of reach. Model: 'I want the fan.' Wait for Ethan to request spontaneously. If he echoes, say 'use YOUR words \u00e2\u20ac\u201d what do you want?' Provide item immediately after any spontaneous request.",
+    "materials_needed": [
+      "Classroom tablet with weather.gov open",
+      "Toy microphone for news desk",
+      "Printed radar map (current day)",
+      "Weather picture cards (laminated, 10 cards)",
+      "Fan toy, weather stickers, spinning top (for request practice)",
+      "Hand-held fan for sensory break",
+      "Timer for wait time"
+    ],
+    "scaffolding_notes": "Ethan's spontaneous speech emerges most reliably around weather topics \u00e2\u20ac\u201d build on this strength before generalizing. Use 3-second wait time consistently; rushing him triggers scripting. If he begins echoing Weather Channel phrases, don't punish \u00e2\u20ac\u201d redirect with 'use your words.' Pair with Caleb for the tornado card game (established play partner). Provide spinning break between stations (30 seconds in desk chair). Avoid wet materials entirely. Morning sessions work better \u00e2\u20ac\u201d echolalia increases with fatigue in afternoons.",
+    "assessment": "Tally each communicative attempt across the 3 stations. Categorize as: spontaneous (novel utterance), prompted spontaneous (said own words after redirect), or echolalic (scripted/repeated phrase). Target: 7/10 attempts are spontaneous or prompted spontaneous. Note which station produced the most spontaneous speech."
+  }
+}

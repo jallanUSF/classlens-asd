@@ -1,0 +1,61 @@
+{
+  "student_id": "marcus_2026",
+  "goal_id": "G2",
+  "material_type": "visual_schedule",
+  "created_date": "2026-04-05",
+  "status": "draft",
+  "content": {
+    "title": "Marcus's Bathroom Routine  -  Bluey's Potty Steps",
+    "student_name": "Marcus",
+    "schedule_type": "toileting_routine",
+    "steps": [
+      {
+        "step_number": 1,
+        "activity": "Walk to bathroom",
+        "icon_note": "Bluey walking icon with arrow to bathroom door",
+        "duration": "1 minute"
+      },
+      {
+        "step_number": 2,
+        "activity": "Pull pants down",
+        "icon_note": "Pants down icon (simple line drawing)",
+        "duration": "1 minute"
+      },
+      {
+        "step_number": 3,
+        "activity": "Sit on toilet",
+        "icon_note": "Stick figure sitting on toilet icon",
+        "duration": "3 minutes"
+      },
+      {
+        "step_number": 4,
+        "activity": "Wipe (use the helper handle)",
+        "icon_note": "Toilet paper with adapted wipe holder icon",
+        "duration": "1 minute"
+      },
+      {
+        "step_number": 5,
+        "activity": "Pull pants up",
+        "icon_note": "Pants up icon (simple line drawing)",
+        "duration": "1 minute"
+      },
+      {
+        "step_number": 6,
+        "activity": "Push the flush button (Bluey sticker!)",
+        "icon_note": "Flush handle with Bluey sticker star burst",
+        "duration": "30 seconds"
+      },
+      {
+        "step_number": 7,
+        "activity": "Wash hands with warm water and soap (sing Bluey song)",
+        "icon_note": "Hands under running water with music notes",
+        "duration": "1 minute"
+      }
+    ],
+    "first_then": {
+      "first": "Finish all potty steps",
+      "then": "Blow bubbles with Ms. Chen!"
+    },
+    "notes": "Print on waterproof laminated card and mount at Marcus's eye level inside the bathroom stall. Each step has a velcro check-off square  -  Marcus moves a Bluey token down after each step. The Bluey sticker on the flush handle was the key to getting independent flushing. Use WARM water only for hand washing (cold triggers avoidance). The Bluey theme song takes about 40 seconds  -  perfect hand washing duration. OT recommended the adapted wipe holder for step 4; continue using until motor planning improves. Schedule bathroom trips at 9:00, 11:00, 1:00, and 2:30  -  use visual timer on AAC device as reminder. Do NOT use hand-over-hand prompting; use gestural or point prompts only."
+  }
+}

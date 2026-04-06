@@ -1,0 +1,61 @@
+{
+  "student_id": "ethan_2026",
+  "goal_id": "G1",
+  "material_type": "visual_schedule",
+  "created_date": "2026-04-05",
+  "status": "approved",
+  "content": {
+    "title": "Ethan's Morning Routine \u00e2\u20ac\u201d Weather Station Start",
+    "student_name": "Ethan",
+    "schedule_type": "morning_routine",
+    "steps": [
+      {
+        "step_number": 1,
+        "activity": "Arrive and hang up backpack",
+        "icon_note": "Backpack on hook icon",
+        "duration": "2 minutes"
+      },
+      {
+        "step_number": 2,
+        "activity": "Check the weather chart (today's forecast card)",
+        "icon_note": "Sun/cloud/rain icon with magnifying glass",
+        "duration": "3 minutes"
+      },
+      {
+        "step_number": 3,
+        "activity": "Say good morning to teacher (use YOUR words)",
+        "icon_note": "Speech bubble with smiley face",
+        "duration": "1 minute"
+      },
+      {
+        "step_number": 4,
+        "activity": "Put folder in bin",
+        "icon_note": "Folder going into basket icon",
+        "duration": "1 minute"
+      },
+      {
+        "step_number": 5,
+        "activity": "Desk chair spin break (count to 7)",
+        "icon_note": "Spinning chair icon with number 7",
+        "duration": "1 minute"
+      },
+      {
+        "step_number": 6,
+        "activity": "Choose morning work from choice board",
+        "icon_note": "Two cards with question mark icon",
+        "duration": "2 minutes"
+      },
+      {
+        "step_number": 7,
+        "activity": "Start morning work at desk",
+        "icon_note": "Pencil and paper icon",
+        "duration": "15 minutes"
+      }
+    ],
+    "first_then": {
+      "first": "Check weather chart and say good morning",
+      "then": "Desk chair spin break (count to 7!)"
+    },
+    "notes": "The weather chart check gives Ethan a reason to use spontaneous speech every morning \u00e2\u20ac\u201d he can report what he sees. Place the spin break AFTER the greeting step as a natural reinforcer. Keep the number 7 incorporated (count spins, 7 steps total) since it's calming and motivating for him. Laminate this schedule and velcro to desk. Ethan moves a tornado magnet down each step as he completes it."
+  }
+}

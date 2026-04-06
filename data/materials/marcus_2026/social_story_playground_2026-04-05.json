@@ -1,0 +1,58 @@
+{
+  "student_id": "marcus_2026",
+  "goal_id": "G3",
+  "material_type": "social_story",
+  "created_date": "2026-04-05",
+  "status": "draft",
+  "content": {
+    "title": "Marcus Goes to the Playground  -  A Bluey Adventure",
+    "student_name": "Marcus",
+    "scenes": [
+      {
+        "text": "My name is Marcus. Sometimes I go to the playground at school.",
+        "sentence_type": "descriptive",
+        "illustration_note": "Marcus standing near the playground, looking at the equipment from a distance. Bright but not overwhelming colors."
+      },
+      {
+        "text": "The playground can be noisy with lots of kids. That's okay. I can wear my headphones if it's too loud.",
+        "sentence_type": "perspective",
+        "illustration_note": "Playground with several children playing. Marcus wearing headphones, looking calm. Sound wave icons shown softly."
+      },
+      {
+        "text": "When I want to go on the slide, I walk to the ladder and wait my turn. Bluey waits for her turn too!",
+        "sentence_type": "directive",
+        "illustration_note": "Marcus standing behind one child at the slide ladder. Small Bluey cartoon character waiting beside him, smiling."
+      },
+      {
+        "text": "I climb the ladder one step at a time. I hold on with both hands. My teacher is nearby if I need help.",
+        "sentence_type": "directive",
+        "illustration_note": "Marcus climbing ladder with both hands gripping rungs. Teacher/aide standing nearby with encouraging expression."
+      },
+      {
+        "text": "At the top, I sit down on the slide. I put my feet in front of me. Feet first is the safe way!",
+        "sentence_type": "directive",
+        "illustration_note": "Marcus sitting at top of slide, feet pointing down. A 'feet first' visual cue with a checkmark."
+      },
+      {
+        "text": "I slide down! It feels fast and fun. When I get to the bottom, I walk away from the slide so the next person can go.",
+        "sentence_type": "descriptive",
+        "illustration_note": "Marcus sliding down with a smile. At bottom, arrow showing him walking to the side. Another child waiting at top."
+      },
+      {
+        "text": "If I feel scared, I can say 'help' or press HELP on my talker. My teacher will come right away.",
+        "sentence_type": "control",
+        "illustration_note": "Marcus on climbing equipment looking uncertain. AAC device shown with HELP button highlighted. Teacher approaching."
+      },
+      {
+        "text": "The playground is a fun place. I can climb, slide, and play near my friends. I am brave like Bluey!",
+        "sentence_type": "affirmative",
+        "illustration_note": "Marcus at the bottom of the big slide, smiling proudly. Bluey character giving a thumbs up beside him. Other children nearby."
+      }
+    ],
+    "review_questions": [
+      "Show me: what do you hold when you climb? (Point to the ladder rungs)",
+      "Show me on your talker: what do you press if you need help?",
+      "How do we sit on the slide? (Feet first  -  show with gesture)"
+    ]
+  }
+}
