@@ -161,7 +161,7 @@ export default function NewStudentPage() {
                 </p>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   {preview.grade ? (
-                    <span>Grade {preview.grade}</span>
+                    <span>Grade {preview.grade === 0 ? "K" : preview.grade}</span>
                   ) : (
                     <span className="italic">Grade?</span>
                   )}

@@ -1,46 +1,46 @@
 [
   {
-    "id": "efd7670b",
+    "id": "36e0ba62",
     "student_id": "amara_2026",
     "alert_type": "plateau",
     "goal_id": "G2",
     "title": "Amara \u2014 Social Communication plateaued",
     "detail": "Last 3 sessions: 45%, 42%, 40%. No meaningful change.",
     "suggested_action": "Adjust prompting strategy or generate updated materials",
-    "created_date": "2026-04-05",
+    "created_date": "2026-04-06",
     "dismissed": false
   },
   {
-    "id": "66a8c8d7",
+    "id": "af80df61",
     "student_id": "ethan_2026",
     "alert_type": "plateau",
     "goal_id": "G2",
     "title": "Ethan \u2014 Fine Motor plateaued",
     "detail": "Last 3 sessions: 45%, 45%, 45%. No meaningful change.",
     "suggested_action": "Adjust prompting strategy or generate updated materials",
-    "created_date": "2026-04-05",
+    "created_date": "2026-04-06",
     "dismissed": false
   },
   {
-    "id": "184240d7",
+    "id": "b0aab71a",
     "student_id": "maya_2026",
     "alert_type": "plateau",
     "goal_id": "G1",
     "title": "Maya \u2014 Communication plateaued",
     "detail": "Last 3 sessions: 80%, 80%, 80%. No meaningful change.",
     "suggested_action": "Adjust prompting strategy or generate updated materials",
-    "created_date": "2026-04-05",
+    "created_date": "2026-04-06",
     "dismissed": false
   },
   {
-    "id": "bf482f25",
+    "id": "693d91a9",
     "student_id": "maya_2026",
     "alert_type": "plateau",
     "goal_id": "G2",
     "title": "Maya \u2014 Following Directions plateaued",
     "detail": "Last 3 sessions: 75%, 75%, 75%. No meaningful change.",
     "suggested_action": "Adjust prompting strategy or generate updated materials",
-    "created_date": "2026-04-05",
+    "created_date": "2026-04-06",
     "dismissed": false
   },
   {

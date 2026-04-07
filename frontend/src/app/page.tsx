@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   AlertTriangle,
@@ -125,26 +125,25 @@ export default function DashboardPage() {
                           </p>
                         </div>
                       </div>
-                      <div className="flex gap-2 shrink-0">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          render={<Link href={`/student/${alert.student_id}`} />}
+                      <div className="flex flex-col sm:flex-row gap-2 shrink-0">
+                        <Link
+                          href={`/student/${alert.student_id}`}
+                          className="inline-flex items-center justify-center gap-1 rounded-md border border-input bg-background px-3 min-h-[44px] text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
                         >
-                          <Eye className="h-3.5 w-3.5 mr-1" />
+                          <Eye className="h-3.5 w-3.5" />
                           View
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
+                        </Link>
+                        <button
+                          type="button"
+                          className="inline-flex items-center justify-center gap-1 rounded-md px-3 min-h-[44px] text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
                           onClick={() => {
                             setActiveStudent(alert.student_id);
                             prefillInput(`Help with: ${alert.title} — ${alert.detail}`);
                           }}
                         >
-                          <Sparkles className="h-3.5 w-3.5 mr-1" />
+                          <Sparkles className="h-3.5 w-3.5" />
                           Ask Assistant
-                        </Button>
+                        </button>
                       </div>
                     </div>
                   </CardContent>
@@ -171,7 +170,7 @@ export default function DashboardPage() {
                       <div>
                         <p className="font-medium">{s.name}</p>
                         <p className="text-xs text-muted-foreground">
-                          Grade {s.grade} &middot; {s.goal_count} goals &middot;{" "}
+                          Grade {s.grade === 0 ? "K" : s.grade} &middot; {s.goal_count} goals &middot;{" "}
                           {s.session_count} sessions
                         </p>
                       </div>
@@ -199,9 +198,12 @@ export default function DashboardPage() {
               <p className="text-muted-foreground mb-4">
                 No students yet. Add your first student to get started.
               </p>
-              <Button render={<Link href="/student/new" />}>
+              <Link
+                href="/student/new"
+                className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-4 min-h-[44px] text-sm font-medium hover:bg-primary/90 transition-colors"
+              >
                 Add Student
-              </Button>
+              </Link>
             </CardContent>
           </Card>
         )}

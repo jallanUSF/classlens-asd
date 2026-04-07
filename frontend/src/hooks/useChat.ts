@@ -116,12 +116,17 @@ export function useChat({ studentId }: UseChatOptions = {}) {
   );
 
   const addContextMessage = useCallback((text: string) => {
-    const msg: ChatMessage = {
-      id: nextId(),
-      role: "assistant",
-      content: text,
-    };
-    setMessages((prev) => [...prev, msg]);
+    setMessages((prev) => {
+      // Deduplicate: skip if the last assistant message has the same content
+      const lastAssistant = [...prev].reverse().find((m) => m.role === "assistant");
+      if (lastAssistant && lastAssistant.content === text) return prev;
+      const msg: ChatMessage = {
+        id: nextId(),
+        role: "assistant",
+        content: text,
+      };
+      return [...prev, msg];
+    });
   }, []);
 
   const clearHistory = useCallback(() => {

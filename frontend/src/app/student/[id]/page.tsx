@@ -85,7 +85,7 @@ export default function StudentDetailPage() {
       // Update chat context
       setActiveStudent(params.id);
       addContextMessage(
-        `Now looking at **${studentData.name}** — Grade ${studentData.grade}, ${studentData.iep_goals.length} IEP goals. ${
+        `Now looking at **${studentData.name}** — Grade ${studentData.grade === 0 ? "K" : studentData.grade}, ${studentData.iep_goals.length} IEP goals. ${
           alerts.length > 0
             ? `${alerts.length} alert(s) need attention.`
             : "How can I help?"
@@ -152,7 +152,7 @@ export default function StudentDetailPage() {
           </Badge>
         </div>
         <p className="text-muted-foreground mt-1">
-          Grade {student.grade} &middot;{" "}
+          Grade {student.grade === 0 ? "K" : student.grade} &middot;{" "}
           {student.communication_level.charAt(0).toUpperCase() +
             student.communication_level.slice(1)}{" "}
           &middot; Interests: {student.interests.join(", ") || "None listed"}

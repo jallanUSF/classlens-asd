@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Users, Plus, AlertTriangle } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface StudentSummary {
@@ -125,7 +125,7 @@ export function StudentSidebar() {
                       </div>
                       <div className="flex items-center gap-2 mt-0.5">
                         <span className="text-xs text-muted-foreground">
-                          Grade {s.grade}
+                          Grade {s.grade === 0 ? "K" : s.grade}
                         </span>
                         <Badge
                           variant="secondary"
@@ -145,14 +145,13 @@ export function StudentSidebar() {
 
       {/* Add Student */}
       <div className="p-3 border-t border-border">
-        <Button
-          variant="outline"
-          className="w-full justify-start gap-2"
-          render={<Link href="/student/new" />}
+        <Link
+          href="/student/new"
+          className="inline-flex items-center justify-start gap-2 w-full rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors min-h-[44px]"
         >
           <Plus className="h-4 w-4" />
           Add Student
-        </Button>
+        </Link>
       </div>
     </aside>
   );

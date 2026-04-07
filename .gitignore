@@ -96,3 +96,4 @@ uploads/  # Don't commit user uploads
 # Environment-specific configs
 config.local.py
 local_settings.py
+.gstack/
