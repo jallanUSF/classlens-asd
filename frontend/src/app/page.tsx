@@ -11,7 +11,9 @@ import {
   BookOpen,
   Eye,
   Sparkles,
+  UserPlus,
 } from "lucide-react";
+import { EmptyClassroom } from "@/components/illustrations/EmptyClassroom";
 import Link from "next/link";
 import { useChatContext } from "@/context/ChatContext";
 
@@ -128,14 +130,14 @@ export default function DashboardPage() {
                       <div className="flex flex-col sm:flex-row gap-2 shrink-0">
                         <Link
                           href={`/student/${alert.student_id}`}
-                          className="inline-flex items-center justify-center gap-1 rounded-md border border-input bg-background px-3 min-h-[44px] text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
+                          className="inline-flex items-center justify-center gap-1 rounded-md border border-input bg-background px-3 min-h-[44px] text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         >
                           <Eye className="h-3.5 w-3.5" />
                           View
                         </Link>
                         <button
                           type="button"
-                          className="inline-flex items-center justify-center gap-1 rounded-md px-3 min-h-[44px] text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
+                          className="inline-flex items-center justify-center gap-1 rounded-md px-3 min-h-[44px] text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                           onClick={() => {
                             setActiveStudent(alert.student_id);
                             prefillInput(`Help with: ${alert.title} — ${alert.detail}`);
@@ -162,47 +164,71 @@ export default function DashboardPage() {
         </h2>
         {students.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {students.map((s) => (
-              <Link key={s.student_id} href={`/student/${s.student_id}`}>
-                <Card className="hover:border-primary/30 transition-colors cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-medium">{s.name}</p>
-                        <p className="text-xs text-muted-foreground">
-                          Grade {s.grade === 0 ? "K" : s.grade} &middot; {s.goal_count} goals &middot;{" "}
-                          {s.session_count} sessions
-                        </p>
+            {students.map((s) => {
+              const levelColor =
+                s.asd_level === 1
+                  ? "border-l-level-1"
+                  : s.asd_level === 2
+                    ? "border-l-level-2"
+                    : "border-l-level-3";
+              const levelBg =
+                s.asd_level === 1
+                  ? "bg-level-1 text-level-1-foreground"
+                  : s.asd_level === 2
+                    ? "bg-level-2 text-level-2-foreground"
+                    : "bg-level-3 text-level-3-foreground";
+              const avatarBg =
+                s.asd_level === 1
+                  ? "bg-level-1/15 text-level-1"
+                  : s.asd_level === 2
+                    ? "bg-level-2/15 text-level-2"
+                    : "bg-level-3/15 text-level-3";
+              return (
+                <Link key={s.student_id} href={`/student/${s.student_id}`} className="rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                  <Card className={`border-l-4 ${levelColor} hover:shadow-md hover:border-l-4 transition-all duration-200 cursor-pointer group`}>
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`w-9 h-9 rounded-full ${avatarBg} flex items-center justify-center text-sm font-semibold shrink-0`}
+                        >
+                          {s.name.charAt(0)}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium truncate group-hover:text-primary transition-colors">{s.name}</p>
+                          <p className="text-xs text-muted-foreground">
+                            Grade {s.grade === 0 ? "K" : s.grade} &middot; {s.goal_count} goals &middot;{" "}
+                            {s.session_count} sessions
+                          </p>
+                        </div>
+                        <Badge
+                          variant="secondary"
+                          className={`text-xs shrink-0 ${levelBg}`}
+                        >
+                          Level {s.asd_level}
+                        </Badge>
                       </div>
-                      <Badge
-                        variant="secondary"
-                        className={`text-xs ${
-                          s.asd_level === 1
-                            ? "bg-level-1 text-level-1-foreground"
-                            : s.asd_level === 2
-                              ? "bg-level-2 text-level-2-foreground"
-                              : "bg-level-3 text-level-3-foreground"
-                        }`}
-                      >
-                        Level {s.asd_level}
-                      </Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
           </div>
         ) : (
           <Card>
-            <CardContent className="p-8 text-center">
-              <p className="text-muted-foreground mb-4">
-                No students yet. Add your first student to get started.
+            <CardContent className="p-8 text-center flex flex-col items-center">
+              <EmptyClassroom className="w-48 h-auto mb-5 opacity-80" />
+              <h3 className="font-medium text-foreground mb-1">
+                Your classroom is ready
+              </h3>
+              <p className="text-sm text-muted-foreground mb-5 max-w-xs">
+                Add your first student to start tracking IEP goals and generating personalized materials.
               </p>
               <Link
                 href="/student/new"
-                className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-4 min-h-[44px] text-sm font-medium hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary text-primary-foreground px-5 min-h-[44px] text-sm font-medium hover:bg-primary/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
-                Add Student
+                <UserPlus className="h-4 w-4" />
+                Add Your First Student
               </Link>
             </CardContent>
           </Card>

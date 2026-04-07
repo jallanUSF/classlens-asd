@@ -12,6 +12,5 @@
 - [x] Sprint 5: Mobile responsive layout (hamburger + FAB)
 - [x] Sprint 5: OpenRouter integration + deployment config
 - [x] Design review: Grade K, touch targets, Base UI fix, chat dedup, heading size
-- [ ] Sprint 6: Deploy to Vercel + Railway (get live URL)
-- [ ] Sprint 6: Demo recording + video production
-- [ ] Sprint 6: Kaggle submission
+- [x] Address remaining design review polish (focus indicators, alert wrapping, empty state, level visual weight)
+- [ ] Jeff approval for release readiness

@@ -3,7 +3,7 @@
 **Date:** 2026-04-06
 **Branch:** `nextjs-redesign`
 **Last commit:** `9276887`
-**Status:** Sprints 1-5 COMPLETE. Design review fixes applied. Sprint 6 (video + submission) remaining.
+**Status:** Sprints 1-5 COMPLETE. All design review findings addressed. Awaiting Jeff's release approval before any Sprint 6 work.
 
 ---
 
@@ -25,11 +25,11 @@ Ran a full design audit using gstack's design-review skill with Playwright MCP f
 | Duplicate chat messages | Dedup `addContextMessage` against last assistant message | `useChat.ts` |
 | Alert buttons truncated on mobile | Stack buttons vertically on narrow viewports | `page.tsx` |
 
-### Unfixed (deferred — polish, not demo-blocking)
-- FINDING-003: Alert card text wrapping on narrow content area
-- FINDING-005: Focus-visible indicators on sidebar links
-- FINDING-009: Empty state illustration
-- FINDING-010: Student card level visual weight
+### Previously Deferred — Now Fixed
+- FINDING-003: Alert card buttons now `min-h-[44px]`, `flex-wrap` for wrapping, `break-words` on detail text, dismiss button has proper 44px touch target
+- FINDING-005: Focus-visible ring on all sidebar links (student items, ClassLens logo, Add Student), GoalCard expand button, mobile nav buttons, chat send button, dashboard alert buttons, student card links
+- FINDING-009: Warm SVG classroom illustration (`EmptyClassroom.tsx`) with desk, chair, book, pencil, apple, and star decorations using the Calm Classroom palette colors
+- FINDING-010: Student cards now have level-colored left border (`border-l-4`), first-letter avatar circle tinted by level color, name highlights on hover, and subtle shadow lift on hover
 
 ### Design Audit Report
 Full report with screenshots saved to `.gstack/design-reports/design-audit-localhost-2026-04-06.md`
@@ -77,31 +77,13 @@ cd C:/Projects/ClassLense/frontend && npx next build
 
 ---
 
-## Next Steps: Sprint 6 — Video + Submission
+## Next Steps
 
-### Task 24: Demo Recording
-- Follow `docs/VIDEO-SCRIPT.md` for shot list
-- Key flows to record:
-  1. Dashboard with 7 students + alert badges
-  2. Click student -> goals with percentages + trend icons
-  3. Expand goal -> Plotly chart + last 3 sessions
-  4. Materials library -> View -> MaterialViewer sheet (admin report)
-  5. Approve material -> status changes
-  6. Mobile view: hamburger + FAB
-  7. Chat interaction (ask about student progress)
-- Pre-recording: ensure backend running, all data loaded, browser at 125% zoom
+### All Design Review Findings Addressed
+All 10 findings from the design audit are now fixed. Interaction States grade should improve from C+ to B+.
 
-### Task 25: Video Production
-- Sarah segments: classroom, talking-head (real teacher credibility)
-- Jeff voiceover: architecture walkthrough, Gemma 4 features
-- 180 seconds max, fast cuts, warm color grade
-- Title card: "ClassLens ASD" + "Gemma 4 Good Hackathon"
-
-### Task 26: Kaggle Submission
-- `docs/COMPETITION-WRITEUP.md` is ready (just needs live URL filled in)
-- Deploy: follow `DEPLOYMENT.md` for Vercel + Railway
-- GitHub repo: `jallanUSF/classlens-asd`
-- Deadline: 2026-05-18
+### Release Gate
+Deploy, demo recording, video production, and Kaggle submission are **blocked until Jeff approves release readiness**. No Sprint 6 tasks until then.
 
 ---
 

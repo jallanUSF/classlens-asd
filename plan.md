@@ -43,6 +43,4 @@ Full implementation: `docs/plans/2026-04-05-implementation-plan.md`
 - [x] Competition assets updated (video script, writeup, ADR)
 
 ## Sprint 6: Video + Submission
-- [ ] Demo recording
-- [ ] Video production
-- [ ] Kaggle submission
+**BLOCKED — not scheduled until Jeff explicitly approves release readiness.**

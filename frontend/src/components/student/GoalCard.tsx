@@ -63,7 +63,7 @@ export function GoalCard({ goal, onScanWork }: Props) {
         <button
           type="button"
           onClick={() => setExpanded(!expanded)}
-          className="w-full text-left"
+          className="w-full text-left rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 min-w-0">

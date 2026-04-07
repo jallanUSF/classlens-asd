@@ -40,7 +40,7 @@ export function MobileNav() {
       {/* Hamburger button — top-left, mobile only */}
       <button
         onClick={openSidebar}
-        className="fixed top-3 left-3 z-50 md:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-card border border-border shadow-sm"
+        className="fixed top-3 left-3 z-50 md:hidden flex items-center justify-center w-11 h-11 rounded-lg bg-card border border-border shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         aria-label="Open navigation"
       >
         <Menu className="h-5 w-5 text-foreground" />
@@ -50,7 +50,7 @@ export function MobileNav() {
       {!chatOpen && (
         <button
           onClick={openChat}
-          className="fixed bottom-5 right-5 z-50 md:hidden flex items-center justify-center w-14 h-14 rounded-full bg-primary text-white shadow-lg"
+          className="fixed bottom-5 right-5 z-50 md:hidden flex items-center justify-center w-14 h-14 rounded-full bg-primary text-white shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           aria-label="Open assistant"
         >
           <Sparkles className="h-6 w-6" />
@@ -70,7 +70,7 @@ export function MobileNav() {
             <div className="relative h-full">
               <button
                 onClick={closeSidebar}
-                className="absolute top-3 right-3 z-10 flex items-center justify-center w-8 h-8 rounded-md hover:bg-accent"
+                className="absolute top-3 right-3 z-10 flex items-center justify-center w-11 h-11 rounded-md hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label="Close navigation"
               >
                 <X className="h-5 w-5 text-foreground" />
@@ -94,7 +94,7 @@ export function MobileNav() {
             <div className="relative h-full">
               <button
                 onClick={closeChat}
-                className="absolute top-3 right-3 z-10 flex items-center justify-center w-8 h-8 rounded-md hover:bg-accent bg-card/80"
+                className="absolute top-3 right-3 z-10 flex items-center justify-center w-11 h-11 rounded-md hover:bg-accent bg-card/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label="Close assistant"
               >
                 <X className="h-5 w-5 text-foreground" />

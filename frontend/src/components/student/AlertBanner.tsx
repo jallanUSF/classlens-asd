@@ -46,18 +46,18 @@ export function AlertBanner({
             <AlertTriangle className="h-4 w-4 text-warning mt-0.5 shrink-0" />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium">{alert.title}</p>
-              <p className="text-xs text-muted-foreground mt-0.5">
+              <p className="text-xs text-muted-foreground mt-0.5 break-words">
                 {alert.detail}
               </p>
-              <div className="flex gap-2 mt-2">
+              <div className="flex flex-wrap gap-2 mt-2">
                 {onGenerateMaterials && (
                   <Button
                     size="sm"
                     variant="outline"
-                    className="text-xs h-7 gap-1"
+                    className="text-xs min-h-[44px] gap-1.5"
                     onClick={() => onGenerateMaterials(alert.goal_id)}
                   >
-                    <FileText className="h-3 w-3" />
+                    <FileText className="h-3.5 w-3.5" />
                     Generate Materials
                   </Button>
                 )}
@@ -65,14 +65,14 @@ export function AlertBanner({
                   <Button
                     size="sm"
                     variant="outline"
-                    className="text-xs h-7 gap-1"
+                    className="text-xs min-h-[44px] gap-1.5"
                     onClick={() =>
                       onAskAssistant(
                         `${alert.title}: ${alert.detail}. ${alert.suggested_action}`,
                       )
                     }
                   >
-                    <Sparkles className="h-3 w-3" />
+                    <Sparkles className="h-3.5 w-3.5" />
                     Ask Assistant
                   </Button>
                 )}
@@ -80,7 +80,7 @@ export function AlertBanner({
             </div>
             <button
               onClick={() => dismiss(alert.id)}
-              className="text-muted-foreground hover:text-foreground"
+              className="text-muted-foreground hover:text-foreground min-h-[44px] min-w-[44px] flex items-center justify-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <X className="h-4 w-4" />
             </button>

@@ -80,7 +80,7 @@ export function StudentSidebar() {
     <aside className="w-full md:w-60 border-r border-border bg-card flex flex-col h-full">
       {/* Header */}
       <div className="p-4 border-b border-border">
-        <Link href="/" className="flex items-center gap-2 text-primary font-semibold text-lg">
+        <Link href="/" className="flex items-center gap-2 text-primary font-semibold text-lg rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
           <Users className="h-5 w-5" />
           ClassLens
         </Link>
@@ -110,6 +110,7 @@ export function StudentSidebar() {
                     href={`/student/${s.student_id}`}
                     className={`
                       flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors
+                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1
                       ${isActive
                         ? "bg-primary/10 text-primary font-medium"
                         : "text-foreground hover:bg-accent"
@@ -147,7 +148,7 @@ export function StudentSidebar() {
       <div className="p-3 border-t border-border">
         <Link
           href="/student/new"
-          className="inline-flex items-center justify-start gap-2 w-full rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors min-h-[44px]"
+          className="inline-flex items-center justify-start gap-2 w-full rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
         >
           <Plus className="h-4 w-4" />
           Add Student
