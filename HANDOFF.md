@@ -1,32 +1,38 @@
 # HANDOFF.md — Session Handoff
 
-**Date:** 2026-04-05
+**Date:** 2026-04-06
 **Branch:** `nextjs-redesign`
-**Last commit:** `5c8fd2f`
-**Status:** Sprints 1-5 COMPLETE. App is feature-complete. Sprint 6 (video + submission) remaining.
+**Last commit:** `9276887`
+**Status:** Sprints 1-5 COMPLETE. Design review fixes applied. Sprint 6 (video + submission) remaining.
 
 ---
 
-## What Was Built (This Session)
+## What Was Done (This Session)
 
-### Sprint 5: Polish + Deploy
-- **Mobile responsive** (`frontend/src/components/layout/MobileNav.tsx`): Hamburger button opens sidebar overlay, Sparkles FAB opens chat overlay. Desktop layout unchanged. Tailwind `hidden md:flex` breakpoints.
-- **OpenRouter integration** (`core/gemma_client.py`): `MODEL_PROVIDER` env toggle — `google` (default), `openrouter`, `ollama`. All 4 methods (generate, multimodal, tools, thinking) work or gracefully degrade per provider.
-- **Deploy config**: `frontend/vercel.json`, `Procfile`, `render.yaml`, `DEPLOYMENT.md`. Dynamic CORS via `CORS_ORIGINS` env + `*.vercel.app` regex.
-- **Precomputed demo data**: 17 materials + 5 alerts across 7 students. App works fully offline with no API key.
-- **Competition assets**: `docs/VIDEO-SCRIPT.md`, `docs/COMPETITION-WRITEUP.md`, `docs/ADR.md` all updated for Next.js architecture.
+### Design Review — Teacher Perspective Audit
+Ran a full design audit using gstack's design-review skill with Playwright MCP for screenshots. Evaluated the UI from a special education teacher's perspective.
 
-### Expanded Demo Data (4 New Students)
-| Student | Grade | Level | Communication | Key Pattern |
-|---------|-------|-------|---------------|-------------|
-| Ethan | 2 | 2 | Echolalic, emerging spontaneous | Fine motor **plateau** at 45% |
-| Lily | 4 | 1 | Highly verbal, monotone | Exec function regression→recovery |
-| Marcus | K | 3 | Minimally verbal, PECS/AAC | Slow steady progress across all goals |
-| Amara | 6 | 1 | Fluent, struggles with inference | Social comm **regression** 50→40% |
+**Scores:** Design B+ | AI Slop A (no generic/templated patterns detected)
 
-### Bugs Found & Fixed in QA
-1. **Goal percentages blank**: Backend `GET /students/{id}` returned raw JSON with `target` field but frontend expected `target_pct` and `current_pct`. Fixed in `backend/routers/students.py:67-73` — now transforms on read.
-2. **Unicode garbled text**: Em dashes (—) in student JSON rendered as "â€"" due to Windows encoding. Replaced with ASCII dashes in all 18 data files.
+### Fixes Applied (6 of 10 findings)
+
+| Finding | Fix | Files |
+|---------|-----|-------|
+| "Grade 0" for Kindergarten | Map `grade === 0` to "K" in 5 render sites | `StudentSidebar.tsx`, `page.tsx`, `student/[id]/page.tsx`, `student/new/page.tsx` |
+| Base UI nativeButton error | Replace `Button render={<Link>}` with native `<Link>` + `<button>` | `StudentSidebar.tsx`, `page.tsx` |
+| Touch targets 28px (should be 44px) | Added `min-h-[44px]` to alert buttons, chat input, send button | `page.tsx`, `ChatPanel.tsx` |
+| Chat heading 14px < body 15px | Changed `text-sm` to `text-base` (16px) | `ChatPanel.tsx` |
+| Duplicate chat messages | Dedup `addContextMessage` against last assistant message | `useChat.ts` |
+| Alert buttons truncated on mobile | Stack buttons vertically on narrow viewports | `page.tsx` |
+
+### Unfixed (deferred — polish, not demo-blocking)
+- FINDING-003: Alert card text wrapping on narrow content area
+- FINDING-005: Focus-visible indicators on sidebar links
+- FINDING-009: Empty state illustration
+- FINDING-010: Student card level visual weight
+
+### Design Audit Report
+Full report with screenshots saved to `.gstack/design-reports/design-audit-localhost-2026-04-06.md`
 
 ---
 
@@ -34,19 +40,19 @@
 
 ### What Works
 - Dashboard: 7 students, 21 goals, 123 sessions, 5 alerts
-- Student detail: expandable goal cards with %, trend icons, progress bars, Plotly charts
-- Materials library: 17 precomputed materials with View → MaterialViewer sheet
-- MaterialViewer: 6 renderers (lesson plan, parent letter, admin report, social story, tracking sheet, visual schedule) with Approve/Regenerate/Print
-- Chat: context-aware mock responses, quick actions prefill
-- Mobile: hamburger + FAB overlays at <768px
-- Print CSS: letter-size, hides chrome
+- Marcus shows "Grade K" (not "Grade 0")
+- Student detail: expandable goal cards, Plotly charts, progress bars
+- Materials library: 17 precomputed materials with MaterialViewer
+- Chat: context-aware, no duplicate messages, proper heading size
+- Mobile: hamburger + FAB, alert buttons stack vertically
+- Touch targets: all interactive elements >= 44px
+- Console: 0 errors, 0 warnings
+- Build: 0 TypeScript errors
 - 35/35 Python tests passing
-- Next.js build clean, 0 TypeScript errors
 
 ### What Doesn't Work Yet
 - Chat doesn't call real Gemma API (mock responses only unless API key set)
 - No real-time image capture/scan (pipeline exists but no UI upload wired)
-- "Grade 0" displays for Kindergarten (cosmetic — could show "K")
 
 ---
 
@@ -55,7 +61,7 @@
 ### Start the app
 ```bash
 # Terminal 1: Backend
-cd C:/Projects/ClassLense && uvicorn backend.main:app --reload --port 8000
+cd C:/Projects/ClassLense && uvicorn backend.main:app --host 127.0.0.1 --port 8000
 
 # Terminal 2: Frontend
 cd C:/Projects/ClassLense/frontend && npm run dev
@@ -77,16 +83,16 @@ cd C:/Projects/ClassLense/frontend && npx next build
 - Follow `docs/VIDEO-SCRIPT.md` for shot list
 - Key flows to record:
   1. Dashboard with 7 students + alert badges
-  2. Click student → goals with percentages + trend icons
-  3. Expand goal → Plotly chart + last 3 sessions
-  4. Materials library → View → MaterialViewer sheet (admin report)
-  5. Approve material → status changes
+  2. Click student -> goals with percentages + trend icons
+  3. Expand goal -> Plotly chart + last 3 sessions
+  4. Materials library -> View -> MaterialViewer sheet (admin report)
+  5. Approve material -> status changes
   6. Mobile view: hamburger + FAB
   7. Chat interaction (ask about student progress)
 - Pre-recording: ensure backend running, all data loaded, browser at 125% zoom
 
 ### Task 25: Video Production
-- Sarah segments: classroom, talking-head (she has the real teacher credibility)
+- Sarah segments: classroom, talking-head (real teacher credibility)
 - Jeff voiceover: architecture walkthrough, Gemma 4 features
 - 180 seconds max, fast cuts, warm color grade
 - Title card: "ClassLens ASD" + "Gemma 4 Good Hackathon"
@@ -116,3 +122,4 @@ cd C:/Projects/ClassLense/frontend && npx next build
 | Alerts | `data/alerts/active_alerts.json` (5 alerts) |
 | Deploy config | `DEPLOYMENT.md`, `frontend/vercel.json`, `Procfile`, `render.yaml` |
 | Competition | `docs/VIDEO-SCRIPT.md`, `docs/COMPETITION-WRITEUP.md`, `docs/ADR.md` |
+| Design audit | `.gstack/design-reports/design-audit-localhost-2026-04-06.md` |
