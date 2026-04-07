@@ -2,37 +2,22 @@
 
 **Date:** 2026-04-06
 **Branch:** `nextjs-redesign`
-**Last commit:** `9276887`
-**Status:** Sprints 1-5 COMPLETE. All design review findings addressed. Awaiting Jeff's release approval before any Sprint 6 work.
+**Last commit:** `7f9620e`
+**Status:** Sprints 1-5 COMPLETE. All 10 design review findings fixed. Awaiting Jeff's release approval.
 
 ---
 
 ## What Was Done (This Session)
 
-### Design Review — Teacher Perspective Audit
-Ran a full design audit using gstack's design-review skill with Playwright MCP for screenshots. Evaluated the UI from a special education teacher's perspective.
-
-**Scores:** Design B+ | AI Slop A (no generic/templated patterns detected)
-
-### Fixes Applied (6 of 10 findings)
+### UI Polish — All Deferred Design Findings Resolved
 
 | Finding | Fix | Files |
 |---------|-----|-------|
-| "Grade 0" for Kindergarten | Map `grade === 0` to "K" in 5 render sites | `StudentSidebar.tsx`, `page.tsx`, `student/[id]/page.tsx`, `student/new/page.tsx` |
-| Base UI nativeButton error | Replace `Button render={<Link>}` with native `<Link>` + `<button>` | `StudentSidebar.tsx`, `page.tsx` |
-| Touch targets 28px (should be 44px) | Added `min-h-[44px]` to alert buttons, chat input, send button | `page.tsx`, `ChatPanel.tsx` |
-| Chat heading 14px < body 15px | Changed `text-sm` to `text-base` (16px) | `ChatPanel.tsx` |
-| Duplicate chat messages | Dedup `addContextMessage` against last assistant message | `useChat.ts` |
-| Alert buttons truncated on mobile | Stack buttons vertically on narrow viewports | `page.tsx` |
-
-### Previously Deferred — Now Fixed
-- FINDING-003: Alert card buttons now `min-h-[44px]`, `flex-wrap` for wrapping, `break-words` on detail text, dismiss button has proper 44px touch target
-- FINDING-005: Focus-visible ring on all sidebar links (student items, ClassLens logo, Add Student), GoalCard expand button, mobile nav buttons, chat send button, dashboard alert buttons, student card links
-- FINDING-009: Warm SVG classroom illustration (`EmptyClassroom.tsx`) with desk, chair, book, pencil, apple, and star decorations using the Calm Classroom palette colors
-- FINDING-010: Student cards now have level-colored left border (`border-l-4`), first-letter avatar circle tinted by level color, name highlights on hover, and subtle shadow lift on hover
-
-### Design Audit Report
-Full report with screenshots saved to `.gstack/design-reports/design-audit-localhost-2026-04-06.md`
+| FINDING-003: Alert text wrapping | Buttons to `min-h-[44px]`, `flex-wrap`, `break-words` on detail, dismiss button 44px target | `AlertBanner.tsx` |
+| FINDING-005: Focus-visible indicators | `focus-visible:ring-2` on sidebar links, logo, Add Student, GoalCard, chat send, mobile nav, dashboard buttons, student cards | `StudentSidebar.tsx`, `ChatPanel.tsx`, `MobileNav.tsx`, `GoalCard.tsx`, `page.tsx` |
+| FINDING-009: Empty state illustration | Warm SVG classroom scene (desk, chair, book, pencil, apple, stars) in Calm Classroom palette | New: `EmptyClassroom.tsx`, updated `page.tsx` |
+| FINDING-010: Student card level weight | Level-colored `border-l-4`, first-letter avatar circle tinted by level, hover shadow + name highlight | `page.tsx` |
+| Mobile touch targets | Close buttons upgraded from 32px to 44px | `MobileNav.tsx` |
 
 ---
 
@@ -40,19 +25,17 @@ Full report with screenshots saved to `.gstack/design-reports/design-audit-local
 
 ### What Works
 - Dashboard: 7 students, 21 goals, 123 sessions, 5 alerts
-- Marcus shows "Grade K" (not "Grade 0")
-- Student detail: expandable goal cards, Plotly charts, progress bars
-- Materials library: 17 precomputed materials with MaterialViewer
-- Chat: context-aware, no duplicate messages, proper heading size
-- Mobile: hamburger + FAB, alert buttons stack vertically
-- Touch targets: all interactive elements >= 44px
-- Console: 0 errors, 0 warnings
+- All 10 design audit findings addressed (was 6/10, now 10/10)
+- Focus-visible keyboard navigation on every interactive element
+- Student cards: level-colored borders + avatar circles for quick scanning
+- Empty state: warm illustration + encouraging copy
+- Touch targets: all interactive elements >= 44px (including mobile close buttons)
 - Build: 0 TypeScript errors
 - 35/35 Python tests passing
 
 ### What Doesn't Work Yet
-- Chat doesn't call real Gemma API (mock responses only unless API key set)
-- No real-time image capture/scan (pipeline exists but no UI upload wired)
+- Chat uses mock responses unless API key is set
+- No UI upload wired for real-time image capture/scan
 
 ---
 
@@ -79,11 +62,12 @@ cd C:/Projects/ClassLense/frontend && npx next build
 
 ## Next Steps
 
-### All Design Review Findings Addressed
-All 10 findings from the design audit are now fixed. Interaction States grade should improve from C+ to B+.
+Sprint 6 (deploy, demo recording, video production, Kaggle submission) is **NOT on the todo list** and will NOT be added until Jeff explicitly approves release readiness.
 
-### Release Gate
-Deploy, demo recording, video production, and Kaggle submission are **blocked until Jeff approves release readiness**. No Sprint 6 tasks until then.
+Focus areas if Jeff wants more polish before release:
+- Wire real Gemma API to chat (currently mock unless API key set)
+- Wire image upload UI to the capture pipeline
+- Any additional UX tweaks Jeff identifies
 
 ---
 
@@ -98,6 +82,7 @@ Deploy, demo recording, video production, and Kaggle submission are **blocked un
 | Frontend entry | `frontend/src/app/layout.tsx` |
 | Pages | `frontend/src/app/page.tsx`, `frontend/src/app/student/[id]/page.tsx` |
 | Material renderers | `frontend/src/components/materials/*.tsx` (6 types + MaterialViewer) |
+| Illustrations | `frontend/src/components/illustrations/EmptyClassroom.tsx` |
 | Mobile nav | `frontend/src/components/layout/MobileNav.tsx` |
 | Student data | `data/students/*.json` (7 profiles) |
 | Materials data | `data/materials/{student_id}/*.json` (17 files) |
