@@ -1,0 +1,67 @@
+{
+  "student_id": "ethan_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\ethan_handwriting_probe.png",
+  "date": "2026-04-10",
+  "transcription": {
+    "student_name": "Ethan",
+    "work_type": "ot_handwriting_probe",
+    "subject": "fine_motor",
+    "raw_text": "OT Handwriting Probe - Ethan - OT: Mr. Patel\nDate: 2026-04-10 - Tool: slant board + pencil grip\n---\nPrompt: Write 10 target letters on lined paper.\nE - legible, sizing off, OK\nt - not legible, too heavy, X\nH - legible, OK\na - not legible, wrong orientation, X\nn - not legible, X\nR - legible, OK\nf - not legible, X\n7 - legible (preferred character), OK\nS - legible, OK\nm - not legible, X\n---\nLegible: 5/10 = 45% - NO CHANGE 4 weeks\nRecommend: vibrating pen, 5-min bursts, fan break.\nNote: Refused writing after 4 minutes. Switched to scripting 'the weather today is...'",
+    "task_items": [
+      {"item": "E", "response": "legible (sizing off)", "correct": true},
+      {"item": "t", "response": "not legible - too heavy", "correct": false},
+      {"item": "H", "response": "legible", "correct": true},
+      {"item": "a", "response": "not legible - wrong orientation", "correct": false},
+      {"item": "n", "response": "not legible", "correct": false},
+      {"item": "R", "response": "legible", "correct": true},
+      {"item": "f", "response": "not legible", "correct": false},
+      {"item": "7", "response": "legible (preferred character)", "correct": true},
+      {"item": "S", "response": "legible", "correct": true},
+      {"item": "m", "response": "not legible", "correct": false}
+    ],
+    "total_items": 10,
+    "correct_items": 5,
+    "accuracy_pct": 45,
+    "teacher_notes": "FOURTH CONSECUTIVE SESSION AT 45%. Clear plateau. Uppercase letters stronger than lowercase (E, H, R, S = OK; lowercase a, n, f, m = not legible). The number 7 (preferred character) scored as legible — interest-driven motor planning is holding. Ethan refused writing after 4 minutes and switched to scripting Weather Channel phrases, which is his signal that the task demand has exceeded his tolerance. OT is recommending a vibrating pen trial and 5-minute bursts with fan breaks between.",
+    "engagement_indicators": [
+      "task refusal after 4 minutes",
+      "scripted weather language as avoidance signal",
+      "preferred-character advantage (7 legible, lowercase letters not)"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G2",
+        "reasoning": "OT bi-weekly writing probe is the named measurement method for G2. 5/10 letters legible = 45% — fourth consecutive session at this level.",
+        "trials": 10,
+        "successes": 5,
+        "percentage": 45
+      }
+    ],
+    "overall_summary": "Ethan plateaued on Goal G2 (letter legibility) for the fourth straight session at 45%. The current intervention stack (slant board + pencil grip + weather-themed tracing) has stopped producing gains. The OT is recommending a tool change (vibrating pen) and a duration change (5-minute bursts with sensory breaks between)."
+  },
+  "analyses": [
+    {
+      "trend": "plateau",
+      "current_average": 41.4,
+      "sessions_analyzed": 7,
+      "confidence": "high",
+      "alert": true,
+      "alert_message": "Ethan has plateaued at 45% legibility for 4 consecutive sessions on Goal G2 (fine motor / letter formation). Target is 80%, so he is 35 points from target with no upward movement in 6 weeks. The current intervention stack has saturated. OT has a specific recommendation (vibrating pen + 5-min bursts + fan break) — this change should be tried next session rather than continuing the status quo.",
+      "progress_note": "Ethan has sat at 45% letter legibility for four straight sessions. The first three sessions of the probe series showed growth (30% → 40% → 40% → 45%), but since then the needle has not moved. The current intervention stack — slant board plus pencil grip plus weather-themed tracing worksheets — produced its gains and has now saturated. Two specific data points tell us what's happening inside that 45%: (1) uppercase letters are reliably legible (E, H, R, S) while lowercase letters remain the failure class, which points at motor planning for curved strokes rather than overall hand strength; and (2) the number 7, which is a preferred character for Ethan, scored as legible — interest-driven motor planning works, which means the limiter isn't capability, it's engagement duration. He refused after 4 minutes. The OT is recommending a vibrating pen and 5-minute bursts with fan breaks between, which addresses both the duration ceiling and the novelty/sensory motivation.",
+      "recommendation": "Change the intervention this week, not next month. Specifically: (1) try the vibrating pen the OT recommended; (2) switch from 10-letter sustained probes to 5-letter bursts with a 60-second fan break between; (3) anchor lowercase practice on preferred themes (weather symbols, number 7 variants) to recruit the same interest-driven motor planning that's working for 7; (4) re-probe after one week with the new protocol — if no movement, escalate to exploring adaptive writing tools.",
+      "thinking": "Ethan G2 progression (7 sessions):\n1. 2026-02-07: 30% (baseline-ish, pencil tips breaking)\n2. 2026-02-21: 40% (slant board introduced)\n3. 2026-03-07: 40% (first plateau)\n4. 2026-03-21: 45% (weather-themed tracing)\n5. 2026-04-01: 45%\n6. 2026-04-04: 45%\n7. 2026-04-10 (today): 45%\n\nFour consecutive sessions at exactly 45%. This is the hallmark of intervention saturation — not regression, not failure, just 'everything this tool stack can do has been done.'\n\nInside today's 5 successes: E, H, R, S (uppercase, straight-line dominant), 7 (preferred character). Inside today's 5 failures: t, a, n, f, m (lowercase, curve/closure dominant). This is not a strength/weakness pattern — it's a tool/strategy mismatch for curved strokes. The slant board helps with vertical angle but the pencil grip doesn't assist with circular motion.\n\nThe 4-minute refusal is the second diagnostic signal. Ethan isn't failing the task — he's hitting a duration wall and bailing via scripted-speech avoidance. The OT's 5-minute-burst recommendation directly targets this: if you can't exceed 4 minutes, break the task into 4-minute-or-less pieces.\n\nConfidence: high. Plateau is real, diagnosis is actionable, recommendation is specific. This alert is a 'change the plan' alert, not a 'something is wrong' alert.",
+      "goal_id": "G2",
+      "student_id": "ethan_2026"
+    }
+  ],
+  "alerts": [
+    {
+      "goal_id": "G2",
+      "severity": "medium",
+      "type": "plateau",
+      "message": "Ethan has plateaued at 45% letter legibility for 4 straight sessions. Current intervention stack has saturated. Try the OT's vibrating pen + 5-minute burst protocol before the next probe."
+    }
+  ]
+}

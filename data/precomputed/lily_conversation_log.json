@@ -1,0 +1,60 @@
+{
+  "student_id": "lily_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\lily_conversation_log.png",
+  "date": "2026-04-10",
+  "transcription": {
+    "student_name": "Lily",
+    "work_type": "slp_pragmatic_log",
+    "subject": "social_communication",
+    "raw_text": "Pragmatic Language Log - Lily - SLP: Ms. Tran\nDate: 2026-04-10\n---\nPart A - Topic maintenance (3+ exchanges on peer's topic)\n- Mia/soccer: 4 exchanges PASS\n- Jordan/dogs: 3 exchanges PASS\n- Group/field trip: monologue about octopuses FAIL\n- Owen/Minecraft: 5 exchanges PASS\n- Mia/family trip: 3 exchanges PASS\n---\nPart B - Emotion identification (5 photo cards)\n- happy -> 'happy' PASS\n- frustrated -> 'frustrated' PASS\n- nervous -> 'nervous' PASS\n- jealous -> 'mad' FAIL (close but not target)\n- embarrassed -> 'embarrassed' PASS\n---\nTotal: 8/10 = 80% - TARGET MET\nNote: During math partner work, Lily noticed peer was frustrated and offered help unprompted. First time.",
+    "task_items": [
+      {"item": "Topic Mia/soccer", "response": "4 exchanges on topic", "correct": true},
+      {"item": "Topic Jordan/dogs", "response": "3 exchanges on topic", "correct": true},
+      {"item": "Topic group/field trip", "response": "drifted to octopuses", "correct": false},
+      {"item": "Topic Owen/Minecraft", "response": "5 exchanges on topic", "correct": true},
+      {"item": "Topic Mia/family trip", "response": "3 exchanges on topic", "correct": true},
+      {"item": "Emotion: happy", "response": "happy", "correct": true},
+      {"item": "Emotion: frustrated", "response": "frustrated", "correct": true},
+      {"item": "Emotion: nervous", "response": "nervous", "correct": true},
+      {"item": "Emotion: jealous", "response": "mad", "correct": false},
+      {"item": "Emotion: embarrassed", "response": "embarrassed", "correct": true}
+    ],
+    "total_items": 10,
+    "correct_items": 8,
+    "accuracy_pct": 80,
+    "teacher_notes": "Lily met the 80% pragmatic language target. Both sub-skills (topic maintenance AND emotion identification) are contributing. 1:1 conversations are solid — the only topic-maintenance failure was a larger group setting (field trip discussion), which is still her weakest context. The only emotion failure was 'jealous' called 'mad' — a close category error rather than a cluelessness. The most important qualitative data: during math partner work, Lily noticed her peer was frustrated and offered help unprompted. That is exactly the internalized-checklist moment the intervention was designed to produce.",
+    "engagement_indicators": [
+      "self-initiated peer help on observed frustration",
+      "internalized body-clue checklist",
+      "topic tracker tool working in 1:1 contexts"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G1",
+        "reasoning": "SLP pragmatic language observation is the named measurement method for G1. 8/10 combined topic + emotion = 80% — exactly at target.",
+        "trials": 10,
+        "successes": 8,
+        "percentage": 80
+      }
+    ],
+    "overall_summary": "Lily met the 80% pragmatic language target for the first time. Both sub-skills (topic maintenance and emotion recognition) are contributing. The internalized-checklist moment during math partner work is the qualitative proof that the skill is generalizing beyond the probe itself."
+  },
+  "analyses": [
+    {
+      "trend": "improving",
+      "current_average": 62.9,
+      "sessions_analyzed": 7,
+      "confidence": "high",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Lily met her 80% pragmatic language target for the first time. Both halves of the goal contributed: topic maintenance in 1:1 conversations is now reliable (4 of 5 PASS), and emotion identification improved to 4 of 5 (only miss was 'jealous' read as 'mad' — a close-category error, not a cluelessness). The qualitative data point matters more than the percentage: during math partner work, Lily noticed her peer was frustrated and offered help unprompted. That is the exact generalization the intervention was designed to produce — the body-clue checklist moving from external scaffold to internalized skill. Group settings (more than 2 people) remain Lily's weakest context — her only topic-maintenance failure this session was the field trip group discussion, where she drifted back to octopuses. That is the next growth edge.",
+      "recommendation": "Celebrate the math partner moment with Lily explicitly — she needs to hear that noticing her peer's frustration was exactly the skill we've been building. Next push: add targeted group-conversation probes (3+ people) since 1:1 mastery is holding. Consider reducing topic tracker scaffolding in 1:1 contexts to verify the skill holds without the visual prompt.",
+      "thinking": "Lily G1 progression (7 sessions):\n1. 2026-02-07: 40% (baseline)\n2. 2026-02-21: 50% (topic tracker introduced)\n3. 2026-03-07: 60% (body clue checklist helping)\n4. 2026-03-21: 65% (noticed peer upset at recess - first unprompted)\n5. 2026-04-01: 70% (invited peer input in group project)\n6. 2026-04-04: 75%\n7. 2026-04-10 (today): 80% (TARGET MET)\n\nLinear improvement across all 7 sessions, roughly 5-10 points per 2 weeks. The progression is unusually clean — every session shows growth or equal-to-previous, zero regressions. That's rare and means the intervention is well-matched to the goal.\n\nDual-component goal analysis: G1 has two independent sub-skills (topic maintenance, emotion identification from cues). Previous sessions, emotion identification was the bottleneck. This session, emotion identification hit 4/5 and topic maintenance held at 4/5. Both sub-skills have cleared the 80% threshold independently, which means the 80% aggregate isn't an artifact of one sub-skill carrying the other.\n\nThe math partner work incident is the highest-signal data point in Lily's entire trial history. It's an unprompted generalization to a novel context, without adult scaffolding, during an academic (not social-skills) task. That is the kind of data point a judge/parent/admin wants to hear about.\n\nConfidence: high.",
+      "goal_id": "G1",
+      "student_id": "lily_2026"
+    }
+  ],
+  "alerts": []
+}

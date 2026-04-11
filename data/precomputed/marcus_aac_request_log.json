@@ -1,0 +1,61 @@
+{
+  "student_id": "marcus_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\marcus_aac_request_log.png",
+  "date": "2026-04-10",
+  "transcription": {
+    "student_name": "Marcus",
+    "work_type": "aac_communication_log",
+    "subject": "communication",
+    "raw_text": "AAC + PECS Request Log - Marcus - Grade K, Age 5\nDate: 2026-04-10 - Device: TouchChat (24-icon)\n---\n8:30 bubbles - PECS card - Independent YES\n9:05 Bluey - AAC icon - Independent YES\n9:40 drum - AAC icon - Independent YES\n10:15 more crackers - AAC + verbal 'more' - Independent YES\n10:45 help (blocks) - AAC icon - Independent YES\n11:10 bathroom - led adult - NO (prompt needed)\n11:45 eat - PECS card - Independent YES\n12:30 bubbles - PECS card - Independent YES\n1:00 Bluey - pulled arm - NO (prompt needed)\n1:40 playground - AAC (navigated 2 pages!) - Independent YES\n---\nIndependent: 8/10 = 80% - EXCEEDS 50% target\nNote: Marcus said 'more' verbally WHILE pressing the icon - multimodal. Navigated 2 AAC pages to find 'playground'. Huge win.",
+    "task_items": [
+      {"item": "8:30 bubbles", "response": "PECS - independent", "correct": true},
+      {"item": "9:05 Bluey", "response": "AAC icon - independent", "correct": true},
+      {"item": "9:40 drum", "response": "AAC icon - independent", "correct": true},
+      {"item": "10:15 more crackers", "response": "AAC + verbal 'more' (multimodal)", "correct": true},
+      {"item": "10:45 help with blocks", "response": "AAC icon - independent", "correct": true},
+      {"item": "11:10 bathroom", "response": "led adult - needed prompt", "correct": false},
+      {"item": "11:45 eat", "response": "PECS - independent", "correct": true},
+      {"item": "12:30 bubbles", "response": "PECS - independent", "correct": true},
+      {"item": "1:00 Bluey", "response": "pulled arm - needed prompt", "correct": false},
+      {"item": "1:40 playground", "response": "AAC navigated 2 pages - independent", "correct": true}
+    ],
+    "total_items": 10,
+    "correct_items": 8,
+    "accuracy_pct": 80,
+    "teacher_notes": "Significant single-session jump. Marcus requested 8 items independently out of 10 opportunities — a 35-point gain from last session. Two communicative behaviors changed qualitatively, not just quantitatively: (1) he said 'more' VERBALLY while simultaneously pressing the AAC 'more' icon, which is multimodal communication emerging, and (2) he navigated TWO AAC pages to find the 'playground' icon, which is the first time he's done two-step AAC navigation independently. Recommend confirming this level in the next session before treating 80% as the new baseline.",
+    "engagement_indicators": [
+      "multimodal communication (verbal + AAC simultaneously)",
+      "two-step AAC navigation",
+      "spontaneous help request via AAC",
+      "Bluey reinforcer motivating icon use"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G1",
+        "reasoning": "SLP and teacher communication log is the named measurement method for G1. 8/10 independent requests = 80%, which greatly exceeds the 50% IEP target.",
+        "trials": 10,
+        "successes": 8,
+        "percentage": 80
+      }
+    ],
+    "overall_summary": "Marcus exceeded his 50% independent communication target by a wide margin this session (80%). Two new qualitative skills emerged: multimodal communication (verbal 'more' + AAC icon together) and two-step AAC navigation. This is a significant single-session jump and should be confirmed next session before updating the baseline."
+  },
+  "analyses": [
+    {
+      "trend": "improving",
+      "current_average": 37.9,
+      "sessions_analyzed": 7,
+      "confidence": "medium",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Marcus jumped from 45% last session to 80% this session — a 35-point gain in one week. That is unusually large and deserves skeptical interpretation before we celebrate it as settled progress. Two things make the jump plausible rather than noise: first, Marcus said 'more' verbally while simultaneously pressing the AAC 'more' icon, which is multimodal communication and represents a qualitative shift, not just a count increase. Second, he navigated TWO AAC pages to find the 'playground' icon independently, which is a new motor/cognitive skill he hasn't demonstrated before. The jump may be real because a threshold skill (AAC navigation) unlocked access to a bigger vocabulary he could already request mentally. Two things make me want to confirm it next session: (a) the magnitude of single-week gain is larger than anything in his history, and (b) 2 of the 8 successes came via PECS fallback, meaning the AAC-only portion is closer to 60%. Recommend confirming 80% in next session before updating the IEP baseline or broadcasting the gain to family.",
+      "recommendation": "Celebrate the multimodal and two-step-navigation moments with Marcus and his family specifically — those are the real wins regardless of the percentage. For data hygiene: run a confirmation session within 3 days before treating 80% as his new baseline. Continue Bluey-themed AAC modeling. Begin introducing the 'attention' icon (which he still defaults to arm-pulling for) since the motor-planning barrier for multi-page navigation just cleared.",
+      "thinking": "Marcus G1 progression (7 sessions):\n1. 2026-02-07: 15% (baseline-ish, full physical prompts)\n2. 2026-02-21: 20% (Bluey icon breakthrough)\n3. 2026-03-07: 30% (cafeteria AAC request, point prompt)\n4. 2026-03-21: 35% (drum request no prompt)\n5. 2026-04-01: 40% (help request - functional gain)\n6. 2026-04-04: 45%\n7. 2026-04-10 (today): 80% (suspicious magnitude, but real qualitative markers)\n\nThe 35-point jump from session 6 to session 7 is larger than the entire 6-session progression from baseline to session 6 (15 -> 45 = 30 points). Noise hypothesis must be taken seriously.\n\nBut: the qualitative markers are new. Multimodal communication (verbal + AAC simultaneously) has NEVER appeared in prior trials. Two-step AAC navigation (drilling into a sub-page to find an icon) has also never appeared. These aren't inflation of a known behavior — they're new categories of behavior. That argues the 80% is real, at least in part.\n\nMost likely explanation: the AAC navigation skill just crossed a motor-planning threshold. Marcus already knew what he wanted to request; he just couldn't reach the icons before. Now that he can navigate the device, requests he was 'trying' to make but couldn't execute are suddenly executable. The jump isn't in communicative intent — that was already high — it's in motor access to the communication tool.\n\nIf that interpretation is right, 80% will hold or drop slightly (to 65-70%) next session as the novelty wears off. If the interpretation is wrong, we'll see a regression to the 45% level next week and we'll know today was a good session, not a new baseline.\n\nConfidence: medium. The pattern is plausible but unconfirmed. Treating it as confirmed would be premature.",
+      "goal_id": "G1",
+      "student_id": "marcus_2026"
+    }
+  ],
+  "alerts": []
+}

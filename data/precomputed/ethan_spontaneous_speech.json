@@ -1,0 +1,61 @@
+{
+  "student_id": "ethan_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\ethan_spontaneous_speech.png",
+  "date": "2026-04-10",
+  "transcription": {
+    "student_name": "Ethan",
+    "work_type": "slp_observation_tally",
+    "subject": "communication",
+    "raw_text": "Spontaneous Speech Tally - Ethan - SLP: Ms. Okafor\nDate: 2026-04-10 - Setting: Classroom + Lunch\n---\n1. Circle weather: 'tornado watch today' - spontaneous - COUNT\n2. Center fans: 'I want fan' - spontaneous - COUNT\n3. Snack: 'more please' - spontaneous - COUNT\n4. Peer offers PlayDo: 'no thank you' - spontaneous - COUNT\n5. Circle greeting: 'good morning class' - ECHOLALIC (Weather Channel intro) - NO\n6. Weather unit: 'seven clouds!' - spontaneous - COUNT\n7. Transition: 'breaking weather coverage tonight' - ECHOLALIC - NO\n8. Lunch: 'what for lunch?' - spontaneous - COUNT\n9. Centers: (silent, spinning in chair) - NONE - NO\n10. Playground: 'look - seven birds!' - spontaneous - COUNT\n---\nSpontaneous: 7/10 = 70% - TARGET MET\nNote: Motivating topics pull real language: weather + sevens.",
+    "task_items": [
+      {"item": "Circle - weather comment", "response": "'tornado watch today' (spontaneous)", "correct": true},
+      {"item": "Center - fan request", "response": "'I want fan' (spontaneous)", "correct": true},
+      {"item": "Snack - more request", "response": "'more please' (spontaneous)", "correct": true},
+      {"item": "Peer - refusing PlayDoh", "response": "'no thank you' (spontaneous)", "correct": true},
+      {"item": "Circle greeting", "response": "scripted Weather Channel intro", "correct": false},
+      {"item": "Weather unit - counting", "response": "'seven clouds!' (spontaneous)", "correct": true},
+      {"item": "Transition", "response": "'breaking weather coverage tonight' (echolalic)", "correct": false},
+      {"item": "Lunch - question", "response": "'what for lunch?' (spontaneous)", "correct": true},
+      {"item": "Centers - silent", "response": "no utterance", "correct": false},
+      {"item": "Playground - bird count", "response": "'look - seven birds!' (spontaneous)", "correct": true}
+    ],
+    "total_items": 10,
+    "correct_items": 7,
+    "accuracy_pct": 70,
+    "teacher_notes": "Strong session. Ethan hit his 70% target for the first time. Spontaneous utterances clustered around his motivating topics (weather, the number 7, fans). Pragmatic function is emerging — used 'no thank you' as a polite refusal to a peer offering Play-Doh (he avoids wet textures), which is both a spontaneous utterance AND appropriate social communication. Echolalia is still present but the ratio has shifted.",
+    "engagement_indicators": [
+      "self-initiated utterances on motivating topics",
+      "pragmatic refusal (polite no thank you)",
+      "number-7 interest pulling real language",
+      "unprompted peer comment on playground"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G1",
+        "reasoning": "SLP spontaneous speech tally is the named measurement method for G1. 7 spontaneous utterances out of 10 opportunities = 70% — target met.",
+        "trials": 10,
+        "successes": 7,
+        "percentage": 70
+      }
+    ],
+    "overall_summary": "Ethan met his 70% spontaneous speech target for the first time. The mechanism is clear: motivating topics (weather, sevens, fans) pull real language. The next growth edge is generalizing spontaneous speech beyond preferred topics."
+  },
+  "analyses": [
+    {
+      "trend": "improving",
+      "current_average": 52.1,
+      "sessions_analyzed": 7,
+      "confidence": "high",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Ethan hit his 70% spontaneous speech target this session — his first time at target. The path has been linear and steady: 30% → 40% → 50% → 50% → 60% → 65% → 70% over 7 sessions. The mechanism is clear: spontaneous speech emerges reliably on motivating topics (weather, the number 7, fans). Today's session added something new that matters more than the percentage: Ethan used 'no thank you' as a spontaneous POLITE REFUSAL to a peer offering Play-Doh. That is a pragmatic function, not just a request. This is the most sophisticated communicative act in his recent history and the SLP should weigh it heavily when considering progress narrative.",
+      "recommendation": "Maintain weather/number-7/fan scaffolding as the motivator anchor. Add 5 daily probes specifically OUTSIDE preferred topics to begin generalization (this is the next wall). Share the 'no thank you' moment with Mom — this is the kind of data point that changes how a parent sees their child's communication future.",
+      "thinking": "Ethan G1 progression (7 sessions):\n1. 2026-02-07: 30%\n2. 2026-02-21: 40%\n3. 2026-03-07: 50% (weather breakthrough)\n4. 2026-03-21: 50% (holding)\n5. 2026-04-01: 60% (polite refusal emerges)\n6. 2026-04-04: 65%\n7. 2026-04-10 (today): 70% (TARGET MET)\n\nLinear progression, 10 points per 2 weeks average. The rate is consistent, which tells us the intervention is working and isn't just noise.\n\nWhat's inside today's 70%: 7 of the 7 spontaneous utterances were in contexts involving weather, counting (specifically 7s), fans, or motivating visual input. The 3 failures were: (1) circle greeting where he defaulted to scripted Weather Channel phrasing, (2) a transition where he echoed 'breaking weather coverage tonight,' and (3) a silent centers moment. This confirms the motivating-topic mechanism.\n\nThe 'no thank you' moment is worth noting separately. It's:\n- Spontaneous (not modeled, not prompted)\n- Pragmatic (social function: refusal)\n- Polite (appropriate register)\n- Context-appropriate (Play-Doh is a sensory aversion for him - wet texture)\n\nThis is higher-order than any previous utterance in his trial history. Confidence high.",
+      "goal_id": "G1",
+      "student_id": "ethan_2026"
+    }
+  ],
+  "alerts": []
+}

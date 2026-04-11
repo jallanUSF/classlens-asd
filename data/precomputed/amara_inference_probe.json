@@ -1,0 +1,60 @@
+{
+  "student_id": "amara_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\amara_inference_probe.png",
+  "date": "2026-04-10",
+  "transcription": {
+    "student_name": "Amara",
+    "work_type": "reading_probe",
+    "subject": "reading_comprehension",
+    "raw_text": "Inferential Reading Probe - Amara - Grade 6 - Date: 2026-04-10\nPassage: 'The Last Letter'\nStrategy: MHA character mapping (Todoroki = conflicted)\n---\n1. Why did Ren hide the letter from his sister? -> Scared she'd be mad - like Todoroki [correct]\n2. How does Mia feel when she finds it? -> Betrayed, then sad [correct]\n3. What does the rain symbolize in paragraph 4? -> Her sadness coming out [correct]\n4. Predict: will Ren apologize? -> Yes - he feels guilty [correct]\n5. Why doesn't Mia answer right away? -> (blank) [incorrect]\n6. How would you feel in Ren's place? -> Guilty and scared [correct]\n7. What does 'a weight lifted' mean here? -> He feels better [correct]\n8. Why did the author mention the photo? -> To remind them of good times [correct]\n9. Is Mia forgiving or still angry at the end? -> Angry still [incorrect - partial credit not given]\n10. What lesson does Ren learn? -> (blank) [incorrect]\n---\nScore: 7/10 = 70% - TARGET MET\nNote: Amara used MHA character mapping unprompted on a new passage. Reading specialist wants to probe generalization across text types.",
+    "task_items": [
+      {"item": "Why did Ren hide the letter?", "response": "Scared she'd be mad - like Todoroki", "correct": true},
+      {"item": "How does Mia feel finding it?", "response": "Betrayed, then sad", "correct": true},
+      {"item": "What does rain symbolize?", "response": "Her sadness coming out", "correct": true},
+      {"item": "Predict: will Ren apologize?", "response": "Yes - he feels guilty", "correct": true},
+      {"item": "Why doesn't Mia answer right away?", "response": "(blank)", "correct": false},
+      {"item": "How would you feel in Ren's place?", "response": "Guilty and scared", "correct": true},
+      {"item": "What does 'a weight lifted' mean?", "response": "He feels better", "correct": true},
+      {"item": "Why mention the photo?", "response": "To remind them of good times", "correct": true},
+      {"item": "Is Mia forgiving at the end?", "response": "Angry still", "correct": false},
+      {"item": "What lesson does Ren learn?", "response": "(blank)", "correct": false}
+    ],
+    "total_items": 10,
+    "correct_items": 7,
+    "accuracy_pct": 70,
+    "teacher_notes": "Amara used MHA character mapping unprompted on a new passage. Said 'this character is like Todoroki - he's angry but also sad inside.' The 3 missed items all required inference about abstract emotional states (guilt, forgiveness, life-lesson framing) she hasn't mapped yet.",
+    "engagement_indicators": [
+      "self-initiated character mapping strategy",
+      "connected text to familiar MHA characters",
+      "worked through 10 full items without break request"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G1",
+        "reasoning": "Bi-weekly inferential comprehension probe directly measures G1. 10 questions, 7 correct = 70% — exactly at IEP target.",
+        "trials": 10,
+        "successes": 7,
+        "percentage": 70
+      }
+    ],
+    "overall_summary": "Amara met her 70% inferential comprehension target for the second consecutive session, this time with a new passage and without reading-specialist prompting. The MHA character-mapping strategy has generalized from the initial breakthrough."
+  },
+  "analyses": [
+    {
+      "trend": "improving",
+      "current_average": 54.3,
+      "sessions_analyzed": 7,
+      "confidence": "high",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Amara reached her 70% inferential comprehension target for the second session in a row — this time on a brand-new passage and without the reading specialist scaffolding the MHA character-mapping strategy. The 3 items she missed were all abstract emotional states (guilt framing, forgiveness arc, 'lesson learned') rather than the concrete emotion-identification items she now handles well. That's a useful signal: the next wall is abstract/relational emotional reasoning, not literal inference. Recommend shifting the next probe toward that specific sub-skill while the character-mapping strategy continues to hold.",
+      "recommendation": "Maintain MHA character mapping as the anchor strategy. For next probe, target abstract emotional states (guilt, forgiveness, internal conflict) rather than concrete feelings. Consider a cross-text-type probe — nonfiction biography or persuasive essay — to test generalization beyond narrative fiction.",
+      "thinking": "Amara G1 progression (7 sessions):\n1. 2026-02-07: 40% (baseline-level)\n2. 2026-02-21: 40% (organizer introduced, inference column blank)\n3. 2026-03-07: 40% (MHA analogy first tried, got 3 right when reframed)\n4. 2026-03-21: 55% (character motivation cards - breakthrough)\n5. 2026-04-01: 65% (familiar emotions)\n6. 2026-04-04: 70% (TARGET MET, strategy self-initiated)\n7. 2026-04-10 (today): 70% (new passage, no scaffolding)\n\nThe critical data point is session 7: target held when the scaffolding was removed. That's the difference between 'Amara passed the probe' and 'Amara has the skill.' Confidence is now high, not medium.\n\nFailure pattern on items 5, 9, 10: all three required abstract/relational emotional reasoning (why won't Mia answer? is Mia forgiving? what life-lesson?) rather than concrete state identification. The character-mapping strategy works for 'what does character X feel' but not yet for 'what does character X believe about their situation.'",
+      "goal_id": "G1",
+      "student_id": "amara_2026"
+    }
+  ],
+  "alerts": []
+}

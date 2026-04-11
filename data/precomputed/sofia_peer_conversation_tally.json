@@ -1,0 +1,61 @@
+{
+  "student_id": "sofia_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\sofia_peer_conversation_tally.png",
+  "date": "2026-04-10",
+  "transcription": {
+    "student_name": "Sofia",
+    "work_type": "social_initiation_tally",
+    "subject": "social_communication",
+    "raw_text": "Peer Conversation Tally - Sofia - Counselor: Mr. Kim\nDate: 2026-04-10 - Group project week\nCriteria: asked Q + showed interest + eye contact\n---\n1. Mon morning table - peer's weekend - Q asked - PASS\n2. Mon group project - state capitals - Q asked - PASS\n3. Tue lunch - peer's dog - Q asked - PASS\n4. Tue recess - map game - Q asked - PASS\n5. Wed group project - project rubric - Q asked - PASS\n6. Wed library - reading choices - Q asked - PASS\n7. Thu lunch - Presidents (monologue) - no Q - FAIL\n8. Thu group project - teammate idea - Q asked - PASS\n9. Fri morning table - peer's hobby - Q asked - PASS\n10. Fri group presentation - shared credit - Q asked - PASS\n---\nInitiations with criteria: 9/10 = 90%\nEXCEEDS 80% target. Group project anchored shared interest.\nOne slip Thursday lunch - reverted to monologue when tired.",
+    "task_items": [
+      {"item": "Mon morning - peer's weekend", "response": "asked Q, PASS", "correct": true},
+      {"item": "Mon group - state capitals", "response": "asked Q, PASS", "correct": true},
+      {"item": "Tue lunch - peer's dog", "response": "asked Q, PASS", "correct": true},
+      {"item": "Tue recess - map game", "response": "asked Q, PASS", "correct": true},
+      {"item": "Wed group - project rubric", "response": "asked Q, PASS", "correct": true},
+      {"item": "Wed library - reading choices", "response": "asked Q, PASS", "correct": true},
+      {"item": "Thu lunch - Presidents", "response": "monologue, no Q, FAIL", "correct": false},
+      {"item": "Thu group - teammate idea", "response": "asked Q, PASS", "correct": true},
+      {"item": "Fri morning - peer's hobby", "response": "asked Q, PASS", "correct": true},
+      {"item": "Fri group presentation - shared credit", "response": "asked Q, PASS", "correct": true}
+    ],
+    "total_items": 10,
+    "correct_items": 9,
+    "accuracy_pct": 90,
+    "teacher_notes": "Sofia exceeded her 80% social conversation target by a comfortable margin this week (90%). The group project anchored the week — having a legitimate shared task with her team gave her a reliable context for practicing question-asking. The one slip (Thursday lunch, Presidents monologue) happened at her lowest-energy moment of the week and mirrors a pattern we've seen before: social skills degrade when Sofia is tired. Most encouraging moment: Friday's group presentation, where Sofia explicitly shared credit with her teammates during the talk — that's not just conversation, it's group awareness.",
+    "engagement_indicators": [
+      "week-long group project as anchor",
+      "credit-sharing in group presentation",
+      "question-asking across 9 different settings",
+      "asked about peer's hobby unprompted"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G1",
+        "reasoning": "Teacher/counselor observation tally is the named measurement method for G1. 9/10 peer conversation initiations meeting all criteria (question + interest + eye contact) = 90%, exceeding the 80% target by 10 points.",
+        "trials": 10,
+        "successes": 9,
+        "percentage": 90
+      }
+    ],
+    "overall_summary": "Sofia exceeded her 80% social conversation target at 90%. The group project anchored the week. The one miss (Thursday lunch monologue) followed her established low-energy pattern. The credit-sharing moment during the group presentation is a group-awareness gain beyond the one-on-one question-asking the goal was originally written for."
+  },
+  "analyses": [
+    {
+      "trend": "improving",
+      "current_average": 70.0,
+      "sessions_analyzed": 7,
+      "confidence": "high",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Sofia exceeded her 80% social conversation target this week at 90%. The structural variable was the group project: having a shared task that required coordination gave Sofia a constant, legitimate reason to ask her teammates questions. That isn't scaffolding — that's finding the natural context where the target skill actually lives. The one slip (Thursday lunch, Presidents monologue) is diagnostic rather than concerning: Sofia's social communication degrades reliably when she is tired, and Thursday lunch is her lowest-energy moment of the week. The Friday group presentation added something new — Sofia explicitly shared credit with her teammates during the talk, which is group-awareness behavior beyond the one-on-one question-asking the goal was originally written for. The G1 target is now consistently met. Recommend shifting emphasis to maintaining the skill while introducing more demanding contexts (longer conversations, less-preferred topics, larger groups).",
+      "recommendation": "Begin fading the counselor-observation scaffolding in 1:1 contexts where mastery is holding. Add 2 probes per week in NEW contexts (specials teachers, substitute teacher days, cafeteria with unfamiliar peers) to measure generalization. Consider whether G1 has been effectively met and a new, more challenging goal could be drafted for the next IEP review.",
+      "thinking": "Sofia G1 progression (7 sessions):\n1. 2026-03-15: 40% (fact-sharing only, no peer-topic questions)\n2. 2026-03-22: 50% (coached with question prompts)\n3. 2026-03-29: 60% (fire drill schedule change disruption)\n4. 2026-04-01: 70% (follow-up questions)\n5. 2026-04-03: 80% (TARGET MET - peer group project)\n6. 2026-04-04: 100% (writing sample - mapped oddly)\n7. 2026-04-10 (today): 90%\n\nThe upward trend is real. Session 6 at 100% is a data artifact — the trial was only 3 opportunities (writing sample) which isn't the right measurement method for a conversation goal. Today's 90% across 10 opportunities is the more trustworthy measurement.\n\nThe group project context appears in sessions 5, 7 (today), and adjacent. Whenever Sofia has a legitimate shared task with peers, her conversation rates go up. When she is in unstructured lunch or recess contexts, rates drop. This is the same pattern Amara shows in the opposite direction (structured contexts with a facilitator = success, unstructured = failure) — both students rely on external task structure to scaffold the social skill.\n\nThursday lunch failure diagnosis: Sofia was tired (her notes earlier in the series mention 'low energy' patterns on Thursdays), she was in an unstructured context (lunch, not a group task), and the topic she defaulted to was her interest (Presidents). Perfect storm for a monologue. Not concerning given the 9/10 aggregate.\n\nThe credit-sharing moment in Friday presentation is qualitatively new — it suggests Sofia is beginning to think about group dynamics, not just peer-to-peer exchanges. That's one layer up from the G1 target as written. The goal may be ready to retire.\n\nConfidence: high.",
+      "goal_id": "G1",
+      "student_id": "sofia_2026"
+    }
+  ],
+  "alerts": []
+}

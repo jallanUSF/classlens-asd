@@ -84,7 +84,7 @@ The pipeline runs sequentially: image in → structured data out → materials g
 - `tests/gold_standard_outputs.json` — Expected outputs for validation
 
 ### Sample Data
-Seven demo students in `data/students/`. Core three: `maya_2026.json` (Grade 3, Level 2), `jaylen_2026.json` (Grade 1, Level 3, non-verbal), `sofia_2026.json` (Grade 5, Level 1). Four additional: `amara`, `ethan`, `lily`, `marcus`. Sample work images in `data/sample_work/` — all seven have matching precomputed JSONs in `data/precomputed/` so the demo never waits on a live API call.
+Seven demo students in `data/students/`. Core three: `maya_2026.json` (Grade 3, Level 2), `jaylen_2026.json` (Grade 1, Level 3, non-verbal), `sofia_2026.json` (Grade 5, Level 1). Four additional: `amara` (Grade 6, L1, inference/social regression), `ethan` (Grade 2, L2, echolalic, handwriting plateau), `lily` (Grade 4, L1, pragmatic language + coping), `marcus` (K, L3, AAC + playground). **20 work artifacts** in `data/sample_work/` with 1:1 precomputed JSONs in `data/precomputed/` — every student has ≥1 artifact and the demo never waits on live API. Two artifacts deliberately surface alert scenarios for Progress Analyst demo value: `amara_social_tracker` (5-week decline below baseline) and `ethan_handwriting_probe` (4-session plateau, intervention saturation). Regenerate with `python scripts/generate_sample_work.py` (or `--extended` for the 9 newest only).
 
 ### UI Layer
 - **Active:** `frontend/` — Next.js 16 App Router, calls the FastAPI backend via `/api/*` rewrites (default `API_URL=http://localhost:8001`)

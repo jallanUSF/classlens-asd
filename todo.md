@@ -32,6 +32,13 @@
 - [x] Fix latent stale-state bug in student page context message
 - [x] Gitignore data/documents/ (runtime upload state)
 
+## Synthetic Test Content Expansion (COMPLETE 2026-04-11)
+- [x] 9 new work artifacts: Amara x2, Ethan x2, Lily x2, Marcus x2, Sofia x1
+- [x] 2 alert-triggering scenarios (Amara G2 regression, Ethan G2 plateau)
+- [x] All 7 students now have ≥1 sample work PNG + precomputed JSON
+- [x] Windows font fallback in generate_sample_work.py (Arial / Segoe UI)
+- [x] Pipeline cache-hit verified for all 9 new artifacts
+
 ## Release Gate — RE-OPEN for Jeff
 - [ ] Jeff approval for release readiness
 

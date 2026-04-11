@@ -1,0 +1,67 @@
+{
+  "student_id": "amara_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\amara_social_tracker.png",
+  "date": "2026-04-10",
+  "transcription": {
+    "student_name": "Amara",
+    "work_type": "social_tracking_sheet",
+    "subject": "social_communication",
+    "raw_text": "Social Skills Tracking Sheet - Amara - Facilitator: Ms. Reyes\nWeek of: 2026-04-06 to 2026-04-10\n---\nMon Lunch table: monologue 4min / no Q asked / FAIL\nMon Social group: turns limited / no Q asked / FAIL\nTue Lunch alone (no data)\nTue Library: turns limited / asked Q / PASS\nWed Lunch alone (no data)\nWed Group project: monologue 3min / no Q asked / FAIL\nThu Recess: turns limited / no Q / FAIL\nThu Art class: turns limited / asked Q / PASS\nFri Lunch alone (no data)\nFri Social group: turns limited / asked Q / PASS\n---\nSuccess: 3/10 = 30% - DOWN from 40% last week\nNotes: Ate alone 3 days. Refused talk ticket system. New student in lunch group. Amara withdrew.",
+    "task_items": [
+      {"item": "Mon - Lunch table", "response": "4-min monologue, no Q", "correct": false},
+      {"item": "Mon - Social group", "response": "turns limited, no Q", "correct": false},
+      {"item": "Tue - Lunch alone", "response": "no interaction", "correct": false},
+      {"item": "Tue - Library", "response": "limited + Q asked", "correct": true},
+      {"item": "Wed - Lunch alone", "response": "no interaction", "correct": false},
+      {"item": "Wed - Group project", "response": "3-min monologue", "correct": false},
+      {"item": "Thu - Recess", "response": "limited, no Q", "correct": false},
+      {"item": "Thu - Art class", "response": "limited + Q asked", "correct": true},
+      {"item": "Fri - Lunch alone", "response": "no interaction", "correct": false},
+      {"item": "Fri - Social group", "response": "limited + Q asked", "correct": true}
+    ],
+    "total_items": 10,
+    "correct_items": 3,
+    "accuracy_pct": 30,
+    "teacher_notes": "Fifth consecutive weekly decline. Ate alone 3 out of 5 days. Refusing talk ticket system — says it 'makes her feel like something is wrong.' New student in her lunch group disrupted the social dynamics. Only successful interactions were in structured settings (library, art, social group) where the facilitator was present.",
+    "engagement_indicators": [
+      "social withdrawal",
+      "structured-setting only engagement",
+      "rejected existing intervention tool"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G2",
+        "reasoning": "Social skills facilitator tracking sheet is the named measurement method for G2. 3/10 successes = 30% — 10 points below last week and well below the 70% target.",
+        "trials": 10,
+        "successes": 3,
+        "percentage": 30
+      }
+    ],
+    "overall_summary": "Amara regressed further on Goal G2 this week. Fifth consecutive decline. The existing intervention (talk tickets) has been actively rejected and is now part of the problem. This goal needs a team meeting, not another week of the same approach."
+  },
+  "analyses": [
+    {
+      "trend": "declining",
+      "current_average": 43.6,
+      "sessions_analyzed": 7,
+      "confidence": "high",
+      "alert": true,
+      "alert_message": "Amara has declined for 5 consecutive weeks on Goal G2 (social communication). Current: 30%. Four weeks ago: 50%. Baseline: 45%. She is now performing below her October baseline, she ate lunch alone 3 days this week, and the existing intervention (talk tickets) has been rejected as making her feel 'like something is wrong.' This needs a team discussion before next week.",
+      "progress_note": "Amara's G2 trajectory has gone from plateau to regression to active decline. Five consecutive weeks down. The talk ticket system — originally the anchor intervention — is now actively contributing to the problem: Amara associates it with being defective and is refusing to engage with it. The one structural change this week was a new student in her usual lunch group, which disrupted the social dynamic and pushed Amara into isolation. She is eating lunch alone 60% of days. The successes we do see (library, art class, Friday social group) all share one variable: a facilitator is present. Amara can still do the skill — she isn't losing it, she is disengaging from the contexts where she'd use it.",
+      "recommendation": "ESCALATE to IEP team discussion this week. Specific items: (1) retire the talk ticket framing and co-design a replacement tool WITH Amara — let her name it and own it; (2) engineer a structured lunch option (peer buddy or facilitated small group) to break the eating-alone pattern; (3) investigate whether the new lunch group student is a specific stressor vs. a general change-aversion response; (4) do NOT let another week pass at 30%.",
+      "thinking": "Amara G2 progression (7 sessions):\n1. 2026-02-07: 50% (baseline+5)\n2. 2026-02-21: 50% (talk tickets introduced, called 'unfair')\n3. 2026-03-07: 48% (substitute teacher disruption)\n4. 2026-03-21: 45% (new lunch group student)\n5. 2026-04-01: 42% (refusing talk tickets)\n6. 2026-04-04: 40% (eating alone twice)\n7. 2026-04-10 (today): 30% (eating alone 3 days)\n\nFive consecutive declines. Rate is accelerating (the drop from session 6 to 7 is 10 points, the largest single-week drop in the series). She is now below her October baseline of 45%.\n\nFailure pattern: 6 out of 7 failures this week were either (a) lunch-related contexts where the new student is present or (b) unstructured peer time with no facilitator. The 3 successes were all structured small-group settings with an adult present. Amara still has the skill. She is avoiding the contexts where she'd have to use it.\n\nIntervention diagnosis: the talk ticket tool itself is now a stressor. It was designed as scaffolding but Amara has reframed it as evidence she is broken. Continuing to push it will deepen the avoidance. The 'conversation detective' replacement is more acceptable but hasn't moved her behavior in two weeks.\n\nConfidence: high. The data is consistent across multiple observers and the pattern is unambiguous. This is not a measurement artifact.",
+      "goal_id": "G2",
+      "student_id": "amara_2026"
+    }
+  ],
+  "alerts": [
+    {
+      "goal_id": "G2",
+      "severity": "high",
+      "type": "regression",
+      "message": "Amara has declined for 5 consecutive weeks on social communication and is now below her October baseline. Escalate to IEP team this week."
+    }
+  ]
+}

@@ -1,8 +1,45 @@
 # HANDOFF.md — Session Handoff
 
-**Date:** 2026-04-11
+**Date:** 2026-04-11 (late session)
 **Branch:** `nextjs-redesign`
-**Status:** Path B hardening + live browser QA fixes complete. Release gate re-open for Jeff.
+**Status:** Synthetic test content expanded from 11 → 20 artifacts. All 7 students now covered. Release gate still re-open for Jeff.
+
+---
+
+## What happened this session (afternoon 2026-04-11)
+
+Created 9 new sample work artifacts + matching precomputed JSONs to cover the 4 previously-empty students (Amara, Ethan, Lily, Marcus) and top up Sofia. Every artifact is goal-mapped to the student's actual IEP with a realistic progress analysis narrative.
+
+**New artifacts:**
+- `amara_inference_probe` → G1 reading comprehension, 70% target met (MHA character mapping strategy)
+- `amara_social_tracker` → G2 social regression, 30% **ALERT** (5 consecutive declines, below baseline)
+- `ethan_spontaneous_speech` → G1 SLP tally, 70% target met (weather + number-7 motivators)
+- `ethan_handwriting_probe` → G2 OT probe, 45% **ALERT** (4-session plateau, intervention saturation)
+- `lily_conversation_log` → G1 pragmatic language, 80% target met (internalized body-clue checklist)
+- `lily_coping_strategy` → G3 self-regulation, 70% (5/5 intensity wall identified)
+- `marcus_aac_request_log` → G1 AAC, 80% (multimodal verbal+AAC emerging)
+- `marcus_playground_log` → G3 adapted PE, 80% (big slide + crowd tolerance)
+- `sofia_peer_conversation_tally` → G1 social, 90% (group project anchor, credit-sharing)
+
+**Two alert scenarios** deliberately baked in so Progress Analyst has realistic failure-mode data for demo:
+- Amara G2: **declining** trend, 5 consecutive weekly drops, intervention actively rejected by student
+- Ethan G2: **plateau** trend, 4 consecutive sessions at 45%, specific OT recommendation (vibrating pen + bursts)
+
+**Code changes:**
+- `scripts/generate_sample_work.py` — added 9 generator functions, Windows font fallback (`_load_font` helper trying Arial / Segoe UI / DejaVu / PIL default), fixed Linux-hardcoded `main()` path to use `Path(__file__)` resolution, added `--extended` flag for regenerating just the new artifacts, added `_draw_table` helper
+- 9 new PNGs in `data/sample_work/` (~80-100KB each, cleanly rendered Arial)
+- 9 new JSONs in `data/precomputed/` following canonical schema from `jaylen_pecs_log.json` (transcription + goal_mapping + analyses with thinking narrative)
+
+**Verification:**
+- `python -m pytest tests/ -q` — **71/71 pass** (no regressions)
+- Pipeline cache-hit test — all 9 artifacts resolve via `_load_precomputed`, goal mappings propagate, alert flags surface correctly
+- Spot-checked 2 PNGs visually (amara_inference_probe, ethan_handwriting_probe) — fonts, colors, layout all clean
+- Every new JSON validated: parses, `image_path` resolves, `goal_id` references the student's actual IEP goal
+
+---
+
+## Previous session (morning 2026-04-11)
+Path B hardening + live browser QA fixes complete. Release gate re-open for Jeff.
 
 ---
 

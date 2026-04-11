@@ -25,18 +25,29 @@ class WorksheetGenerator:
         self.line_color = (200, 200, 200)  # Light gray
         self.text_color = (30, 30, 30)  # Dark gray/black
 
-        # Try to load a cleaner font, fall back to default
-        try:
-            self.title_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
-            self.header_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 28)
-            self.normal_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 24)
-            self.small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
-        except OSError:
-            # Fall back to default font
-            self.title_font = ImageFont.load_default()
-            self.header_font = ImageFont.load_default()
-            self.normal_font = ImageFont.load_default()
-            self.small_font = ImageFont.load_default()
+        self.title_font = self._load_font(bold=True, size=36)
+        self.header_font = self._load_font(bold=True, size=28)
+        self.normal_font = self._load_font(bold=False, size=24)
+        self.small_font = self._load_font(bold=False, size=20)
+
+    def _load_font(self, bold: bool, size: int):
+        """Try Windows fonts first, then Linux DejaVu, then PIL default."""
+        candidates_bold = [
+            "C:/Windows/Fonts/arialbd.ttf",
+            "C:/Windows/Fonts/segoeuib.ttf",
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        ]
+        candidates_regular = [
+            "C:/Windows/Fonts/arial.ttf",
+            "C:/Windows/Fonts/segoeui.ttf",
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        ]
+        for path in (candidates_bold if bold else candidates_regular):
+            try:
+                return ImageFont.truetype(path, size)
+            except OSError:
+                continue
+        return ImageFont.load_default()
 
     def create_base_image(self) -> Tuple[Image.Image, ImageDraw.ImageDraw]:
         """Create base image with paper-like background."""
@@ -543,6 +554,381 @@ class WorksheetGenerator:
         img.save(self.output_dir / "jaylen_turn_taking_tally.png")
         print("✓ Created jaylen_turn_taking_tally.png")
 
+    # ------------------------------------------------------------------
+    # Extended artifacts — underserved students + Sofia top-up
+    # ------------------------------------------------------------------
+
+    def _draw_table(self, draw, headers, col_widths, rows, start_x, start_y,
+                    row_height=50, value_color=(50, 100, 200)):
+        """Helper: draw a simple column-based table. Returns y after last row."""
+        x = start_x
+        for header, width in zip(headers, col_widths):
+            draw.text((x, start_y), header, font=self.normal_font, fill=self.text_color)
+            x += width
+        y = start_y + row_height
+        for row in rows:
+            x = start_x
+            for i, (text, width) in enumerate(zip(row, col_widths)):
+                color = value_color
+                if "No" in text or "✗" in text or "FAIL" in text or "ALERT" in text:
+                    color = (200, 50, 50)
+                elif "Yes" in text or "✓" in text or "PASS" in text:
+                    color = (50, 150, 50)
+                draw.text((x, y), text, font=self.small_font, fill=color)
+                x += width
+            y += row_height
+        return y
+
+    def generate_amara_inference_probe(self):
+        """Amara G1: reading comprehension inferential probe. 7/10 = 70% target hit."""
+        img, draw = self.create_base_image()
+        y = 30
+        draw.text((50, y), "Inferential Reading Probe", font=self.title_font, fill=self.text_color)
+        y += 55
+        draw.text((50, y), "Name: Amara   Grade 6", font=self.header_font, fill=self.text_color)
+        y += 45
+        draw.text((50, y), "Date: 2026-04-10   Passage: 'The Last Letter'", font=self.small_font, fill=self.text_color)
+        y += 45
+        draw.text((50, y), "Strategy: MHA character mapping (Todoroki = conflicted)", font=self.small_font, fill=(120, 80, 180))
+        y += 50
+
+        questions = [
+            ("1. Why did Ren hide the letter from his sister?", "Scared she'd be mad - like Todoroki", True),
+            ("2. How does Mia feel when she finds it?", "Betrayed, then sad", True),
+            ("3. What does the rain symbolize in paragraph 4?", "Her sadness coming out", True),
+            ("4. Predict: will Ren apologize?", "Yes - he feels guilty", True),
+            ("5. Why doesn't Mia answer right away?", "(blank)", False),
+            ("6. How would you feel in Ren's place?", "Guilty and scared", True),
+            ("7. What does 'a weight lifted' mean here?", "He feels better", True),
+            ("8. Why did the author mention the photo?", "To remind them of good times", True),
+            ("9. Is Mia forgiving or still angry at the end?", "Angry still", False),
+            ("10. What lesson does Ren learn?", "(blank)", False),
+        ]
+        for q, a, correct in questions:
+            draw.text((60, y), q, font=self.small_font, fill=self.text_color)
+            y += 26
+            mark = "✓" if correct else "✗"
+            color = (50, 150, 50) if correct else (200, 50, 50)
+            draw.text((90, y), f"{mark} {a}", font=self.small_font, fill=color)
+            y += 32
+        y += 10
+        draw.text((50, y), "Score: 7 / 10 = 70%  -  TARGET MET", font=self.normal_font, fill=(30, 100, 30))
+
+        img.save(self.output_dir / "amara_inference_probe.png")
+        print("+ amara_inference_probe.png")
+
+    def generate_amara_social_tracker(self):
+        """Amara G2: social skills facilitator tracking sheet. 3/10 = 30% - REGRESSION."""
+        img, draw = self.create_base_image()
+        y = 30
+        draw.text((50, y), "Social Skills Tracking Sheet", font=self.title_font, fill=self.text_color)
+        y += 55
+        draw.text((50, y), "Name: Amara   Facilitator: Ms. Reyes", font=self.header_font, fill=self.text_color)
+        y += 45
+        draw.text((50, y), "Week of: 2026-04-06 to 2026-04-10", font=self.small_font, fill=self.text_color)
+        y += 50
+
+        headers = ["Setting", "Limit turns?", "Asked Q?", "Success?"]
+        col_widths = [200, 150, 130, 150]
+        rows = [
+            ("Mon - Lunch table",  "No - 4min", "No",  "No"),
+            ("Mon - Social group", "Yes",       "No",  "No"),
+            ("Tue - Lunch alone",  "n/a",       "n/a", "No"),
+            ("Tue - Library",      "Yes",       "Yes", "Yes"),
+            ("Wed - Lunch alone",  "n/a",       "n/a", "No"),
+            ("Wed - Group proj",   "No - 3min", "No",  "No"),
+            ("Thu - Recess",       "Yes",       "No",  "No"),
+            ("Thu - Art class",    "Yes",       "Yes", "Yes"),
+            ("Fri - Lunch alone",  "n/a",       "n/a", "No"),
+            ("Fri - Social group", "Yes",       "Yes", "Yes"),
+        ]
+        y = self._draw_table(draw, headers, col_widths, rows, 50, y, row_height=48)
+        y += 10
+        draw.text((50, y), "Success: 3 / 10 = 30%  -  DOWN from 40% last week", font=self.normal_font, fill=(200, 50, 50))
+        y += 40
+        draw.text((50, y), "Notes: Ate alone 3 days. Refused talk ticket system.", font=self.small_font, fill=self.text_color)
+        y += 30
+        draw.text((50, y), "New student in lunch group. Amara withdrew.", font=self.small_font, fill=self.text_color)
+
+        img.save(self.output_dir / "amara_social_tracker.png")
+        print("+ amara_social_tracker.png")
+
+    def generate_ethan_spontaneous_speech(self):
+        """Ethan G1: SLP tally of spontaneous vs scripted utterances. 7/10 = 70% MET."""
+        img, draw = self.create_base_image()
+        y = 30
+        draw.text((50, y), "Spontaneous Speech Tally", font=self.title_font, fill=self.text_color)
+        y += 55
+        draw.text((50, y), "Name: Ethan   SLP: Ms. Okafor", font=self.header_font, fill=self.text_color)
+        y += 45
+        draw.text((50, y), "Date: 2026-04-10   Setting: Classroom + Lunch", font=self.small_font, fill=self.text_color)
+        y += 50
+
+        headers = ["Opportunity", "Utterance", "Type", "Count?"]
+        col_widths = [180, 240, 140, 100]
+        rows = [
+            ("Circle - weather",   "'tornado watch today'", "spontaneous", "Yes"),
+            ("Center - fans",      "'I want fan'",          "spontaneous", "Yes"),
+            ("Snack",              "'more please'",         "spontaneous", "Yes"),
+            ("Peer offers PlayDo", "'no thank you'",        "spontaneous", "Yes"),
+            ("Circle greeting",    "'good morning class'",  "echolalic",   "No"),
+            ("Weather unit",       "'seven clouds!'",       "spontaneous", "Yes"),
+            ("Transition",         "'breaking weather...'", "echolalic",   "No"),
+            ("Lunch",              "'what for lunch?'",     "spontaneous", "Yes"),
+            ("Centers",            "(silent)",              "none",        "No"),
+            ("Playground",         "'look - seven birds!'", "spontaneous", "Yes"),
+        ]
+        y = self._draw_table(draw, headers, col_widths, rows, 50, y, row_height=46)
+        y += 10
+        draw.text((50, y), "Spontaneous: 7 / 10 = 70%  -  TARGET MET", font=self.normal_font, fill=(30, 100, 30))
+        y += 38
+        draw.text((50, y), "Motivating topics pull real language: weather + 7s.", font=self.small_font, fill=self.text_color)
+
+        img.save(self.output_dir / "ethan_spontaneous_speech.png")
+        print("+ ethan_spontaneous_speech.png")
+
+    def generate_ethan_handwriting_probe(self):
+        """Ethan G2: OT handwriting sample. 5/10 legible = 45% PLATEAU (alert)."""
+        img, draw = self.create_base_image()
+        y = 30
+        draw.text((50, y), "OT Handwriting Probe", font=self.title_font, fill=self.text_color)
+        y += 55
+        draw.text((50, y), "Name: Ethan   OT: Mr. Patel", font=self.header_font, fill=self.text_color)
+        y += 45
+        draw.text((50, y), "Date: 2026-04-10   Tool: slant board + pencil grip", font=self.small_font, fill=self.text_color)
+        y += 50
+
+        draw.text((50, y), "Prompt: Write 10 target letters on lined paper.", font=self.small_font, fill=self.text_color)
+        y += 40
+
+        self.add_ruled_lines(draw, y, spacing=35, count=8)
+
+        letters = [
+            ("E", True),  ("t", False), ("H", True),  ("a", False),
+            ("n", False), ("R", True),  ("f", False), ("7", True),
+            ("S", True),  ("m", False),
+        ]
+        for i, (letter, legible) in enumerate(letters):
+            col = i % 5
+            row = i // 5
+            x = 70 + col * 130
+            ly = y + 10 + row * 80
+            color = (30, 30, 80) if legible else (180, 80, 50)
+            draw.text((x, ly), letter, font=self.title_font, fill=color)
+            mark = "OK" if legible else "X"
+            draw.text((x + 40, ly + 8), mark, font=self.small_font, fill=color)
+        y += 180
+
+        draw.text((50, y), "Legible: 5 / 10 = 45%  -  NO CHANGE 4 weeks", font=self.normal_font, fill=(200, 50, 50))
+        y += 38
+        draw.text((50, y), "Recommend: vibrating pen, 5-min bursts, fan break.", font=self.small_font, fill=self.text_color)
+        y += 28
+        draw.text((50, y), "Refused writing after 4 minutes. Switched to scripting.", font=self.small_font, fill=self.text_color)
+
+        img.save(self.output_dir / "ethan_handwriting_probe.png")
+        print("+ ethan_handwriting_probe.png")
+
+    def generate_lily_conversation_log(self):
+        """Lily G1: SLP conversation + emotion-id log. 8/10 = 80% MET."""
+        img, draw = self.create_base_image()
+        y = 30
+        draw.text((50, y), "Pragmatic Language Log", font=self.title_font, fill=self.text_color)
+        y += 55
+        draw.text((50, y), "Name: Lily   SLP: Ms. Tran", font=self.header_font, fill=self.text_color)
+        y += 45
+        draw.text((50, y), "Date: 2026-04-10", font=self.small_font, fill=self.text_color)
+        y += 50
+
+        draw.text((50, y), "Part A - Topic maintenance (3+ exchanges on peer topic)", font=self.normal_font, fill=self.text_color)
+        y += 40
+        topics = [
+            ("Mia  -  soccer",       "4 exchanges", True),
+            ("Jordan  -  dogs",      "3 exchanges", True),
+            ("Group  -  field trip", "monologue", False),
+            ("Owen  -  Minecraft",   "5 exchanges", True),
+            ("Mia  -  family trip",  "3 exchanges", True),
+        ]
+        for peer, result, ok in topics:
+            mark = "PASS" if ok else "FAIL"
+            color = (50, 150, 50) if ok else (200, 50, 50)
+            draw.text((70, y), f"- {peer}", font=self.small_font, fill=self.text_color)
+            draw.text((340, y), result, font=self.small_font, fill=(50, 100, 200))
+            draw.text((500, y), mark, font=self.small_font, fill=color)
+            y += 32
+        y += 15
+
+        draw.text((50, y), "Part B - Emotion identification from photos (5 cards)", font=self.normal_font, fill=self.text_color)
+        y += 40
+        emotions = [
+            ("happy",       "happy",      True),
+            ("frustrated",  "frustrated", True),
+            ("nervous",     "nervous",    True),
+            ("jealous",     "mad",        False),
+            ("embarrassed", "embarrassed", True),
+        ]
+        for target, guess, ok in emotions:
+            mark = "PASS" if ok else "FAIL"
+            color = (50, 150, 50) if ok else (200, 50, 50)
+            draw.text((70, y), f"Target: {target}", font=self.small_font, fill=self.text_color)
+            draw.text((300, y), f"Said: {guess}", font=self.small_font, fill=(50, 100, 200))
+            draw.text((500, y), mark, font=self.small_font, fill=color)
+            y += 32
+
+        y += 20
+        draw.text((50, y), "Total: 8 / 10 = 80%  -  TARGET MET", font=self.normal_font, fill=(30, 100, 30))
+        y += 38
+        draw.text((50, y), "Noticed peer's frustration during math partner work", font=self.small_font, fill=self.text_color)
+        y += 28
+        draw.text((50, y), "and offered help unprompted. First time!", font=self.small_font, fill=self.text_color)
+
+        img.save(self.output_dir / "lily_conversation_log.png")
+        print("+ lily_conversation_log.png")
+
+    def generate_lily_coping_strategy(self):
+        """Lily G3: coping strategy vs shutdown log. 7/10 = 70% improving."""
+        img, draw = self.create_base_image()
+        y = 30
+        draw.text((50, y), "Coping Strategy Log", font=self.title_font, fill=self.text_color)
+        y += 55
+        draw.text((50, y), "Name: Lily", font=self.header_font, fill=self.text_color)
+        y += 45
+        draw.text((50, y), "Date: 2026-04-10   (5-point scale tracking)", font=self.small_font, fill=self.text_color)
+        y += 50
+
+        headers = ["Trigger", "Rating", "Strategy Used", "Outcome"]
+        col_widths = [220, 110, 220, 130]
+        rows = [
+            ("Group math - peer disagreed", "4/5", "Worry stone",    "Coped"),
+            ("Science group - loud",        "3/5", "Calm corner",    "Coped"),
+            ("Partner reading - wrong book", "3/5", "Deep breathing", "Coped"),
+            ("Timed math test",             "4/5", "Deep breathing", "Coped"),
+            ("Art - paint smell",           "4/5", "Requested break", "Coped"),
+            ("Lunch - spilled milk",        "5/5", "Cried",          "Shutdown"),
+            ("Group poster disagreement",   "4/5", "'I need a min'", "Coped"),
+            ("Science fair prep",           "4/5", "Pre-task list",  "Coped"),
+            ("Cafeteria - fire drill",      "5/5", "Froze",          "Shutdown"),
+            ("PE dodgeball - tag",          "4/5", "Step out line",  "Shutdown"),
+        ]
+        y = self._draw_table(draw, headers, col_widths, rows, 50, y, row_height=48)
+        y += 10
+        draw.text((50, y), "Coped: 7 / 10 = 70%  -  Nearing 75% target", font=self.normal_font, fill=(30, 100, 30))
+        y += 38
+        draw.text((50, y), "Fire drill still a loss  -  smell + noise compound trigger.", font=self.small_font, fill=self.text_color)
+
+        img.save(self.output_dir / "lily_coping_strategy.png")
+        print("+ lily_coping_strategy.png")
+
+    def generate_marcus_aac_request_log(self):
+        """Marcus G1: AAC/PECS independent request log. 5/10 = 50% MET."""
+        img, draw = self.create_base_image()
+        y = 30
+        draw.text((50, y), "AAC + PECS Request Log", font=self.title_font, fill=self.text_color)
+        y += 55
+        draw.text((50, y), "Name: Marcus   K  Age 5", font=self.header_font, fill=self.text_color)
+        y += 45
+        draw.text((50, y), "Date: 2026-04-10   Device: TouchChat (24-icon)", font=self.small_font, fill=self.text_color)
+        y += 50
+
+        headers = ["Time", "Request", "Modality", "Independent?"]
+        col_widths = [110, 220, 200, 170]
+        rows = [
+            ("8:30",  "bubbles",       "PECS card", "Yes"),
+            ("9:05",  "Bluey",         "AAC icon",  "Yes"),
+            ("9:40",  "drum",          "AAC icon",  "Yes"),
+            ("10:15", "more crackers", "AAC + 'more'", "Yes"),
+            ("10:45", "help (blocks)", "AAC icon",  "Yes"),
+            ("11:10", "bathroom",      "Led adult", "No - prompt"),
+            ("11:45", "eat",           "PECS card", "Yes"),
+            ("12:30", "bubbles",       "PECS card", "Yes"),
+            ("1:00",  "Bluey",         "Pulled arm", "No - prompt"),
+            ("1:40",  "playground",    "AAC - 2 pages", "Yes"),
+        ]
+        y = self._draw_table(draw, headers, col_widths, rows, 50, y, row_height=44)
+        y += 10
+        draw.text((50, y), "Independent: 8 / 10 = 80%  -  EXCEEDS 50% target", font=self.normal_font, fill=(30, 100, 30))
+        y += 38
+        draw.text((50, y), "Marcus said 'more' verbally WHILE pressing icon  -  multimodal.", font=self.small_font, fill=self.text_color)
+        y += 28
+        draw.text((50, y), "Navigated 2 AAC pages to find 'playground'. Huge win.", font=self.small_font, fill=self.text_color)
+
+        img.save(self.output_dir / "marcus_aac_request_log.png")
+        print("+ marcus_aac_request_log.png")
+
+    def generate_marcus_playground_log(self):
+        """Marcus G3: adapted PE playground observation. 5/10 = 50% MET. First big slide."""
+        img, draw = self.create_base_image()
+        y = 30
+        draw.text((50, y), "Adapted PE  -  Playground", font=self.title_font, fill=self.text_color)
+        y += 55
+        draw.text((50, y), "Name: Marcus   Observer: Coach Diaz", font=self.header_font, fill=self.text_color)
+        y += 45
+        draw.text((50, y), "Date: 2026-04-10   Recess (low-crowd access)", font=self.small_font, fill=self.text_color)
+        y += 50
+
+        headers = ["Equipment", "Attempt?", "Safety rules", "Notes"]
+        col_widths = [200, 140, 170, 190]
+        rows = [
+            ("Small slide",   "Yes - solo", "Feet first",    "Independent"),
+            ("Small ladder",  "Yes",        "One hand rail", "Aide nearby"),
+            ("Swings",        "Yes",        "Waited turn",   "1 peer turn"),
+            ("Big slide",     "YES - first", "Feet first",   "Class cheered"),
+            ("Big ladder",    "Yes",        "Both hands",    "With spotter"),
+            ("Monkey bars",   "No",         "n/a",           "Watched peer"),
+            ("Sandbox",       "Yes",        "n/a",           "Wet texture - brief"),
+            ("Merry-go-round", "Yes",       "Held bar",      "Loved spin"),
+            ("Climbing wall", "No",         "n/a",           "Too crowded"),
+            ("Seesaw",        "Yes",        "Waited turn",   "With Caleb"),
+        ]
+        y = self._draw_table(draw, headers, col_widths, rows, 50, y, row_height=46)
+        y += 10
+        draw.text((50, y), "Safe navigation: 8 / 10 = 80%  -  EXCEEDS 50% target", font=self.normal_font, fill=(30, 100, 30))
+        y += 38
+        draw.text((50, y), "BIG SLIDE for the first time. Followed 'feet first'.", font=self.small_font, fill=(120, 80, 180))
+        y += 28
+        draw.text((50, y), "Tolerated 5 peers on equipment at once. Aide stepped back.", font=self.small_font, fill=self.text_color)
+
+        img.save(self.output_dir / "marcus_playground_log.png")
+        print("+ marcus_playground_log.png")
+
+    def generate_sofia_peer_conversation_tally(self):
+        """Sofia G1: peer conversation initiation tally. 9/10 = 90% EXCEEDS 80%."""
+        img, draw = self.create_base_image()
+        y = 30
+        draw.text((50, y), "Peer Conversation Tally", font=self.title_font, fill=self.text_color)
+        y += 55
+        draw.text((50, y), "Name: Sofia   Counselor: Mr. Kim", font=self.header_font, fill=self.text_color)
+        y += 45
+        draw.text((50, y), "Date: 2026-04-10   Group project week", font=self.small_font, fill=self.text_color)
+        y += 50
+
+        draw.text((50, y), "Criteria: asked Q + showed interest + eye contact", font=self.small_font, fill=self.text_color)
+        y += 40
+
+        headers = ["Setting", "Topic", "Q asked?", "Score"]
+        col_widths = [200, 220, 130, 130]
+        rows = [
+            ("Mon - Morning table", "Peer's weekend",  "Yes", "PASS"),
+            ("Mon - Group proj",    "State capitals",  "Yes", "PASS"),
+            ("Tue - Lunch",         "Peer's dog",      "Yes", "PASS"),
+            ("Tue - Recess",        "Map game",        "Yes", "PASS"),
+            ("Wed - Group proj",    "Project rubric",  "Yes", "PASS"),
+            ("Wed - Library",       "Reading choices", "Yes", "PASS"),
+            ("Thu - Lunch",         "Presidents",      "No - monologue", "FAIL"),
+            ("Thu - Group proj",    "Teammate idea",   "Yes", "PASS"),
+            ("Fri - Morning table", "Peer's hobby",    "Yes", "PASS"),
+            ("Fri - Group present", "Shared credit",   "Yes", "PASS"),
+        ]
+        y = self._draw_table(draw, headers, col_widths, rows, 50, y, row_height=48)
+        y += 10
+        draw.text((50, y), "Initiations with criteria: 9 / 10 = 90%", font=self.normal_font, fill=(30, 100, 30))
+        y += 38
+        draw.text((50, y), "EXCEEDS 80% target. Group project anchored shared interest.", font=self.small_font, fill=self.text_color)
+        y += 28
+        draw.text((50, y), "One slip Thu lunch - reverted to monologue when tired.", font=self.small_font, fill=self.text_color)
+
+        img.save(self.output_dir / "sofia_peer_conversation_tally.png")
+        print("+ sofia_peer_conversation_tally.png")
+
     def generate_all(self):
         """Generate all sample work images."""
         print(f"Generating sample work images in {self.output_dir}...")
@@ -560,15 +946,46 @@ class WorksheetGenerator:
         self.generate_jaylen_choice_board()
         self.generate_jaylen_turn_taking_tally()
 
+        # Extended artifacts for underserved students
+        self.generate_amara_inference_probe()
+        self.generate_amara_social_tracker()
+        self.generate_ethan_spontaneous_speech()
+        self.generate_ethan_handwriting_probe()
+        self.generate_lily_conversation_log()
+        self.generate_lily_coping_strategy()
+        self.generate_marcus_aac_request_log()
+        self.generate_marcus_playground_log()
+        self.generate_sofia_peer_conversation_tally()
+
         print()
         print("✓ All images generated successfully!")
+
+    def generate_extended_only(self):
+        """Generate only the new artifacts for underserved students."""
+        print(f"Generating extended sample work images in {self.output_dir}...")
+        print()
+        self.generate_amara_inference_probe()
+        self.generate_amara_social_tracker()
+        self.generate_ethan_spontaneous_speech()
+        self.generate_ethan_handwriting_probe()
+        self.generate_lily_conversation_log()
+        self.generate_lily_coping_strategy()
+        self.generate_marcus_aac_request_log()
+        self.generate_marcus_playground_log()
+        self.generate_sofia_peer_conversation_tally()
+        print()
+        print("Done.")
 
 
 def main():
     """Main entry point."""
-    output_dir = "/sessions/modest-festive-cori/mnt/ClassLense/classlens-asd/data/sample_work"
-    generator = WorksheetGenerator(output_dir)
-    generator.generate_all()
+    import sys
+    output_dir = Path(__file__).resolve().parent.parent / "data" / "sample_work"
+    generator = WorksheetGenerator(str(output_dir))
+    if len(sys.argv) > 1 and sys.argv[1] == "--extended":
+        generator.generate_extended_only()
+    else:
+        generator.generate_all()
 
 
 if __name__ == "__main__":

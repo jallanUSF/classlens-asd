@@ -1,0 +1,61 @@
+{
+  "student_id": "lily_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\lily_coping_strategy.png",
+  "date": "2026-04-10",
+  "transcription": {
+    "student_name": "Lily",
+    "work_type": "behavior_coping_log",
+    "subject": "self_regulation",
+    "raw_text": "Coping Strategy Log - Lily - Date: 2026-04-10 (5-point scale tracking)\n---\n1. Group math - peer disagreed (4/5): worry stone -> Coped\n2. Science group - loud (3/5): calm corner -> Coped\n3. Partner reading - wrong book (3/5): deep breathing -> Coped\n4. Timed math test (4/5): deep breathing -> Coped\n5. Art - paint smell (4/5): requested break -> Coped\n6. Lunch - spilled milk (5/5): cried -> Shutdown\n7. Group poster disagreement (4/5): 'I need a min' -> Coped\n8. Science fair prep (4/5): pre-task list -> Coped\n9. Cafeteria - fire drill (5/5): froze -> Shutdown\n10. PE dodgeball - tag (4/5): step out of line -> Shutdown\n---\nCoped: 7/10 = 70% - Nearing 75% target\nNote: Fire drill still a loss. Smell + noise compound trigger.",
+    "task_items": [
+      {"item": "Group math - peer disagreed (4/5)", "response": "worry stone used - coped", "correct": true},
+      {"item": "Science group - loud (3/5)", "response": "calm corner - coped", "correct": true},
+      {"item": "Partner reading - wrong book (3/5)", "response": "deep breathing - coped", "correct": true},
+      {"item": "Timed math test (4/5)", "response": "deep breathing - coped", "correct": true},
+      {"item": "Art - paint smell (4/5)", "response": "requested break - coped", "correct": true},
+      {"item": "Lunch - spilled milk (5/5)", "response": "cried - shutdown", "correct": false},
+      {"item": "Group poster disagreement (4/5)", "response": "'I need a minute' - coped", "correct": true},
+      {"item": "Science fair prep (4/5)", "response": "pre-task list - coped", "correct": true},
+      {"item": "Cafeteria - fire drill (5/5)", "response": "froze - shutdown", "correct": false},
+      {"item": "PE dodgeball - tag (4/5)", "response": "step out of line - shutdown", "correct": false}
+    ],
+    "total_items": 10,
+    "correct_items": 7,
+    "accuracy_pct": 70,
+    "teacher_notes": "Lily used a learned strategy in 7 of 10 frustrating situations this week. The 3 failures had a clear common signature: they all hit Lily at a 5/5 (fire drill, spilled milk smell) or involved multiple overlapping triggers. For 4/5 situations and below, she is using strategies independently. The most mature moment this week was 'I need a minute' during the group poster disagreement — she self-advocated, walked to the calm corner, came back, and compromised.",
+    "engagement_indicators": [
+      "self-advocacy with 'I need a minute'",
+      "proactive deep breathing during timed test",
+      "5-point scale self-rating accurate across situations",
+      "strategy failure only at 5/5 intensity"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G3",
+        "reasoning": "Behavior tracking log is the named measurement method for G3. 7/10 coping events = 70%, just 5 points below the 75% target.",
+        "trials": 10,
+        "successes": 7,
+        "percentage": 70
+      }
+    ],
+    "overall_summary": "Lily coped independently in 7 of 10 frustrating situations, nearing her 75% target. The clear diagnostic pattern: strategies work reliably at 4/5 intensity and below, and fail at 5/5 intensity or when multiple triggers overlap. Next intervention target is high-intensity compound triggers."
+  },
+  "analyses": [
+    {
+      "trend": "improving",
+      "current_average": 54.3,
+      "sessions_analyzed": 7,
+      "confidence": "high",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Lily is 5 points from her 75% coping strategy target after 7 sessions of steady gains (30% baseline → 70% today). The 3 failures this week have an unambiguous pattern: they all occurred at a 5/5 intensity on her own scale (fire drill, spilled milk smell compound with cafeteria noise, PE dodgeball with tag fear). At 4/5 intensity and below, Lily is now using strategies independently without prompting — worry stone, deep breathing, calm corner, self-advocacy with 'I need a minute.' The self-advocacy moment during the group poster disagreement is the peak of the week: she said 'I need a minute,' walked to the calm corner, came back, and compromised on the poster. That is mature self-regulation, not just strategy compliance. Next growth edge is the 5/5 intensity wall.",
+      "recommendation": "Celebrate the poster moment specifically with Lily — that is the shape of the skill we want. For the 5/5 wall: consider adding a 'pre-crisis' plan for known compound triggers (cafeteria, fire drill, PE dodgeball) so Lily has a specific strategy WRITTEN DOWN for each one. Her coping is checklist-based; giving her a checklist for 5/5 situations aligns with her cognitive style. Reduce scaffolding in 4/5 situations where mastery is holding.",
+      "thinking": "Lily G3 progression (7 sessions):\n1. 2026-02-07: 30% (baseline, cried when peer disagreed)\n2. 2026-02-21: 40% (5-point scale introduced)\n3. 2026-03-07: 50% (asked for break first time in group)\n4. 2026-03-21: 55% (proactive worry stone)\n5. 2026-04-01: 65% (poster 'I need a minute')\n6. 2026-04-04: 70%\n7. 2026-04-10 (today): 70% (target within reach)\n\nLinear improvement with one plateau week at 70. The plateau is mild and the pattern is still upward-trending.\n\nFailure analysis on today's 3 losses:\n- Spilled milk (5/5): smell is a known primary sensory trigger. Strategy failed because Lily was already saturated before she could engage with a tool.\n- Fire drill (5/5): noise + unexpected + cafeteria context = compound trigger. Same saturation pattern.\n- PE dodgeball (5/5): fear of being tagged + social pressure + physical environment = 3 triggers overlapping.\n\nAll 3 failures share a structure: 5/5 intensity at onset. Lily's current strategy set is designed for rising intensity (notice at 3/5, act at 4/5, prevent 5/5). The strategies weren't built for situations that start at 5/5.\n\nWhat's working: everything 4/5 and below. What's not: the saturation ceiling. The fix is different strategies for different intensity classes, not more of the same.\n\nConfidence: high. The failure pattern is too consistent to be random.",
+      "goal_id": "G3",
+      "student_id": "lily_2026"
+    }
+  ],
+  "alerts": []
+}
