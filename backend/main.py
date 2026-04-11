@@ -34,21 +34,25 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS — allow Next.js dev server and production origins
+# CORS — allow Next.js dev server and explicitly configured production origins.
+# CORS_ORIGINS: comma-separated exact origins (preferred for prod).
+# CORS_ORIGIN_REGEX: optional regex (e.g. to allow all *.vercel.app preview URLs).
+# Leave CORS_ORIGIN_REGEX unset in production unless you really want a wildcard.
 _default_origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
 _env_origins = os.environ.get("CORS_ORIGINS", "")
 _cors_origins = [o.strip() for o in _env_origins.split(",") if o.strip()] if _env_origins else _default_origins
+_cors_origin_regex = os.environ.get("CORS_ORIGIN_REGEX") or None
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=_cors_origins,
-    allow_origin_regex=r"https://[\w-]+\.vercel\.app",
+    allow_origin_regex=_cors_origin_regex,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
 )
 
 # Mount routers

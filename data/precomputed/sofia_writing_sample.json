@@ -37,26 +37,46 @@
   "goal_mapping": {
     "matched_goals": [
       {
-        "goal_id": "G1",
-        "reasoning": "Writing sample demonstrates abstract reasoning and emotional expression",
+        "goal_id": "G3",
+        "reasoning": "Reflective essay hits all three rubric dimensions (voice, emotional expression, organization) — directly measures G3 (creative writing beyond facts)",
         "trials": 3,
         "successes": 3,
         "percentage": 100
+      },
+      {
+        "goal_id": "G1",
+        "reasoning": "Essay explicitly engages with other people's perspectives (Washington, Lincoln) — indirect evidence for G1 social-communication development",
+        "trials": 2,
+        "successes": 2,
+        "percentage": 100
       }
     ],
-    "overall_summary": "Sofia's writing demonstrates goal mastery in creative expression."
+    "overall_summary": "Sofia's reflective essay on US Presidents demonstrates creative writing mastery (G3). Critically, she moved beyond her usual fact-recitation to include inferences about historical figures' emotions — the exact skill G3 was targeting."
   },
   "analyses": [
     {
-      "trend": "stable",
-      "current_average": 0.0,
-      "sessions_analyzed": 0,
-      "confidence": "low",
+      "trend": "improving",
+      "current_average": 52.0,
+      "sessions_analyzed": 5,
+      "confidence": "high",
       "alert": false,
       "alert_message": "",
-      "progress_note": "Maya demonstrates strong positive trend toward Communication Goal G1. She has reached the 80% target in 4 weeks through consistent peer buddy engagement, reinforcement with dinosaur stickers, and morning routine establishment. The trend is stable and sustainable, with only minor disruption during the fire drill. Recommend maintaining current interventions and considering generalization to larger peer group contexts.",
-      "recommendation": "",
-      "thinking": "Let me analyze Maya's trial data step by step:\n1. Initial baseline (March 15): 3/10 successes (30%)\n2. Second observation (March 22): 4/10 (40%) - slight improvement\n3. Third observation (March 29): 6/10 (60%) - clear upward trend, despite fire drill disruption\n4. Fourth observation (April 1): 7/10 (70%) - consistent improvement\n5. Fifth observation (April 3): 8/10 (80%) - TARGET REACHED\n\nPattern analysis:\n- Steady increase of approximately 10% per week\n- Only minor setback during fire drill (expected given sensory sensitivity)\n- Peer buddy program appears highly effective\n- Dinosaur sticker reinforcer strongly motivating\n- Goal reached in 4 weeks, well ahead of initial IEP timeline\n\nConfidence in trend: Very high (95%+). This is a clear, linear improvement with consistent intervention application.",
+      "progress_note": "Sofia reached the 80% target on Goal G3 (creative writing beyond facts). This essay shows the exact cognitive shift the goal was targeting: she moved from 'I know all 47 presidents' to 'Washington may have felt worried because he had to make hard decisions.' That's abstract inference about an unobservable mental state — a significant skill for an ASD level 1 learner who has historically stayed in fact-recitation mode. The interests-based scaffolding (presidents, her special interest) worked — recommend continuing to anchor creative writing prompts in her preferred topics and gradually introducing less-preferred topics to generalize.",
+      "recommendation": "Maintain interest-based writing prompts. Introduce one non-preferred topic per week to test generalization (e.g., a personal experience rather than a president). Consider pairing with G1 social-communication work since inferring others' mental states supports both goals.",
+      "thinking": "Sofia's G3 progression:\n1. Baseline (2025-10-15): 40% — fact-based, encyclopedia-style writing\n2. 2026-03-15: 40% — stuck in factual mode\n3. 2026-03-22: 40% — writing coach assigned, struggling with 'why' prompts\n4. 2026-03-29: 40% — fire drill essay, no emotional reflection (stuck)\n5. 2026-04-01: 60% — personal narrative, surface-level feelings\n6. 2026-04-03: 80% — TARGET REACHED with reflective essay\n7. Today's writing sample (presidents reflection): 4/4 rubric (100%) — exceeding target\n\nPattern analysis:\n- Sofia was stuck at 40% for three weeks despite coaching. The breakthrough came when the writing prompt was anchored to her special interest (presidents). This is a textbook ASD level 1 strength-based accommodation — use the perseverative interest as a foothold for the weak skill.\n- The jump from 40% to 80% in two sessions is NOT normal linear progress — it's a scaffold-based breakthrough. Risk: if you remove the special-interest anchor, the skill may not transfer.\n- Today's essay contains the key abstract inference pattern: 'Washington maybe felt worried because he had to make hard decisions.' That's theory-of-mind reasoning applied to writing.\n\nConfidence: High for the current interest-anchored condition. Medium for generalization. The next test is writing about a non-preferred topic at the same quality level.",
+      "goal_id": "G3",
+      "student_id": "sofia_2026"
+    },
+    {
+      "trend": "improving",
+      "current_average": 62.8,
+      "sessions_analyzed": 5,
+      "confidence": "medium",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Writing about Washington and Lincoln's perspectives is indirect but real evidence for G1 (social communication). The essay shows Sofia can reason about OTHER people's mental states — a prerequisite for genuine peer conversation (asking 'how did that make you feel?' rather than sharing facts). This skill transfer from writing to conversation isn't automatic, but it's worth probing.",
+      "recommendation": "Have Sofia's social skills coach use the essay as a conversation springboard: 'Tell me more about why you think Washington felt worried.' If she can sustain that dialogue with a peer (not just an adult), it's direct G1 evidence.",
+      "thinking": "G1 is social communication (initiating beyond fact-sharing). The essay isn't a direct G1 probe, but it demonstrates a cognitive building block — theory-of-mind reasoning — that her earlier writing samples lacked. Linking this to G1 is speculative, but worth flagging because it suggests the two goals may be reinforcing each other. Confidence is medium because it's a secondary signal, not a targeted measurement.",
       "goal_id": "G1",
       "student_id": "sofia_2026"
     }

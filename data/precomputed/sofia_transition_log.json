@@ -1,0 +1,57 @@
+{
+  "student_id": "sofia_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\sofia_transition_log.png",
+  "date": "2026-04-03",
+  "transcription": {
+    "student_name": "Sofia",
+    "work_type": "transition_log",
+    "subject": "executive_function",
+    "raw_text": "Sofia - Transition & Schedule Change Log - Date: 2026-04-03\n---\nTransition 1 (Math → Reading): ✓ smooth, used written list\nTransition 2 (Reading → Specials/Art): ✓ smooth, 2-min warning used\nTransition 3 (Specials → Lunch): ✓ smooth\nTransition 4 (Lunch → Social Studies): ✓ smooth, organized notebook before moving\nTransition 5 (Social Studies → Science): UNEXPECTED — science lab canceled, shifted to library. Sofia visibly anxious (1 min), used deep breathing + counting to 10, recovered without protest. Self-rated mood 4/5.\nTransition 6 (Library → Recess): ✓ smooth\nTransition 7 (Recess → Math Intervention): ✓ smooth\n---\nScore: 6/7 routine transitions smooth; 1/1 unexpected change self-regulated WITHOUT protest (used taught coping strategy)\nTotal: 7/7 managed without anxiety escalation = 100%\nReinforcer: 5 minutes free reading (president biography)\nNotes: HUGE win — the science lab cancellation was exactly the kind of unexpected schedule change that crashed Sofia in March. Today she used the deep breathing strategy SPONTANEOUSLY without adult prompting. This is the transfer we've been working toward. **GOAL MET: 100% — exceeded 85% target**",
+    "task_items": [
+      {"item": "Math → Reading", "response": "smooth, used list", "correct": true},
+      {"item": "Reading → Specials", "response": "smooth, 2-min warning", "correct": true},
+      {"item": "Specials → Lunch", "response": "smooth", "correct": true},
+      {"item": "Lunch → Social Studies", "response": "smooth, organized notebook", "correct": true},
+      {"item": "Social Studies → Science (UNEXPECTED change)", "response": "anxious 1 min, used breathing strategy, recovered", "correct": true},
+      {"item": "Library → Recess", "response": "smooth", "correct": true},
+      {"item": "Recess → Math Intervention", "response": "smooth", "correct": true}
+    ],
+    "total_items": 7,
+    "correct_items": 7,
+    "accuracy_pct": 100,
+    "teacher_notes": "Unexpected schedule change handled with taught coping strategy — spontaneously, without adult prompting. This is the skill transfer we've been targeting since March.",
+    "engagement_indicators": [
+      "spontaneous use of coping strategy",
+      "self-regulation without adult prompting",
+      "written list as predictability scaffold"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G2",
+        "reasoning": "Transition log directly measures G2 — managing transitions and schedule changes with 85% self-regulation, including the unplanned science→library shift",
+        "trials": 7,
+        "successes": 7,
+        "percentage": 100
+      }
+    ],
+    "overall_summary": "Sofia exceeded the 85% self-regulation target at 100%. Critically, the one unexpected schedule change (science lab canceled) was handled with spontaneous use of deep breathing — true skill transfer, not just rehearsed performance in predictable conditions."
+  },
+  "analyses": [
+    {
+      "trend": "improving",
+      "current_average": 72.0,
+      "sessions_analyzed": 6,
+      "confidence": "high",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Sofia hit 100% on Goal G2 today, including the first documented instance of SPONTANEOUS use of the deep-breathing coping strategy during an unplanned schedule change. This is a milestone: prior sessions showed that she could execute the strategy when prompted; today she initiated it herself. That's the difference between a practiced skill and an internalized one. Recommend moving the focus of intervention from 'teaching the strategy' to 'maintenance and generalization to less structured settings' (e.g., field trips, substitute teacher days).",
+      "recommendation": "Reduce adult prompting on routine transitions to maintenance level. Create 1-2 opportunities per week for controlled unexpected changes to consolidate the generalization. Consider a peer-modeling role — Sofia teaches the strategy to a younger student, which often cements executive-function skills.",
+      "thinking": "Sofia's G2 progression:\n1. Baseline (2025-10-15): 55%\n2. 2026-03-15: 53% — high anxiety with unannounced changes\n3. 2026-03-22: 67% — 5-minute warning protocol started\n4. 2026-03-29: 73% — fire drill caused 3.5 hours of recovery time (big regression signal)\n5. 2026-04-01: 80% — written transition list + deep breathing being taught\n6. 2026-04-03: 87% — target reached with prompting\n7. Today (transition log): 100% — target exceeded, AND the unexpected-change test was passed SPONTANEOUSLY\n\nPattern analysis:\n- The 03-29 fire drill is the critical data point: 3.5-hour recovery time was the pre-intervention failure mode.\n- Interventions stacked: (a) written lists for predictability, (b) 5-min warnings, (c) deep breathing + counting as coping strategy.\n- Today's science lab cancellation is the natural follow-up test. 1-minute anxiety + spontaneous coping = success.\n- The strategy has transferred from 'adult-prompted execution' to 'self-initiated use.' That's the goal of any coping skill intervention.\n- Risk: all data is from structured school days. No data yet on substitute teachers, field trips, or assembly days — the higher-stakes generalization contexts.\n\nConfidence: High on the current classroom data. Medium on generalization until we see data from a non-routine day.",
+      "goal_id": "G2",
+      "student_id": "sofia_2026"
+    }
+  ],
+  "alerts": []
+}

@@ -11,9 +11,24 @@
 - [x] Sprint 4: Print CSS + approve/regenerate controls
 - [x] Sprint 5: Mobile responsive layout (hamburger + FAB)
 - [x] Sprint 5: OpenRouter integration + deployment config
-- [x] Design review: Grade K, touch targets, Base UI fix, chat dedup, heading size
-- [x] Address remaining design review polish (focus indicators, alert wrapping, empty state, level visual weight)
-- [x] Wire real Gemma API to chat (load_dotenv fix, OpenRouter verified working)
-- [x] Wire image upload UI to capture pipeline (Scan Work button + chat paperclip)
-- [x] QA pass — chat with real API, capture pipeline, build + tests green
-- [ ] Jeff approval for release readiness
+- [x] Design review + polish passes (all findings resolved)
+- [x] Sprint 5 finalization: real API wiring + image upload pipeline (commit 783d355)
+
+## Path B — Hardening Week (COMPLETE)
+- [x] Fill missing precomputed JSONs (jaylen_pecs_log, maya_visual_schedule, sofia_transition_log)
+- [x] Fix Maya copy-paste bugs in 3 existing precomputed JSONs (wrong goal_ids, identical Maya narratives)
+- [x] Security pass: filename sanitization, student_id validation, upload size/extension limits
+- [x] CORS hardening (opt-in regex, explicit method/header allowlist)
+- [x] Stray-HTML sanitization rewrite (script/style blocks + any-tag regex)
+- [x] Unit tests for new security code (32 tests added — 67/67 total pass)
+- [x] Live cold-boot smoke test script + verified 7/7 end-to-end checks pass
+- [x] MISTAKES.md seeded with 4 lessons from Sprints 1–5
+
+## Release Gate (RE-OPENED — Jeff to decide)
+- [ ] Jeff approval for release readiness after Path B hardening
+
+## Jeff Open Questions (needed before Sprint 6 can start)
+- [ ] Resolve port 8000 conflict (kill ulana.main or commit to 8001)
+- [ ] Confirm Sarah's content status (profiles + video segments)
+- [ ] Confirm deploy target (local + OpenRouter vs. other)
+- [ ] Clarify "release ready" — demo-ready or production-ready?

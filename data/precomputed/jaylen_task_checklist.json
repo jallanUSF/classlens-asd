@@ -46,27 +46,27 @@
   "goal_mapping": {
     "matched_goals": [
       {
-        "goal_id": "G1",
-        "reasoning": "Visual schedule independence directly measures G1 target",
+        "goal_id": "G2",
+        "reasoning": "Task checklist tracks unprompted transitions — directly measures G2 (visual schedule independence with 90% target)",
         "trials": 5,
         "successes": 5,
         "percentage": 100
       }
     ],
-    "overall_summary": "Jaylen met 90% independence target on visual schedule transitions."
+    "overall_summary": "Jaylen met the 90% visual schedule independence target (G2) with 5/5 unprompted or minimally-cued transitions."
   },
   "analyses": [
     {
-      "trend": "stable",
-      "current_average": 0.0,
-      "sessions_analyzed": 0,
-      "confidence": "low",
+      "trend": "improving",
+      "current_average": 75.0,
+      "sessions_analyzed": 5,
+      "confidence": "high",
       "alert": false,
       "alert_message": "",
-      "progress_note": "Maya demonstrates strong positive trend toward Communication Goal G1. She has reached the 80% target in 4 weeks through consistent peer buddy engagement, reinforcement with dinosaur stickers, and morning routine establishment. The trend is stable and sustainable, with only minor disruption during the fire drill. Recommend maintaining current interventions and considering generalization to larger peer group contexts.",
-      "recommendation": "",
-      "thinking": "Let me analyze Maya's trial data step by step:\n1. Initial baseline (March 15): 3/10 successes (30%)\n2. Second observation (March 22): 4/10 (40%) - slight improvement\n3. Third observation (March 29): 6/10 (60%) - clear upward trend, despite fire drill disruption\n4. Fourth observation (April 1): 7/10 (70%) - consistent improvement\n5. Fifth observation (April 3): 8/10 (80%) - TARGET REACHED\n\nPattern analysis:\n- Steady increase of approximately 10% per week\n- Only minor setback during fire drill (expected given sensory sensitivity)\n- Peer buddy program appears highly effective\n- Dinosaur sticker reinforcer strongly motivating\n- Goal reached in 4 weeks, well ahead of initial IEP timeline\n\nConfidence in trend: Very high (95%+). This is a clear, linear improvement with consistent intervention application.",
-      "goal_id": "G1",
+      "progress_note": "Jaylen reached the 90% independence target on Goal G2 (visual schedule transitions). The intervention stack — photos of Jaylen embedded in each schedule step, Thomas sticker chart for reinforcement, and reduced hand-over-hand prompting — has produced a clear linear trend. Today's 5/5 completion with only 2 light verbal cues represents the strongest session yet. Recommend maintenance at current level and probing generalization to a substitute teacher day.",
+      "recommendation": "Continue personalized photo schedule + Thomas sticker chart. Add 1 probe per week with an unfamiliar adult to test generalization. Begin fading verbal cues on the two transitions that still need them.",
+      "thinking": "Jaylen's G2 progression:\n1. Baseline (2025-10-15): 60% — needed hand-over-hand for most transitions\n2. 2026-03-15: 60% — visual schedule introduced but still gesture-dependent\n3. 2026-03-22: 65% — personalized photos added (Jaylen in each activity)\n4. 2026-03-29: 75% — Thomas sticker chart; fire drill disrupted one day but recovered\n5. 2026-04-01: 85% — verbal cue + point sufficient for most transitions\n6. 2026-04-03: 90% — TARGET REACHED\n7. Today's checklist: 5/5 transitions with minimal cueing\n\nPattern analysis:\n- The big jump came from personalizing the schedule with Jaylen's photos. This is characteristic for ASD level 3 learners — they benefit from seeing themselves in the target behavior.\n- Thomas reinforcer is the motivational engine. Removing it would likely cause regression.\n- The two transitions still needing cues (Mat Time → Work Station, Lunch → Fine Motor) are both 'preferred → less preferred' — motivational, not skill-based.\n\nConfidence: High. Clear trend, identifiable mechanism, target reached with sustainable intervention.",
+      "goal_id": "G2",
       "student_id": "jaylen_2026"
     }
   ],

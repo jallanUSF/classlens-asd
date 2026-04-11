@@ -1,49 +1,78 @@
 # HANDOFF.md — Session Handoff
 
-**Date:** 2026-04-06
+**Date:** 2026-04-11
 **Branch:** `nextjs-redesign`
-**Status:** Sprints 1-5 COMPLETE + real API & image upload wired. Awaiting Jeff's release approval.
+**Status:** Path B hardening week complete. Release gate question re-opened for Jeff.
 
 ---
 
-## What Was Done (This Session)
+## What Was Done (This Session — Path B Hardening)
 
-### 1. Wired Real Gemma API to Chat
-- **Root cause:** `load_dotenv()` wasn't called in backend routers, so `.env` vars were invisible at request time
-- **Fix:** Added `load_dotenv()` to `backend/routers/chat.py` and `backend/routers/capture.py`
-- **Config:** Added `MODEL_PROVIDER=openrouter` and `OPENROUTER_MODEL=google/gemma-3-27b-it` to `.env`
-- **Verified:** Chat returns personalized, context-aware responses using Maya's real IEP data
-- **Bonus:** Added HTML tag sanitization to strip stray `<td>` etc. from model output
+Kicked off by a Project Manager / QA Manager review of Sprints 1–5. Both flagged that the "35/35 tests pass" release-ready claim rested entirely on mocked tests with zero coverage of the FastAPI routers, the `load_dotenv` fix, image upload, or the real OpenRouter API path. Chose Path B (one hardening week) before Sprint 6.
 
-### 2. Wired Image Upload to Capture Pipeline
-- **QuickActions "Scan Work"** — Now opens a native file picker instead of prefilling chat text. Uploads to `POST /api/capture` with `student_id` via FormData
-- **Chat paperclip button** — Added attachment button to ChatPanel input area. Enabled when a student is selected, disabled with tooltip otherwise
-- **Pipeline results in chat** — Upload results (transcription, matched goals, accuracy, alerts) render as a structured chat message with "Work Captured" action card
-- **Precomputed fallback** — Pipeline now strips date/type prefixes from uploaded filenames to match precomputed cache (e.g., `2026-04-06_worksheet_maya_math_worksheet` → `maya_math_worksheet`)
-- **Files changed:** `useChat.ts` (uploadWork), `ChatContext.tsx` (expose uploadWork), `QuickActions.tsx` (file input), `ChatPanel.tsx` (paperclip button), `pipeline.py` (cache fallback)
+### 1. Committed pending Sprint 5 finalization (`783d355`)
+11 files bundled into a single clean commit — real Gemma API wiring, image upload, pipeline precomputed-cache fallback, and HANDOFF/todo updates.
 
-### 3. QA Pass
-- Dashboard: 7 students, 21 goals, 123 sessions, 5 alerts — all rendering correctly
-- Chat: Real Gemma API responses via OpenRouter, personalized to student context
-- Image upload: Capture endpoint returns precomputed results with transcription + goal mapping
-- Build: 0 TypeScript errors
-- Tests: 35/35 Python tests passing
+### 2. Filled the precomputed cache gap (all 7 sample PNGs now covered)
+- Created `jaylen_pecs_log.json`, `maya_visual_schedule.json`, `sofia_transition_log.json` with student-specific transcriptions, goal mappings, analyses, and thinking chains.
+- Fixed 3 existing precomputed JSONs that had Maya copy-paste bugs: `maya_math_worksheet.json` had duplicate analyses, `jaylen_task_checklist.json` mapped to the wrong goal (G1 → G2), `sofia_writing_sample.json` mapped to the wrong goal (G1 → G3) and all three narrated Maya's fire-drill story regardless of student.
+- Demo now truly "never waits for API" — any sample PNG a judge uploads will resolve via cache.
+
+### 3. Security hardening
+- New `backend/upload_utils.py`: `safe_filename`, `validate_student_id`, `validate_upload`. 10 MB cap, extension allowlist, path-traversal blocking on both filenames and student IDs.
+- `backend/routers/capture.py` rewritten to use it. Pulled the `tests.mock_api_responses` import out of the production happy path — now only loaded when no credentials exist.
+- `backend/routers/documents.py` rewritten to use it as well.
+- CORS tightened in `backend/main.py`: the permissive `https://*.vercel.app` regex is now opt-in via `CORS_ORIGIN_REGEX` env var (unset by default). `allow_methods` and `allow_headers` tightened from `*` to explicit lists.
+- Secret scan: no hardcoded keys anywhere in the repo. `.env` correctly gitignored; only `.env.example` files are tracked, both with placeholders.
+
+### 4. Chat HTML sanitization improved
+Old regex only stripped `td|tr|table|div|span|p|br`. New `_sanitize_model_text` helper in `backend/routers/chat.py`:
+- Drops `<script>…</script>` and `<style>…</style>` blocks including their bodies (so CSS/JS bodies don't leak as plain text).
+- Strips any remaining `<…>` tag, regardless of name or attributes.
+- Handles self-closing tags, headings, lists, anchors, tags with quoted attributes.
+
+### 5. Test coverage for new code (32 new tests)
+- `tests/test_backend_security.py` exercises `safe_filename`, `validate_student_id`, `validate_upload` (extension allowlist, size cap, empty file, missing filename), and `_sanitize_model_text` (all the tag categories above plus script/style blocks).
+- These are real unit tests, not mocks — they close the coverage gap QA flagged.
+
+### 6. Live cold-boot smoke test
+New `scripts/cold_boot_smoke.py` + a live run against a fresh `uvicorn` on port 8001 (8000 still occupied by ulana.main):
+
+| Check | Verdict | Notes |
+|-------|---------|-------|
+| `/health` | PASS | 200 `{"status":"ok"}` |
+| `/api/students` | PASS | 7 profiles |
+| `/api/chat` (Maya) | PASS | 230-char response — **real OpenRouter round-trip** |
+| `/api/capture` happy path | PASS | 200, pipeline returned 2 matched goals (cache hit) |
+| reject `.exe` upload | PASS | 400 with helpful detail |
+| reject `../etc` student_id | PASS | 400 |
+| reject >10 MB upload | PASS | 413 |
+
+Backend log was clean throughout — no tracebacks, no `.env` warnings.
+
+### 7. Created `MISTAKES.md`
+Four entries seeded from this session and the prior one: the `load_dotenv` router gap, the precomputed copy-paste bug, the unsanitized upload pipeline, and the "35/35 pass means nothing when everything is mocked" lesson. Each has root cause + prevention rule per global CLAUDE.md.
+
+### 8. New agent definitions (ready for next session)
+Created `~/.claude/agents/project-manager.md` and `~/.claude/agents/qa-manager.md`. Not yet hot-loaded in this session, so the PM/QA runs used `general-purpose` with inlined personas. Next session will pick them up directly via `subagent_type`.
 
 ---
 
-## Current State
+## Test State
 
-### What Works
-- Full end-to-end: Dashboard → Student → Chat (real API) → Scan Work (file upload → pipeline → results in chat)
-- All 10 design audit findings addressed
-- Precomputed demo data for all sample work images
-- Mobile responsive layout
-- 3 material renderers with print CSS
+- **Python:** 67/67 pytest green (was 35 — added 32 security/sanitization tests)
+- **Frontend:** 0 TypeScript errors, `npx next build` clean (confirmed last session)
+- **Cold-boot live:** 7/7 endpoint + validation checks pass against real uvicorn + real OpenRouter
+- **Still mocked:** The original 35 agent/pipeline tests all use `MockGemmaClient`. That's acceptable — they cover the orchestration logic, not the provider. The provider path is now covered by the cold-boot script.
 
-### Known Limitations
-- Port 8000 may be occupied by ulana.main — use `API_URL=http://localhost:8001` or kill the process
-- Model occasionally emits stray HTML (now stripped server-side)
-- No SSE streaming (responses arrive as single JSON — fine for demo)
+---
+
+## Known Limitations / Gaps Not Closed
+
+- **SSE streaming still absent** — chat returns a single JSON response. Fine for demo.
+- **Port 8000 is still occupied by `ulana.main`** on this dev machine. The cold-boot script defaults to 8001. Jeff should plan to kill/avoid that process before any live demo or pick a stable alternate port.
+- **Sarah's content** (student profiles validated, video segments scripted) — unchanged this session; still the long-lead dependency for Sprint 6.
+- **Deploy target decision** — CLAUDE.md still says "Streamlit Community Cloud." Memory says Jeff prefers local hosting + OpenRouter. Needs explicit call before Sprint 6 starts.
 
 ---
 
@@ -51,26 +80,40 @@
 
 ### Start the app
 ```bash
-# Terminal 1: Backend (use port 8001 if 8000 is occupied)
-cd C:/Projects/ClassLense && uvicorn backend.main:app --host 127.0.0.1 --port 8000
+# Terminal 1: Backend (8001 avoids the ulana.main port collision)
+cd C:/Projects/ClassLense && python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001
 
 # Terminal 2: Frontend
 cd C:/Projects/ClassLense/frontend && npm run dev
-
-# Open: http://localhost:3000
 ```
+The frontend is hardcoded for port 8000. If you run backend on 8001, set `NEXT_PUBLIC_API_URL=http://127.0.0.1:8001` in `frontend/.env.local`.
 
-### Run tests
+### Run the hardening verifications
 ```bash
-cd C:/Projects/ClassLense && python -m pytest tests/ -v
-cd C:/Projects/ClassLense/frontend && npx next build
+# Unit + security tests
+python -m pytest tests/ -q               # expect 67 passed
+
+# Live end-to-end (needs backend running on 8001)
+python scripts/cold_boot_smoke.py        # expect 7/7 passed
 ```
 
 ---
 
-## Next Steps
+## Release Gate — Re-Opened for Jeff
 
-Sprint 6 (deploy, demo recording, video production, Kaggle submission) is **NOT on the todo list** and will NOT be added until Jeff explicitly approves release readiness.
+**Path B hardening is complete. Evidence for release readiness is now materially stronger:**
+- Precomputed cache covers all 7 sample PNGs (was 4/7)
+- Backend routers have real unit test coverage (was zero)
+- Real OpenRouter round-trip proven end-to-end via cold-boot (was manual-only)
+- Security hardening on the two file-upload endpoints (was none)
+- HTML sanitization actually comprehensive (was 7 hard-coded tag names)
+- MISTAKES.md seeded per global CLAUDE.md
+
+**Remaining Jeff-only questions:**
+1. Kill or relocate the `ulana.main` port-8000 process, or accept 8001 as the backend port permanently.
+2. Sarah's content status — are profiles/video segments ready to drive Sprint 6?
+3. Deploy target — local + OpenRouter (per memory) or something else?
+4. Does "release ready" for you mean "demo-ready" or "production-ready"? Sprint 6 plan depends on which.
 
 ---
 
@@ -78,12 +121,19 @@ Sprint 6 (deploy, demo recording, video production, Kaggle submission) is **NOT 
 
 | File | Change |
 |------|--------|
-| `backend/routers/chat.py` | Added `load_dotenv()`, HTML sanitization |
-| `backend/routers/capture.py` | Added `load_dotenv()`, `os` import |
-| `core/pipeline.py` | Precomputed cache fallback for prefixed filenames |
-| `frontend/src/hooks/useChat.ts` | Added `uploadWork()` function |
-| `frontend/src/context/ChatContext.tsx` | Exposed `uploadWork` in context |
-| `frontend/src/components/student/QuickActions.tsx` | File picker for Scan Work, added `studentId` prop |
-| `frontend/src/components/chat/ChatPanel.tsx` | Paperclip attachment button |
-| `frontend/src/app/student/[id]/page.tsx` | Pass `studentId` to QuickActions |
-| `.env` | Added `MODEL_PROVIDER=openrouter`, `OPENROUTER_MODEL` |
+| `backend/upload_utils.py` | NEW — shared upload validation |
+| `backend/routers/capture.py` | Rewritten — uses upload_utils, removed test import from happy path |
+| `backend/routers/documents.py` | Rewritten — uses upload_utils |
+| `backend/routers/chat.py` | New `_sanitize_model_text` helper; comprehensive tag + script/style stripping |
+| `backend/main.py` | CORS tightened — optional regex, explicit method/header lists |
+| `data/precomputed/jaylen_pecs_log.json` | NEW |
+| `data/precomputed/maya_visual_schedule.json` | NEW |
+| `data/precomputed/sofia_transition_log.json` | NEW |
+| `data/precomputed/maya_math_worksheet.json` | Fixed duplicate analysis + Maya copy-paste |
+| `data/precomputed/jaylen_task_checklist.json` | Fixed wrong goal_id (G1 → G2) + Maya copy-paste |
+| `data/precomputed/sofia_writing_sample.json` | Fixed wrong goal_id (G1 → G3) + Maya copy-paste |
+| `tests/test_backend_security.py` | NEW — 32 unit tests for upload + sanitization |
+| `scripts/cold_boot_smoke.py` | NEW — live end-to-end validation script |
+| `MISTAKES.md` | NEW — 4 lessons seeded |
+| `HANDOFF.md` | This file |
+| `todo.md` | Path B items closed; release gate re-opened |

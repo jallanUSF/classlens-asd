@@ -4,19 +4,40 @@ Capture endpoint — upload student work image and run the analysis pipeline.
 
 import json
 import os
-import shutil
 from datetime import date
 from pathlib import Path
-from typing import Optional
 
 from dotenv import load_dotenv
-from fastapi import APIRouter, File, Form, UploadFile, HTTPException
+from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+
+from backend.upload_utils import (
+    IMAGE_EXTENSIONS,
+    validate_student_id,
+    validate_upload,
+)
 
 load_dotenv()
 
 router = APIRouter(tags=["capture"])
 
 DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data"
+
+
+def _has_real_model_credentials() -> bool:
+    if os.getenv("OPENROUTER_API_KEY"):
+        return True
+    google_key = os.getenv("GOOGLE_AI_STUDIO_KEY")
+    return bool(google_key) and google_key != "your_api_key_here"
+
+
+def _build_pipeline():
+    """Construct the pipeline with a real client when credentials exist, mock otherwise."""
+    from core.pipeline import ClassLensPipeline
+    if _has_real_model_credentials():
+        return ClassLensPipeline()
+    # Dev/offline fallback — keep the test mock isolated from the production import path
+    from tests.mock_api_responses import MockGemmaClient
+    return ClassLensPipeline(client=MockGemmaClient())
 
 
 @router.post("/capture")
@@ -30,34 +51,24 @@ async def capture_work(
     Upload a student work image and run Vision Reader → IEP Mapper → Progress Analyst.
     Uses precomputed cache when available (demo mode).
     """
-    # Verify student exists
+    student_id = validate_student_id(student_id)
+
     student_path = DATA_DIR / "students" / f"{student_id}.json"
     if not student_path.exists():
         raise HTTPException(status_code=404, detail=f"Student {student_id} not found")
 
-    # Save uploaded image to documents folder
+    safe_name, image_bytes = validate_upload(image, IMAGE_EXTENSIONS)
+
     docs_dir = DATA_DIR / "documents" / student_id
     docs_dir.mkdir(parents=True, exist_ok=True)
     today = date.today().isoformat()
-    filename = f"{today}_{work_type}_{image.filename}"
+    filename = f"{today}_{work_type}_{safe_name}"
     image_path = docs_dir / filename
 
     with open(image_path, "wb") as f:
-        shutil.copyfileobj(image.file, f)
+        f.write(image_bytes)
 
-    # Run pipeline (reuses existing ClassLensPipeline)
-    from core.pipeline import ClassLensPipeline
-    from tests.mock_api_responses import MockGemmaClient
-    import os
-
-    if os.getenv("OPENROUTER_API_KEY") or (
-        os.getenv("GOOGLE_AI_STUDIO_KEY")
-        and os.getenv("GOOGLE_AI_STUDIO_KEY") != "your_api_key_here"
-    ):
-        pipeline = ClassLensPipeline()
-    else:
-        pipeline = ClassLensPipeline(client=MockGemmaClient())
-
+    pipeline = _build_pipeline()
     result = pipeline.process_work_artifact(
         student_id=student_id,
         image_path=str(image_path),
@@ -66,7 +77,6 @@ async def capture_work(
         date=today,
     )
 
-    # Save document record alongside the image
     record = {
         "student_id": student_id,
         "filename": filename,
@@ -79,7 +89,7 @@ async def capture_work(
         ],
         "image_path": str(image_path),
     }
-    record_path = docs_dir / f"{today}_{work_type}_{Path(image.filename).stem}.json"
+    record_path = docs_dir / f"{today}_{work_type}_{Path(safe_name).stem}.json"
     with open(record_path, "w") as f:
         json.dump(record, f, indent=2)
 

@@ -5,6 +5,7 @@ The assistant has access to all backend services via function calling.
 
 import json
 import os
+import re
 from pathlib import Path
 from typing import Any
 
@@ -13,6 +14,24 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 load_dotenv()
+
+# Strip any HTML/XML-like tags the model emits. Gemma occasionally leaks
+# table fragments (<td>, <tr>) and structural tags from training data.
+# We also drop <script>/<style> *blocks* with their contents, since leaving
+# their bodies as plain text would leak raw CSS/JS into the chat UI.
+_SCRIPT_STYLE_BLOCK_RE = re.compile(
+    r"<(script|style)\b[^>]*>.*?</\1\s*>", re.IGNORECASE | re.DOTALL
+)
+_ANY_TAG_RE = re.compile(r"<[^>]+>")
+
+
+def _sanitize_model_text(text: str) -> str:
+    """Remove HTML tags and dangerous script/style blocks from model output."""
+    if not text:
+        return text
+    text = _SCRIPT_STYLE_BLOCK_RE.sub("", text)
+    text = _ANY_TAG_RE.sub("", text)
+    return text.strip()
 
 router = APIRouter(tags=["chat"])
 
@@ -125,9 +144,7 @@ async def chat(req: ChatRequest) -> dict[str, Any]:
     except Exception as e:
         response_text = f"I'm having trouble connecting to the model right now. Error: {str(e)}"
 
-    # Strip stray HTML tags that models occasionally emit
-    import re
-    response_text = re.sub(r"</?(?:td|tr|table|div|span|p|br)\s*/?>", "", response_text).strip()
+    response_text = _sanitize_model_text(response_text)
 
     return {
         "role": "assistant",

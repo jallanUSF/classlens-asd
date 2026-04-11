@@ -1,0 +1,65 @@
+{
+  "student_id": "jaylen_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\jaylen_pecs_log.png",
+  "date": "2026-04-03",
+  "transcription": {
+    "student_name": "Jaylen",
+    "work_type": "pecs_log",
+    "subject": "communication",
+    "raw_text": "Jaylen - AAC/PECS Request Log - Date: 2026-04-03\n---\nOpportunity 1 (snack choice): ✓ used AAC device - 'cracker'\nOpportunity 2 (activity choice): ✓ used AAC device - 'trains'\nOpportunity 3 (break request): ✓ used AAC device - 'break'\nOpportunity 4 (attention): ✗ gestured only (pulled adult hand)\nOpportunity 5 (sensory): ✓ used AAC device - 'swing'\nOpportunity 6 (snack choice): ✓ used AAC device - 'juice'\nOpportunity 7 (help request): ✓ used AAC device - 'help'\nOpportunity 8 (activity choice): ✓ used AAC device - 'puzzle'\nOpportunity 9 (bathroom): ✗ led adult without using device\nOpportunity 10 (break request): ✓ used AAC device - 'break'\nOpportunity 11 (activity choice): ✓ used AAC device - 'trains'\nOpportunity 12 (attention): ✓ used AAC device - 'look'\nOpportunity 13 (snack): ✓ used AAC device - 'more'\nOpportunity 14 (sensory): ✓ used AAC device - 'swing'\nOpportunity 15 (activity choice): ✓ used AAC device - 'Thomas'\n---\nScore: 13/15 spontaneous AAC requests = 87% device use\nReinforcer: 2 minutes with Thomas trains after every 3 successful requests\nNotes: Biggest growth area — Jaylen is now initiating device use for preferred items (trains, swing) without adult prompting. Still defaults to gesture/pulling for 'attention' and 'bathroom' — may need targeted modeling. **GOAL PROGRESS: 87% — exceeded 80% target**",
+    "task_items": [
+      {"item": "snack choice", "response": "cracker (AAC)", "correct": true},
+      {"item": "activity choice", "response": "trains (AAC)", "correct": true},
+      {"item": "break request", "response": "break (AAC)", "correct": true},
+      {"item": "attention", "response": "gesture only", "correct": false},
+      {"item": "sensory", "response": "swing (AAC)", "correct": true},
+      {"item": "snack choice", "response": "juice (AAC)", "correct": true},
+      {"item": "help request", "response": "help (AAC)", "correct": true},
+      {"item": "activity choice", "response": "puzzle (AAC)", "correct": true},
+      {"item": "bathroom", "response": "led adult", "correct": false},
+      {"item": "break request", "response": "break (AAC)", "correct": true},
+      {"item": "activity choice", "response": "trains (AAC)", "correct": true},
+      {"item": "attention", "response": "look (AAC)", "correct": true},
+      {"item": "snack", "response": "more (AAC)", "correct": true},
+      {"item": "sensory", "response": "swing (AAC)", "correct": true},
+      {"item": "activity choice", "response": "Thomas (AAC)", "correct": true}
+    ],
+    "total_items": 15,
+    "correct_items": 13,
+    "accuracy_pct": 87,
+    "teacher_notes": "13/15 spontaneous AAC requests. Biggest growth area — Jaylen is initiating device use for preferred items without adult prompting.",
+    "engagement_indicators": [
+      "spontaneous AAC initiation",
+      "Thomas trains reinforcer",
+      "preferred-item motivation"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G1",
+        "reasoning": "PECS/AAC request log directly measures G1 — requesting wants and needs using AAC device with 80% accuracy",
+        "trials": 15,
+        "successes": 13,
+        "percentage": 87
+      }
+    ],
+    "overall_summary": "Jaylen exceeded the 80% AAC request target (87%) with spontaneous device use for preferred activities. Two gaps: attention-seeking and bathroom requests still use gesture — targeted modeling recommended."
+  },
+  "analyses": [
+    {
+      "trend": "improving",
+      "current_average": 70.5,
+      "sessions_analyzed": 6,
+      "confidence": "high",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Jaylen is making strong, consistent progress on Communication Goal G1. Over 6 sessions, AAC device use has climbed from 33% baseline to 87% — a 54-point improvement. Spontaneous initiation for preferred items (trains, swing, snack) is fully established. The remaining 13% gap is concentrated in two contexts: attention-seeking (still defaulting to hand-pulling) and bathroom requests (still leading adult physically). These two contexts should be the focus of targeted modeling sessions in the next two weeks.",
+      "recommendation": "Continue Thomas-trains reinforcer schedule for preferred-item requests. Add 5 daily modeling trials specifically for 'attention' and 'bathroom' icons. Consider generalization probe with substitute teacher next week to verify skill transfer.",
+      "thinking": "Analyzing Jaylen's AAC progression:\n1. Baseline (2025-10-15): 35% — almost entirely gesture-based\n2. 2026-03-15: 33% — new SLP starting, slight regression from baseline\n3. 2026-03-22: 47% — snack choice consistently via AAC\n4. 2026-03-29: 60% — Thomas sticker reinforcer kicks in, fire drill recovery\n5. 2026-04-01: 73% — transition requests via AAC\n6. 2026-04-03: 80% — target reached\n7. 2026-04-03 (this session): 87% — 13/15 with spontaneous initiation\n\nPattern analysis:\n- Linear 13-15% improvement per week once reinforcer schedule established\n- Clear split in modalities: preferred-item requests (trains, swing, snack) are now 100% AAC; non-preferred contexts (attention, bathroom) are 0% AAC\n- The reinforcer is doing the work — Jaylen has learned that 'device → Thomas trains' but has NOT generalized to 'device → any communication'\n- Risk: without modeling, the two gap contexts may plateau at gesture-only\n\nConfidence: High. Progress is real, linear, and measurable. The two remaining contexts need targeted intervention, not more of the same.",
+      "goal_id": "G1",
+      "student_id": "jaylen_2026"
+    }
+  ],
+  "alerts": []
+}

@@ -1,0 +1,78 @@
+{
+  "student_id": "maya_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\maya_visual_schedule.png",
+  "date": "2026-04-03",
+  "transcription": {
+    "student_name": "Maya",
+    "work_type": "visual_schedule",
+    "subject": "daily_routine",
+    "raw_text": "Maya - Visual Schedule Completion Log - Date: 2026-04-03\n---\nStep 1: Arrival / hang up backpack — ✓ unprompted\nStep 2: Greet peer buddy — ✓ unprompted (waved)\nStep 3: Morning meeting circle — ✓ with 1 verbal cue\nStep 4: Math center (2-step direction: 'get your folder and go to your seat') — ✓ unprompted\nStep 5: Reading rotation — ✓ unprompted\nStep 6: Snack (2-step: 'wash hands and pick your snack') — ✓ unprompted\nStep 7: Specials (2-step: 'line up and walk quietly') — ✓ with 1 verbal cue\nStep 8: Lunch transition — ✓ unprompted\n---\nScore: 8/8 schedule steps completed; 6/8 completely unprompted (75%)\nReinforcer: 3 purple dinosaur stickers earned\nNotes: Maya is using the visual schedule to predict transitions. Two-step verbal directions paired with the picture icon working well. Still needs the first verbal cue for larger group transitions (morning meeting, specials line-up). **GOAL PROGRESS: 75% unprompted = target met for following directions**",
+    "task_items": [
+      {"item": "Arrival / backpack", "response": "unprompted", "correct": true},
+      {"item": "Greet peer buddy", "response": "unprompted", "correct": true},
+      {"item": "Morning meeting", "response": "1 verbal cue", "correct": true},
+      {"item": "Math: folder + seat", "response": "unprompted", "correct": true},
+      {"item": "Reading rotation", "response": "unprompted", "correct": true},
+      {"item": "Snack: wash + pick", "response": "unprompted", "correct": true},
+      {"item": "Specials: line + walk", "response": "1 verbal cue", "correct": true},
+      {"item": "Lunch transition", "response": "unprompted", "correct": true}
+    ],
+    "total_items": 8,
+    "correct_items": 6,
+    "accuracy_pct": 75,
+    "teacher_notes": "6/8 completely unprompted. Two-step verbal directions paired with picture icons working well. Needs first verbal cue for large-group transitions.",
+    "engagement_indicators": [
+      "self-initiating transitions",
+      "dinosaur sticker reinforcer",
+      "visual scaffolding for 2-step directions"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G2",
+        "reasoning": "Visual schedule with embedded two-step directions directly measures G2 — following two-step verbal directions with 75% accuracy",
+        "trials": 8,
+        "successes": 6,
+        "percentage": 75
+      },
+      {
+        "goal_id": "G3",
+        "reasoning": "Predictable visual schedule reduces transition-related outbursts — supporting self-regulation goal",
+        "trials": 8,
+        "successes": 8,
+        "percentage": 100
+      }
+    ],
+    "overall_summary": "Maya hit the 75% target on two-step direction following by pairing verbal instructions with the visual schedule. Bonus: zero outbursts during transitions today, supporting G3 self-regulation."
+  },
+  "analyses": [
+    {
+      "trend": "improving",
+      "current_average": 58.5,
+      "sessions_analyzed": 6,
+      "confidence": "high",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Maya reached the 75% target on Goal G2 (following two-step verbal directions). Progress has been consistent since the visual schedule was introduced as a prompt scaffold. Key insight: when the verbal direction is paired with the picture icon, Maya performs at 100% on routine tasks. Large-group transitions (morning meeting, specials) still need an initial verbal cue — likely because the sensory load of group settings competes with direction-following. Recommend continuing the current visual-verbal pairing and probing generalization to a novel direction without the picture.",
+      "recommendation": "Maintain visual schedule with two-step direction icons. Add 2-3 generalization probes per day: give the verbal direction once without pointing to the schedule, see if Maya can self-reference. Consider fading the verbal cue on large-group transitions over the next two weeks.",
+      "thinking": "Maya's G2 progression:\n1. Baseline (2025-10-15): 45%\n2. 2026-03-15: 50% — pre-visual-schedule baseline\n3. 2026-03-22: 38% — DIP due to new peer buddy distraction\n4. 2026-03-29: 50% — recovered with verbal cueing\n5. 2026-04-01: 63% — visual checklist introduced as prompt\n6. 2026-04-03: 75% — target reached\n7. This session (visual schedule log): 75% — target maintained\n\nPattern analysis:\n- The dip on 03-22 is instructive: new social variable (peer buddy) temporarily crashed direction-following because Maya's attention was split. This is consistent with her ASD level 2 profile — attention-shifting is effortful.\n- Recovery came from adding verbal cueing, then visual scaffolding. The visual schedule essentially gives Maya an external working memory for the 2-step sequence.\n- The 25% gap is not random — it's specifically large-group transitions. This suggests the ceiling isn't her direction-following skill, it's sensory bandwidth in group settings.\n\nConfidence: High. Six data points, clear trend, identifiable mechanism. The next question is generalization without the visual prompt.",
+      "goal_id": "G2",
+      "student_id": "maya_2026"
+    },
+    {
+      "trend": "improving",
+      "current_average": 64.0,
+      "sessions_analyzed": 5,
+      "confidence": "medium",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Zero outbursts during today's transitions — a notable positive data point for G3. The visual schedule appears to be functioning as a preview/predictability tool that reduces Maya's anxiety during transitions. This is indirect evidence for G3 but worth logging: when transitions are predictable, self-regulation improves.",
+      "recommendation": "Continue using the visual schedule as a sensory regulation tool, not just a direction-following tool. Track outburst frequency on days WITH vs WITHOUT visual schedule to strengthen the causal claim.",
+      "thinking": "G3 is self-regulation (reducing outbursts). The visual schedule isn't directly measuring G3, but today's data point — zero outbursts during 8 transitions — is relevant. Maya's G3 trend has been improving (40→40→60→80→100% on successful weeks). Today reinforces that pattern. Confidence is medium because this is a single-session observation tied to a different instrument, not a dedicated G3 probe.",
+      "goal_id": "G3",
+      "student_id": "maya_2026"
+    }
+  ],
+  "alerts": []
+}

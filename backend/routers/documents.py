@@ -4,12 +4,17 @@ Gemma 4 extracts goals and accommodations from uploaded documents.
 """
 
 import json
-import shutil
 from datetime import date
 from pathlib import Path
 from typing import Any
 
-from fastapi import APIRouter, File, Form, UploadFile, HTTPException
+from fastapi import APIRouter, File, Form, UploadFile
+
+from backend.upload_utils import (
+    DOCUMENT_EXTENSIONS,
+    validate_student_id,
+    validate_upload,
+)
 
 router = APIRouter(tags=["documents"])
 
@@ -26,18 +31,19 @@ async def upload_document(
     Upload an IEP document (PDF or image).
     Gemma 4 multimodal extracts goals, accommodations, and present levels.
     """
+    student_id = validate_student_id(student_id)
+    safe_name, file_bytes = validate_upload(file, DOCUMENT_EXTENSIONS)
+
     docs_dir = DATA_DIR / "documents" / student_id
     docs_dir.mkdir(parents=True, exist_ok=True)
 
     today = date.today().isoformat()
-    filename = f"{doc_type}_{today}_{file.filename}"
+    filename = f"{doc_type}_{today}_{safe_name}"
     file_path = docs_dir / filename
 
     with open(file_path, "wb") as f:
-        shutil.copyfileobj(file.file, f)
+        f.write(file_bytes)
 
-    # TODO: Send to Gemma 4 multimodal for extraction
-    # For now, return a stub extraction that the chat service will handle
     extraction = {
         "status": "uploaded",
         "file_path": str(file_path),
@@ -46,7 +52,6 @@ async def upload_document(
         "message": "Document uploaded. Use the chat assistant to extract goals and accommodations.",
     }
 
-    # Save record
     record_path = docs_dir / f"{doc_type}_{today}.json"
     with open(record_path, "w") as f:
         json.dump(extraction, f, indent=2)
@@ -57,6 +62,7 @@ async def upload_document(
 @router.get("/students/{student_id}/documents")
 async def list_documents(student_id: str) -> list[dict[str, Any]]:
     """List all uploaded documents for a student."""
+    student_id = validate_student_id(student_id)
     docs_dir = DATA_DIR / "documents" / student_id
     if not docs_dir.exists():
         return []
