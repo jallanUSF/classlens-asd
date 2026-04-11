@@ -1,12 +1,34 @@
 # HANDOFF.md — Session Handoff
 
-**Date:** 2026-04-11 (late session)
+**Date:** 2026-04-11 (evening session)
 **Branch:** `nextjs-redesign`
-**Status:** Synthetic test content expanded from 11 → 20 artifacts. All 7 students now covered. Release gate still re-open for Jeff.
+**Status:** Sarah review bundle built (dev aid, gitignored). No code changes. Release gate still re-open for Jeff.
 
 ---
 
-## What happened this session (afternoon 2026-04-11)
+## What happened this session (evening 2026-04-11)
+
+**Scope:** Sarah needed help reviewing the synthetic data before video recording. Built a dev-aid bundle she can review and mark up.
+
+**Created:** `sarah_review_bundle/` (gitignored — not a shipped feature)
+- `README.md` — index + 5 specific feedback questions for Sarah
+- `student_dockets/` — 7 markdown dockets (one per student: profile snapshot, interests, sensory profile, IEP goals with current status, teacher observations, strategies working/not working, open questions)
+- `sample_outputs/` — 12 realistic samples covering all 7 Material Forge output types:
+  - Lesson plan (Maya G2), tracking sheet (Ethan G1), social story (Jaylen fire drill), visual schedule (Marcus bathroom routine), first-then board (Maya math)
+  - Parent emails: Amara G1 celebration + Amara G2 concern (same student, same day), Marcus big-slide milestone
+  - Admin reports: Sofia monthly (positive case) + Ethan monthly (plateau w/ OT recommendation)
+  - Progress Analyst alert (Amara G2 regression with thinking trace)
+  - Full pipeline output (Maya math worksheet: vision → IEP mapper → progress analyst end-to-end)
+
+**How to share with Sarah:** zip `sarah_review_bundle/`, email or drop in Drive. Self-contained Markdown.
+
+**Code/test changes:** None. Only `.gitignore` was updated to exclude `sarah_review_bundle/`.
+
+**Next session pickup:** Either (a) wait for Sarah's feedback on the bundle before making prompt-template adjustments, or (b) start Sprint 6 groundwork (video script timing, deploy target) while waiting. Release gate still blocks Sprint 6 proper.
+
+---
+
+## Previous session (afternoon 2026-04-11)
 
 Created 9 new sample work artifacts + matching precomputed JSONs to cover the 4 previously-empty students (Amara, Ethan, Lily, Marcus) and top up Sofia. Every artifact is goal-mapped to the student's actual IEP with a realistic progress analysis narrative.
 
@@ -38,8 +60,8 @@ Created 9 new sample work artifacts + matching precomputed JSONs to cover the 4 
 
 ---
 
-## Previous session (morning 2026-04-11)
-Path B hardening + live browser QA fixes complete. Release gate re-open for Jeff.
+## Earlier sessions (2026-04-11)
+Morning: Path B hardening + live browser QA fixes. Afternoon: 9 new synthetic artifacts + precomputed JSONs to cover all 7 students. Release gate re-open for Jeff.
 
 ---
 

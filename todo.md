@@ -39,6 +39,11 @@
 - [x] Windows font fallback in generate_sample_work.py (Arial / Segoe UI)
 - [x] Pipeline cache-hit verified for all 9 new artifacts
 
+## Sarah Content Review (IN PROGRESS)
+- [x] Build `sarah_review_bundle/` (7 student dockets + 12 sample outputs across all material types)
+- [ ] Share bundle with Sarah and collect feedback
+- [ ] Apply Sarah's feedback to prompt templates / student profiles as needed
+
 ## Release Gate — RE-OPEN for Jeff
 - [ ] Jeff approval for release readiness
 

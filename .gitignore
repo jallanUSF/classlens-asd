@@ -89,6 +89,8 @@ demo_assets/screenshots/
 screenshots/
 # uploads/ — don't commit user uploads
 uploads/
+# sarah_review_bundle/ — dev aid for Sarah's content review, not a project feature
+sarah_review_bundle/
 
 # Compiled files
 *.o
