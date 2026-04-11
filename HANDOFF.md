@@ -1,8 +1,113 @@
 # HANDOFF.md — Session Handoff
 
-**Date:** 2026-04-11 (late-evening session — judge-appeal feature sprint + provider flip)
+**Date:** 2026-04-11 (very-late-night session — live browser QA pass + report)
 **Branch:** `nextjs-redesign`
-**Status:** SHIPPED. 5 features + provider flip committed as `6cad487` and pushed to origin. 71/71 pytest + 19/19 live feature smoke + clean Next.js build. Release gate still closed per Jeff's instructions — no video/deploy/submission work touched.
+**Status:** QA'd. Chrome-driven browser walk-through of every judge-appeal feature. 12 findings documented, health score **66/100**. The backend is excellent. The Next.js dev proxy is a **demo blocker** for 3 of 5 features. Release gate still closed per Jeff's instructions — no video/deploy/submission work touched.
+
+## ⚠️ STOP — read this before the next code change
+
+**The demo is not browser-safe right now.** The Gemma-4 backend produces outstanding clinical content, but the Next.js dev proxy drops every non-streaming long-running Gemma call at ~30s with `socket hang up / ECONNRESET`. Backend logs `200 OK`; browser gets `500`. Impact:
+
+| Endpoint | Browser | Backend | Impact |
+|---|---|---|---|
+| `POST /api/chat/stream` | ✅ 200 | ✅ 200 | Works — SSE keeps socket warm |
+| `POST /api/alerts/{id}/analyze` | ❌ 500 | ✅ 200 | Feature #3 "Why?" dead in browser |
+| `POST /api/documents/upload` | ❌ 500 | ✅ 200 | Feature #1 IEP extraction dead in browser |
+| `POST /api/materials/generate` | ❌ 500 | ✅ 200 | Feature #4 + #5 + Sprint 4 dead in browser |
+
+**The fix and the feature upgrade are the same fix:** stream every Gemma endpoint like `/api/chat/stream` does. That converts "40s spinner → response" into "reasoning unfolds live" which is the actual sales pitch for thinking mode. See `docs/qa-reports/qa-report-classlens-2026-04-11.md` for the full finding list and prioritized fix queue.
+
+Do NOT record the demo video until the proxy/streaming issue is resolved. Do NOT claim the features work end-to-end in the writeup until browser-path fixes land. The backend tests pass; the browser tests don't.
+
+## TL;DR cold start (post-QA state)
+
+1. `git pull origin nextjs-redesign` — latest commit is the QA-docs bundle on top of `6cad487`
+2. Read `docs/qa-reports/qa-report-classlens-2026-04-11.md` **first** — 12 findings with repro steps, screenshots in `.gstack/qa-reports/screenshots/` (local, gitignored)
+3. `pip install -r requirements.txt` + `cd frontend && npm install` (no new deps this session)
+4. `.env` already has `MODEL_PROVIDER=google` + `GOOGLE_AI_STUDIO_KEY=...`
+5. Terminal 1: `python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001`
+6. Terminal 2: `cd frontend && npm run dev`
+7. http://localhost:3000 — dashboard works, student pages work, cached materials work, chat stream works. Why? buttons, material generation, and IEP upload all return browser-side 500 until the proxy bug is fixed.
+8. Tests still 71/71 pytest + 19/19 feature smoke (both run against the backend directly via TestClient, so they bypass the proxy and say everything's fine — do not trust them for browser-path claims).
+
+## Session log (very-late-night 2026-04-11) — Live browser QA pass
+
+**Trigger:** Jeff directed a full Chrome-driven UI test from a special ed teacher's perspective. Used chrome-devtools-mcp to drive a real Chrome browser through the 25-step plan a QA planner agent produced, evaluating both functionality and content quality "as a teacher."
+
+**Phases executed:**
+1. Dashboard + student navigation — ✅ clean
+2. "Why?" thinking trace on alerts — **broken in browser** (500), excellent on backend
+3. Chat SSE streaming — ✅ works, content is exceptional, whitespace bugs
+4. IEP PDF extraction — **broken in browser** (500), works on backend with a dedup bug
+5. All 7 material types — cached ones render fine, new generation 500s
+6. Bilingual parent comms — backend works, ES is warm/native, UI toggle 500s
+7. Work capture + final sweep — sweep only (work upload hits the same proxy bug)
+
+**Report and evidence:**
+- `docs/qa-reports/qa-report-classlens-2026-04-11.md` — **66/100 health score, 12 findings, prioritized fix queue** (committed)
+- `.gstack/qa-reports/screenshots/*.png` — 7 screenshots of key states (local-only, gitignored)
+- `.gstack/qa-reports/*.json` — evidence blobs: Maya G1 thinking trace, Amara G2 thinking trace, Amara IEP extraction, Maya ES parent letter (local-only, gitignored — regenerate with the commands in the report if needed)
+
+### The 12 findings at a glance
+| # | Sev | Category | One-liner |
+|---|---|---|---|
+| 1 | CRITICAL | Proxy | Next.js dev proxy kills 3/4 Gemma endpoints — only SSE survives |
+| 2 | CRITICAL | State | Alert ids non-deterministic across `/api/alerts` fetches → 404 on analyze |
+| 3 | HIGH | Content | All alerts labeled "plateaued" regardless of decline/target-met/plateau |
+| 4 | HIGH | UI | `first_then` material has no frontend renderer — raw Markdown dumped |
+| 5 | MEDIUM | UI | Chat SSE whitespace loss (`to40%`, `investedin`, `Notepad"with`) |
+| 6 | MEDIUM | Content | IEP extraction duplicates every field (6 goals = 3 twice from page merge) |
+| 7 | LOW | Perf | Dashboard AbortController regression — double-fetches in Strict Mode |
+| 8 | MEDIUM | Schema | Alert `severity` field always `null` |
+| 9 | LOW | UX | Chat send button stays disabled after programmatic input fill |
+| 10 | LOW | Perf | `/sw.js` 404 every page load |
+| 11 | LOW | Content | Spanish letter has `[Nombre del Maestro/a]` placeholder; EN has real name |
+| 12 | LOW | Content | Bilingual = independent generations, ES drops student-specific signals |
+
+### Content quality — teacher verdict
+**Every piece of generated content is exceptional.** Highlights captured in the report:
+- Amara G2 thinking trace names the "intervention resistance phenomenon" and distinguishes "losing ability to speak vs losing will to engage" — BCBA supervisor framing
+- Amara MHA chat response proposes three interventions with cross-goal awareness (G2 social intervention ties back to G1 inference struggles)
+- Maya first_then board weaves Jurassic World + deep purple + counting + proprioceptive sensory input into one coherent card (content 10/10, renderer 0/10)
+- Maya EN parent letter says "raptor greeting at home — Maya practiced greeting peers like Blue greets her pack"
+- Maya ES parent letter uses culturally-native phrasing ("Querida familia de Maya" / "Con cariño") with specific data
+
+The model choice (Google AI Studio Gemma 4 31B) is **absolutely vindicated**. The content is the strongest part of the product. The wire layer is the weakest.
+
+### Prioritized fix queue (~5 hours total to browser-safe)
+1. Render a `FirstThenView.tsx` component (~30 min) — Finding 4
+2. Fix alert label classifier to emit `declining | plateau_below | plateau_at_target | improving` (~20 min) — Finding 3
+3. Stabilize alert ids by hashing `{student_id}_{goal_id}_{week}` (~20 min) — Finding 2
+4. Dedupe IEP extraction merge in `agents/iep_extractor.py` (~15 min) — Finding 6
+5. Fix chat whitespace concat in `frontend/src/hooks/useChat.ts` (~30 min) — Finding 5
+6. Restore dashboard AbortController in `app/page.tsx` (~10 min) — Finding 7
+7. Thread teacher name into the ES prompt template (~10 min) — Finding 11
+8. **The big one:** stream `/api/alerts/analyze`, `/api/documents/upload`, `/api/materials/generate` like `/api/chat/stream` does (~2-3h) — Finding 1. Fixes the demo blocker AND upgrades the demo surface (reasoning unfolds live instead of 40s spinner).
+
+### What the demo video can safely show today
+1. Dashboard load — clean, correct counts
+2. Student navigation — Maya/Amara/Jaylen all load fine
+3. Chat asking Gemma about Amara's G2 — MHA-themed interventions stream live (but warn about or fix Finding 5 whitespace first)
+4. Viewing cached approved materials (tracking sheet, parent letter EN)
+5. G3 count-based target display (`≤1/day`)
+
+### What the demo video cannot safely show today
+1. Clicking "Why?" on any alert (500)
+2. Uploading an IEP PDF in Add Student (500)
+3. Generating a new material of any type (500)
+4. Live bilingual toggle on a parent letter (500 — fires materials/generate)
+5. Viewing a `first_then` board even from cache (renderer missing)
+
+### Working-tree cleanup done this session
+- Reverted `data/alerts/active_alerts.json` (backend write during testing, not a real change)
+- Deleted `data/materials/maya_2026/parent_comm_G1_2026-04-11.json` (my ES-test artifact, not approved content)
+- Moved the QA report from `.gstack/qa-reports/` (gitignored) to `docs/qa-reports/` (tracked)
+- Screenshots + evidence JSONs remain in `.gstack/qa-reports/` local-only
+
+---
+
+## Previous session (late-evening 2026-04-11) — Judge-Appeal Feature Sprint
+**Status at that point:** SHIPPED. 5 features + provider flip committed as `6cad487` and pushed to origin. 71/71 pytest + 19/19 live feature smoke + clean Next.js build. Release gate still closed per Jeff's instructions — no video/deploy/submission work touched.
 
 ## TL;DR cold start (post-commit state)
 
