@@ -22,6 +22,7 @@ from backend.upload_utils import (
     validate_upload,
 )
 from backend.routers.chat import _sanitize_model_text
+from backend.routers.students import _annotate_goal_target
 
 
 def _make_upload(name: str, body: bytes) -> UploadFile:
@@ -114,6 +115,60 @@ class TestValidateUpload:
         with pytest.raises(HTTPException) as exc:
             validate_upload(upload, IMAGE_EXTENSIONS)
         assert exc.value.status_code == 422
+
+
+class TestAnnotateGoalTarget:
+    def test_percentage_goal(self):
+        goal = {
+            "goal_id": "G1",
+            "target": 80,
+            "description": "Maya will initiate peer greetings with 80% accuracy",
+            "trial_history": [{"date": "2026-04-03", "pct": 60}],
+        }
+        _annotate_goal_target(goal)
+        assert goal["target_pct"] == 80
+        assert goal["target_unit"] == "percent"
+        assert goal["target_display"] == "80%"
+        assert goal["target_value"] == 80
+        assert goal["current_pct"] == 60
+
+    def test_count_based_outburst_goal(self):
+        goal = {
+            "goal_id": "G3",
+            "target": 1,
+            "description": "Maya will reduce outbursts to 1 or fewer per day",
+            "trial_history": [{"date": "2026-04-03", "pct": 100}],
+        }
+        _annotate_goal_target(goal)
+        assert goal["target_pct"] == 100, "progress bar should fill to 100 when count goal met"
+        assert goal["target_unit"] == "count_per_day"
+        assert goal["target_display"] == "≤1/day"
+        assert goal["target_value"] == 1
+        assert goal["current_pct"] == 100
+
+    def test_small_target_without_count_hints_stays_percent(self):
+        # Edge case: a low percentage target without "fewer/reduce/outburst" language
+        # should stay as a percent, not be misclassified.
+        goal = {
+            "goal_id": "G1",
+            "target": 5,
+            "description": "Student will show 5% improvement in fine motor accuracy",
+            "trial_history": [],
+        }
+        _annotate_goal_target(goal)
+        assert goal["target_unit"] == "percent"
+        assert goal["target_display"] == "5%"
+
+    def test_uses_baseline_when_no_history(self):
+        goal = {
+            "goal_id": "G1",
+            "target": 80,
+            "description": "Initiate peer greetings",
+            "baseline": {"value": 20, "date": "2025-10-15"},
+            "trial_history": [],
+        }
+        _annotate_goal_target(goal)
+        assert goal["current_pct"] == 20
 
 
 class TestSanitizeModelText:

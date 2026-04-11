@@ -20,6 +20,9 @@ interface IEPGoal {
   description: string;
   target_pct: number;
   current_pct: number;
+  target_display?: string;
+  target_unit?: "percent" | "count_per_day";
+  target_value?: number;
   trial_history: { date: string; pct: number }[];
 }
 
@@ -88,7 +91,7 @@ export function GoalCard({ goal, onScanWork }: Props) {
                   />
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Target: {goal.target_pct}%
+                  Target: {goal.target_display ?? `${goal.target_pct}%`}
                 </p>
               </div>
               {expanded ? (

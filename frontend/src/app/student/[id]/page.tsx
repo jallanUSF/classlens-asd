@@ -19,6 +19,9 @@ interface IEPGoal {
   description: string;
   target_pct: number;
   current_pct: number;
+  target_display?: string;
+  target_unit?: "percent" | "count_per_day";
+  target_value?: number;
   trial_history: { date: string; pct: number }[];
 }
 
@@ -58,41 +61,52 @@ export default function StudentDetailPage() {
     useChatContext();
 
   useEffect(() => {
+    const ac = new AbortController();
     async function load() {
-      const [studentRes, alertsRes] = await Promise.all([
-        fetch(`/api/students/${params.id}`),
-        fetch("/api/alerts"),
-      ]);
+      try {
+        const [studentRes, alertsRes] = await Promise.all([
+          fetch(`/api/students/${params.id}`, { signal: ac.signal }),
+          fetch("/api/alerts", { signal: ac.signal }),
+        ]);
 
-      if (!studentRes.ok) {
-        setError(
-          studentRes.status === 404 ? "Student not found" : "Failed to load",
-        );
+        if (!studentRes.ok) {
+          setError(
+            studentRes.status === 404 ? "Student not found" : "Failed to load",
+          );
+          setLoading(false);
+          return;
+        }
+
+        const studentData: StudentProfile = await studentRes.json();
+        let studentAlerts: Alert[] = [];
+        if (alertsRes.ok) {
+          const allAlerts: Alert[] = await alertsRes.json();
+          studentAlerts = allAlerts.filter((a) => a.student_id === params.id);
+        }
+
+        if (ac.signal.aborted) return;
+        setStudent(studentData);
+        setAlerts(studentAlerts);
         setLoading(false);
-        return;
+
+        // Update chat context (setActiveStudent resets the chat if the id changed)
+        setActiveStudent(params.id);
+        addContextMessage(
+          `Now looking at **${studentData.name}** — Grade ${studentData.grade === 0 ? "K" : studentData.grade}, ${studentData.iep_goals.length} IEP goals. ${
+            studentAlerts.length > 0
+              ? `${studentAlerts.length} alert(s) need attention.`
+              : "How can I help?"
+          }`,
+        );
+      } catch (err) {
+        if ((err as Error).name !== "AbortError") {
+          setError("Failed to load");
+          setLoading(false);
+        }
       }
-
-      const studentData: StudentProfile = await studentRes.json();
-      setStudent(studentData);
-
-      if (alertsRes.ok) {
-        const allAlerts: Alert[] = await alertsRes.json();
-        setAlerts(allAlerts.filter((a) => a.student_id === params.id));
-      }
-
-      setLoading(false);
-
-      // Update chat context
-      setActiveStudent(params.id);
-      addContextMessage(
-        `Now looking at **${studentData.name}** — Grade ${studentData.grade === 0 ? "K" : studentData.grade}, ${studentData.iep_goals.length} IEP goals. ${
-          alerts.length > 0
-            ? `${alerts.length} alert(s) need attention.`
-            : "How can I help?"
-        }`,
-      );
     }
     load();
+    return () => ac.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
 

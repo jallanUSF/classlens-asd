@@ -24,10 +24,17 @@ export function RecentWork({ studentId }: Props) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(`/api/students/${studentId}/documents`)
+    const ac = new AbortController();
+    fetch(`/api/students/${studentId}/documents`, { signal: ac.signal })
       .then((r) => (r.ok ? r.json() : []))
-      .then(setDocs)
-      .finally(() => setLoading(false));
+      .then((data) => {
+        setDocs(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (err.name !== "AbortError") setLoading(false);
+      });
+    return () => ac.abort();
   }, [studentId]);
 
   if (loading) {

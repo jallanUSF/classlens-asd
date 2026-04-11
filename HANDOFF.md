@@ -2,138 +2,149 @@
 
 **Date:** 2026-04-11
 **Branch:** `nextjs-redesign`
-**Status:** Path B hardening week complete. Release gate question re-opened for Jeff.
+**Status:** Path B hardening + live browser QA fixes complete. Release gate re-open for Jeff.
 
 ---
 
-## What Was Done (This Session — Path B Hardening)
+## TL;DR for a cold start
 
-Kicked off by a Project Manager / QA Manager review of Sprints 1–5. Both flagged that the "35/35 tests pass" release-ready claim rested entirely on mocked tests with zero coverage of the FastAPI routers, the `load_dotenv` fix, image upload, or the real OpenRouter API path. Chose Path B (one hardening week) before Sprint 6.
+1. Clone, `pip install -r requirements.txt`, `cd frontend && npm install`.
+2. Copy `.env.example` → `.env`, set `MODEL_PROVIDER=openrouter` + `OPENROUTER_API_KEY=...`.
+3. Terminal 1: `python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001` — **8001 is canonical**, don't use 8000 (ulana.main squats it on the dev machine).
+4. Terminal 2: `cd frontend && npm run dev` — frontend auto-proxies `/api/*` to 8001.
+5. Open http://localhost:3000 — dashboard, 7 students, real Gemma via OpenRouter, all 11 sample PNGs cache-hit the pipeline.
+6. Tests: `python -m pytest tests/ -q` (71 green) and `python scripts/cold_boot_smoke.py` (8/8 green against a live backend).
 
-### 1. Committed pending Sprint 5 finalization (`783d355`)
-11 files bundled into a single clean commit — real Gemma API wiring, image upload, pipeline precomputed-cache fallback, and HANDOFF/todo updates.
-
-### 2. Filled the precomputed cache gap (all 7 sample PNGs now covered)
-- Created `jaylen_pecs_log.json`, `maya_visual_schedule.json`, `sofia_transition_log.json` with student-specific transcriptions, goal mappings, analyses, and thinking chains.
-- Fixed 3 existing precomputed JSONs that had Maya copy-paste bugs: `maya_math_worksheet.json` had duplicate analyses, `jaylen_task_checklist.json` mapped to the wrong goal (G1 → G2), `sofia_writing_sample.json` mapped to the wrong goal (G1 → G3) and all three narrated Maya's fire-drill story regardless of student.
-- Demo now truly "never waits for API" — any sample PNG a judge uploads will resolve via cache.
-
-### 3. Security hardening
-- New `backend/upload_utils.py`: `safe_filename`, `validate_student_id`, `validate_upload`. 10 MB cap, extension allowlist, path-traversal blocking on both filenames and student IDs.
-- `backend/routers/capture.py` rewritten to use it. Pulled the `tests.mock_api_responses` import out of the production happy path — now only loaded when no credentials exist.
-- `backend/routers/documents.py` rewritten to use it as well.
-- CORS tightened in `backend/main.py`: the permissive `https://*.vercel.app` regex is now opt-in via `CORS_ORIGIN_REGEX` env var (unset by default). `allow_methods` and `allow_headers` tightened from `*` to explicit lists.
-- Secret scan: no hardcoded keys anywhere in the repo. `.env` correctly gitignored; only `.env.example` files are tracked, both with placeholders.
-
-### 4. Chat HTML sanitization improved
-Old regex only stripped `td|tr|table|div|span|p|br`. New `_sanitize_model_text` helper in `backend/routers/chat.py`:
-- Drops `<script>…</script>` and `<style>…</style>` blocks including their bodies (so CSS/JS bodies don't leak as plain text).
-- Strips any remaining `<…>` tag, regardless of name or attributes.
-- Handles self-closing tags, headings, lists, anchors, tags with quoted attributes.
-
-### 5. Test coverage for new code (32 new tests)
-- `tests/test_backend_security.py` exercises `safe_filename`, `validate_student_id`, `validate_upload` (extension allowlist, size cap, empty file, missing filename), and `_sanitize_model_text` (all the tag categories above plus script/style blocks).
-- These are real unit tests, not mocks — they close the coverage gap QA flagged.
-
-### 6. Live cold-boot smoke test
-New `scripts/cold_boot_smoke.py` + a live run against a fresh `uvicorn` on port 8001 (8000 still occupied by ulana.main):
-
-| Check | Verdict | Notes |
-|-------|---------|-------|
-| `/health` | PASS | 200 `{"status":"ok"}` |
-| `/api/students` | PASS | 7 profiles |
-| `/api/chat` (Maya) | PASS | 230-char response — **real OpenRouter round-trip** |
-| `/api/capture` happy path | PASS | 200, pipeline returned 2 matched goals (cache hit) |
-| reject `.exe` upload | PASS | 400 with helpful detail |
-| reject `../etc` student_id | PASS | 400 |
-| reject >10 MB upload | PASS | 413 |
-
-Backend log was clean throughout — no tracebacks, no `.env` warnings.
-
-### 7. Created `MISTAKES.md`
-Four entries seeded from this session and the prior one: the `load_dotenv` router gap, the precomputed copy-paste bug, the unsanitized upload pipeline, and the "35/35 pass means nothing when everything is mocked" lesson. Each has root cause + prevention rule per global CLAUDE.md.
-
-### 8. New agent definitions (ready for next session)
-Created `~/.claude/agents/project-manager.md` and `~/.claude/agents/qa-manager.md`. Not yet hot-loaded in this session, so the PM/QA runs used `general-purpose` with inlined personas. Next session will pick them up directly via `subagent_type`.
+Everything below is context for *why* things are the way they are.
 
 ---
 
-## Test State
+## What happened this session (2026-04-11)
 
-- **Python:** 67/67 pytest green (was 35 — added 32 security/sanitization tests)
-- **Frontend:** 0 TypeScript errors, `npx next build` clean (confirmed last session)
-- **Cold-boot live:** 7/7 endpoint + validation checks pass against real uvicorn + real OpenRouter
-- **Still mocked:** The original 35 agent/pipeline tests all use `MockGemmaClient`. That's acceptable — they cover the orchestration logic, not the provider. The provider path is now covered by the cold-boot script.
+Three phases in one sitting:
 
----
+### Phase 1 — Path B hardening (commits `d46c898`, `d700d7c`)
+Project Manager + QA Manager sub-agents reviewed Sprints 1–5 and flagged that "35/35 tests pass" was all-mock — zero coverage on the FastAPI routers, the `load_dotenv` fix, image upload, or the real OpenRouter API path. Chose Path B (one hardening week) before Sprint 6.
 
-## Known Limitations / Gaps Not Closed
+- **Precomputed cache gap closed** — 3 new artifacts + 3 mis-mapped existing ones fixed (Maya copy-paste bugs, wrong goal_ids).
+- **Security pass** — new `backend/upload_utils.py`: filename sanitize, path-traversal blocks on student IDs, 10 MB cap, extension allowlist. Capture + documents routers rewritten to use it. CORS tightened (opt-in regex, explicit method/header lists). Production→test coupling (`MockGemmaClient` import) removed from the happy path.
+- **HTML sanitization** — `_sanitize_model_text` now drops `<script>`/`<style>` blocks with bodies and strips any tag with attributes. Old regex only caught 7 hard-coded tag names.
+- **Port 8001 canonicalized** — frontend `next.config.ts` default, CLAUDE.md tech stack rewritten for Next.js + FastAPI reality, HANDOFF + todo updated.
+- **Synthetic test content** — sub-agent generated 4 new work artifacts (Maya + Jaylen), 4 matching precomputed JSONs, 2 mock IEP PDFs, extended `scripts/generate_sample_work.py` + new `scripts/generate_sample_ieps.py`.
+- **Test coverage** — `tests/test_backend_security.py` added 32 unit tests (upload validation + sanitization). Total 67/67.
+- **Live cold-boot smoke** — `scripts/cold_boot_smoke.py` runs real HTTP against a fresh uvicorn: health, students, **real OpenRouter chat round-trip**, capture happy path (new cache entry), 3 validation rejections. 8/8 green.
+- **MISTAKES.md seeded** — 4 lessons from Sprints 1–5 per global CLAUDE.md mandate.
 
-- **SSE streaming still absent** — chat returns a single JSON response. Fine for demo.
-- **Port 8001 is now the canonical backend port** for this project. Port 8000 is occupied by an unrelated `ulana.main` process on the dev machine; rather than fighting it, 8001 is baked into `next.config.ts`, the cold-boot script, CLAUDE.md, and HANDOFF run instructions.
-- **Sarah's content** (student profiles validated, video segments scripted) — unchanged this session; still the long-lead dependency for Sprint 6.
-- **Deploy target decision** — CLAUDE.md still says "Streamlit Community Cloud." Memory says Jeff prefers local hosting + OpenRouter. Needs explicit call before Sprint 6 starts.
+### Phase 2 — Live browser QA (Chrome DevTools MCP)
+Started real backend + frontend, drove Chrome through the actual UI. Logged everything the user would do: dashboard load → student page → real chat (Gemma via OpenRouter returned Maya-specific response referencing "Blue the raptor" and correctly identifying the 75% G2 plateau) → upload `maya_reading_comprehension.png` → full pipeline result rendered as a chat action card → navigate to Jaylen → upload `jaylen_turn_taking_tally.png` → Gordon/Percy transcription + G3 match. Zero console errors, zero failed network requests. Screenshots in `data/documents/qa_screenshots/` (gitignored).
 
----
+Surfaced 3 bugs, two real fixes and one product decision.
 
-## How to Resume
+### Phase 3 — Bug fixes (commit `<hash>` — this session's commit)
 
-### Start the app (port 8001 is the canonical backend port for this project)
-```bash
-# Terminal 1: Backend
-cd C:/Projects/ClassLense && python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001
+1. **G3 count-based goal display** — Maya's G3 "reduce outbursts to 1 or fewer per day" was rendering as `Target: 1%` which is meaningless. Backend now annotates goals with `target_unit`, `target_value`, `target_display`. Count-based goals (`target ≤ 10` + description contains one of "fewer/reduce/outburst/incident/per day") render as `≤1/day` with the progress bar normalized to 100. Percentage goals unchanged. New unit tests in `test_backend_security.py::TestAnnotateGoalTarget`.
 
-# Terminal 2: Frontend (auto-proxies /api/* to http://localhost:8001)
-cd C:/Projects/ClassLense/frontend && npm run dev
-```
-The frontend now defaults to `API_URL=http://localhost:8001` in `next.config.ts`. To override, copy `frontend/.env.local.example` to `frontend/.env.local` and set your own `API_URL`.
+2. **React Strict Mode double-fetch** — every `useEffect` data-loader was firing twice in dev. Added `AbortController` to 5 call sites: `app/page.tsx`, `app/student/[id]/page.tsx`, `components/sidebar/StudentSidebar.tsx`, `components/student/RecentWork.tsx`, `components/student/MaterialsLibrary.tsx`. Verified in browser: first fetch now shows `ERR_ABORTED`, only the second reaches the backend. Half the network traffic in dev, correct production behavior guaranteed.
 
-### Run the hardening verifications
-```bash
-# Unit + security tests
-python -m pytest tests/ -q               # expect 67 passed
+3. **Chat history not scoped to student** — switching from Maya to Jaylen kept Maya's conversation in the chat panel. `ChatProvider.setActiveStudent` now tracks the previous ID in a `useRef` and calls `clearHistory()` outside the setState updater before setting the new ID. Using the ref (instead of an updater callback) avoids Strict Mode double-invoking the side effect. Verified in browser: Maya's chat cleanly resets to welcome + "Now looking at Jaylen" when switching.
 
-# Live end-to-end (needs backend running on 8001)
-python scripts/cold_boot_smoke.py        # expect 7/7 passed
-```
+Also caught along the way:
+- Latent bug in student page's context message: used stale `alerts.length` state instead of the just-loaded value, always showing "How can I help?" instead of the real alert count. Now uses local `studentAlerts` — verified rendering "2 alert(s) need attention" for Maya, "1 alert(s)" for Jaylen.
+- `data/documents/` added to `.gitignore` (runtime upload state + QA screenshots — should never be committed).
 
 ---
 
-## Release Gate — Re-Opened for Jeff
+## Current state
 
-**Path B hardening is complete. Evidence for release readiness is now materially stronger:**
-- Precomputed cache covers all 7 sample PNGs (was 4/7)
-- Backend routers have real unit test coverage (was zero)
-- Real OpenRouter round-trip proven end-to-end via cold-boot (was manual-only)
-- Security hardening on the two file-upload endpoints (was none)
-- HTML sanitization actually comprehensive (was 7 hard-coded tag names)
-- MISTAKES.md seeded per global CLAUDE.md
+### What works end-to-end
+- Dashboard loads with 7 students, 5 alerts, sessions counter
+- Student navigation, chat (real OpenRouter Gemma 3 27B), work image upload → pipeline → structured chat action card
+- 11 sample PNGs all precomputed — demo never waits on live API for capture
+- 2 mock IEP PDFs for `/api/documents/upload` testing
+- All 3 browser QA bugs fixed, zero console errors, zero failed network requests
+- Backend + frontend boot cleanly on 8001/3000
 
-**Remaining Jeff-only questions:**
-1. ~~Port 8000 conflict~~ — **RESOLVED** (8001 is now canonical)
-2. Sarah's content status — still in progress. Test content is being generated synthetically in parallel; Sarah's real content still drives Sprint 6 video/profiles.
-3. Deploy target — local + OpenRouter confirmed for now. Streamlit/Kaggle submission form factor is deferred until release approval.
-4. Does "release ready" for you mean "demo-ready" or "production-ready"? Sprint 6 plan depends on which.
+### Test state (all green)
+- `python -m pytest tests/ -q` — **71/71 pass** (was 35 at session start, added 32 security + 4 goal-annotation)
+- `cd frontend && npx next build` — **0 errors** with Next 16.2.2 + Turbopack
+- `python scripts/cold_boot_smoke.py` — **8/8 live checks** against real backend + real OpenRouter
+- Browser QA (Chrome DevTools MCP) — **0 console errors, 0 failed requests** across the full user path on both Maya and Jaylen
+
+### What's still open
+- **Sarah's content** — still Sarah's job, in progress. Synthetic test content covers development/QA; Sarah's real content drives Sprint 6 video + profile validation.
+- **Deploy target decision** — local + OpenRouter for testing; Streamlit/Kaggle submission form factor deferred until release gate opens. CLAUDE.md has been updated to reflect the Next.js + FastAPI active stack and the Streamlit dormant stack.
+- **"Release ready" definition** — still needs Jeff's explicit criterion (demo-ready vs. production-ready).
 
 ---
 
-## Key File Changes This Session
+## Release gate — still re-open for Jeff
 
-| File | Change |
-|------|--------|
-| `backend/upload_utils.py` | NEW — shared upload validation |
-| `backend/routers/capture.py` | Rewritten — uses upload_utils, removed test import from happy path |
-| `backend/routers/documents.py` | Rewritten — uses upload_utils |
-| `backend/routers/chat.py` | New `_sanitize_model_text` helper; comprehensive tag + script/style stripping |
-| `backend/main.py` | CORS tightened — optional regex, explicit method/header lists |
-| `data/precomputed/jaylen_pecs_log.json` | NEW |
-| `data/precomputed/maya_visual_schedule.json` | NEW |
-| `data/precomputed/sofia_transition_log.json` | NEW |
-| `data/precomputed/maya_math_worksheet.json` | Fixed duplicate analysis + Maya copy-paste |
-| `data/precomputed/jaylen_task_checklist.json` | Fixed wrong goal_id (G1 → G2) + Maya copy-paste |
-| `data/precomputed/sofia_writing_sample.json` | Fixed wrong goal_id (G1 → G3) + Maya copy-paste |
-| `tests/test_backend_security.py` | NEW — 32 unit tests for upload + sanitization |
-| `scripts/cold_boot_smoke.py` | NEW — live end-to-end validation script |
-| `MISTAKES.md` | NEW — 4 lessons seeded |
+**Path B hardening + browser QA both complete. Evidence for release readiness:**
+
+Strong:
+- Real unit tests on real code paths (71/71)
+- Live cold-boot smoke proves real API round-trip (not just manual)
+- Browser QA with Chrome DevTools walked through the golden path successfully
+- All 3 browser-QA findings fixed and re-verified
+- Security hardening on both upload endpoints + CORS
+- Precomputed cache covers every sample artifact (no live-API fallthrough during demo)
+- MISTAKES.md + CLAUDE.md aligned with reality
+- Port 8001 baked in everywhere that matters
+
+Remaining Jeff-only decisions:
+1. Sarah's real student profiles/video segments ready?
+2. What specific evidence would move you from "awaiting approval" to "approved"?
+3. Once approved, Sprint 6 scope: deploy → video → writeup → Kaggle notebook → submit with buffer before 2026-05-18.
+
+---
+
+## Key file changes this session
+
+| File | What changed |
+|------|-------------|
+| `backend/upload_utils.py` | NEW — shared upload validation (phase 1) |
+| `backend/routers/capture.py` | Rewritten with upload_utils; removed test import from happy path |
+| `backend/routers/documents.py` | Rewritten with upload_utils |
+| `backend/routers/chat.py` | `_sanitize_model_text` helper; comprehensive HTML stripping |
+| `backend/routers/students.py` | `_annotate_goal_target` helper; adds target_display/target_unit/target_value to each goal |
+| `backend/main.py` | CORS tightened |
+| `frontend/next.config.ts` | Default `API_URL` → `http://localhost:8001` |
+| `frontend/.env.local.example` | NEW — documents the override |
+| `frontend/src/app/page.tsx` | AbortController for dashboard fetches |
+| `frontend/src/app/student/[id]/page.tsx` | AbortController; uses local studentAlerts for context msg |
+| `frontend/src/components/sidebar/StudentSidebar.tsx` | AbortController |
+| `frontend/src/components/student/RecentWork.tsx` | AbortController |
+| `frontend/src/components/student/MaterialsLibrary.tsx` | AbortController |
+| `frontend/src/components/student/GoalCard.tsx` | Renders `target_display` when present |
+| `frontend/src/context/ChatContext.tsx` | Uses `useRef` to track previous student; clears chat on student switch |
+| `data/precomputed/*.json` | 4 new, 3 Maya copy-paste bugs fixed |
+| `data/sample_work/*.png` | 4 new synthetic artifacts |
+| `data/sample_iep/*.pdf` | 2 new mock IEP PDFs |
+| `scripts/generate_sample_work.py` | Extended with 4 new worksheet layouts |
+| `scripts/generate_sample_ieps.py` | NEW — reportlab-based IEP PDF generator |
+| `scripts/cold_boot_smoke.py` | NEW + expanded to 8/8 checks |
+| `tests/test_backend_security.py` | NEW + 32+4 unit tests |
+| `MISTAKES.md` | NEW — 4 seeded lessons |
+| `CLAUDE.md` | Tech stack rewritten for Next.js + FastAPI reality |
 | `HANDOFF.md` | This file |
-| `todo.md` | Path B items closed; release gate re-opened |
+| `todo.md` | Path B closed |
+| `.gitignore` | Added `data/documents/` |
+
+---
+
+## Agent files for next session
+
+`~/.claude/agents/project-manager.md` and `~/.claude/agents/qa-manager.md` are in place. They weren't hot-loaded this session (new agent files register on next restart), so this session used `general-purpose` with inlined personas. Next session they'll be directly invokable via `subagent_type: "project-manager"` and `subagent_type: "qa-manager"`.
+
+---
+
+## Commits on `nextjs-redesign` this session
+
+```
+<latest>  Fix G3 target display, AbortController, scope chat to student
+d700d7c   Canonicalize port 8001 + expand synthetic test content
+d46c898   Path B hardening: security, coverage, cache completion
+783d355   Sprint 5 finalization: real Gemma API + image upload pipeline
+```
+
+All pushed to origin.

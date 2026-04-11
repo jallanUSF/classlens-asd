@@ -39,11 +39,12 @@ export function StudentSidebar() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const ac = new AbortController();
     async function load() {
       try {
         const [studentsRes, alertsRes] = await Promise.all([
-          fetch("/api/students"),
-          fetch("/api/alerts"),
+          fetch("/api/students", { signal: ac.signal }),
+          fetch("/api/alerts", { signal: ac.signal }),
         ]);
         if (studentsRes.ok) {
           setStudents(await studentsRes.json());
@@ -56,11 +57,16 @@ export function StudentSidebar() {
           }
           setAlertCounts(counts);
         }
-      } finally {
         setLoading(false);
+      } catch (err) {
+        if ((err as Error).name !== "AbortError") {
+          setLoading(false);
+          throw err;
+        }
       }
     }
     load();
+    return () => ac.abort();
   }, []);
 
   // Sort: students with alerts first, then alphabetical

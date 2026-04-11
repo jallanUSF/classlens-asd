@@ -55,16 +55,22 @@ export default function DashboardPage() {
   const { prefillInput, setActiveStudent } = useChatContext();
 
   useEffect(() => {
+    const ac = new AbortController();
     async function load() {
-      const [studentsRes, alertsRes] = await Promise.all([
-        fetch("/api/students"),
-        fetch("/api/alerts"),
-      ]);
-      if (studentsRes.ok) setStudents(await studentsRes.json());
-      if (alertsRes.ok) setAlerts(await alertsRes.json());
-      setLoading(false);
+      try {
+        const [studentsRes, alertsRes] = await Promise.all([
+          fetch("/api/students", { signal: ac.signal }),
+          fetch("/api/alerts", { signal: ac.signal }),
+        ]);
+        if (studentsRes.ok) setStudents(await studentsRes.json());
+        if (alertsRes.ok) setAlerts(await alertsRes.json());
+        setLoading(false);
+      } catch (err) {
+        if ((err as Error).name !== "AbortError") throw err;
+      }
     }
     load();
+    return () => ac.abort();
   }, []);
 
   const totalGoals = students.reduce((sum, s) => sum + s.goal_count, 0);

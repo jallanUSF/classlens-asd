@@ -50,10 +50,17 @@ export function MaterialsLibrary({ studentId, studentName }: Props) {
   const [viewingMaterial, setViewingMaterial] = useState<Material | null>(null);
 
   useEffect(() => {
-    fetch(`/api/students/${studentId}/materials`)
+    const ac = new AbortController();
+    fetch(`/api/students/${studentId}/materials`, { signal: ac.signal })
       .then((r) => (r.ok ? r.json() : []))
-      .then(setMaterials)
-      .finally(() => setLoading(false));
+      .then((data) => {
+        setMaterials(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (err.name !== "AbortError") setLoading(false);
+      });
+    return () => ac.abort();
   }, [studentId]);
 
   if (loading) {

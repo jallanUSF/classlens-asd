@@ -5,6 +5,7 @@ import {
   useContext,
   useState,
   useCallback,
+  useRef,
   type ReactNode,
 } from "react";
 import { useChat, type ChatMessage } from "@/hooks/useChat";
@@ -13,7 +14,9 @@ interface ChatContextValue {
   messages: ChatMessage[];
   sendMessage: (text: string) => Promise<void>;
   isStreaming: boolean;
-  /** Set the active student (updates context for the chat API) */
+  /** Set the active student (updates context for the chat API). When the id
+   *  changes, the chat history resets so each student gets an isolated
+   *  conversation. */
   setActiveStudent: (id: string | null) => void;
   activeStudentId: string | null;
   /** Add a system/context message from outside the chat */
@@ -31,14 +34,36 @@ const ChatContext = createContext<ChatContextValue | null>(null);
 export function ChatProvider({ children }: { children: ReactNode }) {
   const [activeStudentId, setActiveStudentId] = useState<string | null>(null);
   const [pendingInput, setPendingInput] = useState("");
+  // Mirror of activeStudentId for synchronous comparison inside setActiveStudent.
+  // Using a ref avoids putting the clearHistory side-effect inside the setState
+  // updater (which Strict Mode may double-invoke).
+  const activeStudentRef = useRef<string | null>(null);
 
-  const { messages, sendMessage, isStreaming, addContextMessage, uploadWork } = useChat({
+  const {
+    messages,
+    sendMessage,
+    isStreaming,
+    addContextMessage,
+    clearHistory,
+    uploadWork,
+  } = useChat({
     studentId: activeStudentId,
   });
 
-  const setActiveStudent = useCallback((id: string | null) => {
-    setActiveStudentId(id);
-  }, []);
+  const setActiveStudent = useCallback(
+    (id: string | null) => {
+      const prev = activeStudentRef.current;
+      if (prev !== id) {
+        // Clearing + setting the new id happen in the same render batch, so
+        // any addContextMessage call that page.tsx fires immediately after
+        // lands AFTER the welcome reset in the message queue.
+        clearHistory();
+        activeStudentRef.current = id;
+        setActiveStudentId(id);
+      }
+    },
+    [clearHistory],
+  );
 
   const prefillInput = useCallback((text: string) => {
     setPendingInput(text);

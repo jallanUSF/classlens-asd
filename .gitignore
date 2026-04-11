@@ -79,6 +79,9 @@ Thumbs.db
 
 # Application-specific
 # data/sample_work/ — committed for demo; these are synthetic images, not real student data
+# data/sample_iep/ — committed for demo; mock IEP PDFs with fake district data
+# data/precomputed/ — committed for demo; pipeline cache so demo never waits on API
+data/documents/  # Runtime user-upload state + QA screenshots; never commit
 demo_assets/screenshots/  # Don't commit demo screenshots
 screenshots/  # Chrome DevTools QA screenshots
 uploads/  # Don't commit user uploads

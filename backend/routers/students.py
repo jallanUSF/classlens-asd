@@ -63,18 +63,51 @@ async def list_students() -> list[dict[str, Any]]:
     return students
 
 
+_COUNT_BASED_HINTS = ("fewer", "reduce", "outburst", "incident", "per day")
+
+
+def _annotate_goal_target(goal: dict) -> None:
+    """Annotate a goal with frontend-friendly target fields.
+
+    Distinguishes percentage-based goals ("80% across 10 trials") from
+    count-based goals ("1 or fewer outbursts per day"). Count-based goals
+    have small raw targets and the trial_history.pct already represents
+    percent of sessions meeting the target, so the progress bar fills to
+    target_pct=100 when current_pct reaches 100.
+    """
+    raw_target = goal.get("target", 0)
+    description = str(goal.get("description", "")).lower()
+
+    is_count_based = (
+        isinstance(raw_target, (int, float))
+        and raw_target <= 10
+        and any(hint in description for hint in _COUNT_BASED_HINTS)
+    )
+
+    if is_count_based:
+        goal["target_pct"] = 100
+        goal["target_unit"] = "count_per_day"
+        goal["target_value"] = raw_target
+        goal["target_display"] = f"≤{raw_target}/day"
+    else:
+        goal["target_pct"] = goal.get("target_pct", raw_target)
+        goal["target_unit"] = "percent"
+        goal["target_value"] = raw_target
+        goal["target_display"] = f"{raw_target}%"
+
+    history = goal.get("trial_history", [])
+    if "current_pct" not in goal and history:
+        goal["current_pct"] = history[-1].get("pct", 0)
+    elif "current_pct" not in goal:
+        goal["current_pct"] = goal.get("baseline", {}).get("value", 0)
+
+
 @router.get("/students/{student_id}")
 async def get_student(student_id: str) -> dict[str, Any]:
     """Get full student profile including goals and trial history."""
     data = _read_profile(student_id)
-    # Transform goals for frontend: add target_pct, current_pct from raw fields
     for goal in data.get("iep_goals", []):
-        goal["target_pct"] = goal.get("target_pct", goal.get("target", 0))
-        history = goal.get("trial_history", [])
-        if "current_pct" not in goal and history:
-            goal["current_pct"] = history[-1].get("pct", 0)
-        elif "current_pct" not in goal:
-            goal["current_pct"] = goal.get("baseline", {}).get("value", 0)
+        _annotate_goal_target(goal)
     return data
 
 
