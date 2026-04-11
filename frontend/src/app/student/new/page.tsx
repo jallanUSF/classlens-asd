@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Upload, UserPlus, Sparkles } from "lucide-react";
 import { useChatContext } from "@/context/ChatContext";
+import { consumeSseJob } from "@/lib/sseJob";
 
 interface ExtractedGoal {
   goal_id: string;
@@ -102,51 +103,45 @@ export default function NewStudentPage() {
       formData.append("doc_type", "iep_pdf");
 
       try {
-        const res = await fetch("/api/documents/upload", {
+        const res = await fetch("/api/documents/upload/stream", {
           method: "POST",
           body: formData,
         });
-        if (res.ok) {
-          const payload = (await res.json()) as {
-            extraction?: IepExtraction;
-          };
-          const extraction: IepExtraction = payload.extraction ?? {};
-          const goals = extraction.iep_goals ?? [];
-          const accommodations = extraction.accommodations ?? [];
+        const payload = await consumeSseJob<{ extraction?: IepExtraction }>(res);
+        const extraction: IepExtraction = payload.extraction ?? {};
+        const goals = extraction.iep_goals ?? [];
+        const accommodations = extraction.accommodations ?? [];
 
-          // Merge extracted fields into the preview — don't overwrite values
-          // the user already supplied via chat.
-          setPreview((p) => ({
-            ...p,
-            name: p.name || extraction.student_name || p.name,
-            grade:
-              p.grade ??
-              (typeof extraction.grade === "number" ? extraction.grade : undefined),
-            asd_level:
-              p.asd_level ??
-              (typeof extraction.asd_level === "number"
-                ? extraction.asd_level
-                : undefined),
-            communication_level:
-              p.communication_level || extraction.communication_level || undefined,
-            interests:
-              p.interests && p.interests.length > 0
-                ? p.interests
-                : extraction.interests ?? [],
-            iep_goals: goals,
-            accommodations: accommodations,
-          }));
+        // Merge extracted fields into the preview — don't overwrite values
+        // the user already supplied via chat.
+        setPreview((p) => ({
+          ...p,
+          name: p.name || extraction.student_name || p.name,
+          grade:
+            p.grade ??
+            (typeof extraction.grade === "number" ? extraction.grade : undefined),
+          asd_level:
+            p.asd_level ??
+            (typeof extraction.asd_level === "number"
+              ? extraction.asd_level
+              : undefined),
+          communication_level:
+            p.communication_level || extraction.communication_level || undefined,
+          interests:
+            p.interests && p.interests.length > 0
+              ? p.interests
+              : extraction.interests ?? [],
+          iep_goals: goals,
+          accommodations: accommodations,
+        }));
 
-          addContextMessage(
-            `I extracted **${goals.length} IEP goals** and **${accommodations.length} accommodations** from ${file.name}. Review them below and tell me the student's name to continue.`,
-          );
-        } else {
-          addContextMessage(
-            `I couldn't process ${file.name}. The server returned an error — please try again or upload a different file.`,
-          );
-        }
+        addContextMessage(
+          `I extracted **${goals.length} IEP goals** and **${accommodations.length} accommodations** from ${file.name}. Review them below and tell me the student's name to continue.`,
+        );
       } catch {
-        addContextMessage("There was an issue uploading the file. Please try again.");
+        addContextMessage(
+          `I couldn't process ${file.name}. The server returned an error — please try again or upload a different file.`,
+        );
       } finally {
         setUploading(false);
       }

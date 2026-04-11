@@ -1,10 +1,68 @@
 # HANDOFF.md — Session Handoff
 
-**Date:** 2026-04-11 (very-late-night session — live browser QA pass + report)
+**Date:** 2026-04-11 (overnight — QA fix queue sprint, 8 of 12 findings resolved)
 **Branch:** `nextjs-redesign`
-**Status:** QA'd. Chrome-driven browser walk-through of every judge-appeal feature. 12 findings documented, health score **66/100**. The backend is excellent. The Next.js dev proxy is a **demo blocker** for 3 of 5 features. Release gate still closed per Jeff's instructions — no video/deploy/submission work touched.
+**Status:** SHIPPED. All critical + high findings from last night's QA report resolved. Demo should now be browser-safe (needs live verification next session). 71/71 pytest + clean Next build. Release gate still closed per Jeff's standing instruction — no video/deploy/submission work touched.
 
-## ⚠️ STOP — read this before the next code change
+## TL;DR cold start (post-fix state)
+
+1. `git pull origin nextjs-redesign` — top commit is the QA fix queue sprint
+2. `pip install -r requirements.txt` + `cd frontend && npm install` (no new deps this session)
+3. `.env` already has `MODEL_PROVIDER=google` + `GOOGLE_AI_STUDIO_KEY=...`
+4. Terminal 1: `python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001`
+5. Terminal 2: `cd frontend && npm run dev`
+6. **First thing to do next session:** run the live browser QA plan in `todo.md` to confirm the 4 previously-500 endpoints work end-to-end in Chrome (chat already verified — don't re-test that). TestClient + typecheck + build all green, but per MISTAKE #5 that's not the same as a browser.
+
+## What shipped this session
+
+All 8 findings from the "fastest → biggest" queue in the previous HANDOFF landed:
+
+| # | Finding | Fix location |
+|---|---|---|
+| 7 | Dashboard AbortController regression | `frontend/src/app/page.tsx` — added `ac.signal.aborted` guard before setState |
+| 11 | Spanish letter placeholder signature | `prompts/templates.py` + `agents/material_forge.py` — `teacher_name` threaded with "use this exact name" instruction, default `Ms. Rodriguez` |
+| 6 | IEP extraction dup pages 1+2 | `agents/iep_extractor.py::_merge_pages` — dedupe by normalized description prefix, not goal_id |
+| 3 | Alert label classifier collapsed 3 outcomes | `backend/routers/alerts.py::_classify_goal` — emits `declining / plateau_below / plateau_at_target` with matching titles/details/actions |
+| 2 | Alert ids non-deterministic → 404 on analyze | `backend/routers/alerts.py::_stable_alert_id` — sha256 of `{student}_{goal}_{label}` |
+| 8 | Alert `severity` always null | Rolled into the classifier refactor (`high/medium/low`) |
+| 4 | `first_then` renderer missing | `frontend/src/components/materials/FirstThenView.tsx` NEW — FIRST/arrow/THEN/teacher-notes cards with react-markdown |
+| 5 | Chat SSE whitespace concat bug | `backend/routers/chat.py::_sanitize_stream_chunk` — strips tags without `.strip()`, preserves inter-chunk spaces |
+| 1 | **Next.js proxy kills long Gemma calls** | `backend/routers/_sse.py::run_streaming_job` NEW — runs blocking Gemma in `asyncio.to_thread` with 4s heartbeats; new streaming endpoints `/analyze/stream`, `/upload/stream`, `/generate/stream`; frontend consumers via `frontend/src/lib/sseJob.ts::consumeSseJob<T>` NEW |
+
+Non-streaming originals retained for TestClient smokes.
+
+## 4 findings deferred (low impact)
+- Finding 9 — chat send button doesn't react to programmatic `fill` (automation only)
+- Finding 10 — `/sw.js` 404 on every load (console noise)
+- Finding 12 — bilingual letters are independent generations, not translations of the approved EN letter (still good content, just less student-specific color)
+- (Finding 11 was LOW but was wedge-able in 10 minutes so it shipped)
+
+## Verification done
+- `python -m pytest tests/ -q` → 71/71 pass
+- `cd frontend && npx tsc --noEmit` → clean
+- `cd frontend && npx next build` → compiles in 17.3s, TS checks pass, 5 pages generated
+- Python sanity: `_classify_goal` on Amara G2 (45/42/40, target 70) → `declining`; Maya G1 (80/80/80, target 80) → `plateau_at_target`; improving 30→60 no alert; stable ids match across calls
+- Python sanity: `_merge_pages` with duplicate goals across pages 1+2 → 3 unique goals, 3 accommodations, 3 interests (was 5/4/4 in old code)
+
+## Verification NOT done (MUST DO next session)
+Per MISTAKE #5: TestClient + typecheck + build are not a browser. The 4 endpoints that were 500ing in last night's QA need to be re-driven through real Chrome:
+1. Dashboard → alert card → Why? → watch heartbeat → thinking trace unfolds
+2. Add Student → upload `data/sample_iep/amara_iep_2025.pdf` → watch heartbeat → extraction card with 3 goals
+3. MaterialViewer on Maya parent letter → ES → watch heartbeat → letter rewrites with `Ms. Rodriguez` signature
+4. MaterialViewer on Maya first_then draft → renders FIRST/THEN cards, not raw markdown
+
+Use `browse` or `chrome-devtools-mcp`. Expected new behavior: instead of a 40s silent spinner then 500, you should see an immediate "Thinking…" / "Extracting…" / "Generating…" message that holds the socket warm, then the result lands at ~30-75s.
+
+## Docs that reference the old 12-finding state
+- `docs/qa-reports/qa-report-classlens-2026-04-11.md` — still accurate as the *pre-fix* snapshot. Do not rewrite; add a new QA report after the browser verification pass instead.
+- `todo.md` — updated this session to mark 8 items checked and park the 4 deferred items.
+- `MISTAKES.md` — no new entry needed; MISTAKE #5 already covers the "TestClient ≠ browser" lesson.
+
+---
+
+## Previous session (very-late-night 2026-04-11) — Live browser QA pass
+
+### ⚠️ STOP — read this before the next code change
 
 **The demo is not browser-safe right now.** The Gemma-4 backend produces outstanding clinical content, but the Next.js dev proxy drops every non-streaming long-running Gemma call at ~30s with `socket hang up / ECONNRESET`. Backend logs `200 OK`; browser gets `500`. Impact:
 

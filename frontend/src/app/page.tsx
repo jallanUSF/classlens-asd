@@ -62,8 +62,11 @@ export default function DashboardPage() {
           fetch("/api/students", { signal: ac.signal }),
           fetch("/api/alerts", { signal: ac.signal }),
         ]);
-        if (studentsRes.ok) setStudents(await studentsRes.json());
-        if (alertsRes.ok) setAlerts(await alertsRes.json());
+        const studentsData = studentsRes.ok ? await studentsRes.json() : null;
+        const alertsData = alertsRes.ok ? await alertsRes.json() : null;
+        if (ac.signal.aborted) return;
+        if (studentsData) setStudents(studentsData);
+        if (alertsData) setAlerts(alertsData);
         setLoading(false);
       } catch (err) {
         if ((err as Error).name !== "AbortError") throw err;

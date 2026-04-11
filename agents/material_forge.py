@@ -221,6 +221,7 @@ class MaterialForge(BaseAgent):
             trend_direction=self._latest_trend(g),
             progress_summary=self._latest_trend(g),
             language_name=language_name,
+            teacher_name=p.get("teacher", "Ms. Rodriguez"),
         )
         return self._call_with_fallback(prompt, [GENERATE_PARENT_COMM], MATERIAL_FORGE_SYSTEM)
 

@@ -9,7 +9,10 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, HTTPException
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
+
+from backend.routers._sse import SSE_HEADERS, run_streaming_job
 
 router = APIRouter(tags=["materials"])
 
@@ -41,18 +44,15 @@ def _get_forge():
         return MaterialForge(MockGemmaClient())
 
 
-@router.post("/materials/generate")
-async def generate_material(req: GenerateRequest) -> dict[str, Any]:
-    """Generate a material for a student + goal."""
-    # Verify student exists
+def _generate_material_sync(req: GenerateRequest) -> dict[str, Any]:
+    """Blocking helper shared by the JSON and SSE material endpoints."""
     student_path = DATA_DIR / "students" / f"{req.student_id}.json"
     if not student_path.exists():
-        raise HTTPException(status_code=404, detail=f"Student {req.student_id} not found")
+        raise LookupError(f"Student {req.student_id} not found")
 
     forge = _get_forge()
     today = date.today().isoformat()
 
-    # Route to the correct generator
     if req.material_type == "lesson_plan":
         result = forge.generate_lesson_plan(req.student_id, req.goal_id)
     elif req.material_type == "tracking_sheet":
@@ -63,7 +63,7 @@ async def generate_material(req: GenerateRequest) -> dict[str, Any]:
         result = forge.generate_visual_schedule(req.student_id, req.routine or "morning arrival")
     elif req.material_type == "first_then":
         if not req.goal_id:
-            raise HTTPException(status_code=400, detail="first_then requires goal_id")
+            raise ValueError("first_then requires goal_id")
         result = forge.generate_first_then(req.student_id, req.goal_id)
     elif req.material_type == "parent_comm":
         result = forge.generate_parent_comm(
@@ -72,9 +72,8 @@ async def generate_material(req: GenerateRequest) -> dict[str, Any]:
     elif req.material_type == "admin_report":
         result = forge.generate_admin_report(req.student_id)
     else:
-        raise HTTPException(status_code=400, detail=f"Unknown material type: {req.material_type}")
+        raise ValueError(f"Unknown material type: {req.material_type}")
 
-    # Save to materials directory
     mat_dir = MATERIALS_DIR / req.student_id
     mat_dir.mkdir(parents=True, exist_ok=True)
 
@@ -92,6 +91,42 @@ async def generate_material(req: GenerateRequest) -> dict[str, Any]:
         json.dump(material_record, f, indent=2)
 
     return material_record
+
+
+@router.post("/materials/generate")
+async def generate_material(req: GenerateRequest) -> dict[str, Any]:
+    """Generate a material for a student + goal (non-streaming)."""
+    try:
+        return _generate_material_sync(req)
+    except LookupError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.post("/materials/generate/stream")
+async def generate_material_stream(req: GenerateRequest) -> StreamingResponse:
+    """Streaming variant of /materials/generate.
+
+    Emits SSE heartbeat frames while Material Forge runs its 30-75s Gemma
+    call in a worker thread, then the final ``result`` frame with the same
+    material record the JSON endpoint returns. Required because the
+    Turbopack dev proxy drops idle sockets at ~30s.
+    """
+
+    async def event_source():
+        async for frame in run_streaming_job(
+            lambda: _generate_material_sync(req),
+            heartbeat_interval=4.0,
+            heartbeat_message=f"Generating {req.material_type}…",
+        ):
+            yield frame
+
+    return StreamingResponse(
+        event_source(),
+        media_type="text/event-stream",
+        headers=SSE_HEADERS,
+    )
 
 
 @router.get("/students/{student_id}/materials")

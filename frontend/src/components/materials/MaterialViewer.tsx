@@ -16,6 +16,8 @@ import { AdminReportView } from "./AdminReportView";
 import { SocialStoryView } from "./SocialStoryView";
 import { TrackingSheetView } from "./TrackingSheetView";
 import { VisualScheduleView } from "./VisualScheduleView";
+import { FirstThenView } from "./FirstThenView";
+import { consumeSseJob } from "@/lib/sseJob";
 
 interface Material {
   id: string;
@@ -53,6 +55,7 @@ const TYPE_TITLES: Record<string, string> = {
   social_story: "Social Story",
   tracking_sheet: "Tracking Sheet",
   visual_schedule: "Visual Schedule",
+  first_then: "First-Then Board",
 };
 
 export function MaterialViewer({
@@ -103,7 +106,7 @@ export function MaterialViewer({
     if (code === activeLanguage || regenerating) return;
     setRegenerating(true);
     try {
-      const res = await fetch("/api/materials/generate", {
+      const res = await fetch("/api/materials/generate/stream", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -113,8 +116,7 @@ export function MaterialViewer({
           language: code,
         }),
       });
-      if (!res.ok) return;
-      const fresh = (await res.json()) as Material;
+      const fresh = await consumeSseJob<Material>(res);
       // Functional setState — avoids stale-closure surprises if the user
       // clicks another language while this promise is still in flight.
       setLiveMaterial((prev) =>
@@ -127,6 +129,8 @@ export function MaterialViewer({
             }
           : prev
       );
+    } catch {
+      // Swallow — the language button reverts to the previous state on error.
     } finally {
       setRegenerating(false);
     }
@@ -186,6 +190,14 @@ export function MaterialViewer({
         return (
           <VisualScheduleView
             content={c as Parameters<typeof VisualScheduleView>[0]["content"]}
+            studentName={studentName}
+            date={date}
+          />
+        );
+      case "first_then":
+        return (
+          <FirstThenView
+            content={c as string | Record<string, unknown>}
             studentName={studentName}
             date={date}
           />

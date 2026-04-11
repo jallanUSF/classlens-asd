@@ -45,6 +45,22 @@ def _sanitize_model_text(text: str) -> str:
     text = _ANY_TAG_RE.sub("", text)
     return text.strip()
 
+
+def _sanitize_stream_chunk(text: str) -> str:
+    """Streaming-safe sanitizer.
+
+    Same tag removal as ``_sanitize_model_text`` but WITHOUT the final
+    ``.strip()``. Stripping whitespace per-chunk drops the leading/trailing
+    spaces between tokens, producing word-merges like ``to40%`` or
+    ``investedin`` in the rendered output. Whole-response cleanup still
+    happens via ``_sanitize_model_text`` on the non-streaming path.
+    """
+    if not text:
+        return text
+    text = _SCRIPT_STYLE_BLOCK_RE.sub("", text)
+    text = _ANY_TAG_RE.sub("", text)
+    return text
+
 router = APIRouter(tags=["chat"])
 
 DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data"
@@ -197,7 +213,7 @@ async def chat_stream(req: ChatRequest) -> StreamingResponse:
                 from core.gemma_client import GemmaClient
                 client = GemmaClient()
                 for chunk in client.generate_stream(prompt=prompt, system=system):
-                    cleaned = _sanitize_model_text(chunk)
+                    cleaned = _sanitize_stream_chunk(chunk)
                     if not cleaned:
                         continue
                     yield f"data: {json.dumps({'delta': cleaned})}\n\n"

@@ -46,23 +46,31 @@
 - [x] #4: Exposed first_then in materials.py enum + router handler
 - [x] #5: Bilingual parent comms — `language` param threaded from MaterialViewer toggle (EN/ES/VI/ZH) through router → MaterialForge → prompt template
 
-## QA Session Fix Queue (2026-04-11 very-late-night) — ordered fastest → biggest
-Full findings in `docs/qa-reports/qa-report-classlens-2026-04-11.md`. 66/100 health score. 12 findings.
+## QA Session Fix Queue (2026-04-11 very-late-night) — COMPLETE 2026-04-11
+Full findings in `docs/qa-reports/qa-report-classlens-2026-04-11.md`. Was 66/100 health score, 12 findings. 8 of 12 resolved this session (all critical/high + two mediums + one low). 4 low-impact items deferred.
 
-- [ ] **Finding 7 — Dashboard AbortController regression** (~10 min). Add the controller to `frontend/src/app/page.tsx` that HANDOFF claimed shipped last session but didn't. Verify the first fetch shows `ERR_ABORTED` in the Network panel.
-- [ ] **Finding 11 — Spanish parent letter teacher-name placeholder** (~10 min). Thread `{teacher_name}` into the ES prompt branch in `prompts/templates.py`. Compare cached EN vs regenerated ES for the same student.
-- [ ] **Finding 6 — IEP extraction duplicates fields** (~15 min). In `agents/iep_extractor.py`, dedupe the pages 1+2 merge on goal description / accommodation string. Test with `data/sample_iep/amara_iep_2025.pdf` — should be 3 goals, 6 accommodations.
-- [ ] **Finding 3 — Alert label classifier collapses 3 outcomes into "plateaued"** (~20 min). `backend/routers/alerts.py` should emit one of `declining | plateau_below | plateau_at_target | improving`. The Progress Analyst already computes this inside thinking mode — surface it. Fix Amara (declining) and Maya G1 (target met).
-- [ ] **Finding 2 — Alert ids non-deterministic** (~20 min). Derive ids as a hash of `{student_id}_{goal_id}_{week_window}` so the same alert always gets the same id. Unblocks retries.
-- [ ] **Finding 4 — `first_then` has no renderer** (~30 min). New `frontend/src/components/materials/FirstThenView.tsx` with FIRST / arrow / THEN box layout. Add to `MaterialViewer.tsx` switch. Content is already excellent — just needs the component.
-- [ ] **Finding 5 — Chat SSE whitespace concat** (~30 min). `frontend/src/hooks/useChat.ts` token reducer is dropping leading/trailing spaces between SSE delta frames OR the markdown renderer collapses whitespace. Repro by asking Amara's page about G2 interventions and looking for `to40%`, `investedin`, `Notepad"with`.
-- [ ] **Finding 1 — Next.js dev proxy kills long Gemma calls** (~2-3h, demo blocker). Stream every Gemma endpoint like `/api/chat/stream` does. Mirror the SSE pattern in `backend/routers/alerts.py::analyze`, `backend/routers/documents.py::upload`, `backend/routers/materials.py::generate`. Frontend consumers need the same `fetch` + `ReadableStream` + `TextDecoder` wiring `useChat.ts` has. Bonus: watching reasoning unfold live is a better demo than a 40s spinner.
+- [x] **Finding 7 — Dashboard AbortController regression**. Added `ac.signal.aborted` guard before setState in `frontend/src/app/page.tsx` matching the student-page pattern.
+- [x] **Finding 11 — Spanish parent letter teacher-name placeholder**. Threaded `teacher_name` through `MATERIAL_FORGE_PARENT_COMM` prompt with explicit "write this exact name on the signature line" instruction. Default `Ms. Rodriguez` when student profile has no `teacher` field.
+- [x] **Finding 6 — IEP extraction duplicates fields**. `agents/iep_extractor.py::_merge_pages` now dedupes goals by normalized 80-char description prefix (was keying on goal_id, which the model reassigns per page). Accommodations and interests dedupe on normalized full text. Verified: 5 raw goals → 3 unique, 4 accommodations → 3, 3 interests collapsed from 4.
+- [x] **Finding 3 — Alert label classifier**. New `_classify_goal()` in `backend/routers/alerts.py` emits `declining | plateau_below | plateau_at_target` based on monotone trend + target comparison. Improving goals emit no alert. Titles, detail text, and suggested actions all branch per label. Verified: Amara G2 (45/42/40, target 70) → `declining`, Maya G1 (80/80/80, target 80) → `plateau_at_target`.
+- [x] **Finding 2 — Alert ids deterministic**. `_stable_alert_id()` hashes `{student}_{goal}_{label}` with sha256, first 8 hex chars. Same alert → same id across fetches; no more 404s on analyze after the frontend caches an id.
+- [x] **Finding 8 — Alert severity populated**. `high` for declining, `medium` for plateau_below, `low` for plateau_at_target. Rolled in with the classifier refactor.
+- [x] **Finding 4 — `first_then` renderer**. New `frontend/src/components/materials/FirstThenView.tsx` parses the Material Forge markdown into FIRST / arrow / THEN / teacher-notes cards, with `react-markdown` rendering inside each section. Added to `MaterialViewer.tsx` switch and `TYPE_TITLES`.
+- [x] **Finding 5 — Chat SSE whitespace concat**. `backend/routers/chat.py::_sanitize_stream_chunk` sanitizes HTML tags WITHOUT the trailing `.strip()` that was eating leading/trailing spaces from every Gemma chunk. `to40%` / `investedin` word-merge bug root cause was the `_sanitize_model_text().strip()` call inside the stream loop.
+- [x] **Finding 1 — Stream every Gemma endpoint** (demo blocker). New `backend/routers/_sse.py::run_streaming_job` runs blocking Gemma calls in `asyncio.to_thread` with 4-second heartbeat frames so the Turbopack dev proxy keeps the socket open. Streaming variants added: `POST /api/alerts/{id}/analyze/stream`, `POST /api/materials/generate/stream`, `POST /api/documents/upload/stream`. Frontend consumers (`AlertBanner.tsx`, `MaterialViewer.tsx` language toggle, `student/new/page.tsx`) all switched via new shared `frontend/src/lib/sseJob.ts::consumeSseJob<T>` helper. Non-streaming originals retained for TestClient smokes.
 
-## QA Session Low-Priority Follow-ups
-- [ ] Finding 8 — Populate alert `severity` field (was `null` for all alerts). Low impact until the UI actually sorts/colors by severity.
+## QA Session Low-Priority Follow-ups (deferred)
 - [ ] Finding 9 — Chat send button `disabled` state doesn't react to programmatic `fill`. Harmless for humans; annoying for automation scripts.
 - [ ] Finding 10 — `/sw.js` 404 on every page load. Either ship a minimal `public/sw.js` stub or remove the manifest reference.
 - [ ] Finding 12 — Bilingual letters regenerate independently instead of translating the approved EN version. Consider translating in non-English languages to preserve student-specific color.
+
+## Next session — live browser QA verification pass
+- [ ] Real Chrome walk-through of all 4 previously-500 endpoints to confirm browser-path works end-to-end (not just TestClient):
+  1. Click "Why?" on Amara G2 alert → should show heartbeat → thinking trace
+  2. Upload `data/sample_iep/amara_iep_2025.pdf` in Add Student → should show heartbeat → 3 goals / 3+ accommodations
+  3. MaterialViewer → open Maya parent letter → click ES → should regenerate with "Ms. Rodriguez" signature
+  4. MaterialViewer → open Maya first_then draft → should render FIRST/THEN cards, not raw markdown dump
+- [ ] Spot-check declining vs plateau_at_target vs plateau_below labels on dashboard
 
 ## Follow-up to decide
 - [x] **DONE last session:** Switch `MODEL_PROVIDER=google`. Feature works end-to-end; QA confirmed the backend content quality is exceptional on Google AI Studio.

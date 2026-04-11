@@ -266,15 +266,28 @@ class IEPExtractor(BaseAgent):
             "notes": _as_str(raw.get("notes")),
         }
 
+    @staticmethod
+    def _norm(text: str) -> str:
+        """Collapse whitespace, lowercase, strip punctuation for dedupe keys."""
+        if not text:
+            return ""
+        import re
+        return re.sub(r"[^a-z0-9 ]+", "", " ".join(text.lower().split()))
+
     def _merge_pages(self, pages: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Merge per-page extraction results into one dict.
 
+        Dedupe strategy: the multimodal model re-assigns goal_ids independently
+        per page (page 1 sees G1/G2/G3, page 2 sees G4/G5/G6 for the same goals)
+        so we can't key on goal_id. We key on a normalized goal description
+        prefix and a normalized full-string match for interests/accommodations.
+
         - Demographic scalars: first non-empty page wins.
-        - Lists (interests, accommodations): union, preserving order, deduped.
-        - iep_goals: concatenated, deduped by (goal_id, description).
+        - Lists: union, preserving first occurrence, deduped by normalized text.
+        - iep_goals: concatenated, deduped by normalized description prefix.
         """
         merged: Dict[str, Any] = dict(self._EMPTY)
-        seen_goals: set[Tuple[str, str]] = set()
+        seen_goals: set[str] = set()
         seen_interests: set[str] = set()
         seen_accom: set[str] = set()
         notes: List[str] = []
@@ -292,20 +305,25 @@ class IEPExtractor(BaseAgent):
                     merged[field] = page[field]
 
             for interest in page.get("interests", []) or []:
-                if interest and interest not in seen_interests:
-                    seen_interests.add(interest)
+                key = self._norm(interest)
+                if key and key not in seen_interests:
+                    seen_interests.add(key)
                     merged["interests"].append(interest)
 
             for acc in page.get("accommodations", []) or []:
-                if acc and acc not in seen_accom:
-                    seen_accom.add(acc)
+                key = self._norm(acc)
+                if key and key not in seen_accom:
+                    seen_accom.add(key)
                     merged["accommodations"].append(acc)
 
             for goal in page.get("iep_goals", []) or []:
-                key = (goal.get("goal_id", ""), goal.get("description", ""))
-                if key in seen_goals:
+                # Use the first 80 chars of normalized description — short
+                # enough to catch paraphrase variation, long enough to separate
+                # distinct goals.
+                desc_key = self._norm(goal.get("description", ""))[:80]
+                if not desc_key or desc_key in seen_goals:
                     continue
-                seen_goals.add(key)
+                seen_goals.add(desc_key)
                 merged["iep_goals"].append(goal)
 
             page_note = page.get("notes")

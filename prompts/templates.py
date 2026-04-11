@@ -682,6 +682,8 @@ MATERIAL_FORGE_PARENT_COMM = """Write a progress update letter for {student_name
 
 IMPORTANT LANGUAGE: Write the ENTIRE letter in {language_name}. Greetings, highlights, try-at-home suggestions, closing — everything. Use culturally natural phrasing for a {language_name}-speaking family. Do not include any English text in the letter. Match the warmth and grade-appropriateness of the English version. Use warm, grade-appropriate vocabulary native to that language — do not translate word-for-word from English. Culturally adapt greetings and closings to what is natural in that language.
 
+IMPORTANT SIGNATURE: Sign the letter with this exact teacher name: {teacher_name}. Do NOT use a placeholder like "[Teacher name]" or "[Nombre del Maestro/a]" — write "{teacher_name}" verbatim on the signature line. The signature line must appear in the final letter.
+
 STUDENT PROFILE:
 - Name: {student_name}
 - Grade: {grade}
@@ -751,7 +753,7 @@ You can help Maya practice at home by: Ask Maya to greet a family member when th
 We'll keep practicing this skill at school, and I'm confident Maya will hit our 80% target soon. Her next progress review is April 25. Please reach out if you have any questions!
 
 Warmly,
-[Teacher name]
+{teacher_name}
 
 ---
 
@@ -1018,7 +1020,7 @@ def format_material_forge_first_then_board(student_name, grade, asd_level, inter
 def format_material_forge_parent_comm(student_name, grade, parent_email, parent_phone,
                                        goal_description, baseline, target, measurement_method,
                                        trial_count, success_rate, trend_direction, progress_summary,
-                                       language_name="English"):
+                                       language_name="English", teacher_name="Ms. Rodriguez"):
     """Format the Material Forge parent communication prompt."""
     return MATERIAL_FORGE_PARENT_COMM.format(
         student_name=student_name,
@@ -1034,6 +1036,7 @@ def format_material_forge_parent_comm(student_name, grade, parent_email, parent_
         trend_direction=trend_direction,
         progress_summary=progress_summary,
         language_name=language_name,
+        teacher_name=teacher_name,
     )
 
 

@@ -3,6 +3,7 @@
 import { AlertTriangle, X, FileText, Sparkles, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useCallback } from "react";
+import { consumeSseJob } from "@/lib/sseJob";
 
 interface Alert {
   id: string;
@@ -32,6 +33,7 @@ export function AlertBanner({
   const [dismissed, setDismissed] = useState<Set<string>>(new Set());
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [loadingId, setLoadingId] = useState<string | null>(null);
+  const [loadingMessage, setLoadingMessage] = useState<string>("Gemma is thinking…");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [analyses, setAnalyses] = useState<Record<string, Analysis>>({});
 
@@ -49,6 +51,7 @@ export function AlertBanner({
 
   const runAnalyze = useCallback(async (alertId: string) => {
     setLoadingId(alertId);
+    setLoadingMessage("Gemma is thinking…");
     setErrors((prev) => {
       if (!prev[alertId]) return prev;
       const next = { ...prev };
@@ -56,15 +59,14 @@ export function AlertBanner({
       return next;
     });
     try {
-      const res = await fetch(`/api/alerts/${alertId}/analyze`, {
+      const res = await fetch(`/api/alerts/${alertId}/analyze/stream`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: "{}",
       });
-      if (!res.ok) {
-        throw new Error(`Request failed: ${res.status}`);
-      }
-      const data = (await res.json()) as Analysis;
+      const data = await consumeSseJob<Analysis>(res, {
+        onHeartbeat: (msg) => setLoadingMessage(msg),
+      });
       setAnalyses((prev) => ({
         ...prev,
         [alertId]: { thinking: data.thinking ?? "", output: data.output ?? "" },
@@ -170,7 +172,7 @@ export function AlertBanner({
                   >
                     {isLoading ? (
                       <p className="text-xs text-muted-foreground italic animate-pulse">
-                        Gemma is thinking…
+                        {loadingMessage}
                       </p>
                     ) : error ? (
                       <div className="space-y-2">
