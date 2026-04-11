@@ -2,7 +2,49 @@
 
 **Date:** 2026-04-11 (late-evening session — judge-appeal feature sprint + provider flip)
 **Branch:** `nextjs-redesign`
-**Status:** 5 new features shipped, no lying code, 71/71 pytest + 19/19 live smoke + clean Next build. Provider flipped from OpenRouter → Google AI Studio after A/B. CLAUDE.md now matches reality. All changes unstaged — Jeff to review and commit.
+**Status:** SHIPPED. 5 features + provider flip committed as `6cad487` and pushed to origin. 71/71 pytest + 19/19 live feature smoke + clean Next.js build. Release gate still closed per Jeff's instructions — no video/deploy/submission work touched.
+
+## TL;DR cold start (post-commit state)
+
+1. `git pull origin nextjs-redesign` — latest commit is `6cad487` ("Ship 5 judge-appeal features + flip to Google AI Studio")
+2. `pip install -r requirements.txt` (new dep: `pymupdf` for IEP extraction PDF→PNG rendering) + `cd frontend && npm install`
+3. Copy `.env.example` → `.env`. Canonical provider is now **Google AI Studio**: set `MODEL_PROVIDER=google` + `GOOGLE_AI_STUDIO_KEY=...`. OpenRouter and Ollama are fallback-only — see CLAUDE.md "Model:" section for the architectural trade-offs.
+4. Terminal 1: `python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001` (8001 is canonical)
+5. Terminal 2: `cd frontend && npm run dev`
+6. http://localhost:3000 — dashboard loads, 7 students, 5 alerts, all 5 new features live.
+7. Tests: `python -m pytest tests/ -q` (71/71) · `python scripts/feature_smoke.py` (19/19 live against real Gemma 4 31B) · `python scripts/cold_boot_smoke.py` (original live smoke, needs live backend) · `python scripts/provider_ab.py` (if revisiting the provider decision)
+
+## What to know in 60 seconds
+
+- **Five judge-appeal features shipped this session.** All lying docstrings fixed (chat.py claimed streaming, documents.py claimed extraction — both now true).
+- **Provider is Google AI Studio.** Only provider with working native function calling AND thinking mode. OpenRouter 404s on tool use. Ollama has no thinking code path in `gemma_client.py`. Dev machine is GPU-less so Ollama CPU inference is 10× slower than Google anyway — ~30 min for the 4-feature smoke vs Google's ~3 min.
+- **Thinking trace is the demo centerpiece.** Click "Why?" on any alert card → `/api/alerts/{id}/analyze` runs ProgressAnalyst → UI reveals ~4,000-5,000 chars of Gemma's reasoning in a collapsible panel. Architecturally invisible on any other provider.
+- **IEP extraction works end-to-end.** Drop a PDF in Add Student → pymupdf renders pages → Gemma multimodal + function calling extracts `{student_name, grade, asd_level, iep_goals[], accommodations[]}` → UI shows an "Extracted from IEP" card.
+- **Chat streams live via SSE.** `fetch` + `ReadableStream` + `TextDecoder` consumer (not EventSource — needed POST with body).
+- **Bilingual parent comms.** Language toggle (EN/ES/VI/ZH) in MaterialViewer, only appears for parent_comm material type.
+- **First-Then board.** Was orphaned, now reachable — brings total output types to 7.
+
+## Key files added this commit (for archaeology)
+
+- `agents/iep_extractor.py` — IEP multimodal extraction agent, follows the `vision_reader.py` pattern
+- `scripts/feature_smoke.py` — 19-assertion live smoke test for the 5 features via TestClient
+- `scripts/provider_ab.py` — 3-way provider comparison (run with any provider loaded)
+- `scripts/ollama_e4b_solo.py` — one-off clean-room Ollama test (reference)
+- Modified: `backend/routers/chat.py` (+/stream endpoint), `backend/routers/alerts.py` (+/analyze), `backend/routers/documents.py` (real extraction), `backend/routers/materials.py` (first_then + language), `core/gemma_client.py` (generate_stream), `agents/material_forge.py` (language param), `prompts/templates.py` (IEP extraction prompts + language field), `schemas/tools.py` (EXTRACT_IEP_CONTENT tool)
+- Frontend modified: `frontend/src/hooks/useChat.ts` (SSE consumer), `frontend/src/components/student/AlertBanner.tsx` ("Why?" button + thinking panel), `frontend/src/components/materials/MaterialViewer.tsx` (language toggle), `frontend/src/components/materials/ParentLetterView.tsx` (lang attribute), `frontend/src/app/student/new/page.tsx` (IEP extraction consumer)
+
+## What's still unstaged in the working tree
+
+- `.claude/` — local Claude Code tooling, not committed (add to .gitignore if it bothers you)
+- `RESEARCH-BRIEF.md` — 1-page project brief Jeff asked for to pass to another LLM for research evaluation. Intentionally uncommitted since it's a transient artifact. Delete it when you're done with it, or commit it if you want to preserve the snapshot.
+
+## What's NOT in this commit
+
+- Release/deploy/video/submission work — release gate explicitly still closed per Jeff's standing instruction. No Sprint 6 work until he says the project is done.
+- Ollama thinking-mode support — `_ollama_generate_with_thinking` would need a `<thinking>...</thinking>` tag protocol and parser. ~50 lines, worth ~1 hour, worth doing only if you later move the demo to a GPU-equipped machine and want thinking mode visible on the local path too.
+- Pydantic v1 → v2 validator migration — the 13 deprecation warnings in pytest are pre-existing and will become errors when pydantic v3 drops. Separate cleanup task.
+
+---
 
 ---
 
