@@ -141,6 +141,30 @@ def main() -> int:
             f"{code} matched={len(body.get('goal_mapping',{}).get('matched_goals',[])) if isinstance(body,dict) else 0}",
         ))
 
+    # 4b. Capture — one of the newly-added precomputed entries
+    new_img = ROOT / "data" / "sample_work" / "jaylen_choice_board.png"
+    if not new_img.exists():
+        results.append(("capture new cache entry", FAIL, "jaylen_choice_board.png missing"))
+    else:
+        img_bytes = new_img.read_bytes()
+        code, body = _post_multipart(
+            "/api/capture",
+            {"student_id": "jaylen_2026", "work_type": "log", "subject": "communication"},
+            "image",
+            "jaylen_choice_board.png",
+            img_bytes,
+        )
+        goals = (
+            body.get("goal_mapping", {}).get("matched_goals", [])
+            if isinstance(body, dict) else []
+        )
+        hit_g1 = any(g.get("goal_id") == "G1" for g in goals)
+        results.append((
+            "capture new cache entry",
+            PASS if code == 200 and hit_g1 else FAIL,
+            f"{code} goals={[g.get('goal_id') for g in goals]}",
+        ))
+
     # 5. Capture rejects bad extension
     code, body = _post_multipart(
         "/api/capture",

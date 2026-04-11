@@ -70,7 +70,7 @@ Created `~/.claude/agents/project-manager.md` and `~/.claude/agents/qa-manager.m
 ## Known Limitations / Gaps Not Closed
 
 - **SSE streaming still absent** — chat returns a single JSON response. Fine for demo.
-- **Port 8000 is still occupied by `ulana.main`** on this dev machine. The cold-boot script defaults to 8001. Jeff should plan to kill/avoid that process before any live demo or pick a stable alternate port.
+- **Port 8001 is now the canonical backend port** for this project. Port 8000 is occupied by an unrelated `ulana.main` process on the dev machine; rather than fighting it, 8001 is baked into `next.config.ts`, the cold-boot script, CLAUDE.md, and HANDOFF run instructions.
 - **Sarah's content** (student profiles validated, video segments scripted) — unchanged this session; still the long-lead dependency for Sprint 6.
 - **Deploy target decision** — CLAUDE.md still says "Streamlit Community Cloud." Memory says Jeff prefers local hosting + OpenRouter. Needs explicit call before Sprint 6 starts.
 
@@ -78,15 +78,15 @@ Created `~/.claude/agents/project-manager.md` and `~/.claude/agents/qa-manager.m
 
 ## How to Resume
 
-### Start the app
+### Start the app (port 8001 is the canonical backend port for this project)
 ```bash
-# Terminal 1: Backend (8001 avoids the ulana.main port collision)
+# Terminal 1: Backend
 cd C:/Projects/ClassLense && python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001
 
-# Terminal 2: Frontend
+# Terminal 2: Frontend (auto-proxies /api/* to http://localhost:8001)
 cd C:/Projects/ClassLense/frontend && npm run dev
 ```
-The frontend is hardcoded for port 8000. If you run backend on 8001, set `NEXT_PUBLIC_API_URL=http://127.0.0.1:8001` in `frontend/.env.local`.
+The frontend now defaults to `API_URL=http://localhost:8001` in `next.config.ts`. To override, copy `frontend/.env.local.example` to `frontend/.env.local` and set your own `API_URL`.
 
 ### Run the hardening verifications
 ```bash
@@ -110,9 +110,9 @@ python scripts/cold_boot_smoke.py        # expect 7/7 passed
 - MISTAKES.md seeded per global CLAUDE.md
 
 **Remaining Jeff-only questions:**
-1. Kill or relocate the `ulana.main` port-8000 process, or accept 8001 as the backend port permanently.
-2. Sarah's content status — are profiles/video segments ready to drive Sprint 6?
-3. Deploy target — local + OpenRouter (per memory) or something else?
+1. ~~Port 8000 conflict~~ — **RESOLVED** (8001 is now canonical)
+2. Sarah's content status — still in progress. Test content is being generated synthetically in parallel; Sarah's real content still drives Sprint 6 video/profiles.
+3. Deploy target — local + OpenRouter confirmed for now. Streamlit/Kaggle submission form factor is deferred until release approval.
 4. Does "release ready" for you mean "demo-ready" or "production-ready"? Sprint 6 plan depends on which.
 
 ---

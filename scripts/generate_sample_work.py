@@ -341,6 +341,208 @@ class WorksheetGenerator:
         img.save(self.output_dir / "sofia_transition_log.png")
         print("✓ Created sofia_transition_log.png")
 
+    def generate_maya_reading_comprehension(self):
+        """Generate Maya's reading comprehension passage + questions (maps to G2)."""
+        img, draw = self.create_base_image()
+        y = 30
+
+        # Title
+        draw.text((50, y), "Reading Time", font=self.title_font, fill=self.text_color)
+        y += 60
+        draw.text((50, y), "Name: Maya 🦕", font=self.header_font, fill=self.text_color)
+        y += 60
+
+        # Passage
+        draw.text((50, y), "Read the story. Then answer the questions.", font=self.small_font, fill=self.text_color)
+        y += 40
+
+        passage = [
+            "Blue is a raptor. Blue lives in a big park.",
+            "Blue likes to run fast. Blue eats fish for",
+            "lunch. At night, Blue sleeps in a warm nest.",
+        ]
+        for line in passage:
+            draw.text((60, y), line, font=self.normal_font, fill=(30, 30, 80))
+            y += 35
+
+        y += 20
+        # Questions with two-step directions baked in
+        # Maya is at 70% (close to but not at target of 75%)
+        questions = [
+            ("1. Circle the name. Then write it.", "Blue", True),   # correct
+            ("2. Underline what Blue eats. Then draw it.", "fish", True),  # correct
+            ("3. Where does Blue sleep? Write it.", "nest", True),  # correct
+            ("4. What does Blue like to do? Draw it.", "", False),  # skipped
+            ("5. Is Blue fast? Circle yes or no.", "yes", True),    # correct
+        ]
+
+        for q_text, answer, correct in questions:
+            draw.text((60, y), q_text, font=self.small_font, fill=self.text_color)
+            y += 30
+            if answer:
+                offset = random.randint(-2, 2)
+                color = (50, 100, 200) if correct else (200, 50, 50)
+                draw.text((90 + offset, y), f"→ {answer}", font=self.normal_font, fill=color)
+            else:
+                draw.text((90, y), "→ ___", font=self.normal_font, fill=(180, 180, 180))
+            y += 45
+
+        img.save(self.output_dir / "maya_reading_comprehension.png")
+        print("✓ Created maya_reading_comprehension.png")
+
+    def generate_maya_sensory_break_log(self):
+        """Generate Maya's sensory break request log (maps to G3)."""
+        img, draw = self.create_base_image()
+        y = 30
+
+        draw.text((50, y), "Sensory Break Log", font=self.title_font, fill=self.text_color)
+        y += 60
+        draw.text((50, y), "Name: Maya", font=self.header_font, fill=self.text_color)
+        y += 60
+        draw.text((50, y), "Date: 2026-04-10", font=self.small_font, fill=self.text_color)
+        y += 50
+
+        # Table headers
+        headers = ["Time", "Activity", "Requested?", "Break Used"]
+        col_widths = [110, 180, 160, 180]
+        start_x = 50
+
+        x = start_x
+        for header, width in zip(headers, col_widths):
+            draw.text((x, y), header, font=self.normal_font, fill=self.text_color)
+            x += width
+        y += 50
+
+        # 5 opportunities, 4 requested independently (80%)
+        entries = [
+            ("9:10", "Morning circle", "Yes - self", "weighted pad"),
+            ("10:20", "Math centers", "Yes - self", "headphones"),
+            ("11:05", "Transition", "No - prompted", "fidget cube"),
+            ("12:40", "After lunch", "Yes - self", "weighted pad"),
+            ("2:15", "Art room", "Yes - self", "headphones"),
+        ]
+
+        for entry in entries:
+            x = start_x
+            for text, width in zip(entry, col_widths):
+                color = (50, 100, 200) if "Yes" in text or "self" in text else (200, 120, 50) if "prompt" in text else (50, 100, 200)
+                draw.text((x, y), text, font=self.small_font, fill=color)
+                x += width
+            y += 50
+
+        y += 20
+        draw.text((50, y), "Outbursts today: 1 (brief, recovered with pad)", font=self.small_font, fill=(30, 30, 80))
+
+        img.save(self.output_dir / "maya_sensory_break_log.png")
+        print("✓ Created maya_sensory_break_log.png")
+
+    def generate_jaylen_choice_board(self):
+        """Generate Jaylen's PECS/visual choice board log (maps to G1)."""
+        img, draw = self.create_base_image()
+        y = 30
+
+        draw.text((50, y), "Choice Board Log", font=self.title_font, fill=self.text_color)
+        y += 60
+        draw.text((50, y), "Name: Jaylen 🚂", font=self.header_font, fill=self.text_color)
+        y += 50
+        draw.text((50, y), "Date: 2026-04-10", font=self.small_font, fill=self.text_color)
+        y += 50
+
+        # Headers
+        headers = ["Time", "Choice", "Method", "Success?"]
+        col_widths = [110, 200, 200, 160]
+        start_x = 50
+
+        x = start_x
+        for header, width in zip(headers, col_widths):
+            draw.text((x, y), header, font=self.normal_font, fill=self.text_color)
+            x += width
+        y += 50
+
+        # 15 opportunities, 11 independent AAC (73% - just below 80 target)
+        entries = [
+            ("8:45",  "Snack - crackers", "AAC device", "Yes"),
+            ("9:15",  "Activity - trains", "PECS card",  "Yes"),
+            ("9:40",  "Break",             "AAC device", "Yes"),
+            ("10:10", "Snack - juice",     "Pointed",    "No - prompt"),
+            ("10:35", "Activity - spin",   "AAC device", "Yes"),
+            ("11:00", "Sensory swing",     "AAC device", "Yes"),
+            ("11:30", "Snack - pretzel",   "PECS card",  "Yes"),
+            ("12:00", "Activity - Thomas", "AAC device", "Yes"),
+            ("12:35", "Break",             "Cried",      "No - prompt"),
+            ("1:10",  "Water",             "AAC device", "Yes"),
+            ("1:45",  "Thomas trains",     "AAC device", "Yes"),
+        ]
+
+        for entry in entries:
+            x = start_x
+            for text, width in zip(entry, col_widths):
+                if "No" in text:
+                    color = (200, 50, 50)
+                elif "Yes" in text:
+                    color = (50, 150, 50)
+                else:
+                    color = (50, 100, 200)
+                draw.text((x, y), text, font=self.small_font, fill=color)
+                x += width
+            y += 42
+
+        img.save(self.output_dir / "jaylen_choice_board.png")
+        print("✓ Created jaylen_choice_board.png")
+
+    def generate_jaylen_turn_taking_tally(self):
+        """Generate Jaylen's turn-taking tally from therapy session (maps to G3)."""
+        img, draw = self.create_base_image()
+        y = 30
+
+        draw.text((50, y), "Turn-Taking Tally", font=self.title_font, fill=self.text_color)
+        y += 60
+        draw.text((50, y), "Name: Jaylen", font=self.header_font, fill=self.text_color)
+        y += 50
+        draw.text((50, y), "Session: 1:1 with therapist", font=self.small_font, fill=self.text_color)
+        y += 30
+        draw.text((50, y), "Activity: Thomas trains", font=self.small_font, fill=self.text_color)
+        y += 30
+        draw.text((50, y), "Date: 2026-04-10", font=self.small_font, fill=self.text_color)
+        y += 50
+
+        # Table: opportunity | waited for turn | monopolized
+        headers = ["Opportunity", "Waited?", "Notes"]
+        col_widths = [200, 160, 290]
+        start_x = 50
+
+        x = start_x
+        for header, width in zip(headers, col_widths):
+            draw.text((x, y), header, font=self.normal_font, fill=self.text_color)
+            x += width
+        y += 50
+
+        # 5 opportunities, 3 successes (60%)
+        entries = [
+            ("1. Pass Gordon",  "Yes",  "brief wait, smiled"),
+            ("2. Pass Percy",   "No",   "grabbed back quickly"),
+            ("3. Share track",  "Yes",  "allowed adult turn"),
+            ("4. Pass Gordon",  "No",   "protested briefly"),
+            ("5. Build tunnel", "Yes",  "longest wait so far"),
+        ]
+
+        for entry in entries:
+            x = start_x
+            for i, (text, width) in enumerate(zip(entry, col_widths)):
+                if i == 1:
+                    color = (50, 150, 50) if text == "Yes" else (200, 50, 50)
+                else:
+                    color = (50, 100, 200)
+                draw.text((x, y), text, font=self.small_font, fill=color)
+                x += width
+            y += 55
+
+        y += 20
+        draw.text((50, y), "Total waited: 3 / 5 (60%)", font=self.normal_font, fill=(30, 30, 80))
+
+        img.save(self.output_dir / "jaylen_turn_taking_tally.png")
+        print("✓ Created jaylen_turn_taking_tally.png")
+
     def generate_all(self):
         """Generate all sample work images."""
         print(f"Generating sample work images in {self.output_dir}...")
@@ -353,6 +555,10 @@ class WorksheetGenerator:
         self.generate_jaylen_pecs_log()
         self.generate_sofia_writing_sample()
         self.generate_sofia_transition_log()
+        self.generate_maya_reading_comprehension()
+        self.generate_maya_sensory_break_log()
+        self.generate_jaylen_choice_board()
+        self.generate_jaylen_turn_taking_tally()
 
         print()
         print("✓ All images generated successfully!")

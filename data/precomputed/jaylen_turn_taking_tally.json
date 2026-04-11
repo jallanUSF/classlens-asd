@@ -1,0 +1,56 @@
+{
+  "student_id": "jaylen_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\jaylen_turn_taking_tally.png",
+  "date": "2026-04-10",
+  "transcription": {
+    "student_name": "Jaylen",
+    "work_type": "tally",
+    "subject": "social_reciprocity",
+    "raw_text": "Turn-Taking Tally - Name: Jaylen - Session: 1:1 with therapist - Activity: Thomas trains - Date: 2026-04-10\n1. Pass Gordon -> Yes -> brief wait, smiled\n2. Pass Percy -> No -> grabbed back quickly\n3. Share track -> Yes -> allowed adult turn\n4. Pass Gordon -> No -> protested briefly\n5. Build tunnel -> Yes -> longest wait so far\nTotal waited: 3 / 5 (60%)",
+    "task_items": [
+      {"item": "Pass Gordon to adult", "response": "waited, smiled", "correct": true},
+      {"item": "Pass Percy to adult", "response": "grabbed back quickly", "correct": false},
+      {"item": "Share track segment", "response": "allowed adult turn", "correct": true},
+      {"item": "Pass Gordon a second time", "response": "protested briefly", "correct": false},
+      {"item": "Build tunnel together", "response": "longest wait of the session", "correct": true}
+    ],
+    "total_items": 5,
+    "correct_items": 3,
+    "accuracy_pct": 60,
+    "teacher_notes": "1:1 therapist session with Thomas trains. Jaylen successfully took turns in 3 of 5 opportunities — a real improvement from the start of March, when he was only hitting 1 in 5. The two misses were both with his favorite engine (Gordon) on one pass and Percy on another — losing his favorite engines is still the hardest turn-taking case. The 'longest wait so far' note on the tunnel-building activity is the notable gain: he stayed regulated and engaged during a collaborative step, which is a new skill.",
+    "engagement_indicators": [
+      "parallel-to-collaborative transition during tunnel building",
+      "brief protest but no full meltdown on 2 missed turns",
+      "Gordon and Percy still the hardest items to share",
+      "smiled during the Gordon pass success"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G3",
+        "reasoning": "This is the exact measurement instrument specified in Jaylen's G3 goal: therapist observation of turn-taking during preferred activities (trains), 4 out of 5 opportunities per session. Today he hit 3 of 5, which is 60% and below the 80% target — but up from the 40% trial on 2026-03-29.",
+        "trials": 5,
+        "successes": 3,
+        "percentage": 60
+      }
+    ],
+    "overall_summary": "Jaylen is at 60% on G3 turn-taking today — below target but trending the right direction, with a notable gain in sustained collaborative play during the tunnel-building step."
+  },
+  "analyses": [
+    {
+      "trend": "improving",
+      "current_average": 44.0,
+      "sessions_analyzed": 6,
+      "confidence": "medium",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Jaylen is at 60% on Goal G3 (turn-taking / social reciprocity) in today's 1:1 therapy session. That is below his 80% target but represents a real pattern shift from the start of March — he was at 20% twice in a row on 03-15 and 03-22, hit 40% on 03-29, then jumped to the 80% therapist-observed level on 04-03. Today's 60% sits between those two data points. The story is specific to Jaylen: his top interest is Thomas the Tank Engine, specifically Gordon and Percy. Both missed turns today were exactly those engines — Percy (grabbed back immediately) and Gordon on the second pass (brief protest). Losing his highest-value items is still the hardest turn-taking case. The real signal, though, is the tunnel-building step marked 'longest wait so far' — Jaylen stayed regulated and engaged through a collaborative construction step with the adult, which is a different behavior than passing an item back and forth. He is starting to tolerate collaborative play, not just forced turn-taking.",
+      "recommendation": "Keep the 1:1 therapist condition the same — Thomas trains as the target activity is working because it is motivating enough for Jaylen to stay in the interaction. For the next session, try a non-Gordon, non-Percy engine as the initial turn-taking pair (Thomas himself, or James) to scaffold success before re-introducing his two favorites. Expand the tunnel-building collaborative step by another minute next session — that is where the biggest gain lives.",
+      "thinking": "Jaylen's G3 progression (turn-taking during preferred activities, 5-opportunity sessions):\n1. Baseline (2025-10-15): 20%\n2. 2026-03-15: 20% — resists peers, monopolizes spinning toy\n3. 2026-03-22: 20% — parallel play only\n4. 2026-03-29: 40% — 1:1 adult turn-taking with trains improving\n5. 2026-04-01: 60% — brief peer exchanges emerging\n6. 2026-04-03: 80% — therapist session, TARGET REACHED\n7. 2026-04-10: 60% — today\n\nThe key detail for Jaylen is item-specificity. His profile is extremely clear: 'Thomas the Tank Engine (specifically Gordon and Percy)' — those two engines are named explicitly as his highest-value items. Today's misses were:\n- Item 2 (Percy): grabbed back immediately. This is losing his second-favorite engine.\n- Item 4 (Gordon, second pass): protested briefly. This is losing his favorite engine on a re-ask.\n\nThe three successes involved:\n- Gordon on the FIRST pass (he had not yet had to repeat the behavior)\n- A generic track segment (not a named engine)\n- Tunnel building (collaborative construction, not item handover)\n\nThis tells me Jaylen's actual turn-taking ceiling is 'one pass of a preferred item, then collaborative play.' That is different from the IEP goal wording ('4 out of 5 consecutive opportunities'). The goal wording pushes for repeated handovers of the same item, and the data says repeated handovers of Gordon/Percy specifically is where he breaks.\n\nAlso worth noting: his sensory profile lists deep pressure and spinning as seeks, and his calming strategies are body sock, sensory swing, and chew tube. None of those were needed today — he protested briefly on item 4 but did not need a full sensory reset. That is a regulation gain even on a 60% session.\n\nConfidence: Medium. The trend is up overall but the session-to-session variance is still high (80 -> 60), and the ceiling is item-specific rather than skill-general.",
+      "goal_id": "G3",
+      "student_id": "jaylen_2026"
+    }
+  ],
+  "alerts": []
+}

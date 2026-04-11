@@ -1,0 +1,55 @@
+{
+  "student_id": "maya_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\maya_reading_comprehension.png",
+  "date": "2026-04-10",
+  "transcription": {
+    "student_name": "Maya",
+    "work_type": "worksheet",
+    "subject": "reading",
+    "raw_text": "Reading Time - Name: Maya\nPassage: Blue is a raptor. Blue lives in a big park. Blue likes to run fast. Blue eats fish for lunch. At night, Blue sleeps in a warm nest.\n---\n1. Circle the name. Then write it. -> Blue\n2. Underline what Blue eats. Then draw it. -> fish\n3. Where does Blue sleep? Write it. -> nest\n4. What does Blue like to do? Draw it. -> [skipped]\n5. Is Blue fast? Circle yes or no. -> yes\n---\nTeacher notes: Maya used her raptor interest to sustain attention through the whole passage. Completed 4 of 5 two-step questions independently. Question 4 was skipped when the second step (draw) was introduced mid-task and she did not return to it. Picture-free passage was a step up from her usual scaffolded reading.",
+    "task_items": [
+      {"item": "Circle the name. Then write it.", "response": "Blue", "correct": true},
+      {"item": "Underline what Blue eats. Then draw it.", "response": "fish", "correct": true},
+      {"item": "Where does Blue sleep? Write it.", "response": "nest", "correct": true},
+      {"item": "What does Blue like to do? Draw it.", "response": "", "correct": false},
+      {"item": "Is Blue fast? Circle yes or no.", "response": "yes", "correct": true}
+    ],
+    "total_items": 5,
+    "correct_items": 4,
+    "accuracy_pct": 70,
+    "teacher_notes": "Maya stayed engaged through the full passage because it featured Blue the raptor. Four of five two-step questions completed independently; question 4 skipped when the 'then draw' step was added.",
+    "engagement_indicators": [
+      "sustained attention on raptor-themed passage",
+      "independent completion of written answers",
+      "dropped second step on question 4"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G2",
+        "reasoning": "Each comprehension question contained a two-step verbal direction (circle/underline + write/draw). Maya followed both steps on 4 of 5 items, which is a direct measure of her G2 following-directions goal embedded in a reading context.",
+        "trials": 5,
+        "successes": 4,
+        "percentage": 70
+      }
+    ],
+    "overall_summary": "Maya is close to her G2 target (75%) at 70% accuracy on two-step directions, with the dinosaur-themed passage sustaining attention long enough to get through the whole task."
+  },
+  "analyses": [
+    {
+      "trend": "improving",
+      "current_average": 61.2,
+      "sessions_analyzed": 6,
+      "confidence": "medium",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Maya is at 70% on Goal G2 (following two-step verbal directions), just shy of the 75% target. Today's reading probe is meaningful because the two-step directions were embedded in the questions themselves (circle + write, underline + draw) rather than delivered verbally by the teacher. Maya completed 4 of 5 independently. The one miss was question 4, where the 'then draw' step was introduced without a visual anchor and she moved on without returning. This matches the pattern we have been watching: Maya's direction-following holds up as long as the second step is visible on the page. Strategically, the raptor passage is doing real work here — Blue the raptor is the highest-value reinforcer on her profile, and pairing it with a direction-following probe let us measure the goal under higher-attention conditions without having to add a sticker prompt.",
+      "recommendation": "Run the same probe next week with a similar high-interest passage but without the embedded visual scaffold on the second step, to see if mastery is transferring. If Maya holds at 70%+ in that condition, we can call G2 at target.",
+      "thinking": "Maya's G2 progression (following two-step verbal directions):\n1. Baseline (2025-10-15): 45%\n2. 2026-03-15: 50%\n3. 2026-03-22: 38% (dip — new peer buddy split attention)\n4. 2026-03-29: 50%\n5. 2026-04-01: 63%\n6. 2026-04-03: 75% (target reached with visual scaffold)\n7. 2026-04-10: 70% (today — embedded two-step in reading)\n\nWhat this probe tells me specifically about Maya: the two-step structure was inside the questions, not delivered verbally. She did 4/5 which is functionally equivalent to her 03-22 dip but under different conditions — this time she was following printed two-step directions, not verbal-only. That is actually a generalization gain even though the percentage dropped slightly from 04-03.\n\nThe missed item (question 4) is the most diagnostic: the first step was 'What does Blue like to do?' (answer in text) and the second step was 'Draw it.' Maya skipped it entirely rather than doing one step and moving on. That suggests she read the full two-step, couldn't decide how to execute both, and abandoned the whole item. This is a working-memory signal, not a motivation signal — the raptor passage kept her engaged throughout.\n\nThe Blue-the-raptor passage is doing heavy lifting. Maya's profile lists 'Jurassic World raptors (specifically Blue the raptor)' as her #1 interest. Pairing her highest-interest content with a direction-following probe is exactly the right move for a G2 assessment under maximum-attention conditions. Next probe should control for this — same instruction format, lower-interest content — to see if we've hit true mastery or context-dependent mastery.\n\nConfidence: Medium. The target was hit on 04-03 and nearly hit again today under harder generalization conditions, but two measurements is not a trend.",
+      "goal_id": "G2",
+      "student_id": "maya_2026"
+    }
+  ],
+  "alerts": []
+}

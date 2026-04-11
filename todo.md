@@ -28,7 +28,7 @@
 - [ ] Jeff approval for release readiness after Path B hardening
 
 ## Jeff Open Questions (needed before Sprint 6 can start)
-- [ ] Resolve port 8000 conflict (kill ulana.main or commit to 8001)
+- [x] Resolve port 8000 conflict (8001 is now canonical for this project)
 - [ ] Confirm Sarah's content status (profiles + video segments)
 - [ ] Confirm deploy target (local + OpenRouter vs. other)
 - [ ] Clarify "release ready" — demo-ready or production-ready?

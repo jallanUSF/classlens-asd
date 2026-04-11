@@ -13,40 +13,51 @@ WIN. This is not production software. It's a demo that needs to:
 4. Tell a compelling human story (70% of score is non-technical)
 
 ## Tech Stack Context
-- **Model:** Google Gemma 4 via Google AI Studio API (`google.genai` client)
-  - Primary: `gemma-4-27b-it` (multimodal + function calling + thinking)
-  - Edge demo: `gemma-4-e4b` via Ollama (Special Tech track)
-- **Language:** Python 3.11+
-- **Framework:** Streamlit (demo app)
-- **Charts:** Plotly (dashboard + admin reports)
-- **Data:** Pydantic v2 models + JSON files (no database)
-- **Deploy:** Streamlit Community Cloud (free, public URL)
+
+### Current (active development — nextjs-redesign branch)
+- **Model:** Google Gemma 4 via OpenRouter (`google/gemma-3-27b-it`) through the shared `core/gemma_client.py` OpenAI-compatible client. Also supports Google AI Studio (`google.genai`) and local Ollama.
+- **Backend:** Python 3.11+ with FastAPI, served by uvicorn on **port 8001** (canonical — port 8000 conflicts with an unrelated process on the dev machine)
+- **Frontend:** Next.js 16 (App Router) + Tailwind + shadcn/ui. Rewrites `/api/*` to the FastAPI backend (default `API_URL=http://localhost:8001`)
+- **Charts:** Plotly in the dashboard
+- **Data:** Pydantic v2 models + JSON files in `data/` (no database)
 - **NO LangChain, NO LangGraph, NO CrewAI** — direct API calls only
+
+### Future (Kaggle submission form factor — triggered only by Jeff's explicit approval)
+- **Framework:** Streamlit + Streamlit Community Cloud (stub code already lives under `ui/` and `app.py` from the pre-redesign era)
+- Do NOT touch Streamlit code or Kaggle submission artifacts until Jeff releases the gate. The current Next.js + FastAPI stack is what we run and test against.
 
 ## Commands
 ```bash
-# Install
+# Install (Python)
 pip install -r requirements.txt
 
-# Run the app
-streamlit run app.py
+# Install (frontend)
+cd frontend && npm install
+
+# Run backend (canonical port 8001)
+python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001
+
+# Run frontend (in a second terminal)
+cd frontend && npm run dev
 
 # Run tests (pytest with fixtures in tests/conftest.py)
-pytest
-pytest tests/test_specific.py           # single file
-pytest tests/test_specific.py::test_fn  # single test
+python -m pytest tests/ -q
+python -m pytest tests/test_backend_security.py -v   # security + sanitization suite
 
-# Smoke test the full pipeline offline
+# Live end-to-end smoke test (requires backend running on 8001)
+python scripts/cold_boot_smoke.py
+
+# Offline pipeline smoke test (no backend needed)
 python scripts/test_pipeline.py
 
-# Test Gemma 4 API access
+# Test Gemma API access
 python -c "from core.gemma_client import GemmaClient; c = GemmaClient(); print(c.generate('Hello'))"
 
-# Generate precomputed demo results
-python scripts/precompute_demo.py
+# Frontend build
+cd frontend && npx next build
 ```
 
-Environment: copy `.env.example` to `.env` and set `GOOGLE_AI_STUDIO_KEY`.
+Environment: copy `.env.example` to `.env`, set `MODEL_PROVIDER=openrouter` and `OPENROUTER_API_KEY=...` (or `GOOGLE_AI_STUDIO_KEY=...` if using Google AI Studio). Frontend reads `API_URL` from `frontend/.env.local` (defaults to `http://localhost:8001`).
 
 ## Architecture
 
@@ -73,11 +84,11 @@ The pipeline runs sequentially: image in → structured data out → materials g
 - `tests/gold_standard_outputs.json` — Expected outputs for validation
 
 ### Sample Data
-Three demo students in `data/students/`: `maya_2026.json` (Grade 3, Level 2), `jaylen_2026.json` (Grade 1, Level 3, non-verbal), `sofia_2026.json` (Grade 5, Level 1). Sample work images in `data/sample_work/`.
+Seven demo students in `data/students/`. Core three: `maya_2026.json` (Grade 3, Level 2), `jaylen_2026.json` (Grade 1, Level 3, non-verbal), `sofia_2026.json` (Grade 5, Level 1). Four additional: `amara`, `ethan`, `lily`, `marcus`. Sample work images in `data/sample_work/` — all seven have matching precomputed JSONs in `data/precomputed/` so the demo never waits on a live API call.
 
 ### UI Layer
-- `ui/` module — Streamlit components and page layouts (stub, being built)
-- `.streamlit/config.toml` — Theme (calm colors), security settings (XSRF, CORS disabled, 10MB upload limit)
+- **Active:** `frontend/` — Next.js 16 App Router, calls the FastAPI backend via `/api/*` rewrites (default `API_URL=http://localhost:8001`)
+- **Dormant (Kaggle-only):** `ui/` Streamlit stub and `app.py` — do not touch until Jeff approves the release gate and we transition to the Kaggle submission form factor
 
 ## Critical Rules
 1. **Pre-baked demo mode:** All sample images have pre-computed results cached. Demo NEVER waits for API.

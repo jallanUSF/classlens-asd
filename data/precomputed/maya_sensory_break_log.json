@@ -1,0 +1,56 @@
+{
+  "student_id": "maya_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\maya_sensory_break_log.png",
+  "date": "2026-04-10",
+  "transcription": {
+    "student_name": "Maya",
+    "work_type": "log",
+    "subject": "self_regulation",
+    "raw_text": "Sensory Break Log - Name: Maya - Date: 2026-04-10\n9:10 Morning circle -> Yes - self -> weighted pad\n10:20 Math centers -> Yes - self -> headphones\n11:05 Transition -> No - prompted -> fidget cube\n12:40 After lunch -> Yes - self -> weighted pad\n2:15 Art room -> Yes - self -> headphones\nOutbursts today: 1 (brief, recovered with pad)",
+    "task_items": [
+      {"item": "9:10 Morning circle break request", "response": "self-requested weighted pad", "correct": true},
+      {"item": "10:20 Math centers break request", "response": "self-requested headphones", "correct": true},
+      {"item": "11:05 Transition break request", "response": "prompted to use fidget cube", "correct": false},
+      {"item": "12:40 After-lunch break request", "response": "self-requested weighted pad", "correct": true},
+      {"item": "2:15 Art room break request", "response": "self-requested headphones", "correct": true}
+    ],
+    "total_items": 5,
+    "correct_items": 4,
+    "accuracy_pct": 80,
+    "teacher_notes": "Maya self-initiated 4 of 5 sensory break requests across the day. Only 1 brief outburst (recovered within 2 minutes once she got the weighted pad). The prompted break at 11:05 was during transition to recess — still her hardest transition of the day. Art room visit went well with headphones on from the start.",
+    "engagement_indicators": [
+      "self-initiated sensory requests",
+      "paired each request with an effective calming tool",
+      "only 1 outburst this school day",
+      "still needed prompt for recess transition"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G3",
+        "reasoning": "The sensory break log is the primary measurement instrument for Maya's self-regulation goal. Today she had 1 outburst (target is 1 or fewer per day) and independently accessed calming tools 4 of 5 times, matching the profile of a student meeting the G3 target under normal conditions.",
+        "trials": 5,
+        "successes": 4,
+        "percentage": 80
+      }
+    ],
+    "overall_summary": "Maya is at target on G3 (self-regulation / outburst reduction): 1 outburst today, 80% independent sensory tool access, still needs support for the recess transition."
+  },
+  "analyses": [
+    {
+      "trend": "improving",
+      "current_average": 64.0,
+      "sessions_analyzed": 6,
+      "confidence": "high",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Maya is now consistently at or above the G3 target (1 or fewer outbursts per school day). Today she had 1 brief outburst and recovered in under 2 minutes with the weighted lap pad. More importantly, she independently requested a sensory tool 4 out of 5 opportunities — the weighted pad and noise-canceling headphones are clearly her preferred regulation strategies, and the fidget cube sits in third place. The one prompted break was during the transition to recess, which remains her hardest transition of the day. Maya's profile shows she seeks proprioceptive input and deep pressure, and her self-selected tools (weighted pad twice, headphones twice) line up exactly with that sensory profile — she is not just grabbing the nearest tool, she is choosing what works for her.",
+      "recommendation": "Maintain the current weighted-pad + headphones combo. Add a pre-recess sensory primer routine (2 minutes of deep pressure before the transition) to close the one remaining gap. Maya is a good candidate to move from teacher-logged breaks to student-logged breaks on a simple tally sheet — she is clearly self-aware enough to track her own requests.",
+      "thinking": "Maya's G3 progression (outburst reduction, average per day):\n1. Baseline (2025-10-15): 3.2 outbursts/day\n2. 2026-03-15: 2.4/day — fluorescent art room lights triggering\n3. 2026-03-22: 2.6/day — recess transition still difficult\n4. 2026-03-29: 1.8/day — fire drill caused 2 major meltdowns but weighted vest recovery\n5. 2026-04-01: 1.2/day — headphones working well\n6. 2026-04-03: 0.2/day — 1 outburst the whole week\n7. 2026-04-10: 1/day today — consistent with target\n\nWhat I am weighing:\n- Maya's sensory profile seeks proprioceptive input and deep pressure. Today's log shows she chose the weighted lap pad 2 times and headphones 2 times out of 4 self-requests. Those map 1:1 to her seek/avoid profile (weighted = proprioceptive, headphones = noise avoidance). The fidget cube (3rd choice) also maps but is lower-preference.\n- The one prompted request was at 11:05 for the transition, and transitions to recess have been flagged multiple times in the trial history. This is the stable gap.\n- Only 1 outburst today, brief, recovered quickly with the pad — this is the target behavior per her IEP (1 or fewer/day, under 5 minutes).\n- Art room visit went well today because she had headphones on from the start. Earlier trial notes called out fluorescent lights in the art room as a specific trigger; that trigger is now being neutralized proactively.\n\nConfidence: High. Maya has strung together enough days at or below target (04-03 and 04-10) that the trend is real, and her tool selection is rationally matched to her sensory profile rather than random grabbing.",
+      "goal_id": "G3",
+      "student_id": "maya_2026"
+    }
+  ],
+  "alerts": []
+}

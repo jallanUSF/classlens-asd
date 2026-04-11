@@ -1,0 +1,62 @@
+{
+  "student_id": "jaylen_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\sample_work\\jaylen_choice_board.png",
+  "date": "2026-04-10",
+  "transcription": {
+    "student_name": "Jaylen",
+    "work_type": "log",
+    "subject": "communication",
+    "raw_text": "Choice Board Log - Name: Jaylen - Date: 2026-04-10\n8:45 Snack - crackers -> AAC device -> Yes\n9:15 Activity - trains -> PECS card -> Yes\n9:40 Break -> AAC device -> Yes\n10:10 Snack - juice -> Pointed -> No - prompt\n10:35 Activity - spin -> AAC device -> Yes\n11:00 Sensory swing -> AAC device -> Yes\n11:30 Snack - pretzel -> PECS card -> Yes\n12:00 Activity - Thomas -> AAC device -> Yes\n12:35 Break -> Cried -> No - prompt\n1:10 Water -> AAC device -> Yes\n1:45 Thomas trains -> AAC device -> Yes",
+    "task_items": [
+      {"item": "8:45 cracker request", "response": "AAC device - independent", "correct": true},
+      {"item": "9:15 train activity request", "response": "PECS card - independent", "correct": true},
+      {"item": "9:40 break request", "response": "AAC device - independent", "correct": true},
+      {"item": "10:10 juice request", "response": "pointed only, needed prompt to use AAC", "correct": false},
+      {"item": "10:35 spinning activity request", "response": "AAC device - independent", "correct": true},
+      {"item": "11:00 sensory swing request", "response": "AAC device - independent", "correct": true},
+      {"item": "11:30 pretzel request", "response": "PECS card - independent", "correct": true},
+      {"item": "12:00 Thomas activity request", "response": "AAC device - independent", "correct": true},
+      {"item": "12:35 break request", "response": "cried, needed prompt to access AAC", "correct": false},
+      {"item": "1:10 water request", "response": "AAC device - independent", "correct": true},
+      {"item": "1:45 Thomas trains request", "response": "AAC device - independent", "correct": true}
+    ],
+    "total_items": 11,
+    "correct_items": 8,
+    "accuracy_pct": 73,
+    "teacher_notes": "Jaylen made 11 of his 15 daily communication opportunities through the choice board today. 8 were independent (AAC or PECS) and 2 required prompting — one was a cafeteria juice request where he reverted to pointing, and one was a break request where he cried before we could get the AAC device to him. The Thomas icons on the AAC are clearly his go-to — any train or Thomas-related request came through the device without hesitation.",
+    "engagement_indicators": [
+      "independent AAC use for preferred items (Thomas, spin, trains)",
+      "PECS still functional for cafeteria routine",
+      "regression to pointing under cafeteria sensory load",
+      "cried before accessing AAC for urgent break request"
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [
+      {
+        "goal_id": "G1",
+        "reasoning": "The choice board log is the exact measurement instrument for Jaylen's AAC communication goal (teacher observation + AAC device log). Today's rate is 8 independent AAC/PECS requests out of 11 opportunities, which is 73% — 7 percentage points below the 80% target.",
+        "trials": 11,
+        "successes": 8,
+        "percentage": 73
+      }
+    ],
+    "overall_summary": "Jaylen is at 73% on G1 AAC requests today — just below his 80% target. Preferred-item requests (Thomas, trains, spin) are rock-solid on the AAC; cafeteria and urgent-need requests are the weak spots."
+  },
+  "analyses": [
+    {
+      "trend": "mixed",
+      "current_average": 68.8,
+      "sessions_analyzed": 6,
+      "confidence": "medium",
+      "alert": false,
+      "alert_message": "",
+      "progress_note": "Jaylen is at 73% today on Goal G1 (AAC/PECS requests), a small step back from the 80% target he hit on 2026-04-03. Looking at the full day, the story is not regression — it's a split between two conditions. For preferred-item requests (Thomas trains, spinning, sensory swing) he used the AAC device independently every single time, which is a huge gain because Thomas is his highest-value reinforcer and these are exactly the functional communication moments we want. The two misses both happened under load: the 10:10 juice request in the cafeteria (where he reverted to pointing, a known pattern under sensory stress — bright lights and high-pitched cafeteria sounds are both on his avoid list) and the 12:35 break request where he cried before we could hand him the device. The second miss is the most instructive: he needed a break urgently and his fastest communication channel was still distress crying, not AAC. That is the gap to close next.",
+      "recommendation": "Keep the Thomas-icon AAC page as-is — it is clearly working. Put a dedicated, always-visible 'break' icon on his primary AAC home screen so he can access it without navigation when he is already escalating. For the cafeteria, pre-position the PECS book open to the drink page before lunch so he does not have to bridge from pointing to a cold AAC device under sensory load.",
+      "thinking": "Jaylen's G1 progression (AAC requests, % independent):\n1. Baseline (2025-10-15): 35%\n2. 2026-03-15: 33% — relies on gestures\n3. 2026-03-22: 47% — AAC for snack choice emerging\n4. 2026-03-29: 60% — Thomas stickers as reinforcer\n5. 2026-04-01: 73% — consistent AAC for transitions\n6. 2026-04-03: 80% — TARGET REACHED, spontaneous activity requests\n7. 2026-04-10: 73% — today\n\nWhat I am looking at for Jaylen specifically:\n- His profile lists Thomas the Tank Engine (Gordon and Percy specifically), spinning wheels, deep pressure, and the number 5 as his primary interests. His successful AAC requests today map directly to that list: trains (2x), Thomas (1x), spin (1x), sensory swing for vestibular/deep pressure (1x). Preferred-item requests are solved.\n- Avoids on his profile include bright overhead lights and high-pitched sounds — both of which describe a school cafeteria. The 10:10 juice request is the second cafeteria miss in this trial window (see 2026-03-22 note: 'still prefers gesture for most requests'). The cafeteria environment is disrupting communication, not Jaylen's AAC skill.\n- The 12:35 crying-before-AAC is different — that is an urgency/access problem, not a sensory problem. If his preferred channel under distress is still crying, the AAC break button is not on the right page or not immediate enough.\n\nThe 73% today is not a regression from 80%; it is the same student being measured under harder conditions. He had 15 opportunities logged in the profile and 11 observations today — the two misses were both high-stress moments. Under low-stress preferred-item conditions he was 100%.\n\nConfidence: Medium. The trend is still positive week-over-week but the path is context-dependent, and we need 2-3 more data points before I would call this stable near target.",
+      "goal_id": "G1",
+      "student_id": "jaylen_2026"
+    }
+  ],
+  "alerts": []
+}
