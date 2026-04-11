@@ -116,12 +116,24 @@ class ClassLensPipeline:
             return json.load(f)
 
     def _load_precomputed(self, image_path: str) -> Optional[dict]:
-        """Check if we have precomputed results for this image."""
+        """Check if we have precomputed results for this image.
+
+        Tries the full stem first, then strips date/type prefixes to match
+        original filenames (e.g., '2026-04-06_worksheet_maya_math' -> 'maya_math').
+        """
         cache_key = self._cache_key(image_path)
         cache_path = self.precomputed_dir / f"{cache_key}.json"
         if cache_path.exists():
             with open(cache_path, "r") as f:
                 return json.load(f)
+        # Fallback: strip date_worktype_ prefix from uploaded filenames
+        stem = Path(image_path).stem
+        parts = stem.split("_", 2)  # e.g., ["2026-04-06", "worksheet", "maya_math_worksheet"]
+        if len(parts) == 3:
+            fallback_path = self.precomputed_dir / f"{parts[2]}.json"
+            if fallback_path.exists():
+                with open(fallback_path, "r") as f:
+                    return json.load(f)
         return None
 
     def _save_precomputed(self, image_path: str, result: dict):

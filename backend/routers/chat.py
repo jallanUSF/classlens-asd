@@ -8,8 +8,11 @@ import os
 from pathlib import Path
 from typing import Any
 
+from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+
+load_dotenv()
 
 router = APIRouter(tags=["chat"])
 
@@ -121,6 +124,10 @@ async def chat(req: ChatRequest) -> dict[str, Any]:
             response_text = _mock_response(req.message, req.student_id)
     except Exception as e:
         response_text = f"I'm having trouble connecting to the model right now. Error: {str(e)}"
+
+    # Strip stray HTML tags that models occasionally emit
+    import re
+    response_text = re.sub(r"</?(?:td|tr|table|div|span|p|br)\s*/?>", "", response_text).strip()
 
     return {
         "role": "assistant",

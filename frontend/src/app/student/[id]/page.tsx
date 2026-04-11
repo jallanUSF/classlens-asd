@@ -207,7 +207,7 @@ export default function StudentDetailPage() {
       </section>
 
       {/* Quick Actions sticky footer */}
-      <QuickActions studentName={student.name} />
+      <QuickActions studentName={student.name} studentId={student.student_id} />
     </div>
   );
 }

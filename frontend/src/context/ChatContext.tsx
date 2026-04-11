@@ -22,6 +22,8 @@ interface ChatContextValue {
   prefillInput: (text: string) => void;
   pendingInput: string;
   clearPendingInput: () => void;
+  /** Upload a work image and run the capture pipeline */
+  uploadWork: (file: File, studentId: string, workType?: string, subject?: string) => Promise<void>;
 }
 
 const ChatContext = createContext<ChatContextValue | null>(null);
@@ -30,7 +32,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const [activeStudentId, setActiveStudentId] = useState<string | null>(null);
   const [pendingInput, setPendingInput] = useState("");
 
-  const { messages, sendMessage, isStreaming, addContextMessage } = useChat({
+  const { messages, sendMessage, isStreaming, addContextMessage, uploadWork } = useChat({
     studentId: activeStudentId,
   });
 
@@ -58,6 +60,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         prefillInput,
         pendingInput,
         clearPendingInput,
+        uploadWork,
       }}
     >
       {children}

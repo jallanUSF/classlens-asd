@@ -3,12 +3,16 @@ Capture endpoint — upload student work image and run the analysis pipeline.
 """
 
 import json
+import os
 import shutil
 from datetime import date
 from pathlib import Path
 from typing import Optional
 
+from dotenv import load_dotenv
 from fastapi import APIRouter, File, Form, UploadFile, HTTPException
+
+load_dotenv()
 
 router = APIRouter(tags=["capture"])
 

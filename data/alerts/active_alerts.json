@@ -1,6 +1,6 @@
 [
   {
-    "id": "36e0ba62",
+    "id": "173f7c48",
     "student_id": "amara_2026",
     "alert_type": "plateau",
     "goal_id": "G2",
@@ -11,7 +11,7 @@
     "dismissed": false
   },
   {
-    "id": "af80df61",
+    "id": "79a4fa14",
     "student_id": "ethan_2026",
     "alert_type": "plateau",
     "goal_id": "G2",
@@ -22,7 +22,7 @@
     "dismissed": false
   },
   {
-    "id": "b0aab71a",
+    "id": "916e098b",
     "student_id": "maya_2026",
     "alert_type": "plateau",
     "goal_id": "G1",
@@ -33,7 +33,7 @@
     "dismissed": false
   },
   {
-    "id": "693d91a9",
+    "id": "3f44bfa2",
     "student_id": "maya_2026",
     "alert_type": "plateau",
     "goal_id": "G2",
