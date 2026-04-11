@@ -1,6 +1,6 @@
 """
 GemmaClient: Thin wrapper around Google AI Studio's Gemini API for Gemma 4.
-Supports: text, multimodal (image+text), function calling, thinking mode.
+Supports: text, multimodal (image+text), function calling, thinking mode, streaming.
 
 Provider backends:
   - google (default): Google AI Studio via google.genai
@@ -15,7 +15,7 @@ import os
 import json
 import logging
 from pathlib import Path
-from typing import Optional
+from typing import Iterator, Optional
 
 from dotenv import load_dotenv
 
@@ -133,6 +133,22 @@ class GemmaClient:
             return self._google_generate_with_tools(prompt, tools, system, image_path)
         return self._openai_generate_with_tools(prompt, tools, system, image_path)
 
+    def generate_stream(
+        self,
+        prompt: str,
+        system: Optional[str] = None,
+    ) -> Iterator[str]:
+        """
+        Streaming text generation. Yields text chunks as the model produces them.
+
+        Used by the chat endpoint for Server-Sent Events. On providers without
+        native streaming the generator yields the full response as a single chunk.
+        """
+        if self.provider == "google":
+            yield from self._google_generate_stream(prompt, system)
+        else:
+            yield from self._openai_generate_stream(prompt, system)
+
     def generate_with_thinking(
         self,
         prompt: str,
@@ -241,6 +257,21 @@ class GemmaClient:
                 }
         return {"text": response.text}
 
+    def _google_generate_stream(
+        self, prompt: str, system: Optional[str] = None
+    ) -> Iterator[str]:
+        from google.genai import types
+        config = types.GenerateContentConfig(
+            system_instruction=system
+        ) if system else None
+        for chunk in self.client.models.generate_content_stream(
+            model=self.model,
+            contents=prompt,
+            config=config,
+        ):
+            if chunk.text:
+                yield chunk.text
+
     def _google_generate_with_thinking(
         self, prompt: str, system: Optional[str] = None
     ) -> dict:
@@ -282,6 +313,25 @@ class GemmaClient:
             messages=messages,
         )
         return response.choices[0].message.content
+
+    def _openai_generate_stream(
+        self, prompt: str, system: Optional[str] = None
+    ) -> Iterator[str]:
+        """Streaming text generation via OpenAI-compatible API."""
+        messages = []
+        if system:
+            messages.append({"role": "system", "content": system})
+        messages.append({"role": "user", "content": prompt})
+
+        stream = self.client.chat.completions.create(
+            model=self.model,
+            messages=messages,
+            stream=True,
+        )
+        for chunk in stream:
+            delta = chunk.choices[0].delta.content if chunk.choices else None
+            if delta:
+                yield delta
 
     def _openai_generate_multimodal(
         self, image_path: str, prompt: str, system: Optional[str] = None

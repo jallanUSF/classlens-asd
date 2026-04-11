@@ -1,9 +1,16 @@
 """
 Document upload endpoints — IEP PDFs and other student documents.
-Gemma 4 extracts goals and accommodations from uploaded documents.
+
+On upload, Gemma 4 multimodal + function calling reads the document page(s)
+and extracts IEP goals, accommodations, and any student demographic fields
+that are visible. The extracted content is returned to the client and saved
+alongside the raw file so it can be displayed in the Add Student flow and
+reused by the chat assistant.
 """
 
 import json
+import logging
+import os
 from datetime import date
 from pathlib import Path
 from typing import Any
@@ -16,9 +23,26 @@ from backend.upload_utils import (
     validate_upload,
 )
 
+logger = logging.getLogger(__name__)
+
 router = APIRouter(tags=["documents"])
 
 DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data"
+
+
+def _get_extractor():
+    """Build an IEPExtractor with whichever client the environment allows."""
+    from agents.iep_extractor import IEPExtractor
+
+    if os.getenv("OPENROUTER_API_KEY") or (
+        os.getenv("GOOGLE_AI_STUDIO_KEY")
+        and os.getenv("GOOGLE_AI_STUDIO_KEY") != "your_api_key_here"
+    ):
+        from core.gemma_client import GemmaClient
+        return IEPExtractor(GemmaClient())
+
+    from tests.mock_api_responses import MockGemmaClient
+    return IEPExtractor(MockGemmaClient())
 
 
 @router.post("/documents/upload")
@@ -28,8 +52,13 @@ async def upload_document(
     file: UploadFile = File(...),
 ) -> dict[str, Any]:
     """
-    Upload an IEP document (PDF or image).
-    Gemma 4 multimodal extracts goals, accommodations, and present levels.
+    Upload an IEP document (PDF or image) and extract its contents.
+
+    The uploaded file is persisted under data/documents/<student_id>/. After
+    the file is saved, Gemma 4 multimodal extracts IEP goals, accommodations,
+    and any student demographic fields that appear on the first two pages.
+    The extracted content is returned in the ``extraction`` field and cached
+    to disk as a sidecar JSON.
     """
     student_id = validate_student_id(student_id)
     safe_name, file_bytes = validate_upload(file, DOCUMENT_EXTENSIONS)
@@ -44,19 +73,48 @@ async def upload_document(
     with open(file_path, "wb") as f:
         f.write(file_bytes)
 
-    extraction = {
+    # Run the real extraction. Never raise — degrade to an empty extraction
+    # so the upload flow still succeeds if the model is unreachable.
+    extraction: dict[str, Any]
+    try:
+        extractor = _get_extractor()
+        extraction = extractor.extract(
+            document_path=str(file_path),
+            source_filename=safe_name,
+        )
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("IEP extraction failed for %s: %s", file_path, exc)
+        extraction = {
+            "student_name": "",
+            "grade": None,
+            "asd_level": None,
+            "communication_level": "",
+            "interests": [],
+            "iep_goals": [],
+            "accommodations": [],
+            "notes": f"Extraction failed: {exc}",
+        }
+
+    goal_count = len(extraction.get("iep_goals") or [])
+    accom_count = len(extraction.get("accommodations") or [])
+
+    response: dict[str, Any] = {
         "status": "uploaded",
         "file_path": str(file_path),
         "doc_type": doc_type,
         "upload_date": today,
-        "message": "Document uploaded. Use the chat assistant to extract goals and accommodations.",
+        "extraction": extraction,
+        "message": (
+            f"Extracted {goal_count} IEP goal(s) and {accom_count} "
+            f"accommodation(s) from {safe_name}."
+        ),
     }
 
     record_path = docs_dir / f"{doc_type}_{today}.json"
     with open(record_path, "w") as f:
-        json.dump(extraction, f, indent=2)
+        json.dump(response, f, indent=2)
 
-    return extraction
+    return response
 
 
 @router.get("/students/{student_id}/documents")

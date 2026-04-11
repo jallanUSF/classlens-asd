@@ -14,6 +14,20 @@ Architecture:
 """
 
 # ============================================================================
+# LANGUAGE SUPPORT (parent communications)
+# ============================================================================
+# Maps ISO-639 codes → human-readable English names that Gemma can reason about.
+# Used by MaterialForge.generate_parent_comm to render the letter in the family's
+# preferred language. Equity angle for the Gemma for Good hackathon framing —
+# many ASD families are non-native English speakers.
+LANGUAGE_CODE_TO_NAME = {
+    "en": "English",
+    "es": "Spanish",
+    "vi": "Vietnamese",
+    "zh": "Mandarin Chinese",
+}
+
+# ============================================================================
 # SYSTEM PROMPTS (Agent Role Definitions)
 # ============================================================================
 
@@ -190,6 +204,58 @@ Special rules by output type:
 
 Never assume—if student profile doesn't include interests, say "based on available profile."
 All materials must be judgment-free and family-friendly.
+"""
+
+IEP_EXTRACTOR_SYSTEM = """You are the IEP Extractor agent in ClassLens ASD, a system for special education teachers of autistic students.
+
+Your role:
+- Read an image of one page of an IEP (Individualized Education Program) document
+- Extract IEP goals, accommodations, and student demographic information as structured JSON
+- Call the extract_iep_content function with ONLY what is actually visible on the page
+
+What you MUST know about IEP documents:
+- IEP goals are typically phrased as a condition-behavior-criterion statement:
+  "Given [X supports/context], [student] will [Y observable behavior], with [Z%] accuracy across [N] trials/sessions."
+- Common goal domains: academic (math, reading, writing), social (peer interaction, turn-taking),
+  communication (requesting, commenting, AAC use), motor (fine/gross motor, handwriting), sensory (regulation)
+- Common measurement methods: percentage (e.g., 80% accuracy), frequency (e.g., 5 times per session),
+  duration (e.g., sustained for 10 minutes), quality (e.g., with 3/4 rubric score)
+- Accommodations are environmental / instructional supports, NOT goals
+  (e.g., "extended time", "visual schedule", "noise-canceling headphones", "chunked directions")
+- Student demographics may or may not appear on the page. NEVER invent them.
+
+Extraction rules — these are NON-NEGOTIABLE:
+1. Extract every distinct goal visible on the page. If a page has 4 goals, return 4 entries.
+2. For each goal, produce a stable goal_id derived from the domain and a sequence number
+   (e.g., "COMM_01", "ACAD_02", "SOC_01").
+3. Populate baseline and target strings using the exact language from the document when possible.
+   If the IEP only shows a target ("80% across 4 sessions"), leave baseline as an empty string.
+4. Leave ANY field blank (empty string / empty array) if you cannot see it on the page.
+   NEVER guess student name, grade, ASD level, or interests.
+5. Accommodations are a flat list of short strings.
+6. Do NOT invent goals, numbers, or supports. Your output is trusted by an IEP case manager.
+
+Always call the extract_iep_content function. Do not return prose.
+"""
+
+IEP_EXTRACTOR_USER = """Read the IEP document page in the image and extract its content.
+
+PAGE CONTEXT:
+- Source file: {source_filename}
+- Page number: {page_number}
+
+INSTRUCTIONS:
+1. Scan the entire page for student demographic fields (name, grade, ASD level, communication style, interests).
+2. Locate every IEP goal on this page. For each goal, extract:
+   - A stable goal_id (domain prefix + sequence number, e.g. "COMM_01")
+   - domain (academic / social / communication / motor / sensory)
+   - description (the condition-behavior-criterion statement in one sentence)
+   - baseline (current performance if stated; empty string if not)
+   - target (the criterion for mastery, e.g. "80% accuracy across 4 of 5 sessions")
+   - measurement_method (percentage / frequency / duration / quality)
+3. Locate every accommodation / support on this page and return them as a flat list of short strings.
+4. Leave demographic fields blank if not visible. Never guess.
+5. Call the extract_iep_content function with the structured result.
 """
 
 # ============================================================================
@@ -614,6 +680,8 @@ Size: 8.5" x 11" or 5" x 7" laminated card.
 
 MATERIAL_FORGE_PARENT_COMM = """Write a progress update letter for {student_name}'s parents.
 
+IMPORTANT LANGUAGE: Write the ENTIRE letter in {language_name}. Greetings, highlights, try-at-home suggestions, closing — everything. Use culturally natural phrasing for a {language_name}-speaking family. Do not include any English text in the letter. Match the warmth and grade-appropriateness of the English version. Use warm, grade-appropriate vocabulary native to that language — do not translate word-for-word from English. Culturally adapt greetings and closings to what is natural in that language.
+
 STUDENT PROFILE:
 - Name: {student_name}
 - Grade: {grade}
@@ -949,7 +1017,8 @@ def format_material_forge_first_then_board(student_name, grade, asd_level, inter
 
 def format_material_forge_parent_comm(student_name, grade, parent_email, parent_phone,
                                        goal_description, baseline, target, measurement_method,
-                                       trial_count, success_rate, trend_direction, progress_summary):
+                                       trial_count, success_rate, trend_direction, progress_summary,
+                                       language_name="English"):
     """Format the Material Forge parent communication prompt."""
     return MATERIAL_FORGE_PARENT_COMM.format(
         student_name=student_name,
@@ -963,7 +1032,8 @@ def format_material_forge_parent_comm(student_name, grade, parent_email, parent_
         trial_count=trial_count,
         success_rate=success_rate,
         trend_direction=trend_direction,
-        progress_summary=progress_summary
+        progress_summary=progress_summary,
+        language_name=language_name,
     )
 
 

@@ -39,6 +39,16 @@
 - [x] Windows font fallback in generate_sample_work.py (Arial / Segoe UI)
 - [x] Pipeline cache-hit verified for all 9 new artifacts
 
+## Judge-Appeal Features (2026-04-11 — no more lying code) — COMPLETE
+- [x] #1: IEP PDF auto-extraction — new `agents/iep_extractor.py` + pymupdf PDF→PNG rendering + Gemma multimodal function calling, wired into `/api/documents/upload` and the Add Student UI (shows "Extracted from IEP" card)
+- [x] #2: Chat SSE streaming — new `POST /api/chat/stream` with `StreamingResponse`, `useChat.ts` rewritten to consume via fetch + ReadableStream + TextDecoder
+- [x] #3: Thinking-trace UI — new `POST /api/alerts/{id}/analyze` runs ProgressAnalyst via `generate_with_thinking`, `AlertBanner.tsx` has a "Why?" button that reveals a collapsible reasoning panel
+- [x] #4: Exposed first_then in materials.py enum + router handler
+- [x] #5: Bilingual parent comms — `language` param threaded from MaterialViewer toggle (EN/ES/VI/ZH) through router → MaterialForge → prompt template
+
+## Follow-up to decide
+- [ ] Consider switching `MODEL_PROVIDER=google` (Google AI Studio) — on OpenRouter, `google/gemma-3-27b-it` returns 404 for tool use, so every function-calling agent falls back to text-parse JSON extraction. Google AI Studio supports real function calling AND non-empty thinking traces. Fully within existing infra (`gemma_client.py` has both backends ready).
+
 ## Sarah Content Review (IN PROGRESS)
 - [x] Build `sarah_review_bundle/` (7 student dockets + 12 sample outputs across all material types)
 - [ ] Share bundle with Sarah and collect feedback

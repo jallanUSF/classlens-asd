@@ -20,9 +20,10 @@ MATERIALS_DIR = DATA_DIR / "materials"
 class GenerateRequest(BaseModel):
     student_id: str
     goal_id: str = ""
-    material_type: str  # lesson_plan, tracking_sheet, social_story, visual_schedule, parent_comm, admin_report
+    material_type: str  # lesson_plan, tracking_sheet, social_story, visual_schedule, first_then, parent_comm, admin_report
     scenario: str = ""  # for social stories
     routine: str = ""  # for visual schedules
+    language: str = "en"  # ISO-639 code for parent_comm (en, es, vi, zh)
 
 
 def _get_forge():
@@ -60,8 +61,14 @@ async def generate_material(req: GenerateRequest) -> dict[str, Any]:
         result = forge.generate_social_story(req.student_id, req.scenario or "classroom routine")
     elif req.material_type == "visual_schedule":
         result = forge.generate_visual_schedule(req.student_id, req.routine or "morning arrival")
+    elif req.material_type == "first_then":
+        if not req.goal_id:
+            raise HTTPException(status_code=400, detail="first_then requires goal_id")
+        result = forge.generate_first_then(req.student_id, req.goal_id)
     elif req.material_type == "parent_comm":
-        result = forge.generate_parent_comm(req.student_id, req.goal_id)
+        result = forge.generate_parent_comm(
+            req.student_id, req.goal_id, language=req.language
+        )
     elif req.material_type == "admin_report":
         result = forge.generate_admin_report(req.student_id)
     else:
@@ -78,6 +85,7 @@ async def generate_material(req: GenerateRequest) -> dict[str, Any]:
         "created_date": today,
         "status": "draft",
         "content": result,
+        "language": req.language if req.material_type == "parent_comm" else "en",
     }
     filename = f"{req.material_type}_{req.goal_id or 'all'}_{today}.json"
     with open(mat_dir / filename, "w") as f:

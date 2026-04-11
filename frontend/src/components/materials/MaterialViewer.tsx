@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -25,7 +25,17 @@ interface Material {
   created_date: string;
   status: string;
   content: Record<string, unknown>;
+  language?: string;
 }
+
+// Hoisted outside the component so the array identity is stable and
+// mapping over it never re-creates per render.
+const LANGUAGES: ReadonlyArray<{ code: string; label: string }> = [
+  { code: "en", label: "EN" },
+  { code: "es", label: "ES" },
+  { code: "vi", label: "VI" },
+  { code: "zh", label: "ZH" },
+];
 
 interface Props {
   material: Material | null;
@@ -54,18 +64,31 @@ export function MaterialViewer({
   onRegenerate,
 }: Props) {
   const [approving, setApproving] = useState(false);
+  // Local copy so a language regenerate can swap the letter content/language
+  // without needing the parent to refetch the whole materials list.
+  const [liveMaterial, setLiveMaterial] = useState<Material | null>(material);
+  const [regenerating, setRegenerating] = useState(false);
 
-  if (!material) return null;
+  // Sync when the parent picks a different material. Primitive id dep keeps
+  // this from re-running on every unrelated parent re-render.
+  useEffect(() => {
+    setLiveMaterial(material);
+  }, [material?.id]);
+
+  if (!liveMaterial) return null;
+
+  const activeLanguage = liveMaterial.language ?? "en";
+  const isParentComm = liveMaterial.material_type === "parent_comm";
 
   const handleApprove = async () => {
     setApproving(true);
     try {
       const res = await fetch(
-        `/api/materials/${material.student_id}/${material.id}/approve`,
+        `/api/materials/${liveMaterial.student_id}/${liveMaterial.id}/approve`,
         { method: "PUT" }
       );
       if (res.ok) {
-        onApprove?.(material.id);
+        onApprove?.(liveMaterial.id);
       }
     } finally {
       setApproving(false);
@@ -76,13 +99,46 @@ export function MaterialViewer({
     window.print();
   };
 
-  function renderContent() {
-    if (!material) return null;
-    const c = material.content;
-    const date = material.created_date;
-    const goalId = material.goal_id;
+  const handleLanguageSelect = async (code: string) => {
+    if (code === activeLanguage || regenerating) return;
+    setRegenerating(true);
+    try {
+      const res = await fetch("/api/materials/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          student_id: liveMaterial.student_id,
+          goal_id: liveMaterial.goal_id,
+          material_type: "parent_comm",
+          language: code,
+        }),
+      });
+      if (!res.ok) return;
+      const fresh = (await res.json()) as Material;
+      // Functional setState — avoids stale-closure surprises if the user
+      // clicks another language while this promise is still in flight.
+      setLiveMaterial((prev) =>
+        prev
+          ? {
+              ...prev,
+              content: fresh.content,
+              language: fresh.language ?? code,
+              created_date: fresh.created_date ?? prev.created_date,
+            }
+          : prev
+      );
+    } finally {
+      setRegenerating(false);
+    }
+  };
 
-    switch (material.material_type) {
+  function renderContent() {
+    if (!liveMaterial) return null;
+    const c = liveMaterial.content;
+    const date = liveMaterial.created_date;
+    const goalId = liveMaterial.goal_id;
+
+    switch (liveMaterial.material_type) {
       case "lesson_plan":
         return (
           <LessonPlanView
@@ -98,6 +154,7 @@ export function MaterialViewer({
             content={c as Parameters<typeof ParentLetterView>[0]["content"]}
             studentName={studentName}
             date={date}
+            language={activeLanguage}
           />
         );
       case "admin_report":
@@ -136,7 +193,7 @@ export function MaterialViewer({
       default:
         return (
           <div className="text-sm text-muted-foreground">
-            <p>Unknown material type: {material.material_type}</p>
+            <p>Unknown material type: {liveMaterial.material_type}</p>
             <pre className="mt-2 text-xs bg-muted p-3 rounded overflow-auto">
               {JSON.stringify(c, null, 2)}
             </pre>
@@ -156,10 +213,10 @@ export function MaterialViewer({
           <div className="flex items-center justify-between">
             <div>
               <SheetTitle>
-                {TYPE_TITLES[material.material_type] || material.material_type}
+                {TYPE_TITLES[liveMaterial.material_type] || liveMaterial.material_type}
               </SheetTitle>
               <SheetDescription>
-                {studentName} &middot; {material.created_date}
+                {studentName} &middot; {liveMaterial.created_date}
               </SheetDescription>
             </div>
             <Button
@@ -170,6 +227,38 @@ export function MaterialViewer({
               <X className="h-4 w-4" />
             </Button>
           </div>
+          {isParentComm && (
+            <div
+              className="flex items-center gap-1.5 pt-2"
+              role="group"
+              aria-label="Letter language"
+            >
+              <span className="text-[11px] uppercase tracking-wide text-muted-foreground mr-1">
+                Language
+              </span>
+              {LANGUAGES.map((lang) => {
+                const active = lang.code === activeLanguage;
+                return (
+                  <Button
+                    key={lang.code}
+                    size="sm"
+                    variant={active ? "default" : "outline"}
+                    className="h-7 px-2.5 text-xs"
+                    disabled={regenerating}
+                    aria-pressed={active}
+                    onClick={() => handleLanguageSelect(lang.code)}
+                  >
+                    {lang.label}
+                  </Button>
+                );
+              })}
+              {regenerating && (
+                <span className="text-[11px] text-muted-foreground ml-1">
+                  Translating…
+                </span>
+              )}
+            </div>
+          )}
         </SheetHeader>
 
         {/* Material content */}
@@ -182,7 +271,7 @@ export function MaterialViewer({
 
         {/* Action buttons — hidden when printing */}
         <div className="sticky bottom-0 bg-popover border-t border-border p-3 flex gap-2 justify-end print:hidden">
-          {material.status !== "approved" && (
+          {liveMaterial.status !== "approved" && (
             <Button
               size="sm"
               variant="outline"
@@ -198,7 +287,7 @@ export function MaterialViewer({
             size="sm"
             variant="outline"
             className="gap-1.5"
-            onClick={() => onRegenerate?.(material.id)}
+            onClick={() => onRegenerate?.(liveMaterial.id)}
           >
             <RefreshCw className="h-3.5 w-3.5" />
             Regenerate

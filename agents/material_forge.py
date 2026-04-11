@@ -19,6 +19,7 @@ from schemas.tools import (
     GENERATE_ADMIN_REPORT,
 )
 from prompts.templates import (
+    LANGUAGE_CODE_TO_NAME,
     MATERIAL_FORGE_SYSTEM,
     MATERIAL_FORGE_LESSON_PLAN,
     MATERIAL_FORGE_TRACKING_SHEET,
@@ -191,14 +192,20 @@ class MaterialForge(BaseAgent):
     # ── 6. Parent Communications ──────────────────────────────
 
     def generate_parent_comm(
-        self, student_id: str, goal_id: str, date: str = "",
+        self, student_id: str, goal_id: str, date: str = "", language: str = "en",
     ) -> dict:
-        """Warm, jargon-free parent progress update."""
+        """Warm, jargon-free parent progress update.
+
+        Args:
+            language: ISO-639 code (en, es, vi, zh). Unknown codes fall back to English.
+        """
         p = self._profile(student_id)
         g = self._get_goal(p, goal_id)
         history = g.get("trial_history", [])
         recent_pcts = [h.get("pct", 0) for h in history[-5:]]
         success_rate = sum(recent_pcts) / len(recent_pcts) if recent_pcts else 0
+
+        language_name = LANGUAGE_CODE_TO_NAME.get(language, "English")
 
         prompt = MATERIAL_FORGE_PARENT_COMM.format(
             student_name=p["name"],
@@ -213,6 +220,7 @@ class MaterialForge(BaseAgent):
             success_rate=f"{success_rate:.0f}",
             trend_direction=self._latest_trend(g),
             progress_summary=self._latest_trend(g),
+            language_name=language_name,
         )
         return self._call_with_fallback(prompt, [GENERATE_PARENT_COMM], MATERIAL_FORGE_SYSTEM)
 

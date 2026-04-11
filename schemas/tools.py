@@ -228,6 +228,74 @@ GENERATE_PARENT_COMM = {
     },
 }
 
+EXTRACT_IEP_CONTENT = {
+    "name": "extract_iep_content",
+    "description": (
+        "Extracts IEP goals, accommodations, and student demographic fields "
+        "from an image of an IEP document page. Only call this once you have "
+        "examined the page and identified the concrete content to transcribe."
+    ),
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "student_name": {
+                "type": "string",
+                "description": "Student first name if visible on the page",
+            },
+            "grade": {
+                "type": "integer",
+                "description": "Current grade level (0 = kindergarten, 1-12)",
+            },
+            "asd_level": {
+                "type": "integer",
+                "description": "ASD support level (1, 2, or 3)",
+            },
+            "communication_level": {
+                "type": "string",
+                "enum": ["verbal", "non_verbal", "aac"],
+                "description": "Primary communication style if stated",
+            },
+            "interests": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "Student interests / motivators if listed",
+            },
+            "iep_goals": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "goal_id": {"type": "string"},
+                        "domain": {
+                            "type": "string",
+                            "enum": [
+                                "academic", "social", "communication",
+                                "motor", "sensory",
+                            ],
+                        },
+                        "description": {"type": "string"},
+                        "baseline": {"type": "string"},
+                        "target": {"type": "string"},
+                        "measurement_method": {
+                            "type": "string",
+                            "enum": [
+                                "frequency", "percentage", "duration", "quality",
+                            ],
+                        },
+                    },
+                    "required": ["goal_id", "description"],
+                },
+            },
+            "accommodations": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "Classroom accommodations and supports",
+            },
+        },
+        "required": ["iep_goals", "accommodations"],
+    },
+}
+
 GENERATE_ADMIN_REPORT = {
     "name": "generate_admin_report",
     "description": "Generates a professional progress report for administrators",

@@ -9,12 +9,34 @@ import { Separator } from "@/components/ui/separator";
 import { Upload, UserPlus, Sparkles } from "lucide-react";
 import { useChatContext } from "@/context/ChatContext";
 
+interface ExtractedGoal {
+  goal_id: string;
+  domain?: string;
+  description: string;
+  baseline?: string;
+  target?: string;
+  measurement_method?: string;
+}
+
+interface IepExtraction {
+  student_name?: string;
+  grade?: number | null;
+  asd_level?: number | null;
+  communication_level?: string;
+  interests?: string[];
+  iep_goals?: ExtractedGoal[];
+  accommodations?: string[];
+  notes?: string;
+}
+
 interface ProfilePreview {
   name?: string;
   grade?: number;
   asd_level?: number;
   communication_level?: string;
   interests?: string[];
+  iep_goals?: ExtractedGoal[];
+  accommodations?: string[];
 }
 
 const LEVEL_STYLES: Record<number, string> = {
@@ -85,8 +107,42 @@ export default function NewStudentPage() {
           body: formData,
         });
         if (res.ok) {
+          const payload = (await res.json()) as {
+            extraction?: IepExtraction;
+          };
+          const extraction: IepExtraction = payload.extraction ?? {};
+          const goals = extraction.iep_goals ?? [];
+          const accommodations = extraction.accommodations ?? [];
+
+          // Merge extracted fields into the preview — don't overwrite values
+          // the user already supplied via chat.
+          setPreview((p) => ({
+            ...p,
+            name: p.name || extraction.student_name || p.name,
+            grade:
+              p.grade ??
+              (typeof extraction.grade === "number" ? extraction.grade : undefined),
+            asd_level:
+              p.asd_level ??
+              (typeof extraction.asd_level === "number"
+                ? extraction.asd_level
+                : undefined),
+            communication_level:
+              p.communication_level || extraction.communication_level || undefined,
+            interests:
+              p.interests && p.interests.length > 0
+                ? p.interests
+                : extraction.interests ?? [],
+            iep_goals: goals,
+            accommodations: accommodations,
+          }));
+
           addContextMessage(
-            `I've received the IEP document (**${file.name}**). I'll use this to extract goals and accommodations. Let me know the student's name and grade to continue.`,
+            `I extracted **${goals.length} IEP goals** and **${accommodations.length} accommodations** from ${file.name}. Review them below and tell me the student's name to continue.`,
+          );
+        } else {
+          addContextMessage(
+            `I couldn't process ${file.name}. The server returned an error — please try again or upload a different file.`,
           );
         }
       } catch {
@@ -184,6 +240,56 @@ export default function NewStudentPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Extracted IEP Content — only shows after a successful upload */}
+      {((preview.iep_goals && preview.iep_goals.length > 0) ||
+        (preview.accommodations && preview.accommodations.length > 0)) && (
+        <Card>
+          <CardContent className="p-4 space-y-4">
+            <h3 className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-primary" />
+              Extracted from IEP
+            </h3>
+
+            {preview.iep_goals && preview.iep_goals.length > 0 && (
+              <div className="space-y-2">
+                <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                  IEP Goals ({preview.iep_goals.length})
+                </p>
+                <ul className="space-y-1.5">
+                  {preview.iep_goals.map((goal, idx) => (
+                    <li
+                      key={`${goal.goal_id}-${idx}`}
+                      className="text-sm leading-snug"
+                    >
+                      <span className="font-mono text-xs text-primary">
+                        {goal.goal_id}
+                      </span>{" "}
+                      <span className="text-muted-foreground">—</span>{" "}
+                      <span>{goal.description}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {preview.accommodations && preview.accommodations.length > 0 && (
+              <div className="space-y-2">
+                <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                  Accommodations ({preview.accommodations.length})
+                </p>
+                <ul className="list-disc list-inside space-y-1">
+                  {preview.accommodations.map((acc, idx) => (
+                    <li key={idx} className="text-sm">
+                      {acc}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {/* IEP Document Drop Zone */}
       <Card>

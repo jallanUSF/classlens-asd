@@ -15,7 +15,7 @@ WIN. This is not production software. It's a demo that needs to:
 ## Tech Stack Context
 
 ### Current (active development — nextjs-redesign branch)
-- **Model:** Google Gemma 4 via OpenRouter (`google/gemma-3-27b-it`) through the shared `core/gemma_client.py` OpenAI-compatible client. Also supports Google AI Studio (`google.genai`) and local Ollama.
+- **Model:** Google Gemma 4 via **Google AI Studio** (`gemma-4-31b-it`) through the shared `core/gemma_client.py` `google.genai` client. This is the canonical provider — only one with working native function calling AND thinking mode (`types.ThinkingConfig(includeThoughts=True)`). OpenRouter (`google/gemma-3-27b-it`) and local Ollama (`gemma4:e4b`, `gemma4:26b`) are supported as fallbacks but have architectural gaps: OpenRouter returns 404 for tool use and forces the text-parse fallback path; Ollama has no `generate_with_thinking` code path (returns empty thinking) and on a GPU-less machine runs at ~5 tok/s CPU which is demo-unusable. See `scripts/provider_ab.py` for the A/B data.
 - **Backend:** Python 3.11+ with FastAPI, served by uvicorn on **port 8001** (canonical — port 8000 conflicts with an unrelated process on the dev machine)
 - **Frontend:** Next.js 16 (App Router) + Tailwind + shadcn/ui. Rewrites `/api/*` to the FastAPI backend (default `API_URL=http://localhost:8001`)
 - **Charts:** Plotly in the dashboard
@@ -57,7 +57,7 @@ python -c "from core.gemma_client import GemmaClient; c = GemmaClient(); print(c
 cd frontend && npx next build
 ```
 
-Environment: copy `.env.example` to `.env`, set `MODEL_PROVIDER=openrouter` and `OPENROUTER_API_KEY=...` (or `GOOGLE_AI_STUDIO_KEY=...` if using Google AI Studio). Frontend reads `API_URL` from `frontend/.env.local` (defaults to `http://localhost:8001`).
+Environment: copy `.env.example` to `.env`, set `MODEL_PROVIDER=google` and `GOOGLE_AI_STUDIO_KEY=...` (canonical). `OPENROUTER_API_KEY` and Ollama are supported as fallbacks — see `core/gemma_client.py` for provider init. Frontend reads `API_URL` from `frontend/.env.local` (defaults to `http://localhost:8001`).
 
 ## Architecture
 

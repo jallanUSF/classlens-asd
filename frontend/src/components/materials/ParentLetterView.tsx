@@ -14,11 +14,17 @@ interface Props {
   content: ParentLetterContent;
   studentName: string;
   date: string;
+  language?: string;
 }
 
-export function ParentLetterView({ content, studentName, date }: Props) {
+export function ParentLetterView({ content, studentName, date, language = "en" }: Props) {
+  const isNonEnglish = language !== "en";
   return (
-    <div className="material-print-content space-y-5 max-w-xl">
+    <div
+      className="material-print-content space-y-5 max-w-xl"
+      lang={language}
+      dir={isNonEnglish ? "ltr" : undefined}
+    >
       {/* Header */}
       <div className="border-b-2 border-primary pb-3">
         <h1 className="text-xl font-semibold text-primary">

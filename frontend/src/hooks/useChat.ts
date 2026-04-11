@@ -55,11 +55,18 @@ export function useChat({ studentId }: UseChatOptions = {}) {
       setMessages((prev) => [...prev, userMsg, loadingMsg]);
       setIsStreaming(true);
 
-      // Build conversation history for the API
-      const history = [...historyRef.current, { role: "user", content: text }];
+      // Snapshot history at the moment of send so we can append the full
+      // assistant reply to historyRef only once the stream completes.
+      const historyAtSend = [
+        ...historyRef.current,
+        { role: "user", content: text },
+      ];
+
+      let accumulated = "";
+      let streamError: string | null = null;
 
       try {
-        const res = await fetch("/api/chat", {
+        const res = await fetch("/api/chat/stream", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -69,31 +76,93 @@ export function useChat({ studentId }: UseChatOptions = {}) {
           }),
         });
 
-        if (!res.ok) {
-          throw new Error(`Chat request failed: ${res.status}`);
+        if (!res.ok || !res.body) {
+          throw new Error(`Chat stream failed: ${res.status}`);
         }
 
-        const data = await res.json();
-        const responseText: string = data.content || "I couldn't generate a response.";
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+        let doneFlag = false;
 
-        // Detect action cards in the response
-        const action = detectAction(responseText);
+        while (!doneFlag) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
 
-        const assistantMsg: ChatMessage = {
-          id: loadingMsg.id,
-          role: "assistant",
-          content: responseText,
-          action,
-        };
+          // SSE frames are separated by a blank line. Process complete
+          // frames only; keep the trailing partial in the buffer.
+          const frames = buffer.split("\n\n");
+          buffer = frames.pop() ?? "";
+
+          for (const frame of frames) {
+            const line = frame.trimStart();
+            if (!line.startsWith("data:")) continue;
+            const payload = line.slice(5).trim();
+            if (!payload) continue;
+
+            let parsed: { delta?: string; done?: boolean; error?: string };
+            try {
+              parsed = JSON.parse(payload);
+            } catch {
+              continue;
+            }
+
+            if (parsed.error) {
+              streamError = parsed.error;
+              continue;
+            }
+            if (parsed.done) {
+              doneFlag = true;
+              break;
+            }
+            if (parsed.delta) {
+              accumulated += parsed.delta;
+              // One setState per chunk: clear loading + append content
+              // in a single update so React can batch the render.
+              const snapshot = accumulated;
+              setMessages((prev) =>
+                prev.map((m) =>
+                  m.id === loadingMsg.id
+                    ? { ...m, content: snapshot, isLoading: false }
+                    : m,
+                ),
+              );
+            }
+          }
+        }
+
+        if (streamError) {
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.id === loadingMsg.id
+                ? { ...m, content: streamError as string, isLoading: false }
+                : m,
+            ),
+          );
+          return;
+        }
+
+        const finalText =
+          accumulated || "I couldn't generate a response.";
+        const action = detectAction(finalText);
 
         setMessages((prev) =>
-          prev.map((m) => (m.id === loadingMsg.id ? assistantMsg : m)),
+          prev.map((m) =>
+            m.id === loadingMsg.id
+              ? {
+                  ...m,
+                  content: finalText,
+                  isLoading: false,
+                  action,
+                }
+              : m,
+          ),
         );
 
-        // Update history ref
         historyRef.current = [
-          ...history,
-          { role: "assistant", content: responseText },
+          ...historyAtSend,
+          { role: "assistant", content: finalText },
         ];
       } catch {
         setMessages((prev) =>

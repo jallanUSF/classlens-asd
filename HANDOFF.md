@@ -1,8 +1,109 @@
 # HANDOFF.md — Session Handoff
 
-**Date:** 2026-04-11 (evening session)
+**Date:** 2026-04-11 (late-evening session — judge-appeal feature sprint + provider flip)
 **Branch:** `nextjs-redesign`
-**Status:** Sarah review bundle built (dev aid, gitignored). No code changes. Release gate still re-open for Jeff.
+**Status:** 5 new features shipped, no lying code, 71/71 pytest + 19/19 live smoke + clean Next build. Provider flipped from OpenRouter → Google AI Studio after A/B. CLAUDE.md now matches reality. All changes unstaged — Jeff to review and commit.
+
+---
+
+## Provider decision (2026-04-11 late-late evening)
+
+After shipping the 5 judge-appeal features, ran a 3-way A/B comparing OpenRouter (`google/gemma-3-27b-it`), Google AI Studio (`gemma-4-31b-it`), and local Ollama (`gemma4:e4b`, `gemma4:26b`). Scripts: `scripts/provider_ab.py` (3-way run) and `scripts/ollama_e4b_solo.py` (clean-room Ollama with zero contention).
+
+**Decision: `MODEL_PROVIDER=google`** — flipped in `.env` this session, CLAUDE.md tech-stack section rewritten to match.
+
+Why:
+- **Only provider with working native function calling.** OpenRouter's `google/gemma-3-27b-it` returns 404 "No endpoints that support tool use" and forces every tool-based agent (VisionReader, IEPMapper, MaterialForge, IEPExtractor) onto the `_parse_fallback` text-JSON path. Google's native `types.Tool(function_declarations=[...])` with `AUTO` mode works out of the box.
+- **Only provider with working thinking mode.** Google returned a **6,191-char reasoning chain** on the Amara G2 alert analysis; both OpenRouter and both Ollama variants returned `thinking=0` because `gemma_client.py::generate_with_thinking` has no non-Google code path (it falls through to `_openai_generate`). The "Why?" button on `AlertBanner.tsx` is architecturally dependent on Google until/unless we add a `<thinking>` tag protocol for the OpenAI-compat backends.
+- **Branding truth.** CLAUDE.md was claiming "Google Gemma 4" while actually serving Gemma 3 27B via OpenRouter. Now it's actually Gemma 4 31B (real model, not a proxy relabel). For a "Gemma 4 Good Hackathon" submission this matters — judges who read code will see the model ID match the branding.
+- **Speed, even with latency.** Google ran the full 4-feature smoke in ~3 minutes. OpenRouter ran it in ~3-5 minutes. Ollama e4b ran it in ~30 minutes solo (43 minutes under contention). Per-call latency on Google is 30-75s per structured call, which is acceptable for a teacher-in-the-loop workflow.
+- **Cost.** Google AI Studio free tier (15 RPM / 1,500 req/day) is more than enough for dev + a recorded demo + a few judge sessions.
+
+Why not Ollama (on this machine):
+- Dev machine is Windows Server 2022 headless, no GPU (wmic reports only Microsoft Remote Display Adapter + Microsoft Basic Display Adapter). Ollama runs everything on CPU: `gemma4:e4b` at ~5 tok/s, `gemma4:26b` at ~1-2 tok/s.
+- Solo (zero contention) measurements on e4b: chat TTFB 80s, IEP extraction **761s (12.7 min)**, alert analysis **558s (9.3 min)**, Spanish letter **451s (7.5 min)**. Total ~30 min for 4 features. Not viable for a live demo.
+- Ollama e4b IEP extraction quality matched Google (3 goals, demographics populated) — the model is fine, the hardware isn't.
+- Ollama 26b extracted **more** content (10 goals vs Google's 3, 18 accommodations vs 6) but lost on Spanish quality (704 chars vs 1993) and still had zero thinking.
+- On a GPU-equipped demo machine, Ollama 26b becomes viable again and the equation flips (real Gemma 4 branding + free + offline + FERPA-friendly narrative). Code is ready to support that: set `MODEL_PROVIDER=ollama` and `OLLAMA_MODEL=gemma4:26b`.
+
+Remaining architectural gap worth tracking: Ollama thinking-mode support is a ~50-line follow-up (prompt-based `<thinking>...</thinking>` tag protocol parsed in `_ollama_generate_with_thinking`). Not needed for Google path but useful if you later move to GPU box.
+
+---
+
+---
+
+## This session (late evening 2026-04-11) — Judge-Appeal Feature Sprint
+
+**Trigger:** Jeff asked what features remained untested / under-demonstrated that would strengthen the Gemma 4 hackathon submission outside of video work. Audit surfaced two docstring lies (chat.py claiming streaming, documents.py claiming IEP extraction) and three invisible Gemma capabilities (thinking mode, multilingual, long-context PDF). Jeff ordered: "Fix that nonsense right now. Then execute 1-5."
+
+**Approach:** Phase A inline (shared infra + tiny fix), Phase B four parallel subagents (one per feature), Phase C live smoke. Single session.
+
+### Features shipped
+
+**#1 — Real IEP PDF auto-extraction** (`backend/routers/documents.py`, `agents/iep_extractor.py` NEW, `schemas/tools.py` +EXTRACT_IEP_CONTENT, `prompts/templates.py` +IEP_EXTRACTOR_*, `frontend/src/app/student/new/page.tsx`, `requirements.txt` +pymupdf)
+- The endpoint no longer lies. Uploads render PDF pages 1-2 to PIL images via pymupdf at 2x zoom, call Gemma multimodal with function calling against EXTRACT_IEP_CONTENT tool, merge per-page results, return structured `extraction: {student_name?, grade?, asd_level?, communication_level?, interests, iep_goals[], accommodations[]}`.
+- Frontend reads the extraction response and renders an "Extracted from IEP" card below the Profile Preview in the Add Student flow. Auto-fills name/grade/level into the preview state.
+- Degrades gracefully: if pymupdf fails to import, the model call errors, or rendering fails, returns `extraction: {iep_goals: [], accommodations: [], notes: "..."}` so the upload flow never breaks.
+
+**#2 — Chat SSE streaming** (`backend/routers/chat.py`, `frontend/src/hooks/useChat.ts`)
+- Added `POST /api/chat/stream` returning `StreamingResponse` with `text/event-stream`, SSE frames `data: {"delta": "..."}\n\n` followed by `{"done": true}`. Per-chunk HTML sanitization. Mock fallback preserved for no-key dev.
+- Frontend `sendMessage` rewritten to use `fetch` + `ReadableStream` + `TextDecoder` (NOT EventSource — POST with body). Characters appear live; loading indicator yields on first chunk. History ref updated once after stream completes.
+- Module and handler docstrings rewritten to match reality.
+- Old `/api/chat` endpoint retained for backwards compat.
+
+**#3 — Thinking-trace UI for alerts** (`backend/routers/alerts.py`, `frontend/src/components/student/AlertBanner.tsx`)
+- New `POST /api/alerts/{alert_id}/analyze`. Regenerates alerts from live student data to resolve id → `{student_id, goal_id}`, instantiates `ProgressAnalyst` via `_get_progress_analyst()` (follows materials.py `_get_forge` pattern), calls `analyst.analyze(student_id, goal_id)` which drives `generate_with_thinking`, sanitizes output, returns `{alert_id, goal_id, student_id, thinking, output}`.
+- AlertBanner now has a "Why?" button (Brain icon) alongside "Generate Materials" and "Ask Assistant". Click reveals a collapsible panel showing pulsing loader → "Gemma's reasoning" (italic/muted, only if non-empty) → "Analysis" (body text). Retry on error. Results cached per alert id in component state.
+
+**#4 — First-Then board** (`backend/routers/materials.py`)
+- Added `"first_then"` to the `material_type` enum and routed it to `forge.generate_first_then(student_id, goal_id)` (the MaterialForge method already existed and was orphaned). Now the demo has all 7 output types reachable from the UI, matching CLAUDE.md's claim.
+
+**#5 — Bilingual parent communications** (`agents/material_forge.py`, `prompts/templates.py`, `backend/routers/materials.py`, `frontend/src/components/materials/MaterialViewer.tsx`, `frontend/src/components/materials/ParentLetterView.tsx`)
+- `language: str = "en"` threaded through: `GenerateRequest` → `forge.generate_parent_comm(student_id, goal_id, language=...)` → prompt template's new `{language_name}` field → stored on material record.
+- Prompt template has an explicit "Write the ENTIRE letter in {language_name}. Greetings, highlights, try-at-home, closing — everything. Use culturally natural phrasing…" instruction block.
+- MaterialViewer shows a 4-button language toggle (EN / ES / VI / ZH) ONLY when material_type === "parent_comm". Selecting a language re-calls the generate endpoint and swaps `liveMaterial` state in place. Active button has filled variant + aria-pressed.
+- ParentLetterView accepts optional `language` prop, sets `lang={language}` on the root div for screen readers, explicit `dir="ltr"` for future RTL safety.
+
+### Infrastructure added
+
+- `core/gemma_client.py` — new `generate_stream()` method with `_google_generate_stream` (via `generate_content_stream`) and `_openai_generate_stream` (via `stream=True`) implementations. `Iterator[str]` of text chunks. Used by `/api/chat/stream`.
+- `scripts/feature_smoke.py` — NEW. Live smoke test for all 5 features via FastAPI TestClient against real Gemma. 19 assertions covering streaming, alert analysis, bilingual Spanish markers, IEP extraction, first-then. Parallels `scripts/cold_boot_smoke.py` but runs in-process.
+
+### Verification
+
+- `python -m pytest tests/ -q` → **71/71 passed** (13 pre-existing Pydantic v1-validator deprecation warnings, unrelated)
+- `cd frontend && npx next build` → **compiled successfully**, TypeScript clean, all 5 routes generated
+- `python scripts/feature_smoke.py` → **19/19 passed** against live OpenRouter Gemma
+  - SSE: 51 delta frames, 197 accumulated chars, terminal done frame received
+  - Thinking trace: output 571 chars, thinking empty (expected on OpenRouter)
+  - Bilingual Spanish: 5 language markers detected, letter preview starts with `"estimados padres de maya,"`
+  - IEP extraction: 0 goals, 7 accommodations from `amara_iep_2025.pdf`
+  - First-Then: 1398 char content body
+
+### IMPORTANT finding surfaced by smoke run
+
+OpenRouter's `google/gemma-3-27b-it` returns **404 for tool use** — every function-calling agent in the project (VisionReader, IEPMapper, MaterialForge, IEPExtractor) is hitting the `_parse_fallback` text-JSON path instead of real function calling. This has been the situation since OpenRouter was wired up — not a new regression. The fallback works, but:
+- IEP extraction degrades to accommodations-only on some PDFs because the text-parse can't reconstruct nested goal arrays as reliably as native function calling.
+- Thinking mode is empty on OpenRouter because the provider doesn't expose reasoning chains (documented behavior in `gemma_client.py::generate_with_thinking`).
+
+**Fix available without code change:** set `MODEL_PROVIDER=google` in `.env` (the `GOOGLE_AI_STUDIO_KEY` is already set). Google AI Studio supports real function calling AND non-empty thinking traces. Every tool-based agent will light up with richer structured output, and the "Why?" button on alerts will actually show Gemma's thinking. This is a 1-line config change that would materially improve the demo fidelity on #1 and #3.
+
+Recommend Jeff test both providers on the same PDF to decide which to ship.
+
+### What Jeff should manually verify
+
+1. `MODEL_PROVIDER=google` experiment — restart backend, re-hit `/api/documents/upload` with a mock IEP PDF, confirm goals populate. Then `/api/alerts/{id}/analyze` and confirm thinking is non-empty.
+2. Browser visual confirmation of #2 (chat streaming) and #3 (AlertBanner "Why?" button) — TestClient proved the wire protocol but not the animation.
+3. Browser visual confirmation of #5 language toggle — open a parent letter in MaterialViewer, click ES, confirm the letter body swaps to Spanish in place.
+4. Browser visual confirmation of #1 Add Student flow — drop a mock IEP PDF, see the "Extracted from IEP" card populate.
+
+### Changes are unstaged
+
+Nothing committed. Review and commit when ready. Suggest one bundled commit because all 5 features + the gemma_client streaming infra form a coherent "no more lying code" milestone.
+
+---
+
+## Previous session (evening 2026-04-11)
 
 ---
 
