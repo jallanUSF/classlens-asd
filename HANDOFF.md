@@ -29,15 +29,39 @@ Migrated 12 remaining `open()+json.load/dump` sites to `core.json_io.read_json/w
 
 Also removed now-unused `import json` from all five files. Zero bare `json.load`/`json.dump` calls remain in backend routers or pipeline code.
 
-### 3. Verification
+### 3. Fixed pinned Jaylen G3 alert missing severity/label
 
-- 79/79 pytest pass (no regressions)
+The manually-created demo alert `reg-jaylen-g3` predated the severity field. Added `"severity": "high"` and `"label": "regression_risk"`.
+
+### 4. Verification — full end-to-end
+
+**sample_inputs_smoke.py — 7/7 PASS on live Google AI Studio:**
+
+| # | Student | Photo | Elapsed | Matched | Verdict |
+|---|---|---|---|---|---|
+| 1 | maya_2026 | math_worksheet_PHOTO | 5.8s | — (correct) | PASS |
+| 2 | jaylen_2026 | pecs_exchange_log_PHOTO | 147.1s | G1 | PASS |
+| 3 | sofia_2026 | madison_essay_SCAN | 119.2s | G3 | PASS |
+| 4 | amara_2026 | talk_ticket_PHOTO | 156.4s | G2 | PASS |
+| 5 | ethan_2026 | handwriting_sample_PHOTO | 166.3s | G2 | PASS |
+| 6 | lily_2026 | ocean_notebook_PHOTO | 150.4s | G2 | PASS |
+| 7 | marcus_2026 | bathroom_routine_PHOTO | 161.0s | G2 | PASS |
+
+Byte-perfect snapshot restore, no profile drift.
+
+**post_capture_verify.py — 24/24 PASS:**
+- Alerts: 5 alerts recalculated, all with severity
+- Lesson plan: Maya G1 generates (31.8s)
+- Parent letter EN: Amara G2 generates (41.9s, 2003 chars)
+- Bilingual translate EN→ES: Amara G2 (41.8s, 2310 chars, "Amara" preserved)
+- Admin report: Ethan generates (58.7s)
+- Profile integrity: 7/7 files UTF-8 clean, zero mojibake
+- Materials readback: maya (8), amara (3), ethan (3) all list correctly
+
+**Also passing:**
+- 79/79 pytest
 - Frontend `next build` clean (no TS errors)
-- Cold boot smoke 8/8 pass
-- Live sample input captures: Maya (math worksheet, correct no-match) + Jaylen (PECS log, G1 matched, 4182-char thinking trace)
-- Alerts endpoint: 5 alerts with correct severity labels
-- Materials/documents list endpoints: working with migrated JSON IO
-- Bilingual translate: EN→ES on Maya G1 round-trips correctly, no mojibake on disk
+- Cold boot smoke 8/8
 
 ## TL;DR cold start
 
