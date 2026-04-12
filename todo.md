@@ -20,12 +20,10 @@
 
 ## Archive — shipped (chronological, most recent first)
 
-**2026-04-12 acceleration sprint:** Three prize-track features shipped in one session:
-- Feature 1: Long-context trajectory report — `trajectory_analyst.py` agent, `POST /api/students/{id}/trajectory` + stream, `TrajectoryReport.tsx` with per-goal status cards (On Track/At Risk/Stalled/Met), cross-goal patterns, IEP meeting talking points, thinking trace. Precomputed for Maya, Amara, Jaylen. 11 tests.
-- Feature 4: Confidence panel — Material Forge now uses `generate_with_thinking()` for all outputs, `_compute_confidence()` scores based on data richness + hedge language in thinking trace. MaterialViewer shows confidence badges (High/Review Recommended/Flag for Expert), collapsible Gemma reasoning, Flag for Review button. `POST /api/materials/{id}/flag` endpoint stores flags in `data/flags/`. 9 tests. 24 existing materials migrated.
-- Feature 3: Voice note capture — `voice_reader.py` agent with audio (Google AI Studio) and text fallback paths, `POST /api/capture/voice` + stream, `VoiceCapture.tsx` with MediaRecorder + base64 + preview + text fallback mode, `/capture/voice/supported` endpoint. Provider guard: non-google returns text_input fallback. 9 tests.
-- Total: 99 pytest pass (excluding slow confidence suite), frontend builds clean 0 TS errors.
+**2026-04-12 quality hardening:** Security (validate_student_id on 4 routers, error sanitization), code quality (extracted duplicates to backend/sanitize.py, fixed 9 encoding violations, removed dead code), +29 TestClient tests, UX polish (precomputed data fix, a11y, prompt accuracy, ASD corrections). 128→137 tests.
 
-**2026-04-12:** All QA findings cleared, bilingual translate mode, unicode fix. 79/79 pytest, 7/7 live smoke, 24/24 post-capture. Zero deferred items.
+**2026-04-12 acceleration sprint:** 3 prize-track features: trajectory report (256K context, 11 tests), confidence panel (thinking mode, 9 tests), voice capture (text fallback, 9 tests). 99→108 tests.
 
-**2026-04-11:** Full QA cycle — 12 findings all resolved, narrative guard 4/4, core/json_io.py, sample_inputs_smoke.py.
+**2026-04-12:** QA findings cleared, bilingual translate, unicode fix. 79 tests, 7/7 smoke, 24/24 post-capture.
+
+**2026-04-11:** Full QA cycle — 12 findings resolved, narrative guard, core/json_io.py.
