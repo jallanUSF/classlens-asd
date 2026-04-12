@@ -8,8 +8,7 @@
 
 ## Deferred / low priority
 
-- [ ] **Finding 12** — Bilingual letters regenerate independently instead of translating the approved EN version. Consider after Sarah has opinions on demo bilingual quality.
-- [ ] **Same unicode bug in non-student JSON caches.** `backend/routers/materials.py`, `documents.py`, `capture.py`, `alerts.py` (alerts cache), and `core/pipeline.py` (precomputed cache) all still open JSON files without `encoding="utf-8"` and write with `ensure_ascii=True`. Same fix shape as the student-profile path — route through `core.json_io`. Not blocking the hackathon demo because Gemma output caches aren't currently round-tripped through the IEP Mapper.
+- (none remaining)
 
 ## Jeff open questions (before Sprint 6)
 

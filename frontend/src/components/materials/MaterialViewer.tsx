@@ -102,10 +102,35 @@ export function MaterialViewer({
     window.print();
   };
 
+  /** Extract readable text from parent letter content for translation. */
+  const extractLetterText = (content: Record<string, unknown>): string => {
+    // Freeform text path (non-EN fallback from MaterialForge)
+    if (typeof content.text === "string" && content.text.trim()) {
+      return content.text.trim();
+    }
+    // Structured EN path — reconstruct readable letter
+    const parts: string[] = [];
+    if (typeof content.greeting === "string") parts.push(content.greeting);
+    if (Array.isArray(content.highlights)) {
+      parts.push(content.highlights.join("\n"));
+    }
+    if (Array.isArray(content.try_at_home)) {
+      parts.push("Try at home:\n" + (content.try_at_home as string[]).join("\n"));
+    }
+    if (typeof content.closing === "string") parts.push(content.closing);
+    if (typeof content.teacher_name === "string") parts.push(content.teacher_name);
+    return parts.join("\n\n");
+  };
+
   const handleLanguageSelect = async (code: string) => {
     if (code === activeLanguage || regenerating) return;
     setRegenerating(true);
     try {
+      // When switching away from EN, pass the current content for translation
+      // so Gemma preserves student-specific details instead of regenerating.
+      const approvedContent =
+        code !== "en" ? extractLetterText(liveMaterial.content) : "";
+
       const res = await fetch("/api/materials/generate/stream", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -114,6 +139,7 @@ export function MaterialViewer({
           goal_id: liveMaterial.goal_id,
           material_type: "parent_comm",
           language: code,
+          ...(approvedContent ? { approved_content: approvedContent } : {}),
         }),
       });
       const fresh = await consumeSseJob<Material>(res);

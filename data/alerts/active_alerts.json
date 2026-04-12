@@ -6,10 +6,10 @@
     "label": "declining",
     "severity": "high",
     "goal_id": "G2",
-    "title": "Amara \u2014 Social Communication declining",
+    "title": "Amara — Social Communication declining",
     "detail": "Last 3 sessions: 45%, 42%, 40%. Trending down toward 40%. Prior 3-session avg was 49%.",
     "suggested_action": "Review recent environmental or session changes and diagnose the barrier.",
-    "created_date": "2026-04-11",
+    "created_date": "2026-04-12",
     "dismissed": false
   },
   {
@@ -19,10 +19,10 @@
     "label": "plateau_below",
     "severity": "medium",
     "goal_id": "G2",
-    "title": "Ethan \u2014 Fine Motor plateaued at 45%",
+    "title": "Ethan — Fine Motor plateaued at 45%",
     "detail": "Last 3 sessions: 45%, 45%, 45%. Target is 80%.",
     "suggested_action": "Intensify support, adjust prompting strategy, or generate updated materials.",
-    "created_date": "2026-04-11",
+    "created_date": "2026-04-12",
     "dismissed": false
   },
   {
@@ -32,10 +32,10 @@
     "label": "plateau_at_target",
     "severity": "low",
     "goal_id": "G1",
-    "title": "Maya \u2014 Communication target met",
+    "title": "Maya — Communication target met",
     "detail": "Maintaining 80% across last 3 sessions (target 80%). Consider fading supports, generalizing to new settings, or marking the goal mastered.",
     "suggested_action": "Fade prompts, generalize to new settings, or mark goal mastered.",
-    "created_date": "2026-04-11",
+    "created_date": "2026-04-12",
     "dismissed": false
   },
   {
@@ -45,10 +45,10 @@
     "label": "plateau_at_target",
     "severity": "low",
     "goal_id": "G2",
-    "title": "Maya \u2014 Following Directions target met",
+    "title": "Maya — Following Directions target met",
     "detail": "Maintaining 75% across last 3 sessions (target 75%). Consider fading supports, generalizing to new settings, or marking the goal mastered.",
     "suggested_action": "Fade prompts, generalize to new settings, or mark goal mastered.",
-    "created_date": "2026-04-11",
+    "created_date": "2026-04-12",
     "dismissed": false
   },
   {
@@ -56,7 +56,7 @@
     "student_id": "jaylen_2026",
     "alert_type": "regression",
     "goal_id": "G3",
-    "title": "Jaylen \u2014 Social Reciprocity regression risk",
+    "title": "Jaylen — Social Reciprocity regression risk",
     "detail": "Turn-taking progress is fragile. Jaylen met his 80% target in adult-led sessions, but peer turn-taking remains inconsistent. Any routine disruption (sub teacher, schedule change) could cause regression. Last peer-only session: 2/5 turns successful.",
     "suggested_action": "Increase structured peer turn-taking practice with Thomas trains. Add visual turn-taking timer. Prepare social story for substitute teacher days.",
     "created_date": "2026-04-05",

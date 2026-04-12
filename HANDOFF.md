@@ -1,8 +1,43 @@
 # HANDOFF.md — Session Handoff
 
-**Date:** 2026-04-11 (late-night — unicode fix + Findings 9/10 + sample_inputs smoke)
+**Date:** 2026-04-12
 **Branch:** `nextjs-redesign`
-**Status:** All four actionable deferred items closed in one session. `core/json_io.py` centralizes UTF-8 JSON read/write for every student-profile site; 4 profiles normalized to canonical format; Findings 9 + 10 shipped; `scripts/sample_inputs_smoke.py` built and verified 7/7 PASS on live Google AI Studio with byte-perfect snapshot/restore. 79/79 pytest pass. Release gate still closed pending Jeff approval.
+**Status:** Two deferred items closed — Finding 12 (bilingual translate) and unicode fix for all non-student JSON caches. Zero deferred items remain. 79/79 pytest pass, frontend builds clean, cold boot smoke 8/8, live sample input captures verified (Maya + Jaylen), bilingual EN→ES translation tested end-to-end. Release gate still closed pending Jeff approval.
+
+## What happened this session (2026-04-12)
+
+### 1. Finding 12 — Bilingual translate instead of regenerate
+
+**Problem:** Switching a parent letter from EN to ES/VI/ZH called `generate_parent_comm()` from scratch, producing a new letter that lost student-specific color (interest references, anecdotes, specific examples). The UI said "Translating..." but was actually regenerating.
+
+**Fix:** Added a translation mode:
+- New prompt template `MATERIAL_FORGE_TRANSLATE_PARENT_COMM` in `prompts/templates.py` — instructs Gemma to translate the approved letter while preserving every student-specific detail.
+- New method `MaterialForge.translate_parent_comm()` in `agents/material_forge.py` — plain text generation (no function calling needed for translation).
+- `GenerateRequest` in `backend/routers/materials.py` now accepts `approved_content: str`. When provided with a non-EN language, routes to `translate_parent_comm()` instead of `generate_parent_comm()`.
+- `MaterialViewer.tsx` now extracts the current letter text (structured or freeform) and passes it as `approved_content` when switching languages.
+
+**Verified:** EN→ES translation on Maya G1 preserves the exact same structure, names, and details.
+
+### 2. Unicode fix for all non-student JSON caches
+
+Migrated 12 remaining `open()+json.load/dump` sites to `core.json_io.read_json/write_json`:
+- `backend/routers/materials.py` — 4 sites (material write, list read, approve read+write)
+- `backend/routers/documents.py` — 2 sites (upload record write, list read)
+- `backend/routers/capture.py` ��� 1 site (capture record write)
+- `backend/routers/alerts.py` — 2 sites (alerts cache load + save)
+- `core/pipeline.py` — 3 sites (precomputed cache read x2 + write)
+
+Also removed now-unused `import json` from all five files. Zero bare `json.load`/`json.dump` calls remain in backend routers or pipeline code.
+
+### 3. Verification
+
+- 79/79 pytest pass (no regressions)
+- Frontend `next build` clean (no TS errors)
+- Cold boot smoke 8/8 pass
+- Live sample input captures: Maya (math worksheet, correct no-match) + Jaylen (PECS log, G1 matched, 4182-char thinking trace)
+- Alerts endpoint: 5 alerts with correct severity labels
+- Materials/documents list endpoints: working with migrated JSON IO
+- Bilingual translate: EN→ES on Maya G1 round-trips correctly, no mojibake on disk
 
 ## TL;DR cold start
 
@@ -139,14 +174,18 @@ Original symptoms (unicode mangling + inline-object diff noise) both fixed via `
 
 ## What's next
 
-**Immediate (next session, when you resume):**
-- Finding 12 — bilingual re-translate vs regenerate (pending Sarah's opinion).
-- Optional: migrate the remaining non-student JSON caches (materials/documents/capture/precomputed/alerts) to `core.json_io` — same bug shape, not blocking.
+**No deferred technical items remain.** The codebase is ready for the release gate.
 
-**Medium term:**
+**Immediate:**
 - Share `sarah_review_bundle/` with Sarah. Apply her feedback to prompts / profiles.
 - Jeff release gate decision.
-- Sprint 6 (deploy + video + writeup + Kaggle submission — blocked on release gate).
+
+**When gate opens (Sprint 6):**
+- Deploy target finalization
+- 3-min video recording (against `docs/VIDEO-SCRIPT.md`)
+- `docs/COMPETITION-WRITEUP.md` finalization
+- Kaggle submission package
+- Submit with 48h buffer before 2026-05-18
 
 ## Evidence (local only, gitignored)
 

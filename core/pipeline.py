@@ -4,7 +4,6 @@ Single function call that runs the first three agents in sequence.
 Material Forge (Agent 4) is invoked separately from the UI layer.
 """
 
-import json
 import hashlib
 from pathlib import Path
 from typing import Optional
@@ -122,27 +121,26 @@ class ClassLensPipeline:
         original filenames (e.g., '2026-04-06_worksheet_maya_math' -> 'maya_math').
         """
         cache_key = self._cache_key(image_path)
+        from core.json_io import read_json
         cache_path = self.precomputed_dir / f"{cache_key}.json"
         if cache_path.exists():
-            with open(cache_path, "r") as f:
-                return json.load(f)
+            return read_json(cache_path)
         # Fallback: strip date_worktype_ prefix from uploaded filenames
         stem = Path(image_path).stem
         parts = stem.split("_", 2)  # e.g., ["2026-04-06", "worksheet", "maya_math_worksheet"]
         if len(parts) == 3:
             fallback_path = self.precomputed_dir / f"{parts[2]}.json"
             if fallback_path.exists():
-                with open(fallback_path, "r") as f:
-                    return json.load(f)
+                return read_json(fallback_path)
         return None
 
     def _save_precomputed(self, image_path: str, result: dict):
         """Save pipeline result for demo mode caching."""
+        from core.json_io import write_json
         self.precomputed_dir.mkdir(parents=True, exist_ok=True)
         cache_key = self._cache_key(image_path)
         cache_path = self.precomputed_dir / f"{cache_key}.json"
-        with open(cache_path, "w") as f:
-            json.dump(result, f, indent=2)
+        write_json(cache_path, result)
 
     def _cache_key(self, image_path: str) -> str:
         """Generate a stable cache key from the image filename."""

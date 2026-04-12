@@ -760,6 +760,23 @@ Warmly,
 Make it personal, specific, and celebratory.
 """
 
+MATERIAL_FORGE_TRANSLATE_PARENT_COMM = """Translate the following approved parent letter into {language_name}.
+
+IMPORTANT RULES:
+1. Preserve EVERY student-specific detail — names, percentages, activities, interests, examples, teacher name. Nothing may be added or removed.
+2. Use culturally natural phrasing for a {language_name}-speaking family — do NOT translate word-for-word from English. Adapt greetings and closings to what is natural in that language.
+3. The ENTIRE output must be in {language_name}. Do not include any English text.
+4. Keep the same paragraph structure, warmth, and tone as the original.
+5. Sign with the exact teacher name from the original letter.
+
+APPROVED ENGLISH LETTER:
+---
+{approved_content}
+---
+
+Write the full translated letter now, in {language_name} only.
+"""
+
 MATERIAL_FORGE_ADMIN_REPORT = """Create an administrative progress report for this student's IEP goal.
 
 STUDENT PROFILE:

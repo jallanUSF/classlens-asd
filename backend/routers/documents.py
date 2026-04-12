@@ -8,7 +8,6 @@ alongside the raw file so it can be displayed in the Add Student flow and
 reused by the chat assistant.
 """
 
-import json
 import logging
 import os
 from datetime import date
@@ -19,6 +18,7 @@ from fastapi import APIRouter, File, Form, UploadFile
 from fastapi.responses import StreamingResponse
 
 from backend.routers._sse import SSE_HEADERS, run_streaming_job
+from core.json_io import read_json, write_json
 from backend.upload_utils import (
     DOCUMENT_EXTENSIONS,
     validate_student_id,
@@ -95,8 +95,7 @@ def _persist_upload_record(
     docs_dir: Path, doc_type: str, today: str, response: dict[str, Any]
 ) -> None:
     record_path = docs_dir / f"{doc_type}_{today}.json"
-    with open(record_path, "w") as f:
-        json.dump(response, f, indent=2)
+    write_json(record_path, response)
 
 
 def _save_upload_to_disk(
@@ -190,8 +189,7 @@ async def list_documents(student_id: str) -> list[dict[str, Any]]:
 
     documents = []
     for json_file in sorted(docs_dir.glob("*.json"), reverse=True):
-        with open(json_file, "r") as f:
-            data = json.load(f)
+        data = read_json(json_file)
         data["id"] = json_file.stem
         documents.append(data)
     return documents

@@ -4,7 +4,6 @@ Analyzes trial data to detect plateaus, regressions, and upcoming reviews.
 """
 
 import hashlib
-import json
 import os
 import re
 from datetime import date
@@ -15,6 +14,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 
 from backend.routers._sse import SSE_HEADERS, run_streaming_job
+from core.json_io import read_json, write_json
 
 router = APIRouter(tags=["alerts"])
 
@@ -62,15 +62,13 @@ def _load_alerts() -> list[dict]:
     """Load active alerts from file."""
     if not ALERTS_FILE.exists():
         return []
-    with open(ALERTS_FILE, "r") as f:
-        return json.load(f)
+    return read_json(ALERTS_FILE)
 
 
 def _save_alerts(alerts: list[dict]):
     """Save alerts to file."""
     ALERTS_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(ALERTS_FILE, "w") as f:
-        json.dump(alerts, f, indent=2)
+    write_json(ALERTS_FILE, alerts)
 
 
 def _stable_alert_id(student_id: str, goal_id: str, label: str) -> str:

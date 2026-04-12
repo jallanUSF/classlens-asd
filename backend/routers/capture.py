@@ -2,12 +2,12 @@
 Capture endpoint — upload student work image and run the analysis pipeline.
 """
 
-import json
 import os
 from datetime import date
 from pathlib import Path
 
 from dotenv import load_dotenv
+from core.json_io import write_json
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 
 from backend.upload_utils import (
@@ -90,7 +90,6 @@ async def capture_work(
         "image_path": str(image_path),
     }
     record_path = docs_dir / f"{today}_{work_type}_{Path(safe_name).stem}.json"
-    with open(record_path, "w") as f:
-        json.dump(record, f, indent=2)
+    write_json(record_path, record)
 
     return result

@@ -27,6 +27,7 @@ from prompts.templates import (
     MATERIAL_FORGE_VISUAL_SCHEDULE,
     MATERIAL_FORGE_FIRST_THEN_BOARD,
     MATERIAL_FORGE_PARENT_COMM,
+    MATERIAL_FORGE_TRANSLATE_PARENT_COMM,
     MATERIAL_FORGE_ADMIN_REPORT,
 )
 
@@ -224,6 +225,25 @@ class MaterialForge(BaseAgent):
             teacher_name=p.get("teacher", "Ms. Rodriguez"),
         )
         return self._call_with_fallback(prompt, [GENERATE_PARENT_COMM], MATERIAL_FORGE_SYSTEM)
+
+    def translate_parent_comm(
+        self, approved_content: str, language: str = "es",
+    ) -> dict:
+        """Translate an approved English parent letter to the target language.
+
+        Unlike generate_parent_comm which regenerates from scratch (losing
+        student-specific color like interest references), this method preserves
+        every detail from the approved EN version by asking Gemma to translate
+        it directly.
+        """
+        language_name = LANGUAGE_CODE_TO_NAME.get(language, "English")
+        prompt = MATERIAL_FORGE_TRANSLATE_PARENT_COMM.format(
+            language_name=language_name,
+            approved_content=approved_content,
+        )
+        # Plain text generation — no function calling needed for translation.
+        translated = self._generate_text(prompt, MATERIAL_FORGE_SYSTEM)
+        return {"text": translated}
 
     # ── 7. Admin Reports ──────────────────────────────────────
 

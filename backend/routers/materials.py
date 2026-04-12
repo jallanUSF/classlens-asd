@@ -2,7 +2,6 @@
 Material generation and management endpoints.
 """
 
-import json
 import os
 from datetime import date
 from pathlib import Path
@@ -13,6 +12,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 from backend.routers._sse import SSE_HEADERS, run_streaming_job
+from core.json_io import read_json, write_json
 
 router = APIRouter(tags=["materials"])
 
@@ -27,6 +27,7 @@ class GenerateRequest(BaseModel):
     scenario: str = ""  # for social stories
     routine: str = ""  # for visual schedules
     language: str = "en"  # ISO-639 code for parent_comm (en, es, vi, zh)
+    approved_content: str = ""  # approved EN letter text — triggers translate mode for parent_comm
 
 
 def _get_forge():
@@ -66,9 +67,14 @@ def _generate_material_sync(req: GenerateRequest) -> dict[str, Any]:
             raise ValueError("first_then requires goal_id")
         result = forge.generate_first_then(req.student_id, req.goal_id)
     elif req.material_type == "parent_comm":
-        result = forge.generate_parent_comm(
-            req.student_id, req.goal_id, language=req.language
-        )
+        if req.approved_content and req.language != "en":
+            result = forge.translate_parent_comm(
+                approved_content=req.approved_content, language=req.language,
+            )
+        else:
+            result = forge.generate_parent_comm(
+                req.student_id, req.goal_id, language=req.language
+            )
     elif req.material_type == "admin_report":
         result = forge.generate_admin_report(req.student_id)
     else:
@@ -87,8 +93,7 @@ def _generate_material_sync(req: GenerateRequest) -> dict[str, Any]:
         "language": req.language if req.material_type == "parent_comm" else "en",
     }
     filename = f"{req.material_type}_{req.goal_id or 'all'}_{today}.json"
-    with open(mat_dir / filename, "w") as f:
-        json.dump(material_record, f, indent=2)
+    write_json(mat_dir / filename, material_record)
 
     return material_record
 
@@ -137,8 +142,7 @@ async def list_materials(student_id: str) -> list[dict[str, Any]]:
         return []
     materials = []
     for json_file in sorted(mat_dir.glob("*.json"), reverse=True):
-        with open(json_file, "r") as f:
-            data = json.load(f)
+        data = read_json(json_file)
         data["id"] = json_file.stem
         materials.append(data)
     return materials
@@ -150,9 +154,7 @@ async def approve_material(student_id: str, material_id: str) -> dict[str, str]:
     mat_path = MATERIALS_DIR / student_id / f"{material_id}.json"
     if not mat_path.exists():
         raise HTTPException(status_code=404, detail="Material not found")
-    with open(mat_path, "r") as f:
-        data = json.load(f)
+    data = read_json(mat_path)
     data["status"] = "approved"
-    with open(mat_path, "w") as f:
-        json.dump(data, f, indent=2)
+    write_json(mat_path, data)
     return {"status": "approved", "id": material_id}
