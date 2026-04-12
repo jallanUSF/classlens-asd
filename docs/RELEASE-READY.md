@@ -53,7 +53,6 @@ Target submission deadline: **2026-05-18** (with 48h buffer).
 - [ ] Error responses route through `backend/sanitize.py` — no raw model text, no stack traces
 - [ ] All student JSON reads/writes route through `core/json_io.py` (UTF-8, `ensure_ascii=False`)
 - [ ] `docs/SECURITY-REVIEW.md` Section 5 "Before Launch" checklist fully ticked
-- [ ] `PRIVACY-NOTICE.md` exists at repo root and states synthetic-data-only
 
 ## 5. Content (Sarah)
 

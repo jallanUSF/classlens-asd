@@ -17,7 +17,7 @@ ClassLens ASD is a Gemma 4-powered demo for special education teachers. This rev
 - **PII not exposed in logs** — Streamlit Cloud logs don't capture student names in URLs or queries; API calls are logged by Google (see below).
 - **Competition-ready** — Judges will see a responsible approach to student data.
 
-**Recommendation:** Deploy with included `.gitignore`, `PRIVACY-NOTICE.md`, and Streamlit security configs. No production launch without institutional review.
+**Recommendation:** Deploy with included `.gitignore` and standard security configs. No production launch without institutional review.
 
 ---
 
@@ -56,9 +56,8 @@ The Family Educational Rights and Privacy Act (20 U.S.C. § 1232g) governs stude
 
 Hackathon judges in the Education track WILL evaluate whether teams show awareness of FERPA. Our demo scores well because:
 1. We document that we use synthetic data.
-2. We show a `PRIVACY-NOTICE.md` file.
-3. We acknowledge production requirements in comments.
-4. We don't claim to be FERPA-compliant (we don't need to for a demo).
+2. We acknowledge production requirements in comments.
+3. We don't claim to be FERPA-compliant (we don't need to for a demo).
 
 ---
 
@@ -260,7 +259,6 @@ A: No, they're temporary files in Streamlit's cache. For production with real st
   - [ ] No hardcoded student data in app code.
 
 - [ ] **Documentation**
-  - [ ] `PRIVACY-NOTICE.md` at repo root (see below).
   - [ ] `SECURITY-REVIEW.md` in `docs/`.
   - [ ] Commented code explaining FERPA awareness.
   - [ ] README mentions this is a demo with synthetic data.
@@ -350,9 +348,8 @@ If ClassLens is deployed in actual schools:
 
 1. **Synthetic Data** — We use fake student names and generic IEP goals to avoid exposing real students.
 2. **Secure API Key Handling** — API key is in `.env`, never in code.
-3. **Privacy Documentation** — We include `PRIVACY-NOTICE.md` to show transparency.
-4. **No Real User Data** — Demo doesn't require login; no teacher/parent data collected.
-5. **Thoughtful IEP Design** — Student profiles reflect real ASD profiles but are fabricated.
+3. **No Real User Data** — Demo doesn't require login; no teacher/parent data collected.
+4. **Thoughtful IEP Design** — Student profiles reflect real ASD profiles but are fabricated.
 
 ### What Judges Should Look For (Beyond This Review)
 

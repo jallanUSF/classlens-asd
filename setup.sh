@@ -178,7 +178,6 @@ CRITICAL_FILES=(
     "requirements.txt"
     ".env.example"
     ".gitignore"
-    "PRIVACY-NOTICE.md"
     ".streamlit/config.toml"
     "schemas/student_profile.py"
     "core/state_store.py"

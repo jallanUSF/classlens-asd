@@ -25,7 +25,6 @@ Use this checklist before deploying to Streamlit Community Cloud or any public e
   - [ ] Sample data uses only synthetic names (Maya, Jaylen, Sofia)
 
 - [ ] **Documentation**
-  - [ ] `PRIVACY-NOTICE.md` exists at repo root
   - [ ] `SECURITY-REVIEW.md` exists in `docs/`
   - [ ] README mentions demo is for synthetic data only
   - [ ] API key setup instructions in README or `CONTRIBUTING.md`
@@ -164,7 +163,6 @@ If deploying to a real school, STOP and complete this first:
 | Real student names in demo | Could match actual students; FERPA issue | Use common synthetic names |
 | No file upload validation | DOS attacks via huge files; malware | Implement MIME type check + size limit |
 | Detailed error messages in logs | PII exposure; debugging info leaked | Set `logger.level = "error"` |
-| No privacy documentation | Judges assume you didn't think about it | Include `PRIVACY-NOTICE.md` |
 | Uploaded images stored permanently | Data accumulation; privacy leak | Use temp storage only |
 | No XSRF protection | Cross-site attacks possible | Enable `enableXsrfProtection = true` |
 

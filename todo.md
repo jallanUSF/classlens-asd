@@ -2,11 +2,9 @@
 
 ## Active (5 items max)
 
-1. [ ] **Release gate** — Jeff approval against `docs/RELEASE-READY.md` (56-item checklist) unblocks Sprint 6
+1. [ ] **Release gate** — Jeff approval against `docs/RELEASE-READY.md` unblocks Sprint 6
 2. [ ] Confirm Sarah's content status (profiles + video segments)
-3. [ ] Verify `docs/PRIVACY-NOTICE.md` exists (SECURITY-REVIEW references it — may need to create)
-4. [ ] Check `docs/VIDEO-SCRIPT.md` for any mic-dependent beats; rewrite as typed-observation flow if present
-5. [ ] V2 roadmap: Gemma 4 E4B on-device ASR via LiteRT-LM (tracked in ADR-011 + decision doc)
+3. [ ] Check `docs/VIDEO-SCRIPT.md` for any mic-dependent beats; rewrite as typed-observation flow if present
 
 ## Sprint 6 — blocked on release gate
 
@@ -19,6 +17,10 @@
 ---
 
 ## Archive — shipped (chronological, most recent first)
+
+**2026-04-12 PRIVACY-NOTICE cleanup:** Dropped unused PRIVACY-NOTICE.md requirement — 8 references scrubbed across SECURITY-REVIEW.md, DEPLOYMENT-SECURITY-CHECKLIST.md, RELEASE-READY.md, setup.sh, todo.md. Competition doesn't require a standalone privacy doc; privacy story lives in ADR-006 + ADR-011 + SECURITY-REVIEW already.
+
+**2026-04-12 audio V2 roadmap:** Wrote `docs/plans/2026-04-12-audio-v2-roadmap.md` (211 lines). Covers objective, three concrete trigger conditions (LiteRT-LM Windows bindings, Gemma 4 E-series audio via Python API, V1 shipped), three-phase plan (spike → backend integration → UI re-enable), Vertex fallback, success criteria, risks, effort (4-5 days post-trigger).
 
 **2026-04-12 audio decision:** Shipped Option C (text-first "Quick Observation"). Spike confirmed (1) AI Studio gates audio off on every Gemma variant served, (2) LiteRT-LM Python bindings are Linux/macOS only with Windows "upcoming" — four stacked unknowns for a marginal feature. Rewrote `docs/plans/2026-04-12-audio-shim-decision.md`, added ADR-011 with V2 Gemma 4 E4B on-device ASR roadmap. UI updated: `VoiceCapture.tsx` idle state now keyboard-icon + "Type Observation" primary (mic only renders when `audioSupported === true`); parent section title "Voice Observation" → "Quick Observation".
 
