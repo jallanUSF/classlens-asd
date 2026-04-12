@@ -431,8 +431,39 @@ The video demo (30% of score) and live demo URL (judges try it themselves) are c
 | ADR-008: 3-tier fallback | Graceful degradation | ✅ Production resilience |
 | ADR-009: Fixture tests + weekly smoke test | CI/CD transparency | ✅ Code quality |
 | ADR-010: Next.js + FastAPI (not Streamlit) | Professional UX + mobile | ✅ Product maturity |
+| ADR-011: Text-first observation capture in V1; Gemma 4 E4B on-device ASR in V2 | Deliberate Gemma-purity + honest V2 roadmap | ✅ Engineering judgment |
 
 **Expected Technical Depth Score: 26-30 / 30** (judges see deliberate engineering choices, not YOLO hacking)
+
+---
+
+## ADR-011: Text-First Observation Capture in V1; Gemma 4 E4B On-Device ASR in V2
+
+**Context:**
+The Voice Capture feature was designed around `gemma-4-31b-it` accepting audio input. Live testing against Google AI Studio revealed audio is gated off at the hosting layer across the entire Gemma family we can access: `gemma-4-31b-it` returns `400 INVALID_ARGUMENT` on audio Parts; `gemma-3n-e4b-it` and `gemma-3n-e2b-it` return the explicit error `"Audio input modality is not enabled for models/gemma-3n-e4b-it"`. Google has the multimodal audio capability built into the model weights but disabled in the hosted API.
+
+We evaluated five paths (Gemini transcription shim, Gemini→Gemma two-step, Vertex AI, on-device LiteRT-LM, and text-only). The on-device path — Gemma 4 E4B via the LiteRT-LM framework that ships behind Google's own AI Edge Eloquent dictation app — is architecturally ideal ("Gemma hears, Gemma reasons"; FERPA-perfect offline story; showcases the full Gemma 4 family). However, a spike on 2026-04-12 confirmed LiteRT-LM's Python bindings are explicitly **Linux/macOS only** with "Windows support upcoming" per Google's own documentation. The nightly Windows wheel does not exist. A WSL2 workaround would require four stacked unknowns (WSL2 upgrade, nightly package on a moving API, ~3.65 GB model download, Windows↔WSL2 bridge) for a feature that judges will see for <10 seconds in a 3-minute video.
+
+**Decision:**
+Ship V1 as **text-only "Quick Observation" capture**. The existing typed-observation path (`VoiceReader.transcribe_from_text`) becomes the primary and only user-facing flow. Mic affordance is hidden in the UI (rendered only when `VOICE_AUDIO_ENABLED=1`). MediaRecorder code stays dormant so V2 flips a single env flag to re-enable.
+
+V2 roadmap: **Gemma 4 E4B on-device via LiteRT-LM** once Windows Python bindings ship. Fallback plan if they don't ship by our V2 sprint: Gemma 3n E4B via Vertex AI (paid but pure-Gemma).
+
+**Rationale:**
+- **Spirit of competition.** 100% Gemma 4 on every intelligent call. A Gemini transcription shim would put a non-Gemma model in the critical audio path and invite the "why Gemma?" question in judging.
+- **Demo-day risk.** Zero new infra, zero new API dependency, no live-mic failure modes. The path is already shipping and tested.
+- **Realistic workflow.** Teachers already type quick observations into data sheets; auto-populating IEP goals from typed text is the actual improvement. The "voice" framing was a nice-to-have, not the core value.
+- **Pitchable V2.** The ADR entry itself is a judge signal: "we evaluated the full Gemma edge stack including LiteRT-LM and Vertex and made an explicit shipping decision with a credible V2 path." That beats half-shipping a mic button.
+
+**Trade-offs:**
+| Path | Spirit fit | Effort | Demo risk | V1 status |
+|------|-----------|--------|-----------|-----------|
+| Text-only (chosen) | ✅ Pure Gemma | Done | Very low | **Shipped** |
+| Gemini shim | ⚠️ Mixed-model | ~Half-day | Low | Rejected |
+| Vertex AI Gemma 3n | ✅ Pure Gemma | ~1 day + GCP setup | Medium (new infra) | V2 fallback |
+| LiteRT-LM Gemma 4 E4B | ✅✅ Best | Blocked on Windows | N/A | **V2 primary** |
+
+**Status:** ✅ DECIDED and shipped (commit forthcoming). V2 tracked in `docs/plans/2026-04-12-audio-shim-decision.md`.
 
 ---
 
@@ -442,9 +473,10 @@ The video demo (30% of score) and live demo URL (judges try it themselves) are c
 |------|---------|-------|
 | 2026-04-04 | 1.0 | Initial ADR for submission |
 | 2026-04-05 | 1.1 | Added ADR-010: Next.js + FastAPI replaces Streamlit |
+| 2026-04-12 | 1.2 | Added ADR-011: Text-first observation capture; V2 Gemma 4 E4B on-device ASR roadmap |
 
 ---
 
 **Document prepared for:** Kaggle Gemma 4 Good Hackathon Judges
-**Last updated:** 2026-04-05
+**Last updated:** 2026-04-12
 **Next review:** 2026-05-10 (pre-submission final check)

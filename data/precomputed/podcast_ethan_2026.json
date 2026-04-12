@@ -1,0 +1,57 @@
+{
+  "title": "Ethan's Progress Briefing — April 12",
+  "script": [
+    {
+      "speaker": "host",
+      "text": "Welcome back. Today we're checking in on Ethan, our second grader who has a deep passion for weather systems and transit maps."
+    },
+    {
+      "speaker": "guest",
+      "text": "He really does, and it's great to see those interests actually fueling some of his biggest breakthroughs lately."
+    },
+    {
+      "speaker": "host",
+      "text": "I noticed that in the data. Let's start with communication—how is he doing with spontaneous speech?"
+    },
+    {
+      "speaker": "guest",
+      "text": "He's making impressive strides. He started at a 25% baseline and just hit 65% in his latest session. He's moving beyond scripted phrases; for example, he spontaneously pointed out 'seven birds' on the playground and asked 'what for lunch?' without any prompting."
+    },
+    {
+      "speaker": "host",
+      "text": "That's a huge jump. I also see some growth in his social reciprocity. Is he engaging more with his peers?"
+    },
+    {
+      "speaker": "guest",
+      "text": "Definitely. He's climbed from 15% to 50% in interactive play. Pairing him with Caleb, who also loves maps, was a game changer. They recently spent six minutes together at recess 'finding tornadoes' before Ethan needed a break."
+    },
+    {
+      "speaker": "host",
+      "text": "It sounds like the interest-based pairing is really working. But looking at the alerts, not everything is trending up, right?"
+    },
+    {
+      "speaker": "guest",
+      "text": "Correct. Fine motor skills have hit a wall. He's plateaued at 45% for the last three sessions, and he's still struggling to keep lowercase letters on the lines."
+    },
+    {
+      "speaker": "host",
+      "text": "That's a bit of a gap from his 80% target. What's the suggested move to get him moving again?"
+    },
+    {
+      "speaker": "guest",
+      "text": "OT is recommending a vibrating pen and shifting to shorter writing bursts, punctuated by 'fan breaks' to help him manage the frustration."
+    },
+    {
+      "speaker": "host",
+      "text": "Got it. So, we celebrate the communication and social wins, but pivot the strategy on the writing tasks."
+    },
+    {
+      "speaker": "guest",
+      "text": "Exactly. The momentum is there; we just need to adjust the tools to match his needs."
+    }
+  ],
+  "student_id": "ethan_2026",
+  "language": "en",
+  "generated_date": "2026-04-12",
+  "thinking": "Podcast Producer agent in ClassLens ASD.\nAudio briefing on a student's (Ethan) IEP progress.\nHost (introduces/frames) and Guest (data analyst).\nTeacher (possibly driving). No jargon.\nApprox. 2 minutes, ~300 words, 10-16 lines.\nJSON only.\n\n        *   Name: Ethan (Grade 2, ASD Level 2).\n        *   Communication style: Heavy echolalia (weather/tornadoes/fans), emerging spontaneous speech.\n        *   Interests: Weather, ceiling fans, the number 7, subway maps.\n        *   Goal G1 (Communication): Spontaneous speech. Baseline 25% -> Current 65%. (Trending up, strong progress).\n        *   Goal G2 (Fine Motor): Legible letters. Baseline 20% -> Current 45% (Plateaued for 3 sessions).\n        *   Goal G3 (Social Reciprocity): Interactive play. Baseline 15% -> Current 50%. (Trending up, interest-based).\n\n    *   *Intro:* Host introduces Ethan and the focus on his unique interests.\n    *   *Communication:* Guest highlights the jump from 25% to 65%. Mentions specific wins (e.g., \"seven birds\", \"what for lunch?\").\n    *   *Social:* Guest discusses the progress from 15% to 50%, mentioning the pairing with Caleb and the \"tornado hunting\" at recess.\n    *   *Fine Motor:* Guest addresses the plateau at 45%. Suggests the vibrating pen/shorter bursts.\n    *   *Conclusion:* Host wraps up with a positive note.\n\n    *   *Line 1 (Host):* Welcome back. Today we're looking at Ethan, our second grader who's obsessed with weather patterns and transit maps.\n    *   *Line 2 (Guest):* He really is. And those interests are actually fueling some great breakthroughs in his communication.\n    *   *Line 3 (Host):* I saw that in the data. How's he doing with spontaneous speech?\n    *   *Line 4 (Guest):* He's making huge strides. He started at a 25% baseline and hit 65% in his latest session. He's moving past the scripted phrases—he even spontaneously asked \"what for lunch?\" and pointed out \"seven birds\" on the playground.\n    *   *Line 5 (Host):* That's a big win. What about his social interactions? I know he's usually a solo player.\n    *   *Line 6 (Guest):* He's moving in the right direction. He's up from 15% to 50% for interactive play. Pairing him with Caleb has been key; they recently spent six minutes \"finding tornadoes\" together at recess.\n    *   *Line 7 (Host):* It sounds like the interest-based approach is working. Is everything trending up, though?\n    *   *Line 8 (Guest):* Not quite. Fine motor is a concern. He hit 45% and has stayed there for the last three sessions. He's struggling with lowercase letters and resisting tasks longer than five minutes.\n    *   *Line 9 (Host):* 45% is a bit far from that 80% target. What's the plan to break that plateau?\n    *   *Line 10 (Guest):* OT is suggesting a vibrating pen and breaking the work into shorter bursts, followed by \"fan breaks\" to keep him motivated.\n    *   *Line 11 (Host):* Got it. So, celebrate the communication and social wins, but pivot the strategy on writing.\n    *   *Line 12 (Guest):* Exactly. The momentum is there; we just need to adjust the tools for his fine motor work.\n\n    *   ~2 minutes? Yes.\n    *   ~300 words? Yes.\n    *   Host/Guest roles correct? Yes.\n    *   Numbers included? (25%->65%, 15%->50%, 45% plateau). Yes.\n    *   No jargon? Yes.\n    *   Non-verbal/AAC mentioned? (Not applicable as he's verbal, but echolalia is handled).\n    *   JSON format? Yes."
+}

@@ -51,12 +51,18 @@ class TestVoiceCaptureEndpoint:
                 "media_type": "audio/webm",
             },
         )
-        # Either succeeds (mock) or fails gracefully (real API without audio support)
+        # Three legitimate outcomes:
+        #   200 + transcription     → audio path succeeded (mock or enabled provider)
+        #   200 + audio_not_supported → provider gate kicked in; UI falls back to text
+        #   502                     → live API failed gracefully
         assert resp.status_code in (200, 502)
         if resp.status_code == 200:
             data = resp.json()
-            assert "transcription" in data
-            assert "student_work" in data
+            if data.get("error") == "audio_not_supported":
+                assert data.get("fallback") == "text_input"
+            else:
+                assert "transcription" in data
+                assert "student_work" in data
 
     def test_voice_capture_invalid_student(self):
         """Unknown student should return 404."""

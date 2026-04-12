@@ -2,11 +2,11 @@
 
 ## Active (5 items max)
 
-1. [ ] **Audio model decision** — Gemma 4 31B doesn't support audio (only E4B/E2B, not on AI Studio). Options: (A) Gemini for transcription step, (B) two-step Gemini→Gemma, (C) keep text fallback. Jeff to decide.
-2. [ ] **Release gate** — Jeff approval (blocks Sprint 6 deploy + video + Kaggle submission)
-3. [ ] Confirm Sarah's content status (profiles + video segments)
-4. [ ] Record sample voice notes for demo (Sarah or synthetic)
-5. [ ] Define "release ready" criterion (demo-ready vs production-ready)
+1. [ ] **Release gate** — Jeff approval against `docs/RELEASE-READY.md` (56-item checklist) unblocks Sprint 6
+2. [ ] Confirm Sarah's content status (profiles + video segments)
+3. [ ] Verify `docs/PRIVACY-NOTICE.md` exists (SECURITY-REVIEW references it — may need to create)
+4. [ ] Check `docs/VIDEO-SCRIPT.md` for any mic-dependent beats; rewrite as typed-observation flow if present
+5. [ ] V2 roadmap: Gemma 4 E4B on-device ASR via LiteRT-LM (tracked in ADR-011 + decision doc)
 
 ## Sprint 6 — blocked on release gate
 
@@ -19,6 +19,10 @@
 ---
 
 ## Archive — shipped (chronological, most recent first)
+
+**2026-04-12 audio decision:** Shipped Option C (text-first "Quick Observation"). Spike confirmed (1) AI Studio gates audio off on every Gemma variant served, (2) LiteRT-LM Python bindings are Linux/macOS only with Windows "upcoming" — four stacked unknowns for a marginal feature. Rewrote `docs/plans/2026-04-12-audio-shim-decision.md`, added ADR-011 with V2 Gemma 4 E4B on-device ASR roadmap. UI updated: `VoiceCapture.tsx` idle state now keyboard-icon + "Type Observation" primary (mic only renders when `audioSupported === true`); parent section title "Voice Observation" → "Quick Observation".
+
+**2026-04-12 sprint items 1-3:** All 7 students now have real-Gemma podcast caches (added sofia/ethan/lily/marcus ~650-705KB each via `scripts/generate_podcast_cache.py`). Voice capture UX made honest — `_is_google_provider()` now gated on `VOICE_AUDIO_ENABLED` env var (defaults off because gemma-4-31b-it 400s on audio); audio validation moved before provider gate so MIME/size errors still return 400; `audio_not_supported` response path reached cleanly when gate closed. `VoiceCapture.tsx` shows "Type Observation" + explanatory copy when backend reports unsupported. Added `scripts/browser_smoke.py` (Playwright, closes MISTAKES.md #5 gap) — drives real frontend on :3000, verifies heading/trajectory/podcast/materials render + console clean across 3 students. 165/165 tests still passing, `next build` clean.
 
 **2026-04-12 podcast briefing:** All 5 phases of `docs/plans/2026-04-12-podcast-briefing-design.md`. New podcast_producer agent (Gemma thinking mode), edge-tts wrapper, 3 backend endpoints, PodcastBriefing.tsx component, 10 tests, precomputed MP3s for Maya/Jaylen/Amara with real student-specific content. Flag dedup bug fixed (MISTAKES.md #7). Browser-verified. 154→165 tests.
 

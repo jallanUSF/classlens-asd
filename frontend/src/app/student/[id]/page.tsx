@@ -216,9 +216,9 @@ export default function StudentDetailPage() {
 
       <Separator />
 
-      {/* Voice Capture */}
+      {/* Observation Capture (text-first; mic returns in V2 via on-device Gemma ASR) */}
       <section>
-        <h2 className="text-lg font-semibold mb-3">Voice Observation</h2>
+        <h2 className="text-lg font-semibold mb-3">Quick Observation</h2>
         <VoiceCapture studentId={student.student_id} />
       </section>
 

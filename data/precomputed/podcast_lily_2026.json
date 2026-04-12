@@ -1,0 +1,49 @@
+{
+  "title": "Lily's Progress Briefing — April 12",
+  "script": [
+    {
+      "speaker": "host",
+      "text": "Welcome back. Today we're checking in on Lily, a fourth grader who's absolutely brilliant when it comes to marine biology, but has been working on her social pragmatics and classroom independence."
+    },
+    {
+      "speaker": "guest",
+      "text": "Lily's data is showing some really encouraging trends. Starting with social communication, she's climbed from a 35% baseline to 75% this week. She's now maintaining peer-led topics for over four exchanges, which is a huge leap."
+    },
+    {
+      "speaker": "host",
+      "text": "That's a big win. Is she still pivoting everything back to octopuses, or is she branching out?"
+    },
+    {
+      "speaker": "guest",
+      "text": "She is! She even asked a peer for their input during a group project recently. While she still finds larger groups a bit overwhelming, her ability to read facial cues is improving thanks to her 'body clue' checklist."
+    },
+    {
+      "speaker": "host",
+      "text": "Now, I know she had a rough patch around the science fair. How is her executive functioning looking?"
+    },
+    {
+      "speaker": "guest",
+      "text": "It's a slower climb. She's at 60%, up from a 50% baseline. She still tends to shut down when instructions are ambiguous, but the new pre-task planning sheets are helping her write her own checklists to get started."
+    },
+    {
+      "speaker": "host",
+      "text": "It sounds like those clear steps are the key for her. What about her self-regulation goals?"
+    },
+    {
+      "speaker": "guest",
+      "text": "This is actually her biggest success story. She jumped from a 25% baseline to 70%. She's using a five-point scale to identify frustration early and recently told a peer 'I need a minute' during a conflict instead of crying."
+    },
+    {
+      "speaker": "host",
+      "text": "That's a massive step in self-advocacy. It sounds like the visual tools and the calm corner are really giving her the agency she needs."
+    },
+    {
+      "speaker": "guest",
+      "text": "Exactly. If we keep pre-chunking those multi-step assignments and supporting her in group settings, she's on a great trajectory."
+    }
+  ],
+  "student_id": "lily_2026",
+  "language": "en",
+  "generated_date": "2026-04-12",
+  "thinking": "Podcast Producer for ClassLens ASD.\nWrite a ~2-minute audio briefing (approx. 300 words) as a dialogue between Host and Guest.\nLily, 4th Grade, ASD Level 1.\nSocial Communication (G1), Executive Function (G2), Self-Regulation (G3).\nTeacher (conversational, no jargon).\nJSON only.\n\n    *   *Student:* Lily, 4th grade, verbal, loves marine biology/sorting, struggles with pragmatics/EF/regulation.\n    *   *G1 (Social Comm):* Baseline 35% $\\rightarrow$ Current 75%. Progressing well. Topic maintenance (up to 4+ exchanges), emotion recognition improving. Struggle: Groups larger than 2.\n    *   *G2 (Executive Function):* Baseline 50% $\\rightarrow$ Current 60%. Slow progress. Struggles with multi-step/ambiguous tasks. Pre-task planning sheets helping.\n    *   *G3 (Self-Regulation):* Baseline 25% $\\rightarrow$ Current 70%. Great progress. Using 5-point scale, break cards, \"I need a minute.\" Still some triggers (sensory).\n\n    *   *Intro:* Host introduces Lily.\n    *   *G1 (Social):* Guest discusses the climb from 35% to 75%. Mention the 4+ exchanges and the \"body clue\" checklist.\n    *   *G2 (EF):* Guest discusses the dip and recovery. Baseline 50% to 60%. Mention the struggle with ambiguous tasks and the fix (pre-task planning).\n    *   *G3 (Regulation):* Guest highlights the jump from 25% to 70%. Mention the \"I need a minute\" moment and the 5-point scale.\n    *   *Outro:* Host wraps up with a positive outlook.\n\n    *   *Host:* \"Welcome back. Today we're looking at 4th grader Lily. She's brilliant with marine biology, but we've been focusing on her social pragmatics and classroom independence. How's the data looking?\"\n    *   *Guest:* \"It's a really encouraging trend overall. For her social communication goal, Lily has jumped from a 35% baseline to 75% this week. She's now maintaining peer-led topics for over four exchanges, which is a huge win.\"\n    *   *Host:* \"That's great. I know she loves her octopuses—is she branching out?\"\n    *   *Guest:* \"She is! She's even asking peers for their input during group projects. She's still finding larger groups a bit overwhelming, but her ability to read facial cues is internalizing well.\"\n    *   *Host:* \"What about her executive functioning? I remember she had some trouble with the science fair project.\"\n    *   *Guest:* \"Right, she did have a dip there. She's at 60% now, up from a 50% baseline, but progress is slower here. She struggles when instructions are ambiguous. However, the new pre-task planning sheets are helping her write her own checklists, which reduces that initial anxiety.\"\n    *   *Host:* \"And lastly, her self-regulation. Any big breakthroughs?\"\n    *   *Guest:* \"Actually, this is where we've seen the most growth. She went from a 25% baseline to 70% success. She's proactively using a five-point scale and even told a peer 'I need a minute' during a disagreement instead of shutting down.\"\n    *   *Host:* \"That sounds like a massive step in self-advocacy. Thanks for the breakdown—sounds like those visual tools are really paying off for her.\"\n\n    *   Check word count: ~260 words. Perfect.\n    *   Check line count: 10 lines. Perfect.\n    *   Check numbers: 35% $\\rightarrow$ 75%, 50% $\\rightarrow$ 60%, 25% $\\rightarrow$ 70%. All correct.\n    *   Check JSON format."
+}

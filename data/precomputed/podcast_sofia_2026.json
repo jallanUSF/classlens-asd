@@ -1,0 +1,61 @@
+{
+  "title": "Sofia's Progress Briefing — April 12",
+  "script": [
+    {
+      "speaker": "host",
+      "text": "Hi everyone. Today we're looking at Sofia, our fifth grader who is an incredible reader and a walking encyclopedia of US Presidents."
+    },
+    {
+      "speaker": "guest",
+      "text": "Sofia's had a fantastic month. She is actually hitting her targets across all three of her primary goals."
+    },
+    {
+      "speaker": "host",
+      "text": "Let's start with social communication. Sofia usually loves sharing facts, but the goal is to get her initiating conversations with peers more broadly."
+    },
+    {
+      "speaker": "guest",
+      "text": "Right. She started at a 45% baseline, but she's climbed steadily and hit her 80% target this week—even hitting 100% across her last three trials."
+    },
+    {
+      "speaker": "host",
+      "text": "That's a huge win. Is she moving beyond the 'fact-sharing' phase?"
+    },
+    {
+      "speaker": "guest",
+      "text": "She is. She's starting to ask her peers follow-up questions about their own hobbies instead of just talking about maps or the periodic table."
+    },
+    {
+      "speaker": "host",
+      "text": "I saw a note about a fire drill causing some anxiety. How is she handling transitions overall?"
+    },
+    {
+      "speaker": "guest",
+      "text": "That drill was a setback—it took her about three and a half hours to recover—but her trajectory is still upward. She's gone from 53% to 87% consistency by using written lists and deep breathing."
+    },
+    {
+      "speaker": "host",
+      "text": "It sounds like those self-regulation tools are really sticking. What about her written expression?"
+    },
+    {
+      "speaker": "guest",
+      "text": "This was the toughest climb. She stayed flat at 40% for a while, but she just jumped to 80% in her most recent samples."
+    },
+    {
+      "speaker": "host",
+      "text": "Is she finally moving away from that 'encyclopedia style' of writing?"
+    },
+    {
+      "speaker": "guest",
+      "text": "Yes. Her latest reflective essay shows real abstract thinking, specifically when explaining why characters in a book feel a certain way."
+    },
+    {
+      "speaker": "host",
+      "text": "Amazing growth across the board for Sofia. Thanks for the data breakdown!"
+    }
+  ],
+  "student_id": "sofia_2026",
+  "language": "en",
+  "generated_date": "2026-04-12",
+  "thinking": "Podcast Producer for ClassLens ASD.\n2-minute audio briefing (approx. 300 words) as a dialogue between Host and Guest.\nSofia, Grade 5, ASD Level 1.\nHost (Conversational, teacher-facing) and Guest (Data Analyst, numbers-driven).\nNo jargon, cite real numbers, celebrate wins, be honest, 1-3 sentences per line, 10-16 lines total.\nStrict JSON.\n\n    *   *Goal G1 (Social Communication):* Initiate conversations beyond facts.\n        *   Baseline: 45%.\n        *   Progress: 40% $\\rightarrow$ 50% $\\rightarrow$ 60% $\\rightarrow$ 70% $\\rightarrow$ 80% $\\rightarrow$ 100% (on 3 trials).\n        *   Outcome: Met target (80%).\n        *   Detail: Started with facts about Presidents; now asking follow-up questions and initiating based on shared interests.\n    *   *Goal G2 (Executive Function):* Transition management.\n        *   Baseline: 55%.\n        *   Progress: 53% $\\rightarrow$ 67% $\\rightarrow$ 73% $\\rightarrow$ 80% $\\rightarrow$ 87%.\n        *   Outcome: Met target (85%).\n        *   Detail: Fire drill was a setback (3.5 hours recovery), but written lists and breathing exercises are working.\n    *   *Goal G3 (Written Expression):* Creative/Abstract writing.\n        *   Baseline: 40%.\n        *   Progress: 40% $\\rightarrow$ 40% $\\rightarrow$ 40% $\\rightarrow$ 60% $\\rightarrow$ 80%.\n        *   Outcome: Met target (80%).\n        *   Detail: Moved from encyclopedia-style lists to reflective essays showing abstract thinking.\n\n    *   *Intro:* Host welcomes teacher, introduces Sofia.\n    *   *G1 (Social):* Guest discusses the move from 45% baseline to hitting 80% (and even 100% recently). Mention the transition from \"President facts\" to \"peer interests.\"\n    *   *G2 (EF):* Host asks about the fire drill/transitions. Guest notes the jump from 53% to 87% and the utility of written lists.\n    *   *G3 (Writing):* Host mentions Sofia's reading level. Guest highlights the jump from 40% to 80% in creative writing, moving beyond just facts.\n    *   *Outro:* Host summarizes.\n\n    *   *Line 1 (Host):* Hi everyone. Today we're looking at Sofia, our 5th grader who loves the periodic table and US Presidents.\n    *   *Line 2 (Guest):* Sofia's had a fantastic month. She's hitting targets across the board.\n    *   *Line 3 (Host):* Let's start with her social goals. She's usually very fact-focused, right?\n    *   *Line 4 (Guest):* Exactly. She started at a 45% baseline for initiating social conversations, but this week she hit 80%—and even 100% in her last three trials.\n    *   *Line 5 (Host):* That's a huge jump. What's changing in the room?\n    *   *Line 6 (Guest):* She's moving beyond just sharing geography facts and is actually asking her peers follow-up questions about their own interests.\n    *   *Line 7 (Host):* I noticed there was a bit of a struggle with a fire drill recently. How are her transitions looking?\n    *   *Line 8 (Guest):* That drill was tough—it took her about three and a half hours to recover—but she's bounced back. She's up from 53% to 87% consistency using her written lists and deep breathing.\n    *   *Line 9 (Host):* It sounds like the tools are working. What about her writing? She's such an advanced reader.\n    *   *Line 10 (Guest):* The gap between her reading and writing is closing. She stayed flat at 40% for a while, but just hit her 80% target for creative expression.\n    *   *Line 11 (Host):* From encyclopedia-style lists to actual reflection?\n    *   *Line 12 (Guest):* Precisely. Her latest essays show real abstract thinking and an ability to explain why characters feel a certain way.\n    *   *Line 13 (Host):* Incredible progress. Thanks for the breakdown!\n\n    *   Total lines: 13. (Fits 10-16 range).\n    *   Numbers used: 45%, 80%, 100%, 53%, 87%, 3.5 hours, 40%. (Fits requirement).\n    *   Tone: Warm, conversational.\n    *   Format: JSON."
+}

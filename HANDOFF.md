@@ -1,9 +1,49 @@
 # HANDOFF.md — Session Handoff
 
-**Date:** 2026-04-12
+**Date:** 2026-04-12 (later session)
 **Branch:** `nextjs-redesign`
-**Commit:** `0a79078` (see `git log` for full trail — 6 new commits this session)
-**Status:** Podcast Briefing feature shipped end-to-end + flag dedup bug fixed. 165 pytest pass, 0 TS errors. Browser-verified with real Gemma output.
+**Commit:** `60cfbb6` + uncommitted sprint 2-3 work (voice UX + browser smoke)
+**Status:** Risks 1-3 all closed. Audio decision made (Option C, text-first). 7/7 students have real-Gemma podcast caches. ADR-011 + decision doc updated with V2 LiteRT-LM roadmap. 165/165 pytest, `next build` clean.
+
+## Audio decision (2026-04-12) — shipped Option C
+
+**Spike findings that killed the other options:**
+1. AI Studio gates audio off on every Gemma variant — confirmed via live 400s: `gemma-4-31b-it` ("Audio Part rejected"), `gemma-3n-e4b-it` and `gemma-3n-e2b-it` both return `"Audio input modality is not enabled"`.
+2. Google AI Edge Eloquent uses Gemma 4 E4B via LiteRT-LM — but the Python bindings are **Linux/macOS only**, Windows listed as "upcoming". `pip install litert-lm-api-nightly` on this Windows Server box → no matching distribution. Local WSL is WSL1, not WSL2.
+
+**Decision:** Ship text-first ("Quick Observation"). 100% Gemma 4 on every intelligent call, zero new infra, zero demo-day risk. V2 adds on-device Gemma 4 E4B ASR when LiteRT-LM ships Windows support (tracked in ADR-011).
+
+**UI changes (text-first observation capture):**
+- `frontend/src/components/student/VoiceCapture.tsx` — idle state now keyboard-icon + "Type a quick observation. One or two sentences is plenty." with "Type Observation" primary button. Record button only renders when backend reports `audioSupported === true` (V2 gate). Done-state label "Voice observation captured" → "Observation captured".
+- `frontend/src/app/student/[id]/page.tsx` — section title "Voice Observation" → "Quick Observation".
+- MediaRecorder code kept dormant; V2 re-enables with a single `VOICE_AUDIO_ENABLED=1` flip.
+
+**Docs updated:**
+- `docs/plans/2026-04-12-audio-shim-decision.md` — rewritten with spike findings + final decision + V2 roadmap
+- `docs/ADR.md` — added ADR-011 (text-first V1 / Gemma 4 E4B on-device V2)
+
+---
+
+## Later session (2026-04-12) — risks 2 & 3 addressed
+
+**Voice capture UX made honest.** Gemma 4 31B returns 400 on audio input, but `/api/capture/voice/supported` was advertising it as available. Fixed:
+- `backend/routers/capture.py`: `_is_google_provider()` now also requires `VOICE_AUDIO_ENABLED=1`; default off until an audio path is wired. Audio shape validation (MIME, 10MB limit) moved before the provider gate so malformed submissions still 400 cleanly. Text-only shortcut (text_fallback without audio_b64) routes straight to `transcribe_from_text`.
+- `frontend/src/components/student/VoiceCapture.tsx`: when `audioSupported === false`, copy reads "Audio input isn't available right now. Type your observation below." and the "Type Observation" button becomes primary. Record button hidden. No more mid-submit failures for judges who try the mic.
+- `tests/test_voice_capture.py`: one test broadened to recognize `audio_not_supported` as a legitimate graceful outcome. All 165 tests still pass.
+
+**Browser-path smoke test added** — `scripts/browser_smoke.py` (Playwright). Closes the gap flagged in MISTAKES.md #5 (TestClient can't catch Next.js proxy / SSR / hydration regressions). Drives real frontend on :3000, checks page load, heading render, Trajectory / Progress Briefing / Materials sections, console clean. Runs across 3 core students by default. Exits non-zero on any fail. Run before every demo-critical change.
+
+    # preconditions: backend :8001, frontend :3000, playwright installed
+    pip install playwright && playwright install chromium
+    python scripts/browser_smoke.py           # all 3 students
+    python scripts/browser_smoke.py maya_2026 # single
+    python scripts/browser_smoke.py --headed  # visible browser
+
+**Risk 1 closed:** All 7 students now have real-Gemma podcast caches. Added sofia (635KB), ethan (678KB), lily (652KB), marcus (705KB). Generated via `scripts/generate_podcast_cache.py <id>` against Google AI Studio. Minor cosmetic issue: Marcus's script says "Grade 0" instead of "Kindergarten" — regenerate if Sarah flags it.
+
+---
+
+## Earlier session (2026-04-12 afternoon)
 
 ## This session (2026-04-12 afternoon)
 

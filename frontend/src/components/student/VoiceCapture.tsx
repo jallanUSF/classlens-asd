@@ -178,7 +178,7 @@ export function VoiceCapture({ studentId, onCaptureComplete }: Props) {
       <div className="rounded-lg border bg-card p-4 space-y-3">
         <div className="flex items-center gap-2">
           <CheckCircle className="h-4 w-4 text-emerald-600" />
-          <span className="text-sm font-medium">Voice observation captured</span>
+          <span className="text-sm font-medium">Observation captured</span>
         </div>
         {result.transcription && (
           <div className="rounded-md bg-muted/50 p-3">
@@ -239,28 +239,33 @@ export function VoiceCapture({ studentId, onCaptureComplete }: Props) {
         </div>
       )}
 
-      {/* Idle state */}
+      {/* Idle state — text-first. Audio path kept dormant for V2 (Gemma 4 E4B
+          on-device via LiteRT-LM; enabled automatically when the backend
+          reports audioSupported=true, e.g., once VOICE_AUDIO_ENABLED=1). */}
       {mode === "idle" && (
         <div className="flex flex-col items-center gap-3">
-          <Mic className="h-8 w-8 text-muted-foreground/50" />
+          <Keyboard className="h-8 w-8 text-muted-foreground/50" />
           <p className="text-sm text-muted-foreground text-center">
-            Record a voice observation or type one.
+            Type a quick observation. One or two sentences is plenty.
           </p>
           <div className="flex gap-2">
-            {audioSupported !== false && (
-              <Button onClick={startRecording} className="min-h-[44px] gap-2">
-                <Mic className="h-4 w-4" />
-                Record
-              </Button>
-            )}
             <Button
-              variant="outline"
               className="min-h-[44px] gap-2"
               onClick={() => setMode("text")}
             >
               <Keyboard className="h-4 w-4" />
-              Type Instead
+              Type Observation
             </Button>
+            {audioSupported === true && (
+              <Button
+                variant="outline"
+                onClick={startRecording}
+                className="min-h-[44px] gap-2"
+              >
+                <Mic className="h-4 w-4" />
+                Record
+              </Button>
+            )}
           </div>
         </div>
       )}

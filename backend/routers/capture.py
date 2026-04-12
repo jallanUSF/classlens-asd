@@ -125,9 +125,19 @@ def _get_voice_reader():
 
 
 def _is_google_provider() -> bool:
-    """Check if the current provider supports audio."""
+    """Check if the current provider supports audio.
+
+    NOTE: gemma-4-31b-it on Google AI Studio currently returns 400 on audio
+    input (see HANDOFF / todo.md item 1 — audio model decision). Until that's
+    resolved (Gemini transcription shim or a supported audio model), we
+    advertise audio as unsupported so the UI surfaces the text fallback
+    cleanly instead of failing mid-submit. Override with
+    VOICE_AUDIO_ENABLED=1 when a real audio path is wired up.
+    """
     provider = os.getenv("MODEL_PROVIDER", "google").lower()
-    return provider == "google"
+    if provider != "google":
+        return False
+    return os.getenv("VOICE_AUDIO_ENABLED", "").lower() in {"1", "true", "yes"}
 
 
 def _run_voice_capture(req: VoiceCaptureRequest) -> dict:
@@ -144,23 +154,31 @@ def _run_voice_capture(req: VoiceCaptureRequest) -> dict:
 
     reader = _get_voice_reader()
 
-    # If non-google provider or text fallback provided, use text mode
-    if not _is_google_provider() or (req.text_fallback and not req.audio_b64):
-        if not req.text_fallback:
-            return {
-                "error": "audio_not_supported",
-                "fallback": "text_input",
-                "message": "Audio input requires Google AI Studio provider. Please type your observation instead.",
-            }
+    # Text-only shortcut: no audio bytes, typed observation present.
+    if req.text_fallback and not req.audio_b64:
         return reader.transcribe_from_text(req.text_fallback, student_id)
 
-    # Decode audio and process
-    if req.media_type not in AUDIO_MIME_TYPES:
-        raise ValueError(f"Unsupported audio type: {req.media_type}. Supported: {', '.join(sorted(AUDIO_MIME_TYPES))}")
+    # Validate audio inputs first so shape errors return 400 regardless of provider.
+    if req.audio_b64:
+        if req.media_type not in AUDIO_MIME_TYPES:
+            raise ValueError(f"Unsupported audio type: {req.media_type}. Supported: {', '.join(sorted(AUDIO_MIME_TYPES))}")
+        audio_bytes = base64.b64decode(req.audio_b64)
+        if len(audio_bytes) > 10 * 1024 * 1024:  # 10MB limit
+            raise ValueError("Audio file too large (max 10MB)")
+    else:
+        audio_bytes = b""
 
-    audio_bytes = base64.b64decode(req.audio_b64)
-    if len(audio_bytes) > 10 * 1024 * 1024:  # 10MB limit
-        raise ValueError("Audio file too large (max 10MB)")
+    # Provider gate: if audio isn't supported on this provider/model, tell the UI
+    # to use the text fallback instead of failing mid-submit.
+    if not _is_google_provider():
+        return {
+            "error": "audio_not_supported",
+            "fallback": "text_input",
+            "message": "Audio input isn't available with the current model. Please type your observation instead.",
+        }
+
+    if not audio_bytes:
+        raise ValueError("No audio or text observation provided")
 
     return reader.transcribe_and_extract(
         audio_bytes=audio_bytes,
