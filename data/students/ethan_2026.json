@@ -39,7 +39,10 @@
       "goal_id": "G1",
       "domain": "communication",
       "description": "Ethan will use spontaneous (non-echolalic) speech to make requests, comment, or respond to questions in 7 out of 10 opportunities across classroom settings (circle time, centers, lunch), as measured by speech-language pathologist and teacher observation tally.",
-      "baseline": {"value": 25, "date": "2025-10-15"},
+      "baseline": {
+        "value": 25,
+        "date": "2025-10-15"
+      },
       "target": 70,
       "iep_review_date": "2026-10-15",
       "measurement_method": "SLP and teacher observation tally  -  spontaneous vs. scripted utterances",
@@ -92,7 +95,10 @@
       "goal_id": "G2",
       "domain": "fine_motor",
       "description": "Ethan will form uppercase and lowercase letters legibly (recognizable to an unfamiliar reader) on lined paper, completing 8 out of 10 letters correctly in a writing sample, as measured by bi-weekly OT writing probes.",
-      "baseline": {"value": 20, "date": "2025-10-15"},
+      "baseline": {
+        "value": 20,
+        "date": "2025-10-15"
+      },
       "target": 80,
       "iep_review_date": "2026-10-15",
       "measurement_method": "OT bi-weekly writing probe  -  legibility scoring rubric",
@@ -145,7 +151,10 @@
       "goal_id": "G3",
       "domain": "social_reciprocity",
       "description": "Ethan will engage in interactive play with a peer (turn-taking, sharing materials, or cooperative activity) for at least 5 minutes during 5 out of 10 free play opportunities, as measured by teacher/aide observation log.",
-      "baseline": {"value": 15, "date": "2025-10-15"},
+      "baseline": {
+        "value": 15,
+        "date": "2025-10-15"
+      },
       "target": 60,
       "iep_review_date": "2026-10-15",
       "measurement_method": "teacher/aide observation log during free play and recess",

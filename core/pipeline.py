@@ -111,9 +111,9 @@ class ClassLensPipeline:
 
     def _load_profile(self, student_id: str) -> dict:
         """Load student profile as raw dict."""
+        from core.json_io import read_json
         student_path = Path(self.data_dir) / "students" / f"{student_id}.json"
-        with open(student_path, "r") as f:
-            return json.load(f)
+        return read_json(student_path)
 
     def _load_precomputed(self, image_path: str) -> Optional[dict]:
         """Check if we have precomputed results for this image.

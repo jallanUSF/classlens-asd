@@ -39,7 +39,10 @@
       "goal_id": "G1",
       "domain": "social_communication",
       "description": "Lily will demonstrate pragmatic language skills by (a) staying on a conversational topic chosen by a peer for at least 3 exchanges, and (b) identifying a peer's emotional state from facial/body cues in 8 out of 10 structured opportunities, as measured by SLP observation and social skills group data.",
-      "baseline": {"value": 35, "date": "2025-10-15"},
+      "baseline": {
+        "value": 35,
+        "date": "2025-10-15"
+      },
       "target": 80,
       "iep_review_date": "2026-10-15",
       "measurement_method": "SLP observation during social skills group and classroom interactions",
@@ -92,7 +95,10 @@
       "goal_id": "G2",
       "domain": "executive_function",
       "description": "Lily will independently initiate and complete assigned classroom tasks (including multi-step projects) within the allotted time in 7 out of 10 opportunities, using a visual checklist if needed, as measured by teacher task completion log.",
-      "baseline": {"value": 50, "date": "2025-10-15"},
+      "baseline": {
+        "value": 50,
+        "date": "2025-10-15"
+      },
       "target": 75,
       "iep_review_date": "2026-10-15",
       "measurement_method": "teacher task completion log with timestamps",
@@ -145,7 +151,10 @@
       "goal_id": "G3",
       "domain": "self_regulation",
       "description": "Lily will use a learned coping strategy (deep breathing, requesting a break, using her worry stone, or asking for help) instead of crying or shutting down when frustrated during group work, in 7 out of 10 frustrating situations, as measured by behavior tracking log.",
-      "baseline": {"value": 25, "date": "2025-10-15"},
+      "baseline": {
+        "value": 25,
+        "date": "2025-10-15"
+      },
       "target": 75,
       "iep_review_date": "2026-10-15",
       "measurement_method": "behavior tracking log  -  coping strategy used vs. shutdown/crying",

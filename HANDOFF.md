@@ -1,8 +1,8 @@
 # HANDOFF.md — Session Handoff
 
-**Date:** 2026-04-11 (night — sample_inputs narrative guard)
+**Date:** 2026-04-11 (late-night — unicode fix + Findings 9/10 + sample_inputs smoke)
 **Branch:** `nextjs-redesign`
-**Status:** Narrative guard 4/4 pass on live Google AI Studio. Three stretch items from last session (narrative guard, Amara Why? with context, Ethan plateau multimodal) all closed. Release gate still closed pending Jeff approval.
+**Status:** All four actionable deferred items closed in one session. `core/json_io.py` centralizes UTF-8 JSON read/write for every student-profile site; 4 profiles normalized to canonical format; Findings 9 + 10 shipped; `scripts/sample_inputs_smoke.py` built and verified 7/7 PASS on live Google AI Studio with byte-perfect snapshot/restore. 79/79 pytest pass. Release gate still closed pending Jeff approval.
 
 ## TL;DR cold start
 
@@ -12,8 +12,68 @@
 4. Terminal 1: `python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001`
 5. Terminal 2: `cd frontend && npm run dev`
 6. Open http://localhost:3000 — dashboard should show 5 alerts with 4 distinct classifier labels (`declining`, `plateaued at 45%`, `target met` x2, `regression risk`)
+7. Optional live smoke: `python scripts/sample_inputs_smoke.py` (~17 min against Google AI Studio, snapshot/restores student profiles)
 
-## What happened this session
+## What happened this session (late-night, after narrative guard)
+
+### 1. Fixed the Windows unicode round-trip bug (the HANDOFF's "Pipeline-writeback gotcha")
+
+**Root cause (empirically confirmed).** Python's default `open(path)` uses the system locale encoding, which is **cp1252** on this Windows dev box. Reading `marcus_2026.json`'s literal `≤` (UTF-8 bytes `E2 89 A4`) decoded those bytes as three cp1252 chars `â‰¤`; writing back via `json.dump(..., indent=2)` with the default `ensure_ascii=True` then escaped each as `\u00e2\u2030\u00a4` — the exact visible corruption in the original writeback diff. Reproduced in a 10-line Python script against the real marcus profile before touching any code.
+
+**Fix.** New module `core/json_io.py` with two functions (`read_json` / `write_json`) that enforce `encoding="utf-8"`, `ensure_ascii=False`, `indent=2`, and `default=str`. Migrated every student-profile read/write site to the helper:
+- `agents/base.py` — `_load_student_raw` / `_save_student_raw` (the site IEP Mapper calls)
+- `core/state_store.py` — `load_student` / `save_student` / `export_student_data`
+- `core/pipeline.py` — `_load_profile`
+- `backend/routers/students.py` — `_read_profile` / `_write_profile` + list loop
+- `backend/routers/chat.py` — `_load_student_context` + mock path
+- `backend/routers/alerts.py` — `get_alerts` + `_find_current_alert` student loops
+- `tests/conftest.py` — state_store fixture
+
+**Normalization.** Shipped `scripts/normalize_student_profiles.py` (idempotent, `--dry-run` supported) and ran it once. The 4 newer profiles (`amara`, `ethan`, `lily`, `marcus`) had inline `{"value": N, "date": "..."}` baseline objects that `json.dump(indent=2)` always expands. Normalization brings them into canonical format so writebacks diff to zero. Post-normalization marcus still stores `≤` as literal UTF-8 bytes (no escapes, no mojibake).
+
+**Regression coverage.** `tests/test_json_io.py` — 8 tests locking the contract:
+- Unicode round-trip preserves `≤`, `≥`, `→`, accented chars, emoji, mixed strings
+- Multiple read→write cycles remain idempotent (no mojibake buildup)
+- Output contains literal UTF-8 bytes, not `\uXXXX` escape sequences
+- `indent=2` two-space indentation locked
+- cp1252 bytes raise `UnicodeDecodeError` loudly instead of silently mojibaking
+- Real `marcus_2026.json` round-trips without mojibake
+- `BaseAgent._load_student_raw` + `_save_student_raw` on unchanged data is **byte-idempotent**
+- BaseAgent writeback on mutated data preserves pre-existing `≤` characters
+
+**Out-of-scope but noted in `todo.md`:** the same bug shape exists in `materials.py`, `documents.py`, `capture.py`, `core/pipeline.py` (precomputed cache), and `alerts.py` (alerts cache). Not blocking the demo because those caches don't round-trip through the IEP Mapper. Same one-line fix shape whenever we touch them.
+
+### 2. Sample inputs live smoke — 7/7 PASS on live Google AI Studio
+
+**New script:** `scripts/sample_inputs_smoke.py`. Walks every PHOTO/SCAN in `docs/sample_inputs/` through `POST /api/capture` on the live backend. Snapshots all 7 student profiles as raw bytes before starting and restores them on exit (including SIGINT / SIGTERM), then asserts the restore is byte-identical. This pattern is only reproducible because the unicode round-trip bug is now fixed — previously, every live capture would have left corrupted files behind.
+
+**Live run results:**
+
+| # | Student | Photo | Elapsed | Matched | Verdict |
+|---|---|---|---|---|---|
+| 1 | maya_2026 | 01_math_worksheet_PHOTO.png | 80.5s | — (correct: math ≠ communication goals) | PASS |
+| 2 | jaylen_2026 | 01_pecs_exchange_log_PHOTO.png | 150.0s | G1 | PASS |
+| 3 | sofia_2026 | 01_madison_essay_SCAN.png | 128.8s | G3 | PASS |
+| 4 | amara_2026 | 02_talk_ticket_PHOTO.png | 173.2s | G2 | PASS |
+| 5 | ethan_2026 | 01_handwriting_sample_PHOTO.png | 157.6s | G2 | PASS |
+| 6 | lily_2026 | 03_ocean_notebook_PHOTO.png | 123.0s | G2 | PASS |
+| 7 | marcus_2026 | 01_bathroom_routine_PHOTO.png | 217.1s | G2 | PASS |
+
+Total wall-clock: ~17 minutes against Google AI Studio. Report: `docs/qa-reports/sample_inputs_smoke_2026-04-11.md`. Post-run `git diff data/students/` shows only the 4 normalization changes from step 1 — snapshot restore was byte-perfect across 7 live IEP Mapper writebacks.
+
+### 3. Finding 9 — Chat send button disabled race (Playwright automation unblock)
+
+**File:** `frontend/src/components/chat/ChatPanel.tsx`. **Root cause:** Playwright's programmatic `.fill()` sets the DOM `value` directly, bypassing React's synthetic event system, so controlled `input` state stays empty and `disabled={!input.trim() || isStreaming}` keeps the button disabled. **Fix:** drop `!input.trim()` from the disabled prop — `handleSubmit` already guards empty submits with `if (!input.trim() || isStreaming) return`, so the only behavioral difference is that the button is now always clickable while idle and no-ops on empty (same UX for humans, unblocks automation).
+
+### 4. Finding 10 — `/sw.js` 404 on every page load
+
+**Fix:** added `frontend/public/sw.js` as a minimal no-op service worker (`install`/`activate` listeners, nothing else). Stops the 404 noise. No `layout.tsx` or manifest reference exists, so nothing registers the worker — it just serves 200 when the browser auto-probes.
+
+### 5. Bonus — verified `core/json_io` migration doesn't break anything
+
+Full pytest suite: **79/79 pass** (was 77/77 before the 2 new BaseAgent idempotency tests). No router, agent, or pipeline path regressed.
+
+## Previous session summary (narrative guard — still current)
 
 ### 0. Sample inputs narrative guard — 4/4 pass on live Google AI Studio
 
@@ -73,24 +133,15 @@ Fed each student's photo through `POST /api/capture` on a live Google AI Studio 
 - `docs/qa-reports/qa-report-classlens-2026-04-11.md` — **all 12 findings addressed.** 8 resolved in the previous session, 3 more this session (5, 7, 8), plus the new ParentLetterView HIGH finding. Deferred low items: Finding 9 (chat `disabled` vs programmatic fill), Finding 10 (`/sw.js` 404), Finding 12 (bilingual regenerates vs translates — deferred pending Sarah's content opinion).
 - `docs/qa-reports/qa-report-classlens-2026-04-11-verification.md` — **all 4 scenarios + new finding closed.** ParentLetterView ES now renders end-to-end.
 
-## Pipeline-writeback gotcha (worth flagging, not blocking)
+## Pipeline-writeback gotcha — RESOLVED in the late-night session above
 
-Running `POST /api/capture` on a live backend writes new trial data back into `data/students/{student_id}.json` via the IEP Mapper. This caused two side-effects I had to revert before committing:
-
-1. **Unicode mangling on re-save.** The `json.dump(...)` path re-encoded pre-existing `≤` characters in notes fields as literal `\u00e2\u2030\u00a4` — a utf-8→latin-1→utf-8 round-trip bug. Look at the Marcus G2 trial history for the visible corruption in the diff.
-2. **Diff noise from `indent=2` pretty-print.** Inline `{"value": 10, "date": "..."}` expanded to multi-line on every write.
-
-Both are latent bugs in whatever serializes the student profile after the IEP Mapper's trial-append. Out of scope for this commit — just flagging so the next session knows to track it down. Also means `sample_inputs_smoke.py` (when we build it) should run against a `git stash`-protected working copy or snapshot-restore the profiles after each run, so the corpus stays reproducible.
+Original symptoms (unicode mangling + inline-object diff noise) both fixed via `core/json_io.py` migration, one-shot `scripts/normalize_student_profiles.py`, and verified idempotent under a 17-minute live capture cycle by `scripts/sample_inputs_smoke.py`. See "What happened this session (late-night, after narrative guard)" above.
 
 ## What's next
 
 **Immediate (next session, when you resume):**
-- Deferred / cleanup items from QA report (all low priority):
-  - Finding 9 — chat `disabled` vs programmatic fill (blocks automation, not humans)
-  - Finding 10 — `/sw.js` 404 stub
-  - Finding 12 — bilingual re-translate vs regenerate (pending Sarah's opinion)
-- Student-profile round-trip unicode mangling on IEP Mapper writeback (blocks reproducible `sample_inputs_smoke.py` — see the "Pipeline-writeback gotcha" section below).
-- Phase 2 sample_inputs smoke (~30 min): expand `scripts/sample_inputs_narrative_guard.py` into the full directory walk with the capture endpoint as well, once unicode round-trip is fixed.
+- Finding 12 — bilingual re-translate vs regenerate (pending Sarah's opinion).
+- Optional: migrate the remaining non-student JSON caches (materials/documents/capture/precomputed/alerts) to `core.json_io` — same bug shape, not blocking.
 
 **Medium term:**
 - Share `sarah_review_bundle/` with Sarah. Apply her feedback to prompts / profiles.

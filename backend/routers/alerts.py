@@ -221,10 +221,10 @@ async def get_alerts() -> list[dict[str, Any]]:
     if not students_dir.exists():
         return []
 
+    from core.json_io import read_json
     all_alerts = []
     for json_file in students_dir.glob("*.json"):
-        with open(json_file, "r") as f:
-            data = json.load(f)
+        data = read_json(json_file)
         student_id = json_file.stem
         all_alerts.extend(_analyze_student_alerts(student_id, data))
 
@@ -266,11 +266,11 @@ def _find_current_alert(alert_id: str) -> dict | None:
     alert_id back to its full record (student_id + goal_id).
     """
     # Regenerate from live student data
+    from core.json_io import read_json
     students_dir = DATA_DIR / "students"
     if students_dir.exists():
         for json_file in students_dir.glob("*.json"):
-            with open(json_file, "r") as f:
-                data = json.load(f)
+            data = read_json(json_file)
             for alert in _analyze_student_alerts(json_file.stem, data):
                 if alert["id"] == alert_id:
                     return alert

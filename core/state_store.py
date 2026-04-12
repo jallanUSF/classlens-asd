@@ -10,6 +10,7 @@ from datetime import datetime
 from typing import Dict, List, Optional, Any
 from pathlib import Path
 
+from core.json_io import read_json, write_json
 from schemas.student_profile import StudentProfile, IEPGoal, TrialData
 
 
@@ -66,8 +67,7 @@ class StateStore:
             return None
 
         try:
-            with open(student_path, "r") as f:
-                data = json.load(f)
+            data = read_json(student_path)
             return StudentProfile(**data)
         except json.JSONDecodeError as e:
             raise ValueError(
@@ -96,8 +96,7 @@ class StateStore:
                 mode="json",
                 exclude_none=False,
             )
-            with open(student_path, "w") as f:
-                json.dump(student_data, f, indent=2, default=str)
+            write_json(student_path, student_data)
         except IOError as e:
             raise IOError(
                 f"Failed to save student {student.student_id}: {str(e)}"
@@ -482,8 +481,7 @@ class StateStore:
                 mode="json",
                 exclude_none=False,
             )
-            with open(export_file, "w") as f:
-                json.dump(student_data, f, indent=2, default=str)
+            write_json(export_file, student_data)
             return True
         except IOError as e:
             raise IOError(

@@ -73,6 +73,7 @@ The pipeline runs sequentially: image in → structured data out → materials g
 - `core/gemma_client.py` — Single API wrapper for all Gemma 4 interactions (text, vision, function calling, thinking mode)
 - `core/pipeline.py` — End-to-end orchestration wiring the 4 agents together
 - `core/state_store.py` — CRUD for student JSON profiles in `data/students/`
+- `core/json_io.py` — **UTF-8 safe JSON file I/O**. Every caller that reads or writes a student profile MUST route through `read_json` / `write_json` here. They enforce `encoding="utf-8"` + `ensure_ascii=False` + `indent=2`, which prevents the Windows cp1252 mojibake bug documented in MISTAKES.md #6. Never call `open()` on a JSON file without `encoding="utf-8"`.
 - `schemas/student_profile.py` — Pydantic v2 models: `StudentProfile`, `IEPGoal`, `TrialData`, `SensoryProfile`
 - `schemas/tools.py` — JSON schemas for Gemma 4 function calling declarations
 - `prompts/templates.py` — All system and user prompt templates (use `.format()` placeholders)

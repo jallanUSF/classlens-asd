@@ -39,7 +39,10 @@
       "goal_id": "G1",
       "domain": "reading_comprehension",
       "description": "Amara will answer inferential comprehension questions (requiring conclusions, predictions, or character motivation analysis) about grade-level text with 70% accuracy across 10-question probes, as measured by bi-weekly reading assessments administered by the reading specialist.",
-      "baseline": {"value": 35, "date": "2025-10-15"},
+      "baseline": {
+        "value": 35,
+        "date": "2025-10-15"
+      },
       "target": 70,
       "iep_review_date": "2026-10-15",
       "measurement_method": "bi-weekly reading comprehension probes  -  inferential questions only",
@@ -92,7 +95,10 @@
       "goal_id": "G2",
       "domain": "social_communication",
       "description": "Amara will participate in group conversations by (a) limiting her turns to 2-3 sentences before allowing another speaker, and (b) asking at least one on-topic question per conversation, in 6 out of 10 observed group interactions, as measured by social skills facilitator tracking sheet.",
-      "baseline": {"value": 45, "date": "2025-10-15"},
+      "baseline": {
+        "value": 45,
+        "date": "2025-10-15"
+      },
       "target": 70,
       "iep_review_date": "2026-10-15",
       "measurement_method": "social skills facilitator tracking sheet during structured and unstructured interactions",
@@ -145,7 +151,10 @@
       "goal_id": "G3",
       "domain": "written_expression",
       "description": "Amara will write narrative passages (3+ paragraphs) that include (a) a clear story arc (beginning, conflict, resolution), (b) at least 2 instances of characters expressing emotions through actions or dialogue, and (c) varied sentence structure, scoring 7 out of 10 on the district narrative rubric, as measured by bi-weekly writing samples graded by the ELA teacher.",
-      "baseline": {"value": 30, "date": "2025-10-15"},
+      "baseline": {
+        "value": 30,
+        "date": "2025-10-15"
+      },
       "target": 80,
       "iep_review_date": "2026-10-15",
       "measurement_method": "bi-weekly writing samples scored on district narrative rubric (10-point scale)",

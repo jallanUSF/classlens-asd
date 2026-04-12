@@ -104,7 +104,7 @@ export function ChatPanel() {
           />
           <button
             type="submit"
-            disabled={!input.trim() || isStreaming}
+            disabled={isStreaming}
             className="inline-flex items-center justify-center rounded-lg bg-primary text-primary-foreground min-h-[44px] min-w-[44px] hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
           >
             <Send className="h-4 w-4" />

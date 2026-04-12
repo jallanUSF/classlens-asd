@@ -74,11 +74,11 @@ class ChatRequest(BaseModel):
 
 def _load_student_context(student_id: str) -> str:
     """Build context string from student profile for the system prompt."""
+    from core.json_io import read_json
     student_path = DATA_DIR / "students" / f"{student_id}.json"
     if not student_path.exists():
         return ""
-    with open(student_path, "r") as f:
-        data = json.load(f)
+    data = read_json(student_path)
 
     goals_text = ""
     for g in data.get("iep_goals", []):
@@ -243,10 +243,10 @@ def _mock_response(message: str, student_id: str | None) -> str:
     msg_lower = message.lower()
 
     if student_id:
+        from core.json_io import read_json
         student_path = DATA_DIR / "students" / f"{student_id}.json"
         if student_path.exists():
-            with open(student_path, "r") as f:
-                data = json.load(f)
+            data = read_json(student_path)
             name = data.get("name", student_id)
             goals = data.get("iep_goals", [])
             interests = data.get("interests", [])

@@ -39,7 +39,10 @@
       "goal_id": "G1",
       "domain": "communication",
       "description": "Marcus will independently use his AAC device (TouchChat) or PECS to make a request (for an item, activity, or help) in 5 out of 10 opportunities across school settings (classroom, cafeteria, playground), as measured by SLP and teacher communication log.",
-      "baseline": {"value": 10, "date": "2025-10-15"},
+      "baseline": {
+        "value": 10,
+        "date": "2025-10-15"
+      },
       "target": 50,
       "iep_review_date": "2026-10-15",
       "measurement_method": "SLP and teacher communication log  -  independent requests via AAC/PECS",
@@ -92,7 +95,10 @@
       "goal_id": "G2",
       "domain": "daily_living",
       "description": "Marcus will independently complete the school toileting routine (enter bathroom, pull down pants, use toilet, wipe, pull up pants, flush, wash hands) with no more than 1 verbal prompt for 4 out of 5 scheduled bathroom trips, as measured by toileting data sheet.",
-      "baseline": {"value": 20, "date": "2025-10-15"},
+      "baseline": {
+        "value": 20,
+        "date": "2025-10-15"
+      },
       "target": 80,
       "iep_review_date": "2026-10-15",
       "measurement_method": "toileting data sheet  -  steps completed independently per trip",
@@ -145,7 +151,10 @@
       "goal_id": "G3",
       "domain": "gross_motor",
       "description": "Marcus will safely navigate playground equipment (climb ladder, go down slide, cross monkey bars with support) and follow playground safety rules (wait turn, sit on slide, feet first) in 4 out of 10 recess opportunities, as measured by adapted PE teacher and aide observation log.",
-      "baseline": {"value": 10, "date": "2025-10-15"},
+      "baseline": {
+        "value": 10,
+        "date": "2025-10-15"
+      },
       "target": 50,
       "iep_review_date": "2026-10-15",
       "measurement_method": "adapted PE teacher and aide observation log during recess",

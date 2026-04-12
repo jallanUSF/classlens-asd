@@ -49,15 +49,15 @@ class BaseAgent:
         without going through the Pydantic model.
         """
         from pathlib import Path
+        from core.json_io import read_json
         student_path = Path(data_dir) / "students" / f"{student_id}.json"
         if not student_path.exists():
             raise FileNotFoundError(f"Student profile not found: {student_path}")
-        with open(student_path, "r") as f:
-            return json.load(f)
+        return read_json(student_path)
 
     def _save_student_raw(self, student_id: str, data: dict, data_dir: str = "data"):
         """Save student profile dict back to JSON file."""
         from pathlib import Path
+        from core.json_io import write_json
         student_path = Path(data_dir) / "students" / f"{student_id}.json"
-        with open(student_path, "w") as f:
-            json.dump(data, f, indent=2)
+        write_json(student_path, data)

@@ -3,12 +3,13 @@ Student CRUD endpoints.
 Reads/writes the same data/students/*.json files the agents use.
 """
 
-import json
 from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+
+from core.json_io import read_json, write_json
 
 router = APIRouter(tags=["students"])
 
@@ -21,16 +22,14 @@ def _read_profile(student_id: str) -> dict:
     path = STUDENTS_DIR / f"{student_id}.json"
     if not path.exists():
         raise HTTPException(status_code=404, detail=f"Student {student_id} not found")
-    with open(path, "r") as f:
-        return json.load(f)
+    return read_json(path)
 
 
 def _write_profile(student_id: str, data: dict):
     """Write a student JSON file."""
     STUDENTS_DIR.mkdir(parents=True, exist_ok=True)
     path = STUDENTS_DIR / f"{student_id}.json"
-    with open(path, "w") as f:
-        json.dump(data, f, indent=2)
+    write_json(path, data)
 
 
 def _student_summary(data: dict) -> dict:
@@ -57,8 +56,7 @@ async def list_students() -> list[dict[str, Any]]:
         return []
     students = []
     for json_file in sorted(STUDENTS_DIR.glob("*.json")):
-        with open(json_file, "r") as f:
-            data = json.load(f)
+        data = read_json(json_file)
         students.append(_student_summary(data))
     return students
 

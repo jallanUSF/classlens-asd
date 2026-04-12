@@ -8,11 +8,8 @@
 
 ## Deferred / low priority
 
-- [ ] **Finding 9** — Chat send button `disabled` state doesn't react to programmatic `fill`. Harmless for humans; blocks Playwright/chrome-devtools automation.
-- [ ] **Finding 10** — `/sw.js` 404 on every page load. Ship a minimal `public/sw.js` stub or remove the manifest reference.
 - [ ] **Finding 12** — Bilingual letters regenerate independently instead of translating the approved EN version. Consider after Sarah has opinions on demo bilingual quality.
-- [ ] **Student-profile round-trip unicode mangling.** The IEP Mapper's write-back path corrupts existing unicode (e.g. `≤` → `\u00e2\u2030\u00a4`) and reformats inline objects. See `HANDOFF.md` "Pipeline-writeback gotcha" for scope. Blocks `sample_inputs_smoke.py` being snapshot-safe.
-- [ ] **Phase 2 sample_inputs smoke (~30 min):** `scripts/sample_inputs_smoke.py` that walks the directory and hits the right endpoints programmatically. Blocked on the unicode round-trip fix above if we want it reproducible.
+- [ ] **Same unicode bug in non-student JSON caches.** `backend/routers/materials.py`, `documents.py`, `capture.py`, `alerts.py` (alerts cache), and `core/pipeline.py` (precomputed cache) all still open JSON files without `encoding="utf-8"` and write with `ensure_ascii=True`. Same fix shape as the student-profile path — route through `core.json_io`. Not blocking the hackathon demo because Gemma output caches aren't currently round-tripped through the IEP Mapper.
 
 ## Jeff open questions (before Sprint 6)
 
@@ -30,6 +27,8 @@
 ---
 
 ## Archive — shipped (chronological, most recent first)
+
+**2026-04-11 late-night:** Cleared deferred Findings 9 + 10 and the unicode round-trip blocker in one pass. Shipped `core/json_io.py` as the single UTF-8 safe JSON read/write helper and migrated every student-profile read/write site (`agents/base.py`, `core/state_store.py`, `core/pipeline.py`, `backend/routers/{students,chat,alerts}.py`, `tests/conftest.py`). Ran `scripts/normalize_student_profiles.py` to canonicalize 4 profiles (amara/ethan/lily/marcus) that had inline baseline objects — writebacks are now byte-idempotent. Regression coverage: `tests/test_json_io.py` (8 tests) locks the UTF-8 round-trip, `ensure_ascii=False`, BaseAgent writeback idempotency, and the real marcus profile `≤` canary. Finding 10 closed with a no-op `frontend/public/sw.js`. Finding 9 closed by dropping `!input.trim()` from `ChatPanel.tsx` submit button — programmatic fills no longer race the disabled state. Phase 2 unblocked and shipped: `scripts/sample_inputs_smoke.py` walks every photo in `docs/sample_inputs/` through `POST /api/capture` with snapshot/restore of `data/students/*.json`. Full suite: 79/79 pytest pass.
 
 **2026-04-11 night:** Sample inputs narrative guard shipped — 4/4 scenarios pass on live Google AI Studio. `scripts/sample_inputs_narrative_guard.py` walks the Amara cafeteria observation, Marcus slide milestone, Amara G2 "Why?" with cafeteria context, and the Ethan tri-source plateau stack (handwriting + speech + weather) through `POST /api/chat`. Report: `docs/qa-reports/sample_inputs_narrative_guard_2026-04-11.md`. Key wins: no fabricated trial percentages from prose (profile-allowlist filter catches real recall vs invention); Amara G2 "Why?" explicitly named the sketchbook-as-recharge pattern + masking + social capacity framing; Ethan response reframed the "saturation" hypothesis as a "regulation/sensory bottleneck" and flagged G1 as progressing while G2 is postural-fatigue gated — stronger than the test expected. Closes three of four stretch items from the 2026-04-11 late session. The Sarah review bundle + release gate items remain.
 

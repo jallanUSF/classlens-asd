@@ -42,14 +42,14 @@ def state_store(tmp_path) -> StateStore:
     """
     store = StateStore(data_dir=str(tmp_path))
 
+    from core.json_io import read_json, write_json
+
     # Load all student profiles and save them to the temp store
     for student_json in _get_student_json_files():
-        with open(student_json, "r") as f:
-            student_data = json.load(f)
+        student_data = read_json(student_json)
         # Save to test store
         student_path = store.students_dir / student_json.name
-        with open(student_path, "w") as f:
-            json.dump(student_data, f, indent=2)
+        write_json(student_path, student_data)
 
     return store
 
