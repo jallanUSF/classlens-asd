@@ -98,6 +98,33 @@ class TestFlagEndpoint:
         assert flag_resp.status_code == 200
         assert flag_resp.json()["status"] == "flagged"
 
+    def test_flag_material_dedup(self):
+        """Flagging the same material twice should not create duplicate entries."""
+        from pathlib import Path
+        from core.json_io import read_json
+
+        # Generate a material
+        gen_resp = client.post(
+            "/api/materials/generate",
+            json={
+                "student_id": "maya_2026",
+                "goal_id": "G1",
+                "material_type": "tracking_sheet",
+            },
+        )
+        assert gen_resp.status_code == 200
+        mat_id = client.get("/api/students/maya_2026/materials").json()[0]["id"]
+
+        # Flag twice with different reasons
+        client.post(f"/api/materials/maya_2026/{mat_id}/flag", json={"reason": "first"})
+        client.post(f"/api/materials/maya_2026/{mat_id}/flag", json={"reason": "second"})
+
+        flags_path = Path(__file__).resolve().parent.parent / "data" / "flags" / "maya_2026.json"
+        flags = read_json(flags_path)
+        matching = [f for f in flags if f.get("material_id") == mat_id]
+        assert len(matching) == 1, f"Expected 1 entry for {mat_id}, got {len(matching)}"
+        assert matching[0]["reason"] == "second"  # latest reason wins
+
     def test_flag_nonexistent_material(self):
         """Flagging a nonexistent material should 404."""
         resp = client.post(

@@ -196,12 +196,20 @@ async def flag_material(student_id: str, material_id: str, req: FlagRequest) -> 
         flags = read_json(flags_path)
 
     from datetime import date as dt_date
-    flags.append({
-        "material_id": material_id,
-        "material_type": data.get("material_type", "unknown"),
-        "flagged_date": dt_date.today().isoformat(),
-        "reason": req.reason,
-    })
+    # Dedup: if this material_id is already flagged, update the existing entry
+    # instead of appending a duplicate. Keeps flags file as a set-by-material_id.
+    existing = next((f for f in flags if f.get("material_id") == material_id), None)
+    if existing is not None:
+        existing["material_type"] = data.get("material_type", "unknown")
+        existing["flagged_date"] = dt_date.today().isoformat()
+        existing["reason"] = req.reason
+    else:
+        flags.append({
+            "material_id": material_id,
+            "material_type": data.get("material_type", "unknown"),
+            "flagged_date": dt_date.today().isoformat(),
+            "reason": req.reason,
+        })
     write_json(flags_path, flags)
 
     return {"status": "flagged", "id": material_id}

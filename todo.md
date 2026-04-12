@@ -7,6 +7,7 @@
 3. [ ] Confirm Sarah's content status (profiles + video segments)
 4. [ ] Record sample voice notes for demo (Sarah or synthetic)
 5. [ ] Define "release ready" criterion (demo-ready vs production-ready)
+6. [ ] **Podcast briefing** — design doc at `docs/plans/2026-04-12-podcast-briefing-design.md` marked "Approved" but untracked. Go/no-go decision + time-box or defer.
 
 ## Sprint 6 — blocked on release gate
 
