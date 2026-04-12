@@ -347,7 +347,7 @@ export function PodcastBriefing({ studentId, lastUpdated }: Props) {
             aria-expanded={showThinking}
           >
             <Brain className="h-3.5 w-3.5" />
-            {showThinking ? "Hide" : "Show"} Gemma&apos;s reasoning
+            <span>{showThinking ? "Hide" : "Show"} Gemma&apos;s reasoning</span>
           </Button>
           {showThinking && (
             <div className="mt-2 rounded-md border bg-muted/30 p-3">
