@@ -198,6 +198,22 @@ class MockGemmaClient:
         """
         prompt_lower = prompt.lower()
         system_lower = (system or "").lower()
+        if "podcast producer" in system_lower or "briefing podcast" in prompt_lower:
+            return {
+                "thinking": "Scanning trial data for specific numbers, picking the three most important goals to highlight, then drafting a natural back-and-forth.",
+                "output": (
+                    '{"title": "Progress Briefing", "script": ['
+                    '{"speaker": "host", "text": "Welcome back to your ClassLens briefing. Today we\'re looking at a really encouraging week of data."},'
+                    '{"speaker": "guest", "text": "That\'s right. The headline is peer-interaction progress: up from a 20 percent baseline to 78 percent across 12 trials this week."},'
+                    '{"speaker": "host", "text": "That is a big jump. What\'s driving it?"},'
+                    '{"speaker": "guest", "text": "The peer buddy program, paired with consistent dinosaur-sticker reinforcement. Small groups at the sensory table are generalizing well."},'
+                    '{"speaker": "host", "text": "Any goals you\'d want the team to keep an eye on?"},'
+                    '{"speaker": "guest", "text": "Handwriting is plateauing around 60 percent for a fourth session. Not a regression, but worth revisiting the prompting hierarchy at next week\'s meeting."},'
+                    '{"speaker": "host", "text": "Got it. Anything to celebrate heading into the weekend?"},'
+                    '{"speaker": "guest", "text": "Absolutely. Three consecutive days of independent transitions with no prompting. That\'s exactly the kind of evidence we want in the next IEP review."}'
+                    ']}'
+                ),
+            }
         if "trend" in prompt_lower:
             return self._mock_trend_analysis()
         elif "intervention" in prompt_lower:

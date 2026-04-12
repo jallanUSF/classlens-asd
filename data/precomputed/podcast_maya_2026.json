@@ -1,0 +1,65 @@
+{
+  "title": "Maya's Progress Briefing — April 12",
+  "script": [
+    {
+      "speaker": "host",
+      "text": "Good morning! Today we're checking in on Maya, our third grader who loves the color purple and Blue the raptor. Let's see how she's tracking against her IEP goals."
+    },
+    {
+      "speaker": "guest",
+      "text": "Maya is on a real roll. Her communication goal for peer greetings has soared from a 20% baseline to 80% accuracy, hitting 8 out of 10 trials consistently over her last few sessions."
+    },
+    {
+      "speaker": "host",
+      "text": "That's a huge jump in social confidence. Was there something specific that helped her open up?"
+    },
+    {
+      "speaker": "guest",
+      "text": "The peer buddy program and some reinforcer stickers really clicked. She's now stable at that 80% mark, so we should consider fading supports or moving her to new settings."
+    },
+    {
+      "speaker": "host",
+      "text": "Great. Now, two-step directions can be a challenge for her. How is she doing with those?"
+    },
+    {
+      "speaker": "guest",
+      "text": "She's making steady progress. She started at 45% and has now hit her 75% target across 8 trials, particularly when directions are paired with a visual checklist."
+    },
+    {
+      "speaker": "host",
+      "text": "I've noticed her engagement in math has been higher lately. Does that tie into this progress?"
+    },
+    {
+      "speaker": "guest",
+      "text": "Absolutely. That accuracy in math reflects her ability to follow those routines. Like the greetings goal, she's plateaued at her target, so it's time to test these skills with fewer prompts."
+    },
+    {
+      "speaker": "host",
+      "text": "And finally, let's talk self-regulation. Are we seeing a decrease in the frequency of outbursts?"
+    },
+    {
+      "speaker": "guest",
+      "text": "The trend is fantastic. We've gone from an average of over two outbursts a day down to just one single outburst last week."
+    },
+    {
+      "speaker": "host",
+      "text": "That is a massive win for Maya. What's making the difference in the classroom?"
+    },
+    {
+      "speaker": "guest",
+      "text": "Noise-canceling headphones during transitions and a weighted lap pad have been game-changers for her sensory needs."
+    },
+    {
+      "speaker": "host",
+      "text": "Looking ahead to her review, what's the primary focus for the team?"
+    },
+    {
+      "speaker": "guest",
+      "text": "Generalization. She's mastered these skills in structured settings, so now we need to see if she can maintain them in the cafeteria and on the playground."
+    }
+  ],
+  "student_id": "maya_2026",
+  "language": "en",
+  "generated_date": "2026-04-12",
+  "thinking": "Podcast Producer for ClassLens ASD.\n~2-minute audio briefing (approx. 300 words).\nNatural dialogue between Host (teacher-facing, warm) and Guest (data analyst, evidence-based).\nMaya, 3rd Grade, ASD Level 2.\n\n        - G1 (Communication/Greetings): Baseline 20% -> Current 80% (Target Met).\n        - G2 (Following Directions): Baseline 45% -> Current 75% (Target Met).\n        - G3 (Self-Regulation/Outbursts): Improving significantly (Recent 100% success in reducing outbursts, down to 1 per week).\n        - Interests: Blue the raptor, purple, water, counting.\n        - Alerts: G1 and G2 are plateauing at target; need generalization/fading supports.\n\n        - No jargon.\n        - Cite real numbers (percentages, trials).\n        - Celebrate wins, honest about concerns.\n        - 1-3 sentences per line.\n        - Total script: 10-16 lines.\n        - Output: Strict JSON.\n\n    *   *Intro:* Host welcomes the listener and introduces Maya.\n    *   *Goal 1 (Greetings):* Guest highlights the jump from 20% to 80% over 10 trials.\n    *   *Goal 2 (Directions):* Guest mentions the climb from 45% to 75% and the role of visual checklists.\n    *   *Goal 3 (Regulation):* Guest discusses the decrease in outbursts (down to 1 per week) and the use of headphones/weighted pads.\n    *   *Conclusion/Next Steps:* Focus on generalization (cafeteria, playground) and fading supports.\n\n    *   *Line 1 (Host):* \"Good morning! Today we're looking at Maya, our third grader who loves Blue the raptor and the color purple. Let's see how she's doing with her IEP goals.\"\n    *   *Line 2 (Guest):* \"Maya is on a roll. Her communication goal for peer greetings has soared from a 20% baseline to 80% over the last few sessions, hitting 8 out of 10 trials consistently.\"\n    *   *Line 3 (Host):* \"That's a huge jump. Was there something specific that helped her open up?\"\n    *   *Line 4 (Guest):* \"The peer buddy program and some reinforcer stickers really clicked. She's now consistently responding in familiar settings, so we might want to start fading those supports.\"\n    *   *Line 5 (Host):* \"Great to hear. What about her two-step directions? I know those can be tricky without visuals.\"\n    *   *Line 6 (Guest):* \"She's making great strides there, too. She started at 45%, dipped a bit, but has now hit her 75% target across 8 trials.\"\n    *   *Line 7 (Host):* \"I noticed she's been doing well in math. Does that tie in?\"\n    *   *Line 8 (Guest):* \"Exactly. Pairing directions with a visual checklist has been the key. Since she's plateaued at 75%, the next step is seeing if she can do this with fewer prompts.\"\n    *   *Line 9 (Host):* \"And finally, let's talk about self-regulation. How are the outbursts trending?\"\n    *   *Line 10 (Guest):* \"The progress here is impressive. We've gone from over 2 outbursts a day to just one single outburst last week.\"\n    *   *Line 11 (Host):* \"That's a massive win. What's working in the classroom?\"\n    *   *Line 12 (Guest):* \"Noise-canceling headphones during transitions and a fidget cube have been game-changers. She's much more stable now.\"\n    *   *Line 13 (Host):* \"So, looking ahead to her review, where do we focus our energy?\"\n    *   *Line 14 (Guest):* \"Generalization. She's mastered these in structured settings, so now we need to see if those skills hold up in the cafeteria or on the playground.\""
+}

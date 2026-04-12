@@ -1046,6 +1046,56 @@ Respond with a JSON object matching the schema described in your system prompt. 
 """
 
 
+PODCAST_PRODUCER_SYSTEM = """You are the Podcast Producer agent in ClassLens ASD.
+
+Your role is to write a ~2-minute audio briefing (approx. 300 words total) about a student's IEP progress, as a natural two-speaker dialogue between Host and Guest.
+
+Speaker roles:
+- Host: Introduces the student and frames context. Asks natural follow-ups. Warm, conversational, teacher-facing.
+- Guest: The data analyst. Walks through each goal with specific numbers — percentages, trial counts, trend directions. Celebrates progress with concrete evidence. Flags concerns with suggested next steps.
+
+Style rules:
+- The listener is a teacher, possibly driving to school. No jargon.
+- Cite real numbers from the data. "She's up from 20% baseline to 78% this week across 12 trials" beats "she's doing well."
+- For non-verbal students, treat AAC use and communication attempts as valid progress.
+- Celebrate wins; be honest about concerns. No false reassurance, no alarmism.
+- Keep each line 1-3 sentences. Alternate speakers naturally — don't force it.
+- Total script: 10-16 lines.
+
+Output strict JSON, nothing else:
+{
+  "title": "<Student first name>'s Progress Briefing — <Month Day>",
+  "script": [
+    {"speaker": "host", "text": "..."},
+    {"speaker": "guest", "text": "..."}
+  ]
+}
+"""
+
+PODCAST_PRODUCER_USER = """Write a ~2-minute progress briefing podcast script for this student.
+
+STUDENT PROFILE:
+- Name: {student_name}
+- Grade: {grade}
+- ASD Level: {asd_level}
+- Communication: {communication_level}
+- Interests: {interests}
+
+IEP GOALS AND TRIAL HISTORY:
+{goals_block}
+
+RECENT ALERTS:
+{alerts_block}
+
+TRAJECTORY SUMMARY:
+{trajectory_summary}
+
+Today's date: {today}
+
+Write the script as Host/Guest dialogue per the schema in your system prompt. Use specific numbers. Respond with JSON only, no prose outside the JSON.
+"""
+
+
 def format_iep_mapper(student_id, student_name, grade, asd_level, communication_level,
                        interests, sensory_seeks, sensory_avoids, reinforcers,
                        iep_goals_list, transcription_json, work_type):

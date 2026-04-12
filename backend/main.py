@@ -15,7 +15,7 @@ from fastapi.middleware.cors import CORSMiddleware
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from backend.routers import students, capture, materials, chat, alerts, documents, trajectory
+from backend.routers import students, capture, materials, chat, alerts, documents, trajectory, podcast
 
 
 @asynccontextmanager
@@ -63,6 +63,7 @@ app.include_router(chat.router, prefix="/api")
 app.include_router(alerts.router, prefix="/api")
 app.include_router(documents.router, prefix="/api")
 app.include_router(trajectory.router, prefix="/api")
+app.include_router(podcast.router, prefix="/api")
 
 
 @app.get("/health")

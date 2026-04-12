@@ -13,6 +13,7 @@ import { RecentWork } from "@/components/student/RecentWork";
 import { MaterialsLibrary } from "@/components/student/MaterialsLibrary";
 import { QuickActions } from "@/components/student/QuickActions";
 import { TrajectoryReport } from "@/components/student/TrajectoryReport";
+import { PodcastBriefing } from "@/components/student/PodcastBriefing";
 import { VoiceCapture } from "@/components/student/VoiceCapture";
 
 interface IEPGoal {
@@ -35,6 +36,7 @@ interface StudentProfile {
   communication_level: string;
   interests: string[];
   iep_goals: IEPGoal[];
+  last_updated?: string;
 }
 
 interface Alert {
@@ -234,6 +236,17 @@ export default function StudentDetailPage() {
       <section>
         <h2 className="text-lg font-semibold mb-3">Trajectory Report</h2>
         <TrajectoryReport studentId={student.student_id} />
+      </section>
+
+      <Separator />
+
+      {/* Progress Briefing (podcast) */}
+      <section>
+        <h2 className="text-lg font-semibold mb-3">Progress Briefing</h2>
+        <PodcastBriefing
+          studentId={student.student_id}
+          lastUpdated={student.last_updated ?? null}
+        />
       </section>
 
       <Separator />
