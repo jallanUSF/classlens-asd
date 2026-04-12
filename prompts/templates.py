@@ -72,8 +72,9 @@ When returning structured data, be thorough but concise. Include context about:
 - Any unexpected patterns or breakthroughs
 - Adult support or scaffolding provided
 
-Always reason step-by-step about what the image shows before returning JSON.
+Always reason step-by-step about what the image shows before calling the function.
 Your transcriptions are the foundation for the IEP Mapper; make them precise and specific.
+You MUST call the transcribe_student_work function with your analysis. Do not return prose.
 """
 
 VOICE_READER_SYSTEM = """You are the Voice Reader agent in ClassLens ASD, a system for tracking special education progress.
@@ -167,7 +168,8 @@ Example reasoning:
   Mapping: Yes, relevance 0.9 (direct evidence of goal behavior)
   Trial data: "1 of 1 trials initiating greeting independently"
 
-Return structured JSON. Your output feeds directly into progress tracking—accuracy matters.
+You MUST call the map_work_to_goals function with your analysis. Do not return prose.
+Your output feeds directly into progress tracking—accuracy matters.
 """
 
 PROGRESS_ANALYST_SYSTEM = """You are the Progress Analyst agent in ClassLens ASD, a system for tracking special education progress.
@@ -368,18 +370,18 @@ INSTRUCTIONS:
 1. For each IEP goal, determine: Does this work provide evidence the student is working on this goal?
 2. Map only where you have concrete evidence. Be explicit about your reasoning.
 3. For each mapping, provide:
-   - goal_id and relevance_score (0.0-1.0; 1.0 = direct evidence)
-   - evidence: Quote or specific description from the transcription
-   - trial_data_entry: The measurement (e.g., "1 correct, 1 incorrect", "independent", "3 of 5 steps with verbal prompt")
+   - goal_id and relevance ("primary" if direct evidence, "secondary" if indirect)
+   - trials: total number of opportunities observed
+   - successes: number of successful trials
+   - percentage: success rate (0-100)
+   - reasoning: quote or specific description from the transcription
 4. For unmapped observations, explain why (e.g., "work addresses a skill not currently in IEP" or "work doesn't clearly show goal-directed behavior")
 
 Return structured JSON using the MAP_WORK_TO_GOALS function.
 
-Include:
+You MUST call the map_work_to_goals function with:
 - student_id: {student_id}
-- work_type: {work_type}
-- goal_mappings: Array of mappings with goal_id, relevance_score, evidence, trial_data_entry
-- unmapped_observations: Any evidence that doesn't map to current goals but is noteworthy
+- matched_goals: Array of mappings with goal_id, relevance, trials, successes, percentage, reasoning
 
 Remember: Evidence is concrete (what student did, said, wrote). Non-mapping is not failure—it means this work doesn't address current IEP goals or doesn't have enough detail.
 """
@@ -435,15 +437,17 @@ Use extended thinking to analyze this data deeply.
    - Be specific with numbers and behaviors
    - If progress is stalled, suggest adjustments
 
-Return structured JSON:
-- trend: "improving", "stable", "declining", or "variable"
-- success_rate_percent: Calculation as percentage (0-100)
-- progress_note: 2-3 sentences in teacher/parent-friendly language
-- alert: true/false
-- alert_message: reason string if alert is true, empty string otherwise
-- recommendation: Brief suggestion if trend is flat/declining
-- days_since_last_trial: Auto-calculated freshness indicator
-- confidence: "high" / "moderate" / "low" based on sample size and consistency
+Respond with ONLY a JSON object (no text outside it) with these exact keys:
+{{
+  "trend": "improving" | "stable" | "declining" | "variable",
+  "current_average": <number 0-100>,
+  "sessions_analyzed": <integer>,
+  "confidence": "high" | "moderate" | "low",
+  "alert": true | false,
+  "alert_message": "<reason if alert is true, empty string otherwise>",
+  "progress_note": "<2-3 sentences in teacher/parent-friendly language>",
+  "recommendation": "<brief suggestion if trend is flat/declining, empty string otherwise>"
+}}
 
 Special note: Variability in performance is normal for students with autism. A student at 40% success with 50% variability is not failing—they're learning. Acknowledge this in your notes.
 """

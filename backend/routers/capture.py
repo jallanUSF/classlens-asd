@@ -179,6 +179,8 @@ async def capture_voice(req: VoiceCaptureRequest) -> dict:
     """
     try:
         return _run_voice_capture(req)
+    except HTTPException:
+        raise
     except LookupError as e:
         raise HTTPException(status_code=404, detail=str(e))
     except ValueError as e:

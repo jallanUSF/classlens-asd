@@ -542,3 +542,245 @@ class TestDocumentsEndpoint:
                 files={"file": ("iep.pdf", fake_pdf, "application/pdf")},
             )
         assert resp.status_code == 400
+
+
+# ===================================================================
+# 6. Materials router
+# ===================================================================
+
+
+class TestMaterialsEndpoint:
+    """Tests for /api/materials/* endpoints."""
+
+    def test_list_materials_empty(self, tmp_path):
+        mat_dir = tmp_path / "materials"
+        mat_dir.mkdir(parents=True)
+
+        with patch("backend.routers.materials.MATERIALS_DIR", mat_dir):
+            resp = client.get("/api/students/maya_2026/materials")
+        assert resp.status_code == 200
+        assert resp.json() == []
+
+    def test_list_materials_with_data(self, tmp_path):
+        mat_dir = tmp_path / "materials" / "maya_2026"
+        mat_dir.mkdir(parents=True)
+        record = {
+            "student_id": "maya_2026",
+            "goal_id": "G1",
+            "material_type": "lesson_plan",
+            "status": "draft",
+            "content": {"title": "Test Lesson"},
+        }
+        (mat_dir / "lesson_plan_G1_2026-04-12.json").write_text(
+            json.dumps(record, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+
+        with patch("backend.routers.materials.MATERIALS_DIR", mat_dir.parent):
+            resp = client.get("/api/students/maya_2026/materials")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert len(data) == 1
+        assert data[0]["material_type"] == "lesson_plan"
+        assert "id" in data[0]
+
+    def test_list_materials_path_traversal(self):
+        resp = client.get("/api/students/../hack/materials")
+        assert resp.status_code in (400, 404)
+
+    def test_approve_material(self, tmp_path):
+        mat_dir = tmp_path / "materials" / "maya_2026"
+        mat_dir.mkdir(parents=True)
+        record = {"student_id": "maya_2026", "status": "draft", "content": {}}
+        (mat_dir / "lesson_G1.json").write_text(
+            json.dumps(record, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+
+        with patch("backend.routers.materials.MATERIALS_DIR", mat_dir.parent):
+            resp = client.put("/api/materials/maya_2026/lesson_G1/approve")
+        assert resp.status_code == 200
+        assert resp.json()["status"] == "approved"
+
+    def test_approve_material_not_found(self, tmp_path):
+        mat_dir = tmp_path / "materials" / "maya_2026"
+        mat_dir.mkdir(parents=True)
+
+        with patch("backend.routers.materials.MATERIALS_DIR", mat_dir.parent):
+            resp = client.put("/api/materials/maya_2026/nonexistent/approve")
+        assert resp.status_code == 404
+
+    def test_flag_material(self, tmp_path):
+        mat_dir = tmp_path / "materials" / "maya_2026"
+        mat_dir.mkdir(parents=True)
+        record = {"student_id": "maya_2026", "status": "draft", "content": {}}
+        (mat_dir / "lesson_G1.json").write_text(
+            json.dumps(record, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        flags_dir = tmp_path / "flags"
+        flags_dir.mkdir(parents=True)
+
+        with (
+            patch("backend.routers.materials.MATERIALS_DIR", mat_dir.parent),
+            patch("backend.routers.materials.DATA_DIR", tmp_path),
+        ):
+            resp = client.post(
+                "/api/materials/maya_2026/lesson_G1/flag",
+                json={"reason": "Inaccurate content"},
+            )
+        assert resp.status_code == 200
+        assert resp.json()["status"] == "flagged"
+        flags_path = flags_dir / "maya_2026.json"
+        assert flags_path.exists()
+        flags = json.loads(flags_path.read_text(encoding="utf-8"))
+        assert len(flags) == 1
+        assert flags[0]["reason"] == "Inaccurate content"
+
+    def test_flag_material_not_found(self, tmp_path):
+        mat_dir = tmp_path / "materials" / "maya_2026"
+        mat_dir.mkdir(parents=True)
+
+        with patch("backend.routers.materials.MATERIALS_DIR", mat_dir.parent):
+            resp = client.post(
+                "/api/materials/maya_2026/nonexistent/flag",
+                json={"reason": "test"},
+            )
+        assert resp.status_code == 404
+
+    def test_flag_material_path_traversal(self):
+        resp = client.post(
+            "/api/materials/../hack/lesson_G1/flag",
+            json={"reason": "test"},
+        )
+        assert resp.status_code in (400, 404)
+
+    def test_generate_unknown_type(self, tmp_path):
+        data_dir = tmp_path / "data"
+        students_dir = data_dir / "students"
+        students_dir.mkdir(parents=True)
+        _write_student(students_dir, "maya_2026")
+
+        with patch("backend.routers.materials.DATA_DIR", data_dir):
+            resp = client.post(
+                "/api/materials/generate",
+                json={
+                    "student_id": "maya_2026",
+                    "material_type": "invalid_type",
+                },
+            )
+        assert resp.status_code == 400
+
+    def test_generate_student_not_found(self, tmp_path):
+        data_dir = tmp_path / "data"
+        students_dir = data_dir / "students"
+        students_dir.mkdir(parents=True)
+
+        with patch("backend.routers.materials.DATA_DIR", data_dir):
+            resp = client.post(
+                "/api/materials/generate",
+                json={
+                    "student_id": "nonexistent",
+                    "material_type": "lesson_plan",
+                },
+            )
+        assert resp.status_code == 404
+
+
+# ===================================================================
+# 7. Capture router
+# ===================================================================
+
+
+class TestCaptureEndpoint:
+    """Tests for /api/capture and /api/capture/voice/* endpoints."""
+
+    def test_capture_student_not_found(self, tmp_path):
+        data_dir = tmp_path / "data"
+        students_dir = data_dir / "students"
+        students_dir.mkdir(parents=True)
+
+        with patch("backend.routers.capture.DATA_DIR", data_dir):
+            fake_img = io.BytesIO(b"\x89PNG\r\n\x1a\n" + b"\x00" * 100)
+            resp = client.post(
+                "/api/capture",
+                data={"student_id": "nonexistent", "work_type": "worksheet"},
+                files={"image": ("test.png", fake_img, "image/png")},
+            )
+        assert resp.status_code == 404
+
+    def test_capture_path_traversal(self):
+        fake_img = io.BytesIO(b"\x89PNG\r\n\x1a\n" + b"\x00" * 100)
+        resp = client.post(
+            "/api/capture",
+            data={"student_id": "../hack", "work_type": "worksheet"},
+            files={"image": ("test.png", fake_img, "image/png")},
+        )
+        assert resp.status_code == 400
+
+    def test_capture_bad_extension(self, tmp_path):
+        data_dir = tmp_path / "data"
+        students_dir = data_dir / "students"
+        students_dir.mkdir(parents=True)
+        _write_student(students_dir, "maya_2026")
+
+        with patch("backend.routers.capture.DATA_DIR", data_dir):
+            fake_exe = io.BytesIO(b"MZ" + b"\x00" * 100)
+            resp = client.post(
+                "/api/capture",
+                data={"student_id": "maya_2026", "work_type": "worksheet"},
+                files={"image": ("malware.exe", fake_exe, "application/octet-stream")},
+            )
+        assert resp.status_code == 400
+
+    def test_voice_supported_endpoint(self):
+        resp = client.get("/api/capture/voice/supported")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "supported" in data
+        assert "provider" in data
+
+    def test_voice_capture_student_not_found(self, tmp_path):
+        data_dir = tmp_path / "data"
+        students_dir = data_dir / "students"
+        students_dir.mkdir(parents=True)
+
+        with patch("backend.routers.capture.DATA_DIR", data_dir):
+            resp = client.post(
+                "/api/capture/voice",
+                json={
+                    "student_id": "nonexistent",
+                    "audio_b64": "",
+                    "text_fallback": "Maya got 4 out of 5 on coin sorting",
+                },
+            )
+        assert resp.status_code == 404
+
+    def test_voice_capture_path_traversal(self):
+        resp = client.post(
+            "/api/capture/voice",
+            json={
+                "student_id": "../hack",
+                "audio_b64": "",
+                "text_fallback": "test",
+            },
+        )
+        assert resp.status_code == 400
+
+    def test_voice_capture_bad_audio_type(self, tmp_path):
+        data_dir = tmp_path / "data"
+        students_dir = data_dir / "students"
+        students_dir.mkdir(parents=True)
+        _write_student(students_dir, "maya_2026")
+
+        import base64
+        with (
+            patch("backend.routers.capture.DATA_DIR", data_dir),
+            patch("backend.routers.capture._is_google_provider", return_value=True),
+        ):
+            resp = client.post(
+                "/api/capture/voice",
+                json={
+                    "student_id": "maya_2026",
+                    "audio_b64": base64.b64encode(b"fake audio").decode(),
+                    "media_type": "video/mp4",
+                },
+            )
+        assert resp.status_code == 400

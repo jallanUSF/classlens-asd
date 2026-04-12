@@ -5,7 +5,7 @@ Pydantic models for student data, IEP goals, trial data, and sensory profiles.
 
 from datetime import datetime
 from typing import List, Optional, Dict, Any
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class SensoryProfile(BaseModel):
@@ -47,9 +47,9 @@ class SensoryProfile(BaseModel):
         description="Known sensory calming strategies that work for this student",
     )
 
-    @validator("auditory_sensitivity", "visual_sensitivity", "tactile_sensitivity")
-    def validate_sensitivity(cls, v):
-        """Validate sensitivity levels."""
+    @field_validator("auditory_sensitivity", "visual_sensitivity", "tactile_sensitivity")
+    @classmethod
+    def validate_sensitivity(cls, v: str) -> str:
         valid_values = ["typical", "sensitive", "seeking"]
         if v not in valid_values:
             raise ValueError(
@@ -57,8 +57,8 @@ class SensoryProfile(BaseModel):
             )
         return v
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "auditory_sensitivity": "sensitive",
                 "visual_sensitivity": "typical",
@@ -70,6 +70,7 @@ class SensoryProfile(BaseModel):
                 "calming_strategies": ["deep pressure", "quiet space"],
             }
         }
+    )
 
 
 class IEPGoal(BaseModel):
@@ -127,9 +128,9 @@ class IEPGoal(BaseModel):
         description="Additional notes about the goal",
     )
 
-    @validator("domain")
-    def validate_domain(cls, v):
-        """Validate goal domain."""
+    @field_validator("domain")
+    @classmethod
+    def validate_domain(cls, v: str) -> str:
         valid_domains = ["academic", "social", "communication", "motor", "sensory"]
         if v not in valid_domains:
             raise ValueError(
@@ -137,9 +138,9 @@ class IEPGoal(BaseModel):
             )
         return v
 
-    @validator("measurement_method")
-    def validate_measurement_method(cls, v):
-        """Validate measurement method."""
+    @field_validator("measurement_method")
+    @classmethod
+    def validate_measurement_method(cls, v: str) -> str:
         valid_methods = ["frequency", "percentage", "duration", "quality"]
         if v not in valid_methods:
             raise ValueError(
@@ -147,8 +148,8 @@ class IEPGoal(BaseModel):
             )
         return v
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "goal_id": "GOAL_001",
                 "title": "Increase eye contact during peer interactions",
@@ -163,6 +164,7 @@ class IEPGoal(BaseModel):
                 "notes": "Focus on natural, peer-initiated interactions",
             }
         }
+    )
 
 
 class TrialData(BaseModel):
@@ -224,25 +226,25 @@ class TrialData(BaseModel):
         description="Additional behavioral observations (JSON structure)",
     )
 
-    @validator("successes")
-    def validate_successes(cls, v, values):
-        """Ensure successes does not exceed total trials."""
-        if "total_trials" in values and v > values["total_trials"]:
+    @field_validator("successes")
+    @classmethod
+    def validate_successes(cls, v: int, info) -> int:
+        if "total_trials" in info.data and v > info.data["total_trials"]:
             raise ValueError("Successes cannot exceed total trials")
         return v
 
-    @validator("success_percentage", always=True)
-    def calculate_success_percentage(cls, v, values):
-        """Auto-calculate success percentage from successes and total_trials."""
-        if "total_trials" in values and "successes" in values:
+    @field_validator("success_percentage")
+    @classmethod
+    def calculate_success_percentage(cls, v: float, info) -> float:
+        if "total_trials" in info.data and "successes" in info.data:
             return round(
-                (values["successes"] / values["total_trials"]) * 100, 2
+                (info.data["successes"] / info.data["total_trials"]) * 100, 2
             )
         return v
 
-    @validator("context")
-    def validate_context(cls, v):
-        """Validate trial context."""
+    @field_validator("context")
+    @classmethod
+    def validate_context(cls, v: str) -> str:
         valid_contexts = ["classroom", "home", "community", "therapy"]
         if v not in valid_contexts:
             raise ValueError(
@@ -250,9 +252,9 @@ class TrialData(BaseModel):
             )
         return v
 
-    @validator("prompting_level")
-    def validate_prompting_level(cls, v):
-        """Validate prompting level."""
+    @field_validator("prompting_level")
+    @classmethod
+    def validate_prompting_level(cls, v: str) -> str:
         valid_levels = ["independent", "spatial", "verbal", "model", "physical"]
         if v not in valid_levels:
             raise ValueError(
@@ -260,8 +262,8 @@ class TrialData(BaseModel):
             )
         return v
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "trial_id": "TRIAL_001",
                 "goal_id": "GOAL_001",
@@ -281,6 +283,7 @@ class TrialData(BaseModel):
                 },
             }
         }
+    )
 
 
 class StudentProfile(BaseModel):
@@ -368,9 +371,9 @@ class StudentProfile(BaseModel):
         description="General notes about the student",
     )
 
-    @validator("autism_level")
-    def validate_autism_level(cls, v):
-        """Validate autism support level."""
+    @field_validator("autism_level")
+    @classmethod
+    def validate_autism_level(cls, v: str) -> str:
         valid_levels = ["level_1", "level_2", "level_3"]
         if v not in valid_levels:
             raise ValueError(
@@ -378,9 +381,9 @@ class StudentProfile(BaseModel):
             )
         return v
 
-    @validator("communication_style")
-    def validate_communication_style(cls, v):
-        """Validate communication style."""
+    @field_validator("communication_style")
+    @classmethod
+    def validate_communication_style(cls, v: str) -> str:
         valid_styles = ["verbal", "AAC", "sign", "mixed"]
         if v not in valid_styles:
             raise ValueError(
@@ -467,8 +470,8 @@ class StudentProfile(BaseModel):
             "recent_trials": recent_trials,
         }
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "student_id": "STU_001",
                 "first_name": "Emma",
@@ -486,3 +489,4 @@ class StudentProfile(BaseModel):
                 "notes": "Thrives with structure and visual supports",
             }
         }
+    )
