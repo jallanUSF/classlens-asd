@@ -55,6 +55,8 @@
     "id": "reg-jaylen-g3",
     "student_id": "jaylen_2026",
     "alert_type": "regression",
+    "severity": "high",
+    "label": "regression_risk",
     "goal_id": "G3",
     "title": "Jaylen — Social Reciprocity regression risk",
     "detail": "Turn-taking progress is fragile. Jaylen met his 80% target in adult-led sessions, but peer turn-taking remains inconsistent. Any routine disruption (sub teacher, schedule change) could cause regression. Last peer-only session: 2/5 turns successful.",
