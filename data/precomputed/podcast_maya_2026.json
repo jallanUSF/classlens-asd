@@ -3,55 +3,55 @@
   "script": [
     {
       "speaker": "host",
-      "text": "Morning everyone! Today we're diving into a progress update for Maya, our third grader who's been making some incredible strides lately."
+      "text": "Good morning! Today we're checking in on Maya, our third grader who loves Jurassic World raptors and the color purple. She's had a very productive few weeks."
     },
     {
       "speaker": "guest",
-      "text": "She really has. Maya's data is trending upward across the board, and she's actually hit the target for two of her major IEP goals."
+      "text": "She really has. Looking at her communication goal, Maya's accuracy in greeting peers jumped from a 20% baseline to a consistent 80% across her last three sessions."
     },
     {
       "speaker": "host",
-      "text": "That's a great start. Let's look at her communication first—how's she doing with those peer greetings?"
+      "text": "That is a massive leap. Was there something specific that clicked for her?"
     },
     {
       "speaker": "guest",
-      "text": "It's a huge jump. She started at a 20% baseline, but she's now maintained 80% accuracy over her last three sessions, consistently hitting 8 out of 10 trials."
+      "text": "The peer buddy program and some reinforcer stickers really helped. She's now meeting her target consistently across multiple settings."
     },
     {
       "speaker": "host",
-      "text": "That's wonderful. Now, following two-step directions can be a challenge without visual aids. Have we seen movement there?"
+      "text": "That's great to hear. How is she doing with those two-step directions? I know those can be a challenge."
     },
     {
       "speaker": "guest",
-      "text": "We have. She's climbed from a 45% baseline to 75%. She's meeting that target now, especially when we pair the directions with a visual checklist."
+      "text": "She's making steady gains. She started at 45% accuracy and is now hitting her 75% target, especially when directions are paired with a visual checklist."
     },
     {
       "speaker": "host",
-      "text": "It sounds like she's really finding her rhythm. What about her self-regulation and managing outbursts?"
+      "text": "It sounds like the visuals are key. Now, let's talk about self-regulation—how are the outbursts trending?"
     },
     {
       "speaker": "guest",
-      "text": "This is the biggest win. Maya went from an average of over 3 outbursts a day down to just one single outburst for the entire last week."
+      "text": "The improvement is accelerating. She went from an average of over three outbursts a day down to just one single outburst for the entire week of April 3rd."
     },
     {
       "speaker": "host",
-      "text": "That is a massive shift for her. What's been the key to that success?"
+      "text": "One for the whole week? That's an incredible turnaround."
     },
     {
       "speaker": "guest",
-      "text": "The noise-canceling headphones during transitions and the weighted lap pad routine have been game-changers for her sensory needs."
+      "text": "It is. The noise-canceling headphones during transitions and the addition of a fidget cube and weighted lap pad have been game-changers for her."
     },
     {
       "speaker": "host",
-      "text": "So, with two goals met and regulation improving, what's the game plan moving forward?"
+      "text": "Since she's hitting her marks across the board, what should the team focus on next?"
     },
     {
       "speaker": "guest",
-      "text": "The focus is now on generalization. We want to see if Maya can maintain these skills in less structured spots, like the cafeteria or playground, with less familiar adults."
+      "text": "Because she's plateaued at her targets for communication and directions, we should start fading those supports. The next step is generalization—seeing if she can maintain these wins in the cafeteria or on the playground."
     }
   ],
   "student_id": "maya_2026",
   "language": "en",
   "generated_date": "2026-04-12",
-  "thinking": "Podcast Producer agent for ClassLens ASD.\nWrite a ~2-minute audio briefing (approx. 300 words) as a dialogue between Host and Guest.\nMaya (Grade 3, ASD Level 2).\n        *   *G1 (Communication - Greetings):* Baseline 20% -> Target 80%. Current: 80% (met target).\n        *   *G2 (Following Directions - 2-step):* Baseline 45% -> Target 75%. Current: 75% (met target).\n        *   *G3 (Self-Regulation - Outbursts):* Baseline 3.2/day -> Target 1/day. Current: 1 outburst/week (major improvement).\n        *   *Interests:* Blue the raptor, water play, purple, counting.\n        *   *Context:* All targets met or exceeding; focus shifting to generalization.\n\n        *   Host: Warm, teacher-facing, conversational.\n        *   Guest: Data analyst, specific numbers, celebrations, honest next steps.\n        *   No jargon, 1-3 sentences per line, alternate speakers, 10-16 lines total.\n        *   Output format: Strict JSON.\n\n    *   *Intro:* Host introduces Maya and the general vibe (strong progress).\n    *   *Goal 1 (Communication):* Guest cites the jump from 20% to 80%. Mention the peer buddy program.\n    *   *Goal 2 (Directions):* Guest cites 45% to 75%. Mention the visual checklist support.\n    *   *Goal 3 (Regulation):* Guest cites the drop from over 3 outbursts/day to just 1 for the whole week. Mention noise-canceling headphones/weighted vest.\n    *   *Wrap-up:* Host asks about next steps. Guest mentions \"generalization\" (cafeteria, playground) and potentially fading supports.\n\n    *   *Line 1 (Host):* \"Morning everyone! Today we're looking at Maya, our 3rd grader who's been making some huge strides lately.\"\n    *   *Line 2 (Guest):* \"She really has. Maya's data across the board is trending upward, and she's actually hit two of her major targets.\"\n    *   *Line 3 (Host):* \"That's fantastic. Let's start with her communication—how's she doing with those peer greetings?\"\n    *   *Line 4 (Guest):* \"Incredible growth. She started at a 20% baseline, but she's maintained 80% accuracy over her last three sessions, hitting 8 out of 10 trials consistently.\"\n    *   *Line 5 (Host):* \"I love that. And I know following two-step directions can be tricky without visuals. Any movement there?\"\n    *   *Line 6 (Guest):* \"Yes, she's climbed from 45% to 75%. She's now hitting that target consistently, though she's still benefiting from a visual checklist to stay on track.\"\n    *   *Line 7 (Host):* \"It sounds like she's finding her rhythm. What about her self-regulation and managing outbursts?\"\n    *   *Line 8 (Guest):* \"This is the big win. She went from an average of over 3 outbursts a day down to just one single outburst for the entire last week.\"\n    *   *Line 9 (Host):* \"Wow, that's a massive shift. What's making the difference?\"\n    *   *Line 10 (Guest):* \"The noise-canceling headphones during transitions and that weighted lap pad have been game-changers for her sensory needs.\"\n    *   *Line 11 (Host):* \"So, with two goals met and regulation improving, where do we go from here?\"\n    *   *Line 12 (Guest):* \"The focus now is generalization. We want to see if Maya can maintain these wins in the cafeteria or playground with less familiar adults.\"\n\n    *   ~300 words? Yes.\n    *   2 speakers? Yes.\n    *   Numbers included? Yes (20%->80%, 45%->75%, 3/day->1/week).\n    *   Natural dialogue? Yes.\n    *   JSON format? Yes.\n    *   Length? 12 lines."
+  "thinking": "Podcast Producer for ClassLens ASD.\nCreate a ~2-minute audio briefing (~300 words) for a teacher.\nMaya, 3rd Grade, ASD Level 2.\n\n        - G1 (Communication): Target 80%. Baseline 20%. Current: 80% (Met).\n        - G2 (Following Directions): Target 75%. Baseline 45%. Current: 75% (Met).\n        - G3 (Self-Regulation): Target 1 outburst/day. Current: 1 outburst/week (100% success rate in most recent log).\n        - Interests: Jurassic World raptors (Blue), water play, purple, counting.\n        - Recent Alerts: G1 and G2 plateaued at target; suggest fading supports or generalization.\n\n        - Host: Warm, conversational, teacher-facing.\n        - Guest: Data analyst, specific numbers, concrete evidence, flags concerns/next steps.\n        - Style: No jargon, 1-3 sentences per line, 10-16 lines total.\n        - Format: Strict JSON.\n\n    *   *Introduction:* Host welcomes the listener and introduces Maya.\n    *   *Goal 1 (Communication):* Guest mentions the jump from 20% to 80% in peer greetings.\n    *   *Goal 2 (Following Directions):* Guest discusses the move from 45% to 75% for two-step directions.\n    *   *Goal 3 (Self-Regulation):* Guest highlights the reduction in outbursts (down to 1 per week).\n    *   *Wrap-up/Next Steps:* Host asks what's next. Guest suggests generalization (cafeteria, playground) and fading prompts.\n\n    *   *Host:* \"Good morning! Today we're looking at Maya's progress in 3rd grade. She's been making some really exciting moves lately.\"\n    *   *Guest:* \"She really has. Starting with communication, Maya's peer greeting accuracy jumped from a 20% baseline all the way to 80% over the last few weeks.\"\n    *   *Host:* \"That's a huge leap. I know she can be shy—what helped her get there?\"\n    *   *Guest:* \"The peer buddy program and some reinforcer stickers really did the trick. She's now consistent across multiple settings, which is a big win.\"\n    *   *Host:* \"Love to hear it. How about her following directions? I know two-step tasks can be tricky.\"\n    *   *Guest:* \"Right. She started at 45% accuracy, but she's now hitting her 75% target. We noticed she's doing great when we pair verbal directions with a visual checklist.\"\n    *   *Host:* \"It sounds like she's finding her rhythm. And we can't forget her self-regulation—how are those outbursts looking?\"\n    *   *Guest:* \"Impressive progress here. She went from over three outbursts a day down to just one outburst for the entire week of April 3rd.\"\n    *   *Host:* \"One for the whole week? That's incredible. What's the secret?\"\n    *   *Guest:* \"A combination of noise-canceling headphones during transitions and a fidget cube with a weighted lap pad.\"\n    *   *Host:* \"So, Maya's hitting her targets across the board. Where do we go from here?\"\n    *   *Guest:* \"Since she's plateaued at her targets for G1 and G2, it's time to fade those supports. I'd suggest testing these skills in less structured spots, like the cafeteria or playground, to see if she can generalize those wins.\"\n\n    *   ~2 mins? Yes.\n    *   ~300 words? Approx 250 words.\n    *   Two speakers (Host/Guest)? Yes.\n    *   Numbers cited? 20% -> 80%, 45% -> 75%, 3/day -> 1/week.\n    *   No jargon? Checked.\n    *   1-3 sentences per line? Checked.\n    *   10-16 lines? 12 lines.\n    *   JSON format? Yes."
 }

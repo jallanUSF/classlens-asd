@@ -7,7 +7,6 @@
 3. [ ] Confirm Sarah's content status (profiles + video segments)
 4. [ ] Record sample voice notes for demo (Sarah or synthetic)
 5. [ ] Define "release ready" criterion (demo-ready vs production-ready)
-6. [ ] **Podcast briefing** — design doc at `docs/plans/2026-04-12-podcast-briefing-design.md` marked "Approved" but untracked. Go/no-go decision + time-box or defer.
 
 ## Sprint 6 — blocked on release gate
 
@@ -20,6 +19,8 @@
 ---
 
 ## Archive — shipped (chronological, most recent first)
+
+**2026-04-12 podcast briefing:** All 5 phases of `docs/plans/2026-04-12-podcast-briefing-design.md`. New podcast_producer agent (Gemma thinking mode), edge-tts wrapper, 3 backend endpoints, PodcastBriefing.tsx component, 10 tests, precomputed MP3s for Maya/Jaylen/Amara with real student-specific content. Flag dedup bug fixed (MISTAKES.md #7). Browser-verified. 154→165 tests.
 
 **2026-04-12 quality hardening:** Security (validate_student_id on 4 routers, error sanitization), code quality (extracted duplicates to backend/sanitize.py, fixed 9 encoding violations, removed dead code), +29 TestClient tests, UX polish (precomputed data fix, a11y, prompt accuracy, ASD corrections). 128→137 tests.
 
