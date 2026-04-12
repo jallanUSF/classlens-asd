@@ -3,10 +3,13 @@ Capture endpoint — upload student work image or voice note and run the pipelin
 """
 
 import base64
+import logging
 import os
 from datetime import date
 from pathlib import Path
 from typing import Optional
+
+logger = logging.getLogger(__name__)
 
 from dotenv import load_dotenv
 from pydantic import BaseModel
@@ -15,6 +18,7 @@ from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from fastapi.responses import StreamingResponse
 
 from backend.routers._sse import SSE_HEADERS, run_streaming_job
+from backend.sanitize import has_real_model_credentials as _has_real_model_credentials
 from backend.upload_utils import (
     IMAGE_EXTENSIONS,
     validate_student_id,
@@ -26,13 +30,6 @@ load_dotenv()
 router = APIRouter(tags=["capture"])
 
 DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data"
-
-
-def _has_real_model_credentials() -> bool:
-    if os.getenv("OPENROUTER_API_KEY"):
-        return True
-    google_key = os.getenv("GOOGLE_AI_STUDIO_KEY")
-    return bool(google_key) and google_key != "your_api_key_here"
 
 
 def _build_pipeline():
@@ -186,8 +183,9 @@ async def capture_voice(req: VoiceCaptureRequest) -> dict:
         raise HTTPException(status_code=404, detail=str(e))
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=502, detail=f"Voice capture failed: {e}")
+    except Exception:
+        logger.exception("Voice capture failed for student %s", req.student_id)
+        raise HTTPException(status_code=502, detail="Voice capture failed. Please try again later.")
 
 
 @router.post("/capture/voice/stream")

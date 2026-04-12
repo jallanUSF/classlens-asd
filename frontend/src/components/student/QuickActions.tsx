@@ -33,7 +33,7 @@ export function QuickActions({ studentName, studentId }: Props) {
       />
       <div className="flex gap-3">
         <Button
-          className="gap-2"
+          className="gap-2 min-h-[44px]"
           disabled={isStreaming}
           onClick={() => fileRef.current?.click()}
         >
@@ -42,7 +42,7 @@ export function QuickActions({ studentName, studentId }: Props) {
         </Button>
         <Button
           variant="outline"
-          className="gap-2"
+          className="gap-2 min-h-[44px]"
           onClick={() =>
             prefillInput(`Generate a lesson plan for ${studentName}`)
           }
@@ -52,7 +52,7 @@ export function QuickActions({ studentName, studentId }: Props) {
         </Button>
         <Button
           variant="outline"
-          className="gap-2"
+          className="gap-2 min-h-[44px]"
           onClick={() =>
             prefillInput(`Write a parent update for ${studentName}`)
           }

@@ -114,7 +114,7 @@ class TestPrecomputedCaching:
             "alerts": [],
         }
         cache_path = Path(data_dir) / "precomputed" / "maya_math_worksheet.json"
-        with open(cache_path, "w") as f:
+        with open(cache_path, "w", encoding="utf-8") as f:
             json.dump(precomputed, f)
 
         pipeline = ClassLensPipeline(client=MockGemmaClient(), data_dir=data_dir)

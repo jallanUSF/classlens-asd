@@ -390,7 +390,7 @@ def generate_student_reports(client, student_id, forge, output_base, date_str):
     """Generate all 7 polished PDF reports for a student."""
     # Load student profile
     profile_path = Path("data/students") / f"{student_id}.json"
-    with open(profile_path) as f:
+    with open(profile_path, encoding="utf-8") as f:
         profile = json.load(f)
 
     student_name = profile["name"]

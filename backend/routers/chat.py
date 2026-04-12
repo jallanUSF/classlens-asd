@@ -15,35 +15,27 @@ system prompt, conversation-history flattening, and output sanitization.
 """
 
 import json
+import logging
 import os
 import re
 from pathlib import Path
 from typing import Any, Iterator
+
+logger = logging.getLogger(__name__)
 
 from dotenv import load_dotenv
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
-load_dotenv()
-
-# Strip any HTML/XML-like tags the model emits. Gemma occasionally leaks
-# table fragments (<td>, <tr>) and structural tags from training data.
-# We also drop <script>/<style> *blocks* with their contents, since leaving
-# their bodies as plain text would leak raw CSS/JS into the chat UI.
-_SCRIPT_STYLE_BLOCK_RE = re.compile(
-    r"<(script|style)\b[^>]*>.*?</\1\s*>", re.IGNORECASE | re.DOTALL
+from backend.sanitize import (
+    _SCRIPT_STYLE_BLOCK_RE,
+    _ANY_TAG_RE,
+    has_real_model_credentials as _has_live_api_key,
+    sanitize_model_text as _sanitize_model_text,
 )
-_ANY_TAG_RE = re.compile(r"<[^>]+>")
 
-
-def _sanitize_model_text(text: str) -> str:
-    """Remove HTML tags and dangerous script/style blocks from model output."""
-    if not text:
-        return text
-    text = _SCRIPT_STYLE_BLOCK_RE.sub("", text)
-    text = _ANY_TAG_RE.sub("", text)
-    return text.strip()
+load_dotenv()
 
 
 def _sanitize_stream_chunk(text: str) -> str:
@@ -152,17 +144,6 @@ def _build_prompt_and_system(req: ChatRequest) -> tuple[str, str]:
     return "\n\n".join(prompt_parts), system
 
 
-def _has_live_api_key() -> bool:
-    """True if any live-model provider API key is configured."""
-    return bool(
-        os.getenv("OPENROUTER_API_KEY")
-        or (
-            os.getenv("GOOGLE_AI_STUDIO_KEY")
-            and os.getenv("GOOGLE_AI_STUDIO_KEY") != "your_api_key_here"
-        )
-    )
-
-
 @router.post("/chat")
 async def chat(req: ChatRequest) -> dict[str, Any]:
     """
@@ -182,8 +163,9 @@ async def chat(req: ChatRequest) -> dict[str, Any]:
         else:
             # Mock response for demo/development
             response_text = _mock_response(req.message, req.student_id)
-    except Exception as e:
-        response_text = f"I'm having trouble connecting to the model right now. Error: {str(e)}"
+    except Exception:
+        logger.exception("Chat generation failed")
+        response_text = "I'm having trouble connecting to the model right now. Please try again later."
 
     response_text = _sanitize_model_text(response_text)
 
@@ -222,8 +204,9 @@ async def chat_stream(req: ChatRequest) -> StreamingResponse:
                 # the no-key dev path still looks like a real stream.
                 mock = _sanitize_model_text(_mock_response(req.message, req.student_id))
                 yield f"data: {json.dumps({'delta': mock})}\n\n"
-        except Exception as e:  # pragma: no cover — network/provider errors
-            err = f"I'm having trouble connecting to the model right now. Error: {str(e)}"
+        except Exception:  # pragma: no cover — network/provider errors
+            logger.exception("Chat stream generation failed")
+            err = "I'm having trouble connecting to the model right now. Please try again later."
             yield f"data: {json.dumps({'error': err})}\n\n"
         yield f"data: {json.dumps({'done': True})}\n\n"
 

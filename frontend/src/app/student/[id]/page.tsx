@@ -130,6 +130,12 @@ export default function StudentDetailPage() {
             <p className="text-muted-foreground">
               {error || "Student not found"}
             </p>
+            <a
+              href="/"
+              className="inline-block mt-4 text-sm text-primary hover:underline"
+            >
+              Go to Dashboard
+            </a>
           </CardContent>
         </Card>
       </div>

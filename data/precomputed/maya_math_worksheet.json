@@ -36,21 +36,15 @@
   "goal_mapping": {
     "matched_goals": [
       {
-        "goal_id": "G1",
-        "reasoning": "Peer greeting tally directly measures communication goal",
-        "trials": 10,
-        "successes": 8,
-        "percentage": 80
-      },
-      {
         "goal_id": "G2",
-        "reasoning": "Math accuracy and engagement indicate direction-following progress",
-        "trials": 8,
-        "successes": 6,
-        "percentage": 75
+        "reasoning": "Maya followed two-step verbal directions ('count, then write the number') at 100% accuracy across 3 math problems, directly measuring direction-following skills",
+        "trials": 3,
+        "successes": 3,
+        "percentage": 100
       }
     ],
-    "overall_summary": "Maya shows strong progress on both communication and direction-following goals."
+    "unmapped_notes": "This math worksheet does not directly measure G1 (peer greetings) or G3 (self-regulation). Teacher notes indicate 15 minutes of sustained focus, which may inform G3 behavioral data indirectly.",
+    "overall_summary": "Maya followed multi-step math directions with 100% accuracy, supporting progress on G2 (following two-step verbal directions)."
   },
   "analyses": [
     {

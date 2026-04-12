@@ -170,6 +170,7 @@ export function AlertBanner({
                   <div
                     id={`alert-analysis-${alert.id}`}
                     className="mt-3 rounded-md border border-warning/20 bg-background/60 p-3"
+                    aria-live="polite"
                   >
                     {isLoading ? (
                       <p className="text-xs text-muted-foreground italic animate-pulse">

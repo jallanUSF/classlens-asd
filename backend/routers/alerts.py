@@ -4,38 +4,26 @@ Analyzes trial data to detect plateaus, regressions, and upcoming reviews.
 """
 
 import hashlib
+import logging
 import os
-import re
 from datetime import date
 from pathlib import Path
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 
 from backend.routers._sse import SSE_HEADERS, run_streaming_job
+from backend.sanitize import has_real_model_credentials, sanitize_model_text as _sanitize_model_text
+from backend.upload_utils import validate_student_id
 from core.json_io import read_json, write_json
 
 router = APIRouter(tags=["alerts"])
 
 DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data"
 ALERTS_FILE = DATA_DIR / "alerts" / "active_alerts.json"
-
-# Sanitization regexes — duplicated from chat.py to keep this router
-# self-contained and avoid a cross-router import cycle.
-_SCRIPT_STYLE_BLOCK_RE = re.compile(
-    r"<(script|style)\b[^>]*>.*?</\1\s*>", re.IGNORECASE | re.DOTALL
-)
-_ANY_TAG_RE = re.compile(r"<[^>]+>")
-
-
-def _sanitize_model_text(text: str) -> str:
-    """Remove HTML tags and dangerous script/style blocks from model output."""
-    if not text:
-        return text
-    text = _SCRIPT_STYLE_BLOCK_RE.sub("", text)
-    text = _ANY_TAG_RE.sub("", text)
-    return text.strip()
 
 
 def _get_progress_analyst():
@@ -47,10 +35,7 @@ def _get_progress_analyst():
     """
     from agents.progress_analyst import ProgressAnalyst
 
-    if os.getenv("OPENROUTER_API_KEY") or (
-        os.getenv("GOOGLE_AI_STUDIO_KEY")
-        and os.getenv("GOOGLE_AI_STUDIO_KEY") != "your_api_key_here"
-    ):
+    if has_real_model_credentials():
         from core.gemma_client import GemmaClient
         return ProgressAnalyst(GemmaClient(), data_dir=str(DATA_DIR))
     else:
@@ -302,6 +287,8 @@ async def analyze_alert(alert_id: str) -> dict[str, Any]:
             detail="Alert is missing student_id or goal_id — cannot analyze",
         )
 
+    student_id = validate_student_id(student_id)
+
     # Verify student/goal exist before burning an API call
     student_path = DATA_DIR / "students" / f"{student_id}.json"
     if not student_path.exists():
@@ -316,9 +303,10 @@ async def analyze_alert(alert_id: str) -> dict[str, Any]:
         # so we also build a human-readable summary from the parsed fields.
         result = analyst.analyze(student_id, goal_id)
     except Exception as e:  # pragma: no cover — network/provider errors
+        logger.exception("ProgressAnalyst failed for alert %s", alert_id)
         raise HTTPException(
             status_code=502,
-            detail=f"ProgressAnalyst failed: {e}",
+            detail="Analysis failed. Please try again later.",
         )
 
     thinking = _sanitize_model_text(result.get("thinking", "") or "")
@@ -362,6 +350,7 @@ def _run_alert_analysis(alert_id: str) -> dict[str, Any]:
     if not student_id or not goal_id:
         raise ValueError("Alert is missing student_id or goal_id — cannot analyze")
 
+    validate_student_id(student_id)
     student_path = DATA_DIR / "students" / f"{student_id}.json"
     if not student_path.exists():
         raise LookupError(f"Student {student_id} not found")

@@ -243,7 +243,7 @@ Cross-cutting requirements:
 - Every material must align to the student's IEP goal (be explicit about how)
 - Weave in student interests authentically (not forced; Jaylen loves trains—use trains as examples, not dinosaurs)
 - Respect communication level: non-verbal students get AAC-friendly visuals; verbal students get sentence starters
-- Include sensory considerations: calm colors for sensory seekers, varied textures for sensory seekers, quiet/busy options
+- Include sensory considerations: calm colors and reduced visual clutter for sensory-sensitive students; varied textures and high-contrast elements for sensory seekers; quiet/busy options
 - Use inclusive, affirming language (student "is learning to" not "cannot," "profile" not "disorder")
 - Make materials ready-to-use: don't say "add pictures"—describe what pictures; don't say "print this"—give dimensions
 
@@ -351,7 +351,7 @@ IEP_MAPPER_USER = """Map this student's work to their IEP goals and record trial
 STUDENT PROFILE:
 - Name: {student_name}
 - Grade: {grade}
-- ASD Level: {asd_level} (1=support with daily living skills, 2=support with social/communication, 3=support with communication and behavior)
+- ASD Level: {asd_level} (1=Requiring support, 2=Requiring substantial support, 3=Requiring very substantial support)
 - Communication Level: {communication_level}
 - Interests: {interests}
 - Sensory Profile - Seeks: {sensory_seeks}
@@ -436,13 +436,14 @@ Use extended thinking to analyze this data deeply.
    - If progress is stalled, suggest adjustments
 
 Return structured JSON:
-- trend_direction: "improving", "stable", "declining", or "variable"
+- trend: "improving", "stable", "declining", or "variable"
 - success_rate_percent: Calculation as percentage (0-100)
 - progress_note: 2-3 sentences in teacher/parent-friendly language
-- regression_alert: true/false + reason if true
-- recommended_next_steps: Brief suggestion if trend is flat/declining
+- alert: true/false
+- alert_message: reason string if alert is true, empty string otherwise
+- recommendation: Brief suggestion if trend is flat/declining
 - days_since_last_trial: Auto-calculated freshness indicator
-- confidence_level: "high" / "moderate" / "low" based on sample size and consistency
+- confidence: "high" / "moderate" / "low" based on sample size and consistency
 
 Special note: Variability in performance is normal for students with autism. A student at 40% success with 50% variability is not failing—they're learning. Acknowledge this in your notes.
 """

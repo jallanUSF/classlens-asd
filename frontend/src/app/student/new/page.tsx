@@ -149,8 +149,12 @@ export default function NewStudentPage() {
     [preview.name, addContextMessage],
   );
 
+  const [createError, setCreateError] = useState<string | null>(null);
+
   async function handleCreateProfile() {
     if (!preview.name) return;
+
+    setCreateError(null);
 
     const profile = {
       student_id: preview.name.toLowerCase() + "_" + new Date().getFullYear(),
@@ -162,18 +166,24 @@ export default function NewStudentPage() {
       iep_goals: [],
     };
 
-    const res = await fetch("/api/students", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(profile),
-    });
+    try {
+      const res = await fetch("/api/students", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(profile),
+      });
 
-    if (res.ok) {
-      setCreatedId(profile.student_id);
-      addContextMessage(
-        `**${preview.name}**'s profile has been created! Redirecting to their page now. You can add IEP goals there.`,
-      );
-      setTimeout(() => router.push(`/student/${profile.student_id}`), 1500);
+      if (res.ok) {
+        setCreatedId(profile.student_id);
+        addContextMessage(
+          `**${preview.name}**'s profile has been created! Redirecting to their page now. You can add IEP goals there.`,
+        );
+        setTimeout(() => router.push(`/student/${profile.student_id}`), 1500);
+      } else {
+        setCreateError("Could not create the profile. Please try again.");
+      }
+    } catch {
+      setCreateError("Network error — check your connection and try again.");
     }
   }
 
@@ -312,21 +322,28 @@ export default function NewStudentPage() {
 
       {/* Create Profile Button */}
       {hasEnoughInfo && !createdId && (
-        <div className="flex gap-3">
-          <Button className="gap-2" onClick={handleCreateProfile}>
-            <Sparkles className="h-4 w-4" />
-            Create {preview.name}&apos;s Profile
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() =>
-              sendMessage(
-                `I'm setting up ${preview.name}. What else should I know about them?`,
-              )
-            }
-          >
-            Tell me more first
-          </Button>
+        <div className="space-y-2">
+          <div className="flex gap-3">
+            <Button className="gap-2" onClick={handleCreateProfile}>
+              <Sparkles className="h-4 w-4" />
+              Create {preview.name}&apos;s Profile
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() =>
+                sendMessage(
+                  `I'm setting up ${preview.name}. What else should I know about them?`,
+                )
+              }
+            >
+              Tell me more first
+            </Button>
+          </div>
+          {createError && (
+            <p className="text-sm text-destructive" role="alert">
+              {createError}
+            </p>
+          )}
         </div>
       )}
 

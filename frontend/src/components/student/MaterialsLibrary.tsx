@@ -36,6 +36,7 @@ const TYPE_LABELS: Record<string, { label: string; icon: typeof FileText }> = {
   visual_schedule: { label: "Visual Schedule", icon: FileText },
   parent_comm: { label: "Parent Letter", icon: FileText },
   admin_report: { label: "Admin Report", icon: FileText },
+  first_then: { label: "First-Then Board", icon: FileText },
 };
 
 const STATUS_STYLES: Record<string, { class: string; icon: typeof Clock }> = {

@@ -9,7 +9,6 @@ reused by the chat assistant.
 """
 
 import logging
-import os
 from datetime import date
 from pathlib import Path
 from typing import Any
@@ -18,6 +17,7 @@ from fastapi import APIRouter, File, Form, UploadFile
 from fastapi.responses import StreamingResponse
 
 from backend.routers._sse import SSE_HEADERS, run_streaming_job
+from backend.sanitize import has_real_model_credentials
 from core.json_io import read_json, write_json
 from backend.upload_utils import (
     DOCUMENT_EXTENSIONS,
@@ -36,10 +36,7 @@ def _get_extractor():
     """Build an IEPExtractor with whichever client the environment allows."""
     from agents.iep_extractor import IEPExtractor
 
-    if os.getenv("OPENROUTER_API_KEY") or (
-        os.getenv("GOOGLE_AI_STUDIO_KEY")
-        and os.getenv("GOOGLE_AI_STUDIO_KEY") != "your_api_key_here"
-    ):
+    if has_real_model_credentials():
         from core.gemma_client import GemmaClient
         return IEPExtractor(GemmaClient())
 

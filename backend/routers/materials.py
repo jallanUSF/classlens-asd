@@ -2,7 +2,6 @@
 Material generation and management endpoints.
 """
 
-import os
 from datetime import date
 from pathlib import Path
 from typing import Any
@@ -12,6 +11,8 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 from backend.routers._sse import SSE_HEADERS, run_streaming_job
+from backend.sanitize import has_real_model_credentials
+from backend.upload_utils import validate_student_id
 from core.json_io import read_json, write_json
 
 router = APIRouter(tags=["materials"])
@@ -34,10 +35,7 @@ def _get_forge():
     """Create a MaterialForge instance with available client."""
     from agents.material_forge import MaterialForge
 
-    if os.getenv("OPENROUTER_API_KEY") or (
-        os.getenv("GOOGLE_AI_STUDIO_KEY")
-        and os.getenv("GOOGLE_AI_STUDIO_KEY") != "your_api_key_here"
-    ):
+    if has_real_model_credentials():
         from core.gemma_client import GemmaClient
         return MaterialForge(GemmaClient())
     else:
@@ -47,6 +45,7 @@ def _get_forge():
 
 def _generate_material_sync(req: GenerateRequest) -> dict[str, Any]:
     """Blocking helper shared by the JSON and SSE material endpoints."""
+    validate_student_id(req.student_id)
     student_path = DATA_DIR / "students" / f"{req.student_id}.json"
     if not student_path.exists():
         raise LookupError(f"Student {req.student_id} not found")
@@ -146,6 +145,7 @@ async def generate_material_stream(req: GenerateRequest) -> StreamingResponse:
 @router.get("/students/{student_id}/materials")
 async def list_materials(student_id: str) -> list[dict[str, Any]]:
     """List all generated materials for a student."""
+    student_id = validate_student_id(student_id)
     mat_dir = MATERIALS_DIR / student_id
     if not mat_dir.exists():
         return []
@@ -160,6 +160,7 @@ async def list_materials(student_id: str) -> list[dict[str, Any]]:
 @router.put("/materials/{student_id}/{material_id}/approve")
 async def approve_material(student_id: str, material_id: str) -> dict[str, str]:
     """Mark a material as approved."""
+    student_id = validate_student_id(student_id)
     mat_path = MATERIALS_DIR / student_id / f"{material_id}.json"
     if not mat_path.exists():
         raise HTTPException(status_code=404, detail="Material not found")
@@ -176,6 +177,7 @@ class FlagRequest(BaseModel):
 @router.post("/materials/{student_id}/{material_id}/flag")
 async def flag_material(student_id: str, material_id: str, req: FlagRequest) -> dict[str, str]:
     """Flag a material for expert review. Appends to the student's flags file."""
+    student_id = validate_student_id(student_id)
     mat_path = MATERIALS_DIR / student_id / f"{material_id}.json"
     if not mat_path.exists():
         raise HTTPException(status_code=404, detail="Material not found")

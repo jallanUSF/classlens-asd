@@ -51,7 +51,7 @@ export function RecentWork({ studentId }: Props) {
       <div className="text-center py-6">
         <FileImage className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
         <p className="text-sm text-muted-foreground">
-          No work scanned yet. Use &ldquo;Scan Work&rdquo; to capture student artifacts.
+          No work scanned yet. Use &ldquo;Scan Work&rdquo; to capture worksheets or assignments.
         </p>
       </div>
     );
@@ -68,6 +68,8 @@ export function RecentWork({ studentId }: Props) {
                 type="button"
                 className="w-full text-left flex items-center gap-3"
                 onClick={() => setExpandedId(isExpanded ? null : doc.id)}
+                aria-expanded={isExpanded}
+                aria-label={isExpanded ? "Collapse document details" : "Expand document details"}
               >
                 <div className="w-10 h-10 rounded bg-muted flex items-center justify-center shrink-0">
                   <FileImage className="h-5 w-5 text-muted-foreground" />
@@ -75,7 +77,7 @@ export function RecentWork({ studentId }: Props) {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium truncate">
-                      {doc.doc_type.replace("_", " ")}
+                      {doc.doc_type.replace(/_/g, " ")}
                     </span>
                     <Badge
                       variant="outline"

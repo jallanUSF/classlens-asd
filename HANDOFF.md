@@ -2,9 +2,52 @@
 
 **Date:** 2026-04-12
 **Branch:** `nextjs-redesign`
-**Status:** Acceleration sprint complete — 3 prize-track features shipped. 99 pytest pass (108 including slow suite), frontend builds clean 0 TS errors. Release gate still closed pending Jeff approval.
+**Status:** Quality hardening pass complete. 128 pytest pass (137 including slow suite), frontend builds clean 0 TS errors. Release gate still closed pending Jeff approval.
 
-## What happened this session (2026-04-12 acceleration sprint)
+## What happened this session (2026-04-12 quality hardening)
+
+### Security fixes (critical)
+- **Path traversal protection** — Added `validate_student_id()` to 4 routers that were missing it: `students.py`, `materials.py`, `trajectory.py`, `alerts.py`
+- **Error message sanitization** — Removed `str(e)` from all user-facing error responses in `_sse.py`, `capture.py`, `trajectory.py`, `alerts.py`, `chat.py`. Logs real errors server-side, returns generic teacher-friendly messages.
+
+### Code quality
+- **Extracted duplicated code** — `sanitize_model_text` (3 copies) and `has_real_model_credentials` (6 copies) consolidated into `backend/sanitize.py`
+- **Fixed 9 encoding violations** — `open()` without `encoding="utf-8"` in test files and scripts (MISTAKES.md #6)
+- **Removed dead code** — unused imports in `state_store.py`, `pipeline.py`; dead `_runner` function in `_sse.py`
+
+### Test coverage (+29 tests)
+- **New file:** `tests/test_routers.py` — 29 TestClient tests covering students (13), chat (5), alerts (5), documents (6) routers
+- Tests cover CRUD operations, SSE streaming, path traversal rejection, error cases
+
+### UX & demo polish
+- **Fixed maya_math_worksheet.json** — was mapping math to peer greetings goal
+- **Added `first_then` to MaterialsLibrary** — was showing raw key
+- **Fixed ASD level descriptions** — now DSM-5 accurate
+- **Fixed sensory guidance contradiction** — "calm colors for seekers" corrected
+- **Added `min-h-[44px]`** to QuickActions buttons
+- **Fixed underscore replace** — RecentWork + GoalCard now replace all underscores
+- **Improved empty state language** — teacher-friendly wording
+- **Added "Go to Dashboard" link** in error/not-found states
+- **Accessibility** — `aria-live="polite"` on AlertBanner, `aria-expanded` + `aria-label` on GoalCard/RecentWork
+- **New Student page** — added error handling for profile creation failures
+- **Aligned Progress Analyst prompt** — field names now match backend code
+
+### Audio model investigation
+- **Confirmed:** Gemma 4 31B does NOT support audio (only E4B/E2B, which aren't on Google AI Studio API)
+- **Code is correct** — `generate_with_audio()` uses the right SDK pattern
+- **Decision needed:** (A) Gemini for transcription, (B) two-step Gemini→Gemma, (C) keep text fallback
+
+### Verification
+
+| Check | Result |
+|-------|--------|
+| pytest (excluding slow suite) | 128 pass |
+| pytest (slow confidence suite) | 9 pass |
+| Frontend `next build` | Clean, 0 TS errors |
+
+---
+
+## Previous session (2026-04-12 acceleration sprint)
 
 ### 1. Feature 1 — Long-context trajectory report (256K context)
 

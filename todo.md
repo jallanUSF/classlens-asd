@@ -1,18 +1,12 @@
 # TODO — ClassLens ASD
 
-## Active — Acceleration Sprint (5 items max)
+## Active (5 items max)
 
-1. [x] **Feature 1: Long-context trajectory report** — `trajectory_analyst.py`, `/api/students/{id}/trajectory`, `GoalTrajectoryCard.tsx`, precomputed data ✅
-2. [x] **Feature 3: Voice note capture** — `voice_reader.py`, `/api/capture/voice`, `VoiceCapture.tsx`, text fallback ✅
-3. [x] **Feature 4: Confidence panel** — thinking mode in Material Forge, confidence badges in MaterialViewer, flag endpoint ✅
-4. [x] **Update CLAUDE.md** — acceleration sprint sections added ✅
-5. [ ] **Release gate** — Jeff approval (blocks Sprint 6 deploy + video + Kaggle submission)
-
-## Jeff open questions (before Sprint 6)
-
-- [ ] Confirm Sarah's content status (profiles + video segments) — Jeff says timing unknown
-- [ ] Define "release ready" criterion (demo-ready vs production-ready)
-- [ ] Record sample voice notes for demo (Sarah or synthetic)
+1. [ ] **Audio model decision** — Gemma 4 31B doesn't support audio (only E4B/E2B, not on AI Studio). Options: (A) Gemini for transcription step, (B) two-step Gemini→Gemma, (C) keep text fallback. Jeff to decide.
+2. [ ] **Release gate** — Jeff approval (blocks Sprint 6 deploy + video + Kaggle submission)
+3. [ ] Confirm Sarah's content status (profiles + video segments)
+4. [ ] Record sample voice notes for demo (Sarah or synthetic)
+5. [ ] Define "release ready" criterion (demo-ready vs production-ready)
 
 ## Sprint 6 — blocked on release gate
 

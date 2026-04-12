@@ -4,7 +4,6 @@ Single function call that runs the first three agents in sequence.
 Material Forge (Agent 4) is invoked separately from the UI layer.
 """
 
-import hashlib
 from pathlib import Path
 from typing import Optional
 

@@ -125,7 +125,7 @@ class TestIEPMapper:
 
         # Load original trial count
         student_path = Path(data_dir) / "students" / "maya_2026.json"
-        with open(student_path) as f:
+        with open(student_path, encoding="utf-8") as f:
             original = json.load(f)
         original_g1_trials = len(original["iep_goals"][0]["trial_history"])
 
@@ -136,7 +136,7 @@ class TestIEPMapper:
         )
 
         # Reload and check trial was appended
-        with open(student_path) as f:
+        with open(student_path, encoding="utf-8") as f:
             updated = json.load(f)
         new_g1_trials = len(updated["iep_goals"][0]["trial_history"])
         assert new_g1_trials == original_g1_trials + 1

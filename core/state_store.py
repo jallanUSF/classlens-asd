@@ -5,7 +5,6 @@ Handles JSON serialization with Pydantic models.
 """
 
 import json
-import os
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 from pathlib import Path

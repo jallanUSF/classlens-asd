@@ -27,7 +27,7 @@ def store_with_data(tmp_path):
     dst = tmp_path / "students"
     dst.mkdir()
     for f in src.glob("*.json"):
-        (dst / f.name).write_text(f.read_text())
+        (dst / f.name).write_text(f.read_text(encoding="utf-8"), encoding="utf-8")
     return StateStore(data_dir=str(tmp_path))
 
 
@@ -60,7 +60,7 @@ class TestRawFileOperations:
 
     def test_student_json_loadable(self, store_with_data):
         path = store_with_data._get_student_path("maya_2026")
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             data = json.load(f)
         assert data["name"] == "Maya"
         assert data["grade"] == 3
@@ -85,7 +85,7 @@ class TestStudentDataIntegrity:
 
     def test_maya_profile(self, store_with_data):
         path = store_with_data._get_student_path("maya_2026")
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             maya = json.load(f)
         assert maya["student_id"] == "maya_2026"
         assert maya["name"] == "Maya"
@@ -101,14 +101,14 @@ class TestStudentDataIntegrity:
 
     def test_jaylen_profile(self, store_with_data):
         path = store_with_data._get_student_path("jaylen_2026")
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             jaylen = json.load(f)
         assert jaylen["student_id"] == "jaylen_2026"
         assert jaylen["asd_level"] == 3
 
     def test_sofia_profile(self, store_with_data):
         path = store_with_data._get_student_path("sofia_2026")
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             sofia = json.load(f)
         assert sofia["student_id"] == "sofia_2026"
         assert sofia["asd_level"] == 1

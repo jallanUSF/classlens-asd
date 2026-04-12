@@ -9,6 +9,7 @@ from typing import Any
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
+from backend.upload_utils import validate_student_id
 from core.json_io import read_json, write_json
 
 router = APIRouter(tags=["students"])
@@ -103,6 +104,7 @@ def _annotate_goal_target(goal: dict) -> None:
 @router.get("/students/{student_id}")
 async def get_student(student_id: str) -> dict[str, Any]:
     """Get full student profile including goals and trial history."""
+    student_id = validate_student_id(student_id)
     data = _read_profile(student_id)
     for goal in data.get("iep_goals", []):
         _annotate_goal_target(goal)
@@ -123,6 +125,7 @@ class CreateStudentRequest(BaseModel):
 @router.post("/students", status_code=201)
 async def create_student(req: CreateStudentRequest) -> dict[str, Any]:
     """Create a new student profile."""
+    validate_student_id(req.student_id)
     path = STUDENTS_DIR / f"{req.student_id}.json"
     if path.exists():
         raise HTTPException(status_code=409, detail=f"Student {req.student_id} already exists")
@@ -134,6 +137,7 @@ async def create_student(req: CreateStudentRequest) -> dict[str, Any]:
 @router.put("/students/{student_id}")
 async def update_student(student_id: str, updates: dict[str, Any]) -> dict[str, Any]:
     """Update an existing student profile. Merges updates into existing data."""
+    student_id = validate_student_id(student_id)
     data = _read_profile(student_id)
     data.update(updates)
     _write_profile(student_id, data)
@@ -143,6 +147,7 @@ async def update_student(student_id: str, updates: dict[str, Any]) -> dict[str, 
 @router.delete("/students/{student_id}")
 async def delete_student(student_id: str) -> dict[str, str]:
     """Delete a student profile."""
+    student_id = validate_student_id(student_id)
     path = STUDENTS_DIR / f"{student_id}.json"
     if not path.exists():
         raise HTTPException(status_code=404, detail=f"Student {student_id} not found")

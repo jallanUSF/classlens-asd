@@ -67,12 +67,14 @@ export function GoalCard({ goal, onScanWork }: Props) {
           type="button"
           onClick={() => setExpanded(!expanded)}
           className="w-full text-left rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          aria-expanded={expanded}
+          aria-label={expanded ? "Collapse goal details" : "Expand goal details"}
         >
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
                 <Badge variant="outline" className="text-xs">
-                  {goal.domain.replace("_", " ")}
+                  {goal.domain.replace(/_/g, " ")}
                 </Badge>
                 <span className="text-xs text-muted-foreground">
                   {goal.goal_id}

@@ -64,13 +64,6 @@ async def run_streaming_job(
     the event loop.
     """
 
-    async def _runner() -> Any:
-        result = job()
-        if asyncio.iscoroutine(result):
-            return await result
-        # Offload sync work so heartbeats keep firing.
-        return await asyncio.to_thread(lambda: result if not callable(result) else result())
-
     # Start the work.
     if asyncio.iscoroutinefunction(job):
         task = asyncio.create_task(job())  # type: ignore[arg-type]
@@ -93,6 +86,6 @@ async def run_streaming_job(
         yield sse_frame({"result": result})
     except Exception as exc:  # noqa: BLE001 — surface any failure to the client
         logger.exception("SSE job failed: %s", exc)
-        yield sse_frame({"error": str(exc)})
+        yield sse_frame({"error": "An internal error occurred. Please try again."})
     finally:
         yield sse_frame({"done": True})
