@@ -1,41 +1,57 @@
 {
-  "title": "Progress Briefing",
+  "title": "Amara's Progress Briefing — April 12",
   "script": [
     {
       "speaker": "host",
-      "text": "Welcome back to your ClassLens briefing. Today we're looking at a really encouraging week of data."
+      "text": "Welcome back. Today we're looking at Amara, a sixth grader who's showing some really interesting contrasts in her recent data."
     },
     {
       "speaker": "guest",
-      "text": "That's right. The headline is peer-interaction progress: up from a 20 percent baseline to 78 percent across 12 trials this week."
+      "text": "That's right. On the academic front, Amara is seeing some fantastic breakthroughs, particularly in reading comprehension."
     },
     {
       "speaker": "host",
-      "text": "That is a big jump. What's driving it?"
+      "text": "I see she hit her target there. Walk us through those numbers."
     },
     {
       "speaker": "guest",
-      "text": "The peer buddy program, paired with consistent dinosaur-sticker reinforcement. Small groups at the sensory table are generalizing well."
+      "text": "She started at a 35% baseline for inferential questions and just hit 70% this week. The turning point was using 'character mapping' with her favorite anime, My Hero Academia, to help her understand complex emotions."
     },
     {
       "speaker": "host",
-      "text": "Any goals you'd want the team to keep an eye on?"
+      "text": "That's a great way to lean into her interests. And her writing seems to be following a similar upward trend?"
     },
     {
       "speaker": "guest",
-      "text": "Handwriting is plateauing around 60 percent for a fourth session. Not a regression, but worth revisiting the prompting hierarchy at next week's meeting."
+      "text": "Absolutely. Her narrative writing jumped from a 30% baseline up to 75%. She's moved from flat plot summaries to writing with real emotional depth—the ELA teacher even recommended her for the creative writing club."
     },
     {
       "speaker": "host",
-      "text": "Got it. Anything to celebrate heading into the weekend?"
+      "text": "Two big wins. But looking at the social communication data, things look a bit different."
     },
     {
       "speaker": "guest",
-      "text": "Absolutely. Three consecutive days of independent transitions with no prompting. That's exactly the kind of evidence we want in the next IEP review."
+      "text": "Unfortunately, that's our area of concern. Amara is in an active regression, dropping from her 45% baseline down to 40% over the last four sessions."
+    },
+    {
+      "speaker": "host",
+      "text": "What's happening on the ground during those group interactions?"
+    },
+    {
+      "speaker": "guest",
+      "text": "She's struggling with turn-taking and has been eating lunch alone more frequently. The 'talk ticket' system felt unfair to her, and the new 'conversation detective' approach hasn't gained traction yet."
+    },
+    {
+      "speaker": "host",
+      "text": "So, we celebrate the reading and writing, but we need an immediate huddle on the social side."
+    },
+    {
+      "speaker": "guest",
+      "text": "Exactly. We need to determine if the current group dynamics are the issue or if we need a different social-emotional approach before the next IEP meeting."
     }
   ],
   "student_id": "amara_2026",
   "language": "en",
   "generated_date": "2026-04-12",
-  "thinking": "Scanning trial data for specific numbers, picking the three most important goals to highlight, then drafting a natural back-and-forth."
+  "thinking": "Podcast Producer agent in ClassLens ASD.\nCreate a ~2-minute audio briefing (approx. 300 words) for a teacher.\nHost (conversational, frames context) and Guest (data analyst, specific numbers, concrete evidence).\nAmara, Grade 6, ASD Level 1.\n\n        *   G1 (Reading Comp - Inferential): Baseline 35% -> Current 70% (Target Met). Breakthrough using *My Hero Academia* (MHA) analogies.\n        *   G2 (Social Comm - Group Conv): Baseline 45% -> Current 40% (Regression). Issues with monologuing, \"talk tickets,\" and lunch dynamics.\n        *   G3 (Written Expression - Narratives): Baseline 30% -> Current 75% (Trending up). Success with \"emotion menu\" and fan fiction.\nTeacher (possibly driving). Natural dialogue, no jargon, honest but balanced.\nStrict JSON.\n\n    *   *Introduction:* Host introduces Amara (Grade 6) and the general vibe (mixed results).\n    *   *G1 Discussion:* Guest highlights the leap from 35% to 70%. Mention the MHA \"character mapping\" success.\n    *   *G3 Discussion:* Guest mentions the climb from 30% to 75%. Mention the astronaut story and emotional depth.\n    *   *G2 Discussion (The Concern):* Transition to the dip. Baseline 45% down to 40%. Mention the struggle with \"talk tickets\" and lunch isolation.\n    *   *Closing:* Host wraps up with the call to action for the team.\n\n    *   *Host:* \"Welcome back. Today we're checking in on Amara, a 6th grader who's showing some fascinating contrast in her progress.\"\n    *   *Guest:* \"Exactly. On the academic side, she's crushing it. Her inferential reading goal started at a 35% baseline, and she just hit her 70% target.\"\n    *   *Host:* \"That's a huge jump. How did she get there?\"\n    *   *Guest:* \"She had a breakthrough using *My Hero Academia* characters. By mapping book characters to anime archetypes, she's finally interpreting emotions like anger and sadness independently.\"\n    *   *Host:* \"I love that. And I see her writing is taking off too?\"\n    *   *Guest:* \"It really is. She's climbed from 30% to 75% on her narrative rubric. She's moved from flat plot summaries to writing complex pieces, including a story about an astronaut that really showed emotional depth.\"\n    *   *Host:* \"Two big wins. But I'm seeing a red flag in her social communication.\"\n    *   *Guest:* \"Unfortunately, yes. That goal is in regression. She started at 45% and has dropped to 40% over the last few weeks. She's struggling with turn-taking and has been eating lunch alone more often.\"\n    *   *Host:* \"What's not working?\"\n    *   *Guest:* \"The 'talk ticket' system felt unfair to her. She's feeling disconnected, and the 'conversation detective' approach hasn't clicked yet. This is the priority for the team right now.\"\n    *   *Host:* \"Got it. So, celebrate the reading and writing, but we need a huddle on the social dynamics. Thanks for the breakdown.\"\n\n    *   ~2 minutes? Yes (approx 250-300 words).\n    *   Host/Guest roles? Yes.\n    *   Real numbers? Yes (35%->70%, 30%->75%, 45%->40%).\n    *   No jargon? Yes.\n    *   Non-verbal/AAC context? (N/A for Amara, she's fluent).\n    *   Honest but not alarmist? Yes.\n    *   JSON format? Yes."
 }

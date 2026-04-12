@@ -1,41 +1,57 @@
 {
-  "title": "Progress Briefing",
+  "title": "Jaylen's Progress Briefing — April 12",
   "script": [
     {
       "speaker": "host",
-      "text": "Welcome back to your ClassLens briefing. Today we're looking at a really encouraging week of data."
+      "text": "Good morning! Today we're checking in on Jaylen, a first grader who has had a really exciting few weeks of growth."
     },
     {
       "speaker": "guest",
-      "text": "That's right. The headline is peer-interaction progress: up from a 20 percent baseline to 78 percent across 12 trials this week."
+      "text": "He really has. The data shows a huge leap across all three of his main goals, and his love for Thomas the Tank Engine has been a huge motivator."
     },
     {
       "speaker": "host",
-      "text": "That is a big jump. What's driving it?"
+      "text": "Let's start with communication. How is he doing with his AAC device?"
     },
     {
       "speaker": "guest",
-      "text": "The peer buddy program, paired with consistent dinosaur-sticker reinforcement. Small groups at the sensory table are generalizing well."
+      "text": "It's a great success story. He started at a 35% baseline and just hit 82% across 60 trials last week, using both his iPad and PECS to request what he needs."
     },
     {
       "speaker": "host",
-      "text": "Any goals you'd want the team to keep an eye on?"
+      "text": "That's a massive jump in confidence. What about his independence with the daily schedule?"
     },
     {
       "speaker": "guest",
-      "text": "Handwriting is plateauing around 60 percent for a fourth session. Not a regression, but worth revisiting the prompting hierarchy at next week's meeting."
+      "text": "He hit his target there as well. He's moved from 60% to 90% independence, meaning he's now self-initiating transitions almost every time without physical prompts."
     },
     {
       "speaker": "host",
-      "text": "Got it. Anything to celebrate heading into the weekend?"
+      "text": "And the social piece? I know turn-taking can be a real challenge for Jaylen."
     },
     {
       "speaker": "guest",
-      "text": "Absolutely. Three consecutive days of independent transitions with no prompting. That's exactly the kind of evidence we want in the next IEP review."
+      "text": "It is, but he's climbed from 20% to 80% in adult-led activities. He's consistently taking turns now during those preferred activities with the trains."
+    },
+    {
+      "speaker": "host",
+      "text": "Those are some big wins. Is there anything we should be cautious about?"
+    },
+    {
+      "speaker": "guest",
+      "text": "Yes, that social progress is still a bit fragile. While he's at 80% with adults, he's only successful in 2 out of 5 turns when working only with peers."
+    },
+    {
+      "speaker": "host",
+      "text": "So the next step is helping him bring those skills over to his classmates?"
+    },
+    {
+      "speaker": "guest",
+      "text": "Exactly. The priority now is generalization. We want to expand his AAC vocabulary and practice those transitions in new, less predictable settings."
     }
   ],
   "student_id": "jaylen_2026",
   "language": "en",
   "generated_date": "2026-04-12",
-  "thinking": "Scanning trial data for specific numbers, picking the three most important goals to highlight, then drafting a natural back-and-forth."
+  "thinking": "Podcast Producer agent in ClassLens ASD.\n~2-minute audio briefing (~300 words) about student's IEP progress.\nNatural two-speaker dialogue (Host and Guest/Data Analyst).\nJaylen, Grade 1, ASD Level 3, non-verbal (PECS/AAC). Interests: Thomas the Tank Engine, spinning wheels, etc.\n\n        *   G1 (AAC): Baseline 35% -> Target 80%. Current: 82% (over 60 trials last week). Met target.\n        *   G2 (Independence/Schedule): Baseline 60% -> Target 90%. Current: 90%. Met target.\n        *   G3 (Social Reciprocity): Baseline 20% -> Target 80%. Current: 80% (adult-led), but peer-only is lower (2/5). Met target (adult-led).\n        *   Alert: G3 regression risk due to peer-only inconsistency.\n        *   Trajectory: Exceptional progress, priority is generalization.\n\n        *   Listener: Teacher (driving to school).\n        *   No jargon.\n        *   Real numbers (percentages, trials).\n        *   AAC/PECS = valid progress.\n        *   Balance wins with honest concerns.\n        *   Line length: 1-3 sentences.\n        *   Total lines: 10-16.\n        *   Output: Strict JSON.\n\n    *   *Intro:* Host introduces Jaylen and the purpose.\n    *   *G1 (AAC):* Guest discusses the jump from 35% to 82%, mentioning the iPad/PECS and Thomas stickers.\n    *   *G2 (Schedule):* Guest highlights the move from 60% to 90% independence.\n    *   *G3 (Social):* Guest mentions the 20% to 80% jump, but introduces the \"peer-only\" concern (2/5 turns).\n    *   *Conclusion/Next Steps:* Generalization across settings.\n\n    *   *Line 1 (Host):* \"Good morning! Today we're checking in on Jaylen, a first grader who's had a really exciting few weeks.\"\n    *   *Line 2 (Guest):* \"He really has. The data shows a huge leap across all three of his main goals, largely driven by his love for Thomas the Tank Engine.\"\n    *   *Line 3 (Host):* \"Let's start with communication. How is he doing with his AAC device?\"\n    *   *Line 4 (Guest):* \"It's impressive. He started at a 35% baseline and just hit 82% across 60 trials last week, using both his iPad and PECS to request things.\"\n    *   *Line 5 (Host):* \"That's a massive jump. What about his independence with the daily schedule?\"\n    *   *Line 6 (Guest):* \"He's hit his target there too. He went from 60% to 90% independence, meaning he's now self-initiating transitions almost every time.\"\n    *   *Line 7 (Host):* \"And the social piece? I know turn-taking can be a real challenge.\"\n    *   *Line 8 (Guest):* \"It is, but he's moved from 20% to 80% in adult-led activities. He's finally taking those turns with the trains and spinning tops.\"\n    *   *Line 9 (Host):* \"That sounds like a win. Is there anything we need to keep an eye on?\"\n    *   *Line 10 (Guest):* \"Yes, that social progress is a bit fragile. While he's at 80% with adults, he's only at 40%—or 2 out of 5 turns—when it's just him and a peer.\"\n    *   *Line 11 (Host):* \"So the goal now is moving those skills from the adults to his classmates?\"\n    *   *Line 12 (Guest):* \"Exactly. We want to generalize these wins. The focus now is expanding his vocabulary and practicing those transitions in new settings.\"\n\n    *   Host: Warm/Conversational? Yes.\n    *   Guest: Data-driven? Yes (35% -> 82%, 60 trials, 60% -> 90%, 20% -> 80%, 2/5 peer turns).\n    *   No jargon? Yes.\n    *   Lines: 12 lines.\n    *   JSON format? Yes."
 }
