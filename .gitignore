@@ -115,3 +115,7 @@ frontend/.next/
 config.local.py
 local_settings.py
 .gstack/
+
+# Playwright MCP audit artifacts
+.playwright-mcp/
+/0*.png
