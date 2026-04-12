@@ -112,6 +112,30 @@ class MockGemmaClient:
         else:
             return f"Mock OCR transcription of image: {Path(image_path).name}"
 
+    def generate_with_audio(
+        self,
+        audio_bytes: bytes,
+        mime_type: str,
+        prompt: str,
+        system: Optional[str] = None,
+    ) -> str:
+        """Mock audio processing — returns structured JSON."""
+        return json.dumps({
+            "transcription": "Marcus completed the coin sort. Got 4 out of 5. He was a little dysregulated at the start but settled in after about 2 minutes.",
+            "work_type": "voice_observation",
+            "subject": "coin_identification",
+            "student_work": {
+                "task_description": "Coin sorting activity",
+                "correct_responses": 4,
+                "total_responses": 5,
+                "accuracy_pct": 80,
+                "independence_level": "partial_prompt",
+                "behavior_notes": "Dysregulated at start, settled after 2 minutes",
+                "environmental_notes": None,
+            },
+            "confidence": 0.9,
+        })
+
     def generate_with_tools(
         self,
         prompt: str,
@@ -172,10 +196,23 @@ class MockGemmaClient:
         Returns:
             Dict with "thinking" and "output" keys
         """
-        if "trend" in prompt.lower():
+        prompt_lower = prompt.lower()
+        system_lower = (system or "").lower()
+        if "trend" in prompt_lower:
             return self._mock_trend_analysis()
-        elif "intervention" in prompt.lower():
+        elif "intervention" in prompt_lower:
             return self._mock_intervention_planning()
+        elif "material forge" in system_lower or "lesson plan" in prompt_lower or "tracking sheet" in prompt_lower or "social stor" in prompt_lower or "parent" in prompt_lower or "admin report" in prompt_lower:
+            # Material Forge calls now use thinking mode for confidence scoring
+            return {
+                "thinking": "Analyzing the student's profile and IEP goals to generate appropriate materials...",
+                "output": '{"title": "Mock Material", "activities": ["Activity 1", "Activity 2"], "materials": ["Material 1"], "greeting": "Dear family", "highlights": ["Great progress"], "try_at_home": ["Practice greetings"], "closing": "Thank you", "teacher_name": "Ms. Rodriguez"}',
+            }
+        elif "trajectory" in prompt_lower or "semester" in prompt_lower:
+            return {
+                "thinking": "Analyzing the full semester trajectory across all goals...",
+                "output": '{"summary": "Mock trajectory summary", "goals": [], "cross_goal_patterns": null, "recommended_priority": "Continue current approach"}',
+            }
         else:
             return {
                 "thinking": "Analyzing the provided information step by step...",

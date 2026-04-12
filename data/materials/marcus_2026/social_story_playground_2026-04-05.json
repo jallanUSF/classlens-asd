@@ -54,5 +54,7 @@
       "Show me on your talker: what do you press if you need help?",
       "How do we sit on the slide? (Feet first  -  show with gesture)"
     ]
-  }
+  },
+  "thinking": "",
+  "confidence_score": "high"
 }

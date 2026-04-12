@@ -9,7 +9,26 @@
     "goal_text": "Jaylen will request wants and needs using his AAC device with 80% accuracy across 15 opportunities per day (snack, activity choice, break time, attention, sensory activity).",
     "measurement_criteria": "Record each communication opportunity. Mark AAC for device use, G for gesture/pointing, P for prompted AAC use, NR for no response. Target: 12/15 AAC uses per day.",
     "target_value": "80% (12 out of 15 opportunities)",
-    "columns": ["Date", "Snack 1", "Snack 2", "Activity", "Break 1", "Break 2", "Sensory", "Attention 1", "Attention 2", "Choice 1", "Choice 2", "Choice 3", "Trans 1", "Trans 2", "Trans 3", "Free", "AAC Count", "% AAC"],
+    "columns": [
+      "Date",
+      "Snack 1",
+      "Snack 2",
+      "Activity",
+      "Break 1",
+      "Break 2",
+      "Sensory",
+      "Attention 1",
+      "Attention 2",
+      "Choice 1",
+      "Choice 2",
+      "Choice 3",
+      "Trans 1",
+      "Trans 2",
+      "Trans 3",
+      "Free",
+      "AAC Count",
+      "% AAC"
+    ],
     "rows": [
       {
         "Date": "4/1",
@@ -113,5 +132,7 @@
       }
     ],
     "notes_section": true
-  }
+  },
+  "thinking": "",
+  "confidence_score": "high"
 }

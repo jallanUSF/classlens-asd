@@ -87,6 +87,60 @@ class MaterialForge(BaseAgent):
             return result["args"]
         return self._parse_fallback(result.get("text", ""))
 
+    def _call_with_thinking(self, prompt: str, tools: list, system: str, student_id: str) -> dict:
+        """Call Gemma with thinking mode for confidence scoring.
+
+        Uses generate_with_thinking for the reasoning chain, then parses
+        the output as structured content. Returns the content dict with
+        'thinking' and 'confidence_score' fields added.
+        """
+        result = self.client.generate_with_thinking(
+            prompt=prompt, system=system,
+        )
+        thinking = result.get("thinking", "")
+        output = result.get("output", "")
+
+        # Parse the output as structured content
+        content = self._parse_fallback(output)
+
+        # Add thinking trace and confidence score
+        content["_thinking"] = thinking
+        content["_confidence_score"] = self._compute_confidence(
+            thinking, student_id,
+        )
+        return content
+
+    def _compute_confidence(self, thinking: str, student_id: str) -> str:
+        """Determine confidence level based on thinking trace and data availability.
+
+        Returns: "high", "review_recommended", or "flag_for_expert"
+        """
+        # Check data richness — more trial data = higher confidence
+        try:
+            profile = self._profile(student_id)
+            total_trials = sum(
+                len(g.get("trial_history", []))
+                for g in profile.get("iep_goals", [])
+            )
+        except Exception:
+            total_trials = 0
+
+        # Check thinking trace for hedge language
+        hedge_terms = [
+            "unclear", "limited data", "unable to determine",
+            "not enough", "insufficient", "uncertain", "no data",
+            "cannot determine", "unknown", "missing information",
+            "no trial", "no history", "no prior",
+        ]
+        thinking_lower = thinking.lower()
+        hedge_count = sum(1 for term in hedge_terms if term in thinking_lower)
+
+        if total_trials < 3 or hedge_count >= 3:
+            return "flag_for_expert"
+        if total_trials < 6 or hedge_count >= 1:
+            return "review_recommended"
+        return "high"
+
     def _generate_text(self, prompt: str, system: str) -> str:
         """Plain text generation (for visual schedules and first-then boards)."""
         return self.client.generate(prompt=prompt, system=system)
@@ -114,7 +168,7 @@ class MaterialForge(BaseAgent):
             measurement_method=g.get("measurement_method", "N/A"),
             progress_summary=self._latest_trend(g),
         )
-        return self._call_with_fallback(prompt, [GENERATE_LESSON_PLAN], MATERIAL_FORGE_SYSTEM)
+        return self._call_with_thinking(prompt, [GENERATE_LESSON_PLAN], MATERIAL_FORGE_SYSTEM, student_id)
 
     # ── 2. Tracking Sheets ────────────────────────────────────
 
@@ -131,7 +185,7 @@ class MaterialForge(BaseAgent):
             target=g["target"],
             measurement_method=g.get("measurement_method", "N/A"),
         )
-        return self._call_with_fallback(prompt, [GENERATE_TRACKING_SHEET], MATERIAL_FORGE_SYSTEM)
+        return self._call_with_thinking(prompt, [GENERATE_TRACKING_SHEET], MATERIAL_FORGE_SYSTEM, student_id)
 
     # ── 3. Social Stories (Carol Gray framework) ──────────────
 
@@ -148,7 +202,7 @@ class MaterialForge(BaseAgent):
             situation_or_transition=scenario,
             skill_to_teach=skill or scenario,
         )
-        return self._call_with_fallback(prompt, [GENERATE_SOCIAL_STORY], MATERIAL_FORGE_SYSTEM)
+        return self._call_with_thinking(prompt, [GENERATE_SOCIAL_STORY], MATERIAL_FORGE_SYSTEM, student_id)
 
     # ── 4. Visual Schedules ───────────────────────────────────
 
@@ -224,7 +278,7 @@ class MaterialForge(BaseAgent):
             language_name=language_name,
             teacher_name=p.get("teacher", "Ms. Rodriguez"),
         )
-        return self._call_with_fallback(prompt, [GENERATE_PARENT_COMM], MATERIAL_FORGE_SYSTEM)
+        return self._call_with_thinking(prompt, [GENERATE_PARENT_COMM], MATERIAL_FORGE_SYSTEM, student_id)
 
     def translate_parent_comm(
         self, approved_content: str, language: str = "es",
@@ -276,7 +330,7 @@ class MaterialForge(BaseAgent):
             progress_summary=self._build_goals_summary(p),
             regression_info="None" if not self._has_regression(p) else "See goal details",
         )
-        return self._call_with_fallback(prompt, [GENERATE_ADMIN_REPORT], MATERIAL_FORGE_SYSTEM)
+        return self._call_with_thinking(prompt, [GENERATE_ADMIN_REPORT], MATERIAL_FORGE_SYSTEM, student_id)
 
     def _build_goals_summary(self, profile: dict) -> str:
         """Build a text summary of all goals for admin report context."""

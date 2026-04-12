@@ -83,6 +83,13 @@ def _generate_material_sync(req: GenerateRequest) -> dict[str, Any]:
     mat_dir = MATERIALS_DIR / req.student_id
     mat_dir.mkdir(parents=True, exist_ok=True)
 
+    # Extract confidence and thinking from content if present
+    thinking = ""
+    confidence_score = "review_recommended"
+    if isinstance(result, dict):
+        thinking = result.pop("_thinking", "") or ""
+        confidence_score = result.pop("_confidence_score", "review_recommended") or "review_recommended"
+
     material_record = {
         "student_id": req.student_id,
         "goal_id": req.goal_id,
@@ -91,6 +98,8 @@ def _generate_material_sync(req: GenerateRequest) -> dict[str, Any]:
         "status": "draft",
         "content": result,
         "language": req.language if req.material_type == "parent_comm" else "en",
+        "thinking": thinking,
+        "confidence_score": confidence_score,
     }
     filename = f"{req.material_type}_{req.goal_id or 'all'}_{today}.json"
     write_json(mat_dir / filename, material_record)
@@ -158,3 +167,39 @@ async def approve_material(student_id: str, material_id: str) -> dict[str, str]:
     data["status"] = "approved"
     write_json(mat_path, data)
     return {"status": "approved", "id": material_id}
+
+
+class FlagRequest(BaseModel):
+    reason: str = ""
+
+
+@router.post("/materials/{student_id}/{material_id}/flag")
+async def flag_material(student_id: str, material_id: str, req: FlagRequest) -> dict[str, str]:
+    """Flag a material for expert review. Appends to the student's flags file."""
+    mat_path = MATERIALS_DIR / student_id / f"{material_id}.json"
+    if not mat_path.exists():
+        raise HTTPException(status_code=404, detail="Material not found")
+
+    # Update material status
+    data = read_json(mat_path)
+    data["status"] = "flagged"
+    write_json(mat_path, data)
+
+    # Append to student's flags file (in data/flags/, not data/students/)
+    flags_dir = DATA_DIR / "flags"
+    flags_dir.mkdir(parents=True, exist_ok=True)
+    flags_path = flags_dir / f"{student_id}.json"
+    flags: list = []
+    if flags_path.exists():
+        flags = read_json(flags_path)
+
+    from datetime import date as dt_date
+    flags.append({
+        "material_id": material_id,
+        "material_type": data.get("material_type", "unknown"),
+        "flagged_date": dt_date.today().isoformat(),
+        "reason": req.reason,
+    })
+    write_json(flags_path, flags)
+
+    return {"status": "flagged", "id": material_id}

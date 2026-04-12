@@ -107,6 +107,31 @@ Seven demo students in `data/students/`. Core three: `maya_2026.json` (Grade 3, 
 - `docs/COMPETITION-WRITEUP.md` — Kaggle submission draft
 - `docs/SECURITY-REVIEW.md` — FERPA/privacy review
 
+## Acceleration Sprint (Apr 12–May 9)
+
+### Feature 1 — trajectory_analyst.py
+- New file at `agents/trajectory_analyst.py`
+- New router at `backend/routers/trajectory.py`, mount at `/api/students/{id}/trajectory`
+- Aggregates all trial data + alert history for one student into a single long-context Gemma call
+- Single Gemma call: `gemma-4-31b-it`, `thinking=True`, long context (256K)
+- Output schema: `{ goals: [{ goal_id, status, trend_summary, confidence, iep_meeting_note }] }`
+- Add precomputed result to `data/precomputed/trajectory_{student_id}.json`
+
+### Feature 3 — voice_reader.py
+- New file at `agents/voice_reader.py`
+- New endpoint at `backend/routers/capture.py`: `POST /api/capture/voice`
+- Output schema: identical to vision_reader output (IEP Mapper receives same input either way)
+- Provider guard: if `MODEL_PROVIDER != 'google'`, return `{"error": "audio_not_supported", "fallback": "text_input"}`
+- Frontend: `VoiceCapture.tsx` — MediaRecorder + base64 encoding + review step before submit
+- Sample assets: `data/sample_voice/` (Sarah records these, or synthetic)
+
+### Feature 4 — confidence panel
+- Modify `agents/material_forge.py`: all `generate()` calls → `generate_with_thinking()`
+- Add `confidence_score` to MaterialOutput schema: `Literal["high", "review_recommended", "flag_for_expert"]`
+- Confidence logic: `high` if student has >5 prior trials AND thinking trace has no hedge terms
+- Frontend: extend `MaterialViewer.tsx` — copy `AlertBanner.tsx` thinking trace panel pattern
+- New endpoint: `POST /api/materials/{id}/flag` → appends to `data/students/{id}/flags.json`
+
 ## Team
 - **Jeff:** All code, architecture, deployment, video production
 - **Sarah (wife, teacher):** Student profiles, work artifacts, output validation, video segments

@@ -1,0 +1,42 @@
+{
+  "student_id": "maya_2026",
+  "summary": "Maya has made strong progress across all three IEP goals this semester. Communication (G1) and Following Directions (G2) have both reached their targets, while Self-Regulation (G3) is showing accelerating improvement with consistent strategy use. She is well-positioned heading into her IEP review.",
+  "goals": [
+    {
+      "goal_id": "G1",
+      "domain": "communication",
+      "status": "met",
+      "current_pct": 80,
+      "target_pct": 80,
+      "baseline_pct": 20,
+      "trend_summary": "Steady upward trajectory from 30% to 80% over 5 weeks. The peer buddy program and dinosaur sticker reinforcers drove consistent gains. Maya now greets familiar peers independently across multiple settings.",
+      "confidence": "high",
+      "iep_meeting_note": "G1 target met — recommend fading sticker reinforcers and generalizing to unfamiliar peers (e.g., specials teachers, lunch staff). Consider raising the target to 85% or expanding the measurement settings."
+    },
+    {
+      "goal_id": "G2",
+      "domain": "following_directions",
+      "status": "met",
+      "current_pct": 75,
+      "target_pct": 75,
+      "baseline_pct": 45,
+      "trend_summary": "Recovery from a mid-March dip (38%) to target (75%) over 3 weeks. Maya responds well to routine verbal directions but still needs support for novel two-step tasks. The visual checklist as a backup prompt has been effective.",
+      "confidence": "high",
+      "iep_meeting_note": "G2 target met — verbal cueing ('listen with your whole body') and visual checklist backup are working. Next step: gradually fade the visual checklist for routine directions while keeping it available for new tasks."
+    },
+    {
+      "goal_id": "G3",
+      "domain": "self_regulation",
+      "status": "on_track",
+      "current_pct": 100,
+      "target_pct": 100,
+      "baseline_pct": 40,
+      "trend_summary": "Dramatic improvement from 2.4 outbursts/day to 1/week. The weighted lap pad + noise-canceling headphones + fidget cube routine is the cornerstone. The fire drill week showed vulnerability to unexpected sensory events but strong recovery.",
+      "confidence": "high",
+      "iep_meeting_note": "G3 approaching mastery — outbursts down from 3.2/day baseline to ~1/week. Sensory toolkit (weighted vest, headphones, fidget cube) should be formalized as an accommodation rather than an intervention. Discuss transitioning G3 to a maintenance goal."
+    }
+  ],
+  "cross_goal_patterns": "Maya's progress across all three goals accelerated once the sensory toolkit was established (late March). Self-regulation improvements appear to enable better attending, which supports both communication and direction-following. The Jurassic World interest-weaving keeps engagement high across all domains.",
+  "recommended_priority": "All three goals are at or above target. Priority for next IEP period: generalization — can Maya maintain these skills in less structured settings (cafeteria, playground, specials) and with less familiar adults?",
+  "thinking": "Let me analyze Maya's full semester data goal by goal.\n\nG1 Communication — peer greetings:\n- Baseline: 20% (Oct 2025)\n- March 15: 30% (peer buddy just starting)\n- March 22: 40% (responsive to familiar peers)\n- March 29: 60% (fire drill caused setback but 1:1 recovery was strong)\n- April 1: 70% (morning routine established)\n- April 3: 80% — TARGET MET\n- April 4: 80% (maintained)\n\nThis is a clean upward trajectory. 20% → 80% in about 5 months. The rate accelerated once the peer buddy became familiar. Dinosaur stickers as reinforcers are clearly effective.\n\nG2 Following Directions:\n- Baseline: 45%\n- March 15: 50% (reliant on visual schedule)\n- March 22: 38% — DIP (new peer buddy was distracting)\n- March 29: 50% (recovered with verbal cueing)\n- April 1: 63% (routine directions solid, novel tasks harder)\n- April 3: 75% — TARGET MET\n- April 4: 75% (maintained)\n\nThe March 22 dip is interesting — the peer buddy program that helped G1 temporarily hurt G2. But she recovered quickly. The visual checklist is functioning as a prompt-to-independence bridge.\n\nG3 Self-Regulation:\n- Baseline: 3.2 outbursts/day\n- March 15: 2.4/day (40% success rate on 5 monitoring days)\n- March 22: 2.6/day (40% — recess transitions hard)\n- March 29: 1.8/day (60% — fire drill caused 2 big meltdowns but weighted vest helped)\n- April 1: 1.2/day (80% — headphones during transitions)\n- April 3: 1/week (100% — full sensory toolkit in place)\n\nThis is the most dramatic improvement. The sensory toolkit establishment in late March was the inflection point.\n\nCross-goal pattern: Once G3 stabilized (late March), G1 and G2 both accelerated. This makes clinical sense — a regulated student can attend, communicate, and follow directions more consistently. The sensory toolkit is the foundation.\n\nFor the IEP meeting: all three goals met or nearly met. The conversation should shift to generalization and raising targets, not remediation."
+}

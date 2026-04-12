@@ -12,6 +12,8 @@ import { AlertBanner } from "@/components/student/AlertBanner";
 import { RecentWork } from "@/components/student/RecentWork";
 import { MaterialsLibrary } from "@/components/student/MaterialsLibrary";
 import { QuickActions } from "@/components/student/QuickActions";
+import { TrajectoryReport } from "@/components/student/TrajectoryReport";
+import { VoiceCapture } from "@/components/student/VoiceCapture";
 
 interface IEPGoal {
   goal_id: string;
@@ -206,10 +208,26 @@ export default function StudentDetailPage() {
 
       <Separator />
 
+      {/* Voice Capture */}
+      <section>
+        <h2 className="text-lg font-semibold mb-3">Voice Observation</h2>
+        <VoiceCapture studentId={student.student_id} />
+      </section>
+
+      <Separator />
+
       {/* Recent Work */}
       <section>
         <h2 className="text-lg font-semibold mb-3">Recent Work</h2>
         <RecentWork studentId={student.student_id} />
+      </section>
+
+      <Separator />
+
+      {/* Trajectory Report */}
+      <section>
+        <h2 className="text-lg font-semibold mb-3">Trajectory Report</h2>
+        <TrajectoryReport studentId={student.student_id} />
       </section>
 
       <Separator />

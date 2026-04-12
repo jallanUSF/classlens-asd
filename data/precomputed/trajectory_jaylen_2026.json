@@ -1,0 +1,42 @@
+{
+  "student_id": "jaylen_2026",
+  "summary": "Jaylen has made exceptional progress across all three IEP goals this semester. AAC Communication (G1) and Visual Schedule Independence (G2) have both reached their targets, and Social Reciprocity (G3) has gone from 20% to 80% — a remarkable trajectory for a Level 3 non-verbal student. The Thomas trains reinforcement system and consistent staff praise have been the common thread.",
+  "goals": [
+    {
+      "goal_id": "G1",
+      "domain": "communication",
+      "status": "met",
+      "current_pct": 82,
+      "target_pct": 80,
+      "baseline_pct": 35,
+      "trend_summary": "From 33% to 82% over 5 weeks — Jaylen is now spontaneously using his AAC device for activity choice and sensory break requests. The most recent week-long data set (60 trials) confirms sustained performance at 81.6%. Emerging verbal approximations ('uh', 'more', 'ah-ba') suggest the AAC foundation may be bridging to verbal output.",
+      "confidence": "high",
+      "iep_meeting_note": "G1 target met and sustained across a full week of data. Next step: expand AAC vocabulary beyond requests (wants/needs) to include commenting and social phrases ('look at this', 'my turn', 'help please'). The emerging verbal approximations are a significant developmental sign — speech therapy should document and reinforce these."
+    },
+    {
+      "goal_id": "G2",
+      "domain": "independence",
+      "status": "met",
+      "current_pct": 90,
+      "target_pct": 90,
+      "baseline_pct": 60,
+      "trend_summary": "Steady 5-point weekly gains from 60% to 90% over 4 weeks. The personalized photo schedule (pictures of Jaylen doing each activity) was the key modification. Thomas sticker chart for completed transitions keeps motivation high.",
+      "confidence": "high",
+      "iep_meeting_note": "G2 target met — Jaylen self-initiates most transitions using his visual schedule. Recommend: (1) reduce verbal cues to schedule-only (fade adult pointing), (2) test in novel settings (music room, gym) where the routine is less established, (3) consider raising target to 95%."
+    },
+    {
+      "goal_id": "G3",
+      "domain": "social_reciprocity",
+      "status": "met",
+      "current_pct": 80,
+      "target_pct": 80,
+      "baseline_pct": 20,
+      "trend_summary": "The slowest-starting goal but the most dramatic arc: 20% for 2 weeks (parallel play only), then a jump to 40% when adult-led Thomas train turn-taking was introduced, followed by steady gains to 80%. Jaylen now consistently takes turns with adults and is beginning brief 2-3 second peer exchanges.",
+      "confidence": "moderate",
+      "iep_meeting_note": "G3 target met in adult-led activities but peer turn-taking is still emerging (2-3 second exchanges). Confidence is moderate because the 80% was achieved primarily with familiar adults, not peers. Next step: structured peer turn-taking with one consistent peer buddy, using preferred Thomas trains, with adult fading over time."
+    }
+  ],
+  "cross_goal_patterns": "All three goals share the same success pattern: high-interest materials (Thomas trains, spinning top) combined with consistent visual supports (photo schedule, sticker chart) and immediate reinforcement (Thomas train time, deep pressure hugs). The fire drill on March 29 disrupted all three goals briefly but Jaylen recovered within a day each time — a sign of growing resilience. The emerging verbal approximations in G1 may positively impact G3 over time if Jaylen develops functional verbal requests for turn-taking.",
+  "recommended_priority": "Generalization is the priority across all goals. Jaylen has met targets in familiar, structured settings with familiar adults. The next IEP period should focus on: (1) expanding AAC vocabulary for G1, (2) novel-setting transitions for G2, and (3) peer turn-taking for G3. All three require controlled exposure to less predictable contexts while maintaining the Thomas-based reinforcement system.",
+  "thinking": "Let me analyze Jaylen's full semester data. He's a Level 3 non-verbal 1st grader — context is critical here because progress increments that might look small for a neurotypical student are significant developmental milestones.\n\nG1 Communication — AAC requests:\n- Baseline: 35% (Oct 2025)\n- Mar 15: 33% (gestures preferred over AAC)\n- Mar 22: 47% (AAC for snack choice consistent)\n- Mar 29: 60% (Thomas stickers helping, fire drill but recovered)\n- Apr 1: 73% (AAC for transitions, staff praise building confidence)\n- Apr 3: 80% — TARGET MET (spontaneous AAC for activity choice and breaks)\n- Apr 4: 100% (5 trials — small sample but strong)\n- Apr 12: 81.6% (60 trials — week-long sustained data)\n\nThe trajectory is beautifully linear from 33% to 82%. The week-long 60-trial data point is especially valuable because it confirms sustainability, not just a good day. The emerging verbal approximations ('uh', 'more', 'ah-ba' = apple?) noted in the PECS exchange log are a developmental milestone worth tracking.\n\nG2 Independence — visual schedule:\n- Baseline: 60%\n- Mar 15: 60% (hand-over-hand for most transitions)\n- Mar 22: 65% (photo schedule introduced)\n- Mar 29: 75% (Thomas sticker chart, fire drill adapted next day)\n- Apr 1: 85% (verbal cue + pointing sufficient)\n- Apr 3: 90% — TARGET MET\n\nSteady 5-point weekly improvement. The personalized photo schedule was the key intervention — showing Jaylen photos of HIMSELF doing each activity rather than generic icons. This is a well-known Level 3 best practice.\n\nG3 Social Reciprocity — turn-taking:\n- Baseline: 20%\n- Mar 15: 20% (monopolizes toy, resists peers)\n- Mar 22: 20% (parallel play only)\n- Mar 29: 40% (adult-led Thomas train turns working)\n- Apr 1: 60% (accepting adult turns, brief peer exchanges)\n- Apr 3: 80% — TARGET MET\n\nThis is the most remarkable trajectory. Two weeks of no progress (20%→20%), then the Thomas trains as turn-taking medium unlocked the behavior. 20% to 80% in 3 weeks is extraordinary for a Level 3 student on social reciprocity. The catch: it's primarily with adults, not peers. Peer generalization is the natural next step.\n\nCross-goal: Thomas trains are the thread across everything. The reinforcement system (Thomas stickers, Thomas train time as reward, Thomas trains as turn-taking medium) is Jaylen's motivational scaffold. The team should protect this system — don't try to generalize away from Thomas too fast.\n\nAll three goals met. This is a success story. The IEP meeting should celebrate this progress and set generalization targets for the next period."
+}

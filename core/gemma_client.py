@@ -133,6 +133,28 @@ class GemmaClient:
             return self._google_generate_with_tools(prompt, tools, system, image_path)
         return self._openai_generate_with_tools(prompt, tools, system, image_path)
 
+    def generate_with_audio(
+        self,
+        audio_bytes: bytes,
+        mime_type: str,
+        prompt: str,
+        system: Optional[str] = None,
+    ) -> str:
+        """Audio + text -> text. Used by Voice Reader.
+
+        On non-Google providers this falls back to text-only with a note
+        that audio could not be processed.
+        """
+        if self.provider == "google":
+            return self._google_generate_with_audio(audio_bytes, mime_type, prompt, system)
+        logger.info(
+            "Audio input not available on %s; falling back to text-only.",
+            self.provider,
+        )
+        return self._openai_generate(
+            f"[Audio could not be processed.]\n\n{prompt}", system
+        )
+
     def generate_stream(
         self,
         prompt: str,
@@ -200,6 +222,26 @@ class GemmaClient:
 
         contents = [
             types.Part.from_bytes(data=image_bytes, mime_type=mime_type),
+            types.Part.from_text(text=prompt),
+        ]
+        config = types.GenerateContentConfig(
+            system_instruction=system
+        ) if system else None
+        response = self.client.models.generate_content(
+            model=self.model,
+            contents=contents,
+            config=config,
+        )
+        return response.text
+
+    def _google_generate_with_audio(
+        self, audio_bytes: bytes, mime_type: str, prompt: str,
+        system: Optional[str] = None,
+    ) -> str:
+        """Audio processing via Google AI Studio multimodal content."""
+        from google.genai import types
+        contents = [
+            types.Part.from_bytes(data=audio_bytes, mime_type=mime_type),
             types.Part.from_text(text=prompt),
         ]
         config = types.GenerateContentConfig(

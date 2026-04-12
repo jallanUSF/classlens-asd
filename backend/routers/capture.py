@@ -1,15 +1,20 @@
 """
-Capture endpoint — upload student work image and run the analysis pipeline.
+Capture endpoint — upload student work image or voice note and run the pipeline.
 """
 
+import base64
 import os
 from datetime import date
 from pathlib import Path
+from typing import Optional
 
 from dotenv import load_dotenv
-from core.json_io import write_json
+from pydantic import BaseModel
+from core.json_io import read_json, write_json
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+from fastapi.responses import StreamingResponse
 
+from backend.routers._sse import SSE_HEADERS, run_streaming_job
 from backend.upload_utils import (
     IMAGE_EXTENSIONS,
     validate_student_id,
@@ -93,3 +98,126 @@ async def capture_work(
     write_json(record_path, record)
 
     return result
+
+
+# ── Voice Capture ─────────────────────────────────────────────
+
+AUDIO_MIME_TYPES = {
+    "audio/webm", "audio/wav", "audio/mp3", "audio/mpeg",
+    "audio/ogg", "audio/m4a", "audio/mp4",
+}
+
+
+class VoiceCaptureRequest(BaseModel):
+    student_id: str
+    audio_b64: str  # base64-encoded audio
+    media_type: str = "audio/webm"
+    text_fallback: str = ""  # For non-google providers: typed observation
+
+
+def _get_voice_reader():
+    """Create a VoiceReader with real or mock client."""
+    from agents.voice_reader import VoiceReader
+
+    if _has_real_model_credentials():
+        from core.gemma_client import GemmaClient
+        return VoiceReader(GemmaClient(), data_dir=str(DATA_DIR))
+    else:
+        from tests.mock_api_responses import MockGemmaClient
+        return VoiceReader(MockGemmaClient(), data_dir=str(DATA_DIR))
+
+
+def _is_google_provider() -> bool:
+    """Check if the current provider supports audio."""
+    provider = os.getenv("MODEL_PROVIDER", "google").lower()
+    return provider == "google"
+
+
+def _run_voice_capture(req: VoiceCaptureRequest) -> dict:
+    """Blocking helper for voice capture — used by both endpoints."""
+    student_id = validate_student_id(req.student_id)
+    student_path = DATA_DIR / "students" / f"{student_id}.json"
+    if not student_path.exists():
+        raise LookupError(f"Student {student_id} not found")
+
+    # Check precomputed cache
+    precomputed = DATA_DIR / "precomputed" / f"voice_{student_id}.json"
+    if precomputed.exists():
+        return read_json(precomputed)
+
+    reader = _get_voice_reader()
+
+    # If non-google provider or text fallback provided, use text mode
+    if not _is_google_provider() or (req.text_fallback and not req.audio_b64):
+        if not req.text_fallback:
+            return {
+                "error": "audio_not_supported",
+                "fallback": "text_input",
+                "message": "Audio input requires Google AI Studio provider. Please type your observation instead.",
+            }
+        return reader.transcribe_from_text(req.text_fallback, student_id)
+
+    # Decode audio and process
+    if req.media_type not in AUDIO_MIME_TYPES:
+        raise ValueError(f"Unsupported audio type: {req.media_type}. Supported: {', '.join(sorted(AUDIO_MIME_TYPES))}")
+
+    audio_bytes = base64.b64decode(req.audio_b64)
+    if len(audio_bytes) > 10 * 1024 * 1024:  # 10MB limit
+        raise ValueError("Audio file too large (max 10MB)")
+
+    return reader.transcribe_and_extract(
+        audio_bytes=audio_bytes,
+        mime_type=req.media_type,
+        student_id=student_id,
+    )
+
+
+@router.post("/capture/voice")
+async def capture_voice(req: VoiceCaptureRequest) -> dict:
+    """
+    Capture a teacher voice observation and extract structured trial data.
+
+    Requires Google AI Studio provider for audio processing.
+    Falls back to text mode on other providers.
+    """
+    try:
+        return _run_voice_capture(req)
+    except LookupError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Voice capture failed: {e}")
+
+
+@router.post("/capture/voice/stream")
+async def capture_voice_stream(req: VoiceCaptureRequest) -> StreamingResponse:
+    """Streaming variant with SSE heartbeats for voice capture."""
+    student_id = validate_student_id(req.student_id)
+    student_path = DATA_DIR / "students" / f"{student_id}.json"
+    if not student_path.exists():
+        raise HTTPException(status_code=404, detail=f"Student {student_id} not found")
+
+    async def event_source():
+        async for frame in run_streaming_job(
+            lambda: _run_voice_capture(req),
+            heartbeat_interval=4.0,
+            heartbeat_message="Processing voice observation…",
+        ):
+            yield frame
+
+    return StreamingResponse(
+        event_source(),
+        media_type="text/event-stream",
+        headers=SSE_HEADERS,
+    )
+
+
+@router.get("/capture/voice/supported")
+async def voice_supported() -> dict:
+    """Check if voice capture is supported with the current provider."""
+    return {
+        "supported": _is_google_provider(),
+        "provider": os.getenv("MODEL_PROVIDER", "google").lower(),
+        "fallback": "text_input" if not _is_google_provider() else None,
+    }

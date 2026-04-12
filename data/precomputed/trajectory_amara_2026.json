@@ -1,0 +1,42 @@
+{
+  "student_id": "amara_2026",
+  "summary": "Amara presents a mixed picture: Reading Comprehension (G1) has reached target through a creative character-mapping breakthrough, and Written Expression (G3) is accelerating beautifully. However, Social Communication (G2) is in active regression — four consecutive declines from 50% to 40% — and requires immediate team attention before the IEP meeting.",
+  "goals": [
+    {
+      "goal_id": "G1",
+      "domain": "reading_comprehension",
+      "status": "met",
+      "current_pct": 70,
+      "target_pct": 70,
+      "baseline_pct": 35,
+      "trend_summary": "Plateaued at 40% for 3 sessions until the reading specialist introduced My Hero Academia character motivation cards. This interest-based strategy unlocked inference: 35% → 70% in 8 weeks. Amara now maps character emotions from text to MHA characters she deeply understands.",
+      "confidence": "moderate",
+      "iep_meeting_note": "G1 target met — but confidence is moderate because the character-mapping scaffold is still needed. Test whether Amara can infer emotions for abstract states (conflicted, guilty) without the MHA bridge. If she can, raise target to 80%."
+    },
+    {
+      "goal_id": "G2",
+      "domain": "social_communication",
+      "status": "at_risk",
+      "current_pct": 40,
+      "target_pct": 70,
+      "baseline_pct": 45,
+      "trend_summary": "Four consecutive sessions of decline: 50% → 50% → 48% → 45% → 42% → 40%. The talk ticket system backfired — Amara says it makes her 'feel like something is wrong with me.' A new student disrupted her lunch group social dynamics, and she has withdrawn to eating alone 3 days/week.",
+      "confidence": "high",
+      "iep_meeting_note": "G2 needs urgent team discussion. The talk ticket intervention has become counterproductive — Amara explicitly rejects it as stigmatizing. The 'conversation detective' reframe shows promise but hasn't impacted behavior yet. Recommend: (1) abandon talk tickets, (2) find a peer buddy with shared interests (anime/astronomy), (3) consider smaller group size."
+    },
+    {
+      "goal_id": "G3",
+      "domain": "written_expression",
+      "status": "on_track",
+      "current_pct": 75,
+      "target_pct": 80,
+      "baseline_pct": 30,
+      "trend_summary": "Steady upward trajectory from 35% to 75% over 8 weeks. The inflection point was allowing fan fiction as a writing vehicle — Amara's MHA story produced her first genuine 'showing not telling.' She has since transferred these skills to original writing with real emotional depth. The ELA teacher recommends creative writing club.",
+      "confidence": "high",
+      "iep_meeting_note": "G3 is 5 points from target and accelerating. Amara's recent work shows genuine literary voice — 'The stars didn't care that she was crying' is remarkable for a 6th grader on the spectrum. Recommend: continue the fan-fiction-to-original bridge and enroll in creative writing club as both reinforcement and generalization."
+    }
+  ],
+  "cross_goal_patterns": "Amara's interest-based strategies (MHA character mapping for G1, fan fiction for G3) are working beautifully for academic goals but the social communication decline (G2) is happening simultaneously. This may reflect social energy being depleted by the academic demands — or the lunch group disruption may be an independent stressor. The withdrawal pattern (eating alone, refusing talk tickets) suggests masking fatigue, not skill regression.",
+  "recommended_priority": "G2 Social Communication is the urgent priority. The current 40% is below her October baseline of 45%, meaning she has regressed past her starting point. The IEP team should discuss whether the current group composition is appropriate, whether the measurement settings need adjustment, and whether Amara needs a social-emotional check-in before targeting conversational skills.",
+  "thinking": "Let me work through Amara's data systematically.\n\nG1 Reading Comprehension — inferential questions:\n- Baseline: 35% (Oct 2025)\n- Feb 7: 40% (strong literal, freezes on inference)\n- Feb 21: 40% (graphic organizer didn't help — she fills evidence but inference stays blank)\n- Mar 7: 40% (third session at 40%, but MHA analogy worked for 3 questions)\n- Mar 21: 55% — BREAKTHROUGH (MHA character motivation cards)\n- Apr 1: 65% (transferring to familiar emotional states)\n- Apr 4: 70% — TARGET MET ('this character is like Todoroki')\n\nThe plateau at 40% for 3 sessions followed by a jump to 55% is a classic interest-based intervention response. The strategy is clearly effective but it's scaffolded — Amara still needs the MHA bridge for abstract emotions. Confidence: moderate.\n\nG2 Social Communication — group conversations:\n- Baseline: 45% (Oct 2025)\n- Feb 7: 50% (4-minute MHA monologue, peers tuned out)\n- Feb 21: 50% (talk tickets introduced — 'unfair')\n- Mar 7: 48% (sub teacher → silent 15 min → 5-min monologue)\n- Mar 21: 45% (new student disrupted group → withdrew)\n- Apr 1: 42% (refuses talk tickets — 'they make me feel broken')\n- Apr 4: 40% (eating alone 3 days/week, conversation detective not yet working)\n\nThis is a clear regression trajectory. Four consecutive declines. She's now BELOW baseline. The talk ticket intervention didn't just fail — it became actively harmful to Amara's self-concept. The social group disruption (new student) was the precipitating event, but the underlying issue is that Amara's self-awareness is high enough to recognize the tools as 'different' and reject them.\n\nThis needs immediate IEP team attention. The goal itself may be appropriate but the intervention approach needs complete rethinking.\n\nG3 Written Expression — narrative writing:\n- Baseline: 30% (Oct 2025)\n- Feb 7: 35% (plot summaries, no emotion)\n- Feb 21: 45% (emotion menu → 'she felt nervous' — telling not showing)\n- Mar 7: 55% (fan fiction → actual dialogue showing emotion)\n- Mar 21: 60% (transferring to original writing, story arc present)\n- Apr 1: 70% ('The stars didn't care that she was crying' — powerful)\n- Apr 4: 75% (villain perspective with internal conflict)\n\nThis is beautiful linear progress. The fan fiction bridge let Amara practice emotional expression in a safe, interest-driven space, and she's now transferring to original writing. The ELA teacher's creative writing club recommendation is exactly right.\n\nCross-goal patterns: The academic goals (G1, G3) are thriving because they leverage Amara's core strength (deep interest expertise) as a learning scaffold. G2 is declining because it requires social performance in a group she didn't choose, with tools she finds stigmatizing. The contrast suggests Amara's social regression isn't a skill deficit — it's a context/motivation problem. She CAN communicate in topics she owns (see her 4-minute MHA monologues) — the issue is reciprocity in forced-group settings.\n\nThe G2 intervention needs to work WITH her interests, not against them. A peer buddy who shares her MHA passion would give her a natural conversation partner where reciprocity has intrinsic motivation."
+}

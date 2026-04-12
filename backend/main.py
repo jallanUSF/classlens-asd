@@ -15,14 +15,14 @@ from fastapi.middleware.cors import CORSMiddleware
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from backend.routers import students, capture, materials, chat, alerts, documents
+from backend.routers import students, capture, materials, chat, alerts, documents, trajectory
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Ensure data directories exist on startup."""
     data_dir = PROJECT_ROOT / "data"
-    for subdir in ["students", "documents", "materials", "alerts", "conversations", "precomputed"]:
+    for subdir in ["students", "documents", "materials", "alerts", "conversations", "precomputed", "flags"]:
         (data_dir / subdir).mkdir(parents=True, exist_ok=True)
     yield
 
@@ -62,6 +62,7 @@ app.include_router(materials.router, prefix="/api")
 app.include_router(chat.router, prefix="/api")
 app.include_router(alerts.router, prefix="/api")
 app.include_router(documents.router, prefix="/api")
+app.include_router(trajectory.router, prefix="/api")
 
 
 @app.get("/health")

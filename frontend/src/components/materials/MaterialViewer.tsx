@@ -9,7 +9,9 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet";
-import { Printer, CheckCircle, RefreshCw, X } from "lucide-react";
+import { Printer, CheckCircle, RefreshCw, X, Brain, Flag, ShieldCheck, ShieldAlert, ShieldQuestion } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { sanitizeThinking } from "@/lib/sanitizeThinking";
 import { LessonPlanView } from "./LessonPlanView";
 import { ParentLetterView } from "./ParentLetterView";
 import { AdminReportView } from "./AdminReportView";
@@ -28,6 +30,8 @@ interface Material {
   status: string;
   content: Record<string, unknown>;
   language?: string;
+  thinking?: string;
+  confidence_score?: "high" | "review_recommended" | "flag_for_expert";
 }
 
 // Hoisted outside the component so the array identity is stable and
@@ -47,6 +51,27 @@ interface Props {
   onApprove?: (materialId: string) => void;
   onRegenerate?: (materialId: string) => void;
 }
+
+const CONFIDENCE_CONFIG: Record<
+  string,
+  { label: string; color: string; icon: typeof ShieldCheck }
+> = {
+  high: {
+    label: "High Confidence",
+    color: "bg-emerald-100 text-emerald-800 border-emerald-200",
+    icon: ShieldCheck,
+  },
+  review_recommended: {
+    label: "Review Recommended",
+    color: "bg-amber-100 text-amber-800 border-amber-200",
+    icon: ShieldAlert,
+  },
+  flag_for_expert: {
+    label: "Flag for Expert",
+    color: "bg-red-100 text-red-800 border-red-200",
+    icon: ShieldQuestion,
+  },
+};
 
 const TYPE_TITLES: Record<string, string> = {
   lesson_plan: "Lesson Plan",
@@ -71,6 +96,8 @@ export function MaterialViewer({
   // without needing the parent to refetch the whole materials list.
   const [liveMaterial, setLiveMaterial] = useState<Material | null>(material);
   const [regenerating, setRegenerating] = useState(false);
+  const [showThinking, setShowThinking] = useState(false);
+  const [flagging, setFlagging] = useState(false);
 
   // Sync when the parent picks a different material. Primitive id dep keeps
   // this from re-running on every unrelated parent re-render.
@@ -100,6 +127,25 @@ export function MaterialViewer({
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleFlag = async () => {
+    setFlagging(true);
+    try {
+      await fetch(
+        `/api/materials/${liveMaterial.student_id}/${liveMaterial.id}/flag`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ reason: "Teacher flagged for expert review" }),
+        },
+      );
+      setLiveMaterial((prev) =>
+        prev ? { ...prev, status: "flagged" } : prev,
+      );
+    } finally {
+      setFlagging(false);
+    }
   };
 
   /** Extract readable text from parent letter content for translation. */
@@ -299,6 +345,53 @@ export function MaterialViewer({
           )}
         </SheetHeader>
 
+        {/* Confidence badge + thinking trace */}
+        {liveMaterial.confidence_score && (
+          <div className="px-4 pb-2 print:hidden">
+            {(() => {
+              const conf =
+                CONFIDENCE_CONFIG[liveMaterial.confidence_score] ??
+                CONFIDENCE_CONFIG.review_recommended;
+              const ConfIcon = conf.icon;
+              return (
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Badge
+                      variant="outline"
+                      className={`gap-1.5 ${conf.color}`}
+                    >
+                      <ConfIcon className="h-3.5 w-3.5" />
+                      {conf.label}
+                    </Badge>
+                    {liveMaterial.thinking && (
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="text-xs text-muted-foreground gap-1 h-7"
+                        onClick={() => setShowThinking(!showThinking)}
+                        aria-expanded={showThinking}
+                      >
+                        <Brain className="h-3.5 w-3.5" />
+                        {showThinking ? "Hide" : "Why?"}
+                      </Button>
+                    )}
+                  </div>
+                  {showThinking && liveMaterial.thinking && (
+                    <div className="rounded-md border bg-muted/30 p-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                        Gemma&apos;s reasoning
+                      </p>
+                      <p className="text-xs text-muted-foreground italic whitespace-pre-wrap">
+                        {sanitizeThinking(liveMaterial.thinking)}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
+          </div>
+        )}
+
         {/* Material content */}
         <div className="px-4 pb-4">{renderContent()}</div>
 
@@ -319,6 +412,18 @@ export function MaterialViewer({
             >
               <CheckCircle className="h-3.5 w-3.5" />
               {approving ? "Approving..." : "Approve"}
+            </Button>
+          )}
+          {liveMaterial.status !== "flagged" && (
+            <Button
+              size="sm"
+              variant="outline"
+              className="gap-1.5 text-amber-700 hover:text-amber-800"
+              onClick={handleFlag}
+              disabled={flagging}
+            >
+              <Flag className="h-3.5 w-3.5" />
+              {flagging ? "Flagging…" : "Flag for Review"}
             </Button>
           )}
           <Button

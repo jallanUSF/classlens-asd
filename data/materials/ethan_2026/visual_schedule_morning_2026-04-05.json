@@ -5,7 +5,7 @@
   "created_date": "2026-04-05",
   "status": "approved",
   "content": {
-    "title": "Ethan's Morning Routine \u00e2\u20ac\u201d Weather Station Start",
+    "title": "Ethan's Morning Routine â€” Weather Station Start",
     "student_name": "Ethan",
     "schedule_type": "morning_routine",
     "steps": [
@@ -56,6 +56,8 @@
       "first": "Check weather chart and say good morning",
       "then": "Desk chair spin break (count to 7!)"
     },
-    "notes": "The weather chart check gives Ethan a reason to use spontaneous speech every morning \u00e2\u20ac\u201d he can report what he sees. Place the spin break AFTER the greeting step as a natural reinforcer. Keep the number 7 incorporated (count spins, 7 steps total) since it's calming and motivating for him. Laminate this schedule and velcro to desk. Ethan moves a tornado magnet down each step as he completes it."
-  }
+    "notes": "The weather chart check gives Ethan a reason to use spontaneous speech every morning â€” he can report what he sees. Place the spin break AFTER the greeting step as a natural reinforcer. Keep the number 7 incorporated (count spins, 7 steps total) since it's calming and motivating for him. Laminate this schedule and velcro to desk. Ethan moves a tornado magnet down each step as he completes it."
+  },
+  "thinking": "",
+  "confidence_score": "high"
 }

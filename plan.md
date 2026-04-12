@@ -42,5 +42,32 @@ Full implementation: `docs/plans/2026-04-05-implementation-plan.md`
 - [x] Precomputed demo data (9 materials + 3 alerts)
 - [x] Competition assets updated (video script, writeup, ADR)
 
+## Acceleration Sprint: Prize Track Features (Apr 12–May 9)
+
+### Feature 1 — Long-context trajectory report ✅
+**Prize:** Main track + Future of Education | **Gemma 4:** 256K context
+- [x] `agents/trajectory_analyst.py` — aggregate all trial data + alerts into one Gemma 31B call with thinking mode
+- [x] `backend/routers/trajectory.py` — `POST /api/students/{id}/trajectory` + SSE stream
+- [x] `TrajectoryReport.tsx` — per-goal status badges (On Track / At Risk / Stalled / Met), trend summary, IEP meeting note, cross-goal patterns, thinking trace
+- [x] Precomputed results for Maya, Amara, Jaylen
+- [x] 11 tests
+
+### Feature 3 — Voice note capture ✅
+**Prize:** Digital Equity + Future of Education | **Gemma 4:** Audio (E4B)
+- [x] `agents/voice_reader.py` — audio → structured trial data via Gemma (+ text fallback)
+- [x] `POST /api/capture/voice` + stream endpoints in capture router
+- [x] `VoiceCapture.tsx` — MediaRecorder + base64 + preview + text fallback mode
+- [x] Provider guard: non-google returns text_input fallback
+- [x] `GET /api/capture/voice/supported` — runtime capability check
+- [x] 9 tests
+
+### Feature 4 — Confidence panel ✅
+**Prize:** Safety & Trust ($10K) | **Gemma 4:** Thinking mode extended
+- [x] `agents/material_forge.py` — all generate calls use `generate_with_thinking()`, `_compute_confidence()` scorer
+- [x] confidence_score + thinking in material record, extracted from content
+- [x] `MaterialViewer.tsx` — confidence badge + collapsible reasoning panel + Flag for Review button
+- [x] `POST /api/materials/{student_id}/{material_id}/flag` endpoint → `data/flags/`
+- [x] 9 tests, 24 existing materials migrated
+
 ## Sprint 6: Video + Submission
 **BLOCKED — not scheduled until Jeff explicitly approves release readiness.**
