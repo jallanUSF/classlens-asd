@@ -137,9 +137,11 @@ async def get_podcast_audio(filename: str):
     path = _audio_path(student_id)
     if not path.exists():
         raise HTTPException(status_code=404, detail="Audio not generated yet.")
+    # Serve inline (no Content-Disposition: attachment) so <audio> elements
+    # play it directly. The frontend sets a download filename via <a download>
+    # when the user clicks Download.
     return FileResponse(
         path,
         media_type="audio/mpeg",
-        filename=f"{student_id}.mp3",
         headers={"Cache-Control": "no-cache"},
     )
