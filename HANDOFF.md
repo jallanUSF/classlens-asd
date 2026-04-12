@@ -1,8 +1,8 @@
 # HANDOFF.md — Session Handoff
 
-**Date:** 2026-04-11 (late overnight — QA closeout + live sample_inputs smoke)
+**Date:** 2026-04-11 (night — sample_inputs narrative guard)
 **Branch:** `nextjs-redesign`
-**Status:** All 2026-04-11 QA findings closed in-browser. Live pipeline smoke on `docs/sample_inputs/` — 7/7 photos pass. Release gate still closed pending Jeff approval.
+**Status:** Narrative guard 4/4 pass on live Google AI Studio. Three stretch items from last session (narrative guard, Amara Why? with context, Ethan plateau multimodal) all closed. Release gate still closed pending Jeff approval.
 
 ## TL;DR cold start
 
@@ -14,6 +14,23 @@
 6. Open http://localhost:3000 — dashboard should show 5 alerts with 4 distinct classifier labels (`declining`, `plateaued at 45%`, `target met` x2, `regression risk`)
 
 ## What happened this session
+
+### 0. Sample inputs narrative guard — 4/4 pass on live Google AI Studio
+
+**New script:** `scripts/sample_inputs_narrative_guard.py`. Walks four scenarios through `POST /api/chat` with each student's profile loaded into the system prompt via `_load_student_context`, then checks the response for fabricated percentages and expected clinical vocabulary.
+
+**Percentage fabrication detector.** First cut fired a false positive: Gemma emitted Amara's real `45% → 42% → 40%` G2 trial history when asked "what do you see?" — that's recall from the profile injected into the system prompt, not invention. Second cut builds an allowlist by pulling every pct token from the student's actual profile AND every pct token that appears verbatim in the observation prose, and only flags pct tokens that live outside both sets. `_load_profile_pct_tokens()` + `_tokens_in_source()` in the script. Also had to hard-force UTF-8 on stdout because Gemma's Marcus milestone response contained `🌟` and Windows cp1252 crashed the encoder.
+
+**Results:**
+
+| # | Scenario | Elapsed | Verdict | Notes |
+|---|---|---|---|---|
+| S1a | Amara cafeteria observation (narrative guard) | 34.9s | PASS | 6/6 keywords. Naturally names withdrawal, masking, social capacity, sketchbook-as-regulation, food refusal as stress signal. No fabricated numbers. |
+| S1b | Marcus slide milestone (narrative guard) | 29.3s | PASS | 4/5 keywords. Renders as celebration narrative tagged for the student file — no numeric trial recording. Offers a G1 AAC motivator tie-in (`"I want slide"` on TouchChat). |
+| S2 | Amara G2 Why? with cafeteria context | 29.5s | PASS | 5/5 keywords — **explicitly names "recharge mode" + sketchbook + My Hero Academia** as the regulation pattern. Frames decline as capacity-vs-skill, not regression. Drafts IEP team talking points. |
+| S3 | Ethan plateau multimodal saturation | 43.8s | PASS | 6/7 keywords. **Reframes "saturation" as "regulation mismatch / sensory bottleneck"** — notes G1 is *progressing* (Echo→Functional bridge) while G2 plateau is postural/core fatigue, not letter-formation skill. Proposes vertical-surface probe + high-interest topic swap. Stronger than the test expected. One `100%` pct match is figurative ("I'm 100% behind the weighted vest") — detector is regex-simple, verdict passed on keywords. |
+
+**Report:** `docs/qa-reports/sample_inputs_narrative_guard_2026-04-11.md` (166 lines, full responses captured).
 
 ### 1. Fixed ParentLetterView non-EN render bug — the last HIGH finding from 2026-04-11 verification
 
@@ -68,12 +85,12 @@ Both are latent bugs in whatever serializes the student profile after the IEP Ma
 ## What's next
 
 **Immediate (next session, when you resume):**
-- Optional stretch items on `docs/sample_inputs/` QA loop (photos done; narrative/multimodal guards still open):
-  - Qualitative guard: feed `04_amara/03_cafeteria_observation.md` and `07_marcus/03_slide_milestone_note.md` through the chat/narrative path. Assert Progress Analyst surfaces as an alert/note candidate, not a fabricated percentage.
-  - Alert quality: re-run "Why?" thinking trace on Amara G2 with the cafeteria observation in context. Should name the sketchbook-as-recharge pattern.
-  - Ethan plateau multimodal: combine `01_handwriting_sample_PHOTO.png` + `02_speech_transcript.md` + `03_weather_chart.md`. Progress Analyst should detect saturation across fine-motor AND echolalia.
-  - Phase 2 (~30 min): `scripts/sample_inputs_smoke.py` that walks the directory and hits the right endpoints programmatically.
-- Fix the student-profile round-trip unicode mangling if sample_inputs is to become permanent live-smoke.
+- Deferred / cleanup items from QA report (all low priority):
+  - Finding 9 — chat `disabled` vs programmatic fill (blocks automation, not humans)
+  - Finding 10 — `/sw.js` 404 stub
+  - Finding 12 — bilingual re-translate vs regenerate (pending Sarah's opinion)
+- Student-profile round-trip unicode mangling on IEP Mapper writeback (blocks reproducible `sample_inputs_smoke.py` — see the "Pipeline-writeback gotcha" section below).
+- Phase 2 sample_inputs smoke (~30 min): expand `scripts/sample_inputs_narrative_guard.py` into the full directory walk with the capture endpoint as well, once unicode round-trip is fixed.
 
 **Medium term:**
 - Share `sarah_review_bundle/` with Sarah. Apply her feedback to prompts / profiles.

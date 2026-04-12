@@ -2,11 +2,9 @@
 
 ## Active — next session (5 items, forward-looking)
 
-1. [ ] **Sample inputs — narrative/qualitative guard.** Feed `docs/sample_inputs/04_amara/03_cafeteria_observation.md` and `07_marcus/03_slide_milestone_note.md` through the chat/narrative path. Progress Analyst must surface these as alert/note candidates, not fabricate trial percentages from narrative text. Catches hallucinated data.
-2. [ ] **Sample inputs — Ethan plateau multimodal.** Combine `05_ethan/01_handwriting_sample_PHOTO.png` + `02_speech_transcript.md` + `03_weather_chart.md`. Progress Analyst should detect saturation across fine-motor AND echolalia.
-3. [ ] **Sample inputs — Alert quality re-run.** "Why?" thinking trace on Amara G2 with the cafeteria observation in context. Should name the sketchbook-as-recharge pattern.
-4. [ ] **Share `sarah_review_bundle/` with Sarah** and apply her feedback to prompts / student profiles.
-5. [ ] **Release gate.** Jeff approval for release readiness (blocks Sprint 6 deploy + video + Kaggle submission).
+1. [ ] **Share `sarah_review_bundle/` with Sarah** and apply her feedback to prompts / student profiles.
+2. [ ] **Release gate.** Jeff approval for release readiness (blocks Sprint 6 deploy + video + Kaggle submission).
+3. [ ] **Sprint 6 deploy prep** — blocked on release gate (deploy target, video, writeup, Kaggle package).
 
 ## Deferred / low priority
 
@@ -32,6 +30,8 @@
 ---
 
 ## Archive — shipped (chronological, most recent first)
+
+**2026-04-11 night:** Sample inputs narrative guard shipped — 4/4 scenarios pass on live Google AI Studio. `scripts/sample_inputs_narrative_guard.py` walks the Amara cafeteria observation, Marcus slide milestone, Amara G2 "Why?" with cafeteria context, and the Ethan tri-source plateau stack (handwriting + speech + weather) through `POST /api/chat`. Report: `docs/qa-reports/sample_inputs_narrative_guard_2026-04-11.md`. Key wins: no fabricated trial percentages from prose (profile-allowlist filter catches real recall vs invention); Amara G2 "Why?" explicitly named the sketchbook-as-recharge pattern + masking + social capacity framing; Ethan response reframed the "saturation" hypothesis as a "regulation/sensory bottleneck" and flagged G1 as progressing while G2 is postural-fatigue gated — stronger than the test expected. Closes three of four stretch items from the 2026-04-11 late session. The Sarah review bundle + release gate items remain.
 
 **2026-04-11 late:** ParentLetterView non-EN render bug fixed (ES/VI/ZH now render via `content.text` whitespace-pre-wrap fallback). Findings 5 (chat SSE whitespace), 7 (dashboard AbortController guard), 8 (alert severity populated) all re-verified live. `docs/sample_inputs/` photo path 7/7 pass on live Google AI Studio — Vision Reader → IEP Mapper → Progress Analyst with production-quality output for every student.
 
