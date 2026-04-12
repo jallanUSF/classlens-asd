@@ -4,7 +4,7 @@
 
 1. [ ] **Release gate** — Jeff approval against `docs/RELEASE-READY.md` unblocks Sprint 6
 2. [ ] Confirm Sarah's content status (profiles + video segments)
-3. [ ] Check `docs/VIDEO-SCRIPT.md` for any mic-dependent beats; rewrite as typed-observation flow if present
+3. [ ] Consider adding new beats to `docs/VIDEO-SCRIPT.md` for shipped-but-undemoed features: Quick Observation (typed), Progress Briefing Podcast, Trajectory Report. Optional — current script works without them.
 
 ## Sprint 6 — blocked on release gate
 
@@ -17,6 +17,8 @@
 ---
 
 ## Archive — shipped (chronological, most recent first)
+
+**2026-04-12 video script audit:** No mic-dependent beats found — the script was already text/image-driven (upload worksheet → buttons → materials). Fixed 7 inaccuracies between the shipped app and the script: port 8000→8001, "Upload Work Artifact"→"Scan Work", "Analyze Progress"→"Generate Trajectory Report", "Generate Materials dropdown"→"Generate Material (sticky footer, opens chat with prefill)", x3 sites. Chat panel "collapsed by default" note already matches new UI polish pass.
 
 **2026-04-12 PRIVACY-NOTICE cleanup:** Dropped unused PRIVACY-NOTICE.md requirement — 8 references scrubbed across SECURITY-REVIEW.md, DEPLOYMENT-SECURITY-CHECKLIST.md, RELEASE-READY.md, setup.sh, todo.md. Competition doesn't require a standalone privacy doc; privacy story lives in ADR-006 + ADR-011 + SECURITY-REVIEW already.
 

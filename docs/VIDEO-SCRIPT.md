@@ -129,7 +129,7 @@
 #### Shot 5: Progress Analyst Agent — THINKING MODE
 - **Duration:** 10 seconds
 - **Visual:**
-  1. Click "Analyze Progress" button on the student detail page
+  1. Scroll to the Trajectory Report card on the student detail page (precomputed for Maya/Jaylen/Amara)
   2. Show a brief thinking animation or text overlay:
      ```
      Analyzing 12 data points for Maya over 4 weeks...
@@ -156,7 +156,7 @@
 #### Shot 6: Material Forge Agent — DINOSAUR LESSON PLAN + MaterialViewer
 - **Duration:** 18 seconds (THIS IS THE SHOWSTOPPER)
 - **Visual:**
-  1. Click "Generate Materials" dropdown on the student detail page, select "Lesson Plan"
+  1. Click "Generate Material" in the sticky footer on the student detail page (chat panel opens with a prefilled Lesson Plan prompt)
   2. **MaterialViewer sheet** slides in from the right side:
      ```
      GOAL-ALIGNED LESSON PLAN: FOLLOWING DIRECTIONS WITH DINOSAURS
@@ -485,7 +485,7 @@ These earn judges' respect and "proof of concept" points:
 
 ### Pre-Recording Checklist
 - [ ] Next.js frontend running at localhost:3000 (`cd frontend && npm run dev`)
-- [ ] FastAPI backend running at localhost:8000 (`uvicorn backend.main:app --reload --port 8000`)
+- [ ] FastAPI backend running at localhost:8001 (`uvicorn backend.main:app --reload --port 8001`)
 - [ ] **Demo mode enabled** — all results pre-baked (NO API calls during recording)
 - [ ] Three student profiles loaded (Maya, Jaylen, Sofia)
 - [ ] Sample work artifacts ready:
@@ -511,7 +511,7 @@ These earn judges' respect and "proof of concept" points:
 ```
 6. Maya's student detail page loads in center column
 7. Expandable IEP goals accordion visible, Plotly charts below
-8. Click "Upload Work Artifact" button
+8. Click "Scan Work" button (sticky footer)
 9. File picker opens, select: maya_math_worksheet.jpg
 10. Image appears in preview (show it's a real handwritten worksheet)
 11. Vision Reader JSON result appears:
@@ -535,7 +535,7 @@ These earn judges' respect and "proof of concept" points:
 
 **[Progress Analyst: 32-42 sec]**
 ```
-17. Click "Analyze Progress" button
+17. Scroll to the "Trajectory Report" card and click "Generate Trajectory Report" (or show the pre-generated report for Maya — cached)
 18. Brief loading animation (2-3 sec, fade to result)
 19. Show result panel:
     "Steady progress on Goal 2. Last 3 trials: 100% completion.
@@ -545,7 +545,7 @@ These earn judges' respect and "proof of concept" points:
 
 **[Material Forge - Lesson Plan + MaterialViewer: 42-60 sec]** (SHOWSTOPPER)
 ```
-21. Click "Generate Materials" dropdown
+21. Click "Generate Material" in the sticky footer (chat panel opens with prefilled prompt)
 22. Select "Lesson Plan"
 23. MaterialViewer sheet slides in from the right:
     - Header: "GOAL-ALIGNED LESSON PLAN: FOLLOWING DIRECTIONS WITH DINOSAURS"
@@ -562,7 +562,7 @@ These earn judges' respect and "proof of concept" points:
 ```
 28. [Screen recording resumes] Click Jaylen's card in left sidebar
 29. Show his student detail page (Level 3, non-verbal, AAC user)
-30. Click "Generate Materials" → "Social Story"
+30. Click "Generate Material" in the sticky footer → ask the assistant for a Social Story
 31. MaterialViewer sheet slides in with social story:
     [Thomas the Tank Engine image]
     "I like snack time."
