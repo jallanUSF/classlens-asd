@@ -8,6 +8,7 @@ interface ParentLetterContent {
   try_at_home?: string[];
   closing?: string;
   teacher_name?: string;
+  text?: string;
 }
 
 interface Props {
@@ -19,6 +20,11 @@ interface Props {
 
 export function ParentLetterView({ content, studentName, date, language = "en" }: Props) {
   const isNonEnglish = language !== "en";
+  const hasStructured =
+    (content.highlights && content.highlights.length > 0) ||
+    (content.try_at_home && content.try_at_home.length > 0);
+  const freeformText = !hasStructured ? content.text?.trim() : undefined;
+
   return (
     <div
       className="material-print-content space-y-5 max-w-xl"
@@ -33,6 +39,12 @@ export function ParentLetterView({ content, studentName, date, language = "en" }
         <p className="text-sm text-muted-foreground mt-1">{date}</p>
       </div>
 
+      {freeformText ? (
+        <div className="text-sm leading-relaxed whitespace-pre-wrap">
+          {freeformText}
+        </div>
+      ) : (
+        <>
       {/* Greeting */}
       <p className="text-sm">
         {content.greeting || `Dear ${studentName}'s family,`}
@@ -80,6 +92,8 @@ export function ParentLetterView({ content, studentName, date, language = "en" }
           <p className="text-muted-foreground text-xs">ClassLens ASD</p>
         </div>
       </div>
+        </>
+      )}
     </div>
   );
 }

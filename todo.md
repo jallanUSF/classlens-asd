@@ -1,95 +1,46 @@
-# TODO — Next.js Redesign
+# TODO — ClassLens ASD
 
-- [x] Sprint 2: Scaffold Next.js + Tailwind + shadcn/ui + 3-column layout
-- [x] Sprint 2: Wire student sidebar to GET /api/students
-- [x] Sprint 2: Build class dashboard (alerts + activity) + student detail page
-- [x] Sprint 3: Chat panel streaming integration (SSE + real API)
-- [x] Sprint 3: Enhanced student detail (expandable goals, Plotly charts, alerts)
-- [x] Sprint 3: Recent work timeline + materials library + quick actions
-- [x] Sprint 3: Add Student conversational flow
-- [x] Sprint 4: Professional material renderers (6 types + MaterialViewer sheet)
-- [x] Sprint 4: Print CSS + approve/regenerate controls
-- [x] Sprint 5: Mobile responsive layout (hamburger + FAB)
-- [x] Sprint 5: OpenRouter integration + deployment config
-- [x] Design review + polish passes (all findings resolved)
-- [x] Sprint 5 finalization: real API wiring + image upload pipeline
+## Active — next session (5 items, forward-looking)
 
-## Path B — Hardening Week (COMPLETE)
-- [x] Fill missing precomputed JSONs + fix Maya copy-paste bugs in 3 existing files
-- [x] Security pass: filename sanitization, student_id validation, upload size/extension limits
-- [x] CORS hardening (opt-in regex, explicit method/header allowlist)
-- [x] HTML sanitization rewrite (script/style blocks + any-tag)
-- [x] Unit tests for new security code (32 tests added)
-- [x] Live cold-boot smoke test script (8/8 checks — real OpenRouter round-trip)
-- [x] MISTAKES.md seeded
-- [x] Port 8001 canonical (frontend default, docs, run instructions)
-- [x] Synthetic test content (4 new work PNGs + 2 mock IEP PDFs)
+1. [ ] **Sample inputs — narrative/qualitative guard.** Feed `docs/sample_inputs/04_amara/03_cafeteria_observation.md` and `07_marcus/03_slide_milestone_note.md` through the chat/narrative path. Progress Analyst must surface these as alert/note candidates, not fabricate trial percentages from narrative text. Catches hallucinated data.
+2. [ ] **Sample inputs — Ethan plateau multimodal.** Combine `05_ethan/01_handwriting_sample_PHOTO.png` + `02_speech_transcript.md` + `03_weather_chart.md`. Progress Analyst should detect saturation across fine-motor AND echolalia.
+3. [ ] **Sample inputs — Alert quality re-run.** "Why?" thinking trace on Amara G2 with the cafeteria observation in context. Should name the sketchbook-as-recharge pattern.
+4. [ ] **Share `sarah_review_bundle/` with Sarah** and apply her feedback to prompts / student profiles.
+5. [ ] **Release gate.** Jeff approval for release readiness (blocks Sprint 6 deploy + video + Kaggle submission).
 
-## Live Browser QA Fixes (COMPLETE)
-- [x] Fix G3 count-based goal display (Target: ≤1/day instead of 1%)
-- [x] AbortController on 5 useEffect fetches (half the dev traffic, clean prod)
-- [x] Scope chat history per student (reset on student switch)
-- [x] Fix latent stale-state bug in student page context message
-- [x] Gitignore data/documents/ (runtime upload state)
+## Deferred / low priority
 
-## Synthetic Test Content Expansion (COMPLETE 2026-04-11)
-- [x] 9 new work artifacts: Amara x2, Ethan x2, Lily x2, Marcus x2, Sofia x1
-- [x] 2 alert-triggering scenarios (Amara G2 regression, Ethan G2 plateau)
-- [x] All 7 students now have ≥1 sample work PNG + precomputed JSON
-- [x] Windows font fallback in generate_sample_work.py (Arial / Segoe UI)
-- [x] Pipeline cache-hit verified for all 9 new artifacts
+- [ ] **Finding 9** — Chat send button `disabled` state doesn't react to programmatic `fill`. Harmless for humans; blocks Playwright/chrome-devtools automation.
+- [ ] **Finding 10** — `/sw.js` 404 on every page load. Ship a minimal `public/sw.js` stub or remove the manifest reference.
+- [ ] **Finding 12** — Bilingual letters regenerate independently instead of translating the approved EN version. Consider after Sarah has opinions on demo bilingual quality.
+- [ ] **Student-profile round-trip unicode mangling.** The IEP Mapper's write-back path corrupts existing unicode (e.g. `≤` → `\u00e2\u2030\u00a4`) and reformats inline objects. See `HANDOFF.md` "Pipeline-writeback gotcha" for scope. Blocks `sample_inputs_smoke.py` being snapshot-safe.
+- [ ] **Phase 2 sample_inputs smoke (~30 min):** `scripts/sample_inputs_smoke.py` that walks the directory and hits the right endpoints programmatically. Blocked on the unicode round-trip fix above if we want it reproducible.
 
-## Judge-Appeal Features (2026-04-11 — no more lying code) — COMPLETE
-- [x] #1: IEP PDF auto-extraction — new `agents/iep_extractor.py` + pymupdf PDF→PNG rendering + Gemma multimodal function calling, wired into `/api/documents/upload` and the Add Student UI (shows "Extracted from IEP" card)
-- [x] #2: Chat SSE streaming — new `POST /api/chat/stream` with `StreamingResponse`, `useChat.ts` rewritten to consume via fetch + ReadableStream + TextDecoder
-- [x] #3: Thinking-trace UI — new `POST /api/alerts/{id}/analyze` runs ProgressAnalyst via `generate_with_thinking`, `AlertBanner.tsx` has a "Why?" button that reveals a collapsible reasoning panel
-- [x] #4: Exposed first_then in materials.py enum + router handler
-- [x] #5: Bilingual parent comms — `language` param threaded from MaterialViewer toggle (EN/ES/VI/ZH) through router → MaterialForge → prompt template
+## Jeff open questions (before Sprint 6)
 
-## QA Session Fix Queue (2026-04-11 very-late-night) — COMPLETE 2026-04-11
-Full findings in `docs/qa-reports/qa-report-classlens-2026-04-11.md`. Was 66/100 health score, 12 findings. 8 of 12 resolved this session (all critical/high + two mediums + one low). 4 low-impact items deferred.
-
-- [x] **Finding 7 — Dashboard AbortController regression**. Added `ac.signal.aborted` guard before setState in `frontend/src/app/page.tsx` matching the student-page pattern.
-- [x] **Finding 11 — Spanish parent letter teacher-name placeholder**. Threaded `teacher_name` through `MATERIAL_FORGE_PARENT_COMM` prompt with explicit "write this exact name on the signature line" instruction. Default `Ms. Rodriguez` when student profile has no `teacher` field.
-- [x] **Finding 6 — IEP extraction duplicates fields**. `agents/iep_extractor.py::_merge_pages` now dedupes goals by normalized 80-char description prefix (was keying on goal_id, which the model reassigns per page). Accommodations and interests dedupe on normalized full text. Verified: 5 raw goals → 3 unique, 4 accommodations → 3, 3 interests collapsed from 4.
-- [x] **Finding 3 — Alert label classifier**. New `_classify_goal()` in `backend/routers/alerts.py` emits `declining | plateau_below | plateau_at_target` based on monotone trend + target comparison. Improving goals emit no alert. Titles, detail text, and suggested actions all branch per label. Verified: Amara G2 (45/42/40, target 70) → `declining`, Maya G1 (80/80/80, target 80) → `plateau_at_target`.
-- [x] **Finding 2 — Alert ids deterministic**. `_stable_alert_id()` hashes `{student}_{goal}_{label}` with sha256, first 8 hex chars. Same alert → same id across fetches; no more 404s on analyze after the frontend caches an id.
-- [x] **Finding 8 — Alert severity populated**. `high` for declining, `medium` for plateau_below, `low` for plateau_at_target. Rolled in with the classifier refactor.
-- [x] **Finding 4 — `first_then` renderer**. New `frontend/src/components/materials/FirstThenView.tsx` parses the Material Forge markdown into FIRST / arrow / THEN / teacher-notes cards, with `react-markdown` rendering inside each section. Added to `MaterialViewer.tsx` switch and `TYPE_TITLES`.
-- [x] **Finding 5 — Chat SSE whitespace concat**. `backend/routers/chat.py::_sanitize_stream_chunk` sanitizes HTML tags WITHOUT the trailing `.strip()` that was eating leading/trailing spaces from every Gemma chunk. `to40%` / `investedin` word-merge bug root cause was the `_sanitize_model_text().strip()` call inside the stream loop.
-- [x] **Finding 1 — Stream every Gemma endpoint** (demo blocker). New `backend/routers/_sse.py::run_streaming_job` runs blocking Gemma calls in `asyncio.to_thread` with 4-second heartbeat frames so the Turbopack dev proxy keeps the socket open. Streaming variants added: `POST /api/alerts/{id}/analyze/stream`, `POST /api/materials/generate/stream`, `POST /api/documents/upload/stream`. Frontend consumers (`AlertBanner.tsx`, `MaterialViewer.tsx` language toggle, `student/new/page.tsx`) all switched via new shared `frontend/src/lib/sseJob.ts::consumeSseJob<T>` helper. Non-streaming originals retained for TestClient smokes.
-
-## QA Session Low-Priority Follow-ups (deferred)
-- [ ] Finding 9 — Chat send button `disabled` state doesn't react to programmatic `fill`. Harmless for humans; annoying for automation scripts.
-- [ ] Finding 10 — `/sw.js` 404 on every page load. Either ship a minimal `public/sw.js` stub or remove the manifest reference.
-- [ ] Finding 12 — Bilingual letters regenerate independently instead of translating the approved EN version. Consider translating in non-English languages to preserve student-specific color.
-
-## Next session — live browser QA verification pass
-- [ ] Real Chrome walk-through of all 4 previously-500 endpoints to confirm browser-path works end-to-end (not just TestClient):
-  1. Click "Why?" on Amara G2 alert → should show heartbeat → thinking trace
-  2. Upload `data/sample_iep/amara_iep_2025.pdf` in Add Student → should show heartbeat → 3 goals / 3+ accommodations
-  3. MaterialViewer → open Maya parent letter → click ES → should regenerate with "Ms. Rodriguez" signature
-  4. MaterialViewer → open Maya first_then draft → should render FIRST/THEN cards, not raw markdown dump
-- [ ] Spot-check declining vs plateau_at_target vs plateau_below labels on dashboard
-
-## Follow-up to decide
-- [x] **DONE last session:** Switch `MODEL_PROVIDER=google`. Feature works end-to-end; QA confirmed the backend content quality is exceptional on Google AI Studio.
-
-## Sarah Content Review (IN PROGRESS)
-- [x] Build `sarah_review_bundle/` (7 student dockets + 12 sample outputs across all material types)
-- [ ] Share bundle with Sarah and collect feedback
-- [ ] Apply Sarah's feedback to prompt templates / student profiles as needed
-
-## Release Gate — RE-OPEN for Jeff
-- [ ] Jeff approval for release readiness
-
-## Jeff Open Questions (before Sprint 6 can start)
 - [ ] Confirm Sarah's content status (profiles + video segments)
-- [ ] Define "release ready" criterion (demo-ready vs. production-ready)
+- [ ] Define "release ready" criterion (demo-ready vs production-ready)
 
-## Sprint 6 — Blocked on release gate
+## Sprint 6 — blocked on release gate
+
 - [ ] Deploy target finalization
-- [ ] 3-min video recording (against docs/VIDEO-SCRIPT.md)
-- [ ] docs/COMPETITION-WRITEUP.md finalization
-- [ ] Kaggle submission package (eventual transition to Streamlit form factor)
+- [ ] 3-min video recording (against `docs/VIDEO-SCRIPT.md`)
+- [ ] `docs/COMPETITION-WRITEUP.md` finalization
+- [ ] Kaggle submission package (eventual Streamlit form factor transition)
 - [ ] Submit with 48h buffer before 2026-05-18
+
+---
+
+## Archive — shipped (chronological, most recent first)
+
+**2026-04-11 late:** ParentLetterView non-EN render bug fixed (ES/VI/ZH now render via `content.text` whitespace-pre-wrap fallback). Findings 5 (chat SSE whitespace), 7 (dashboard AbortController guard), 8 (alert severity populated) all re-verified live. `docs/sample_inputs/` photo path 7/7 pass on live Google AI Studio — Vision Reader → IEP Mapper → Progress Analyst with production-quality output for every student.
+
+**2026-04-11 overnight:** Closed 8 of 12 findings from `qa-report-classlens-2026-04-11.md` — Findings 1 (stream every Gemma endpoint via `_sse.run_streaming_job` with heartbeats), 2 (deterministic alert ids via sha256 of `{student}_{goal}_{label}`), 3 (alert label classifier — `declining` / `plateau_below` / `plateau_at_target`), 4 (`FirstThenView.tsx` renderer), 5 (`_sanitize_stream_chunk` without `.strip()`), 6 (IEP extraction dedupe by normalized description prefix), 7 (dashboard AbortController guard), 8 (severity populated), 11 (Spanish teacher-name threading). Live browser verification pass — 3 of 4 scenarios PASS, new HIGH finding (ParentLetterView, fixed above).
+
+**2026-04-11 day:** 5 judge-appeal features shipped — IEP PDF auto-extraction (pymupdf + Gemma multimodal), chat SSE streaming, thinking-trace "Why?" UI, first_then enum wiring, bilingual parent comms (EN/ES/VI/ZH). Flipped to Google AI Studio as the canonical provider.
+
+**Sprint 5 finalization:** Real API wiring, image upload pipeline, 9 new synthetic work artifacts (Amara x2, Ethan x2, Lily x2, Marcus x2, Sofia x1), 2 alert scenarios (Amara G2 regression, Ethan G2 plateau), Windows font fallback in `generate_sample_work.py`.
+
+**Path B hardening:** Missing precomputed JSONs filled, Maya copy-paste bugs fixed, security pass (filename sanitization, student_id validation, upload size/extension limits), CORS hardening (regex allowlist, explicit methods/headers), HTML sanitization rewrite, 32 security unit tests, `cold_boot_smoke.py`, `MISTAKES.md` seeded, port 8001 canonical, synthetic test content (4 new work PNGs + 2 mock IEP PDFs).
+
+**Sprints 2-5:** Next.js + Tailwind + shadcn/ui scaffold, 3-column layout, student sidebar, class dashboard, student detail page with expandable goals + Plotly charts + alerts, chat panel SSE streaming, recent work timeline, materials library, quick actions, Add Student conversational flow, 6 professional material renderers (+ MaterialViewer sheet), print CSS, approve/regenerate controls, mobile responsive (hamburger + FAB), OpenRouter + deployment config, design review polish passes.

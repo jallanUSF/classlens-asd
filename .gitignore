@@ -84,6 +84,10 @@ Thumbs.db
 # data/precomputed/ — committed for demo; pipeline cache so demo never waits on API
 # data/documents/ — runtime user-upload state + QA screenshots; never commit
 data/documents/
+# .claude/ — Claude Code harness scheduled-task lock + per-session state
+.claude/
+# .playwright-mcp/ — Playwright MCP runtime screenshots / console logs
+.playwright-mcp/
 # demo_assets/screenshots/ — don't commit demo screenshots
 demo_assets/screenshots/
 # screenshots/ — Chrome DevTools QA screenshots
