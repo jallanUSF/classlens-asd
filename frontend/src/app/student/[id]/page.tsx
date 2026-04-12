@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { LevelBadge } from "@/components/ui/LevelBadge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { useChatContext } from "@/context/ChatContext";
@@ -48,12 +49,6 @@ interface Alert {
   detail: string;
   suggested_action: string;
 }
-
-const LEVEL_STYLES: Record<number, string> = {
-  1: "bg-level-1 text-level-1-foreground",
-  2: "bg-level-2 text-level-2-foreground",
-  3: "bg-level-3 text-level-3-foreground",
-};
 
 export default function StudentDetailPage() {
   const params = useParams<{ id: string }>();
@@ -168,12 +163,7 @@ export default function StudentDetailPage() {
       <div>
         <div className="flex items-center gap-3">
           <h1 className="text-2xl font-semibold">{student.name}</h1>
-          <Badge
-            variant="secondary"
-            className={LEVEL_STYLES[student.asd_level] || ""}
-          >
-            Level {student.asd_level}
-          </Badge>
+          <LevelBadge level={student.asd_level} format="long" />
         </div>
         <p className="text-muted-foreground mt-1">
           Grade {student.grade === 0 ? "K" : student.grade} &middot;{" "}

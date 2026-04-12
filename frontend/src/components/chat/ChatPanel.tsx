@@ -52,9 +52,6 @@ export function ChatPanel() {
           <Sparkles className="h-4 w-4 text-primary" />
           <h2 className="font-semibold text-base">ClassLens Assistant</h2>
         </div>
-        <p className="text-xs text-muted-foreground mt-0.5">
-          Powered by Gemma 4
-        </p>
       </div>
 
       {/* Messages */}

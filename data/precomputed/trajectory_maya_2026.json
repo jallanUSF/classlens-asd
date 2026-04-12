@@ -1,6 +1,5 @@
 {
-  "student_id": "maya_2026",
-  "summary": "Maya has made strong progress across all three IEP goals this semester. Communication (G1) and Following Directions (G2) have both reached their targets, while Self-Regulation (G3) is showing accelerating improvement with consistent strategy use. She is well-positioned heading into her IEP review.",
+  "summary": "Maya has shown exceptional progress this semester, meeting quantitative targets across all three goal domains. Her success is strongly correlated with the implementation of sensory supports and structured routines, leading to increased social engagement and emotional stability.",
   "goals": [
     {
       "goal_id": "G1",
@@ -9,9 +8,9 @@
       "current_pct": 80,
       "target_pct": 80,
       "baseline_pct": 20,
-      "trend_summary": "Steady upward trajectory from 30% to 80% over 5 weeks. The peer buddy program and dinosaur sticker reinforcers drove consistent gains. Maya now greets familiar peers independently across multiple settings.",
+      "trend_summary": "Steady upward trajectory from 30% to 80%, maintaining the target for the last three sessions.",
       "confidence": "high",
-      "iep_meeting_note": "G1 target met — recommend fading sticker reinforcers and generalizing to unfamiliar peers (e.g., specials teachers, lunch staff). Consider raising the target to 85% or expanding the measurement settings."
+      "iep_meeting_note": "Maya has successfully reached her greeting target; the team should discuss generalizing this skill to unfamiliar peers or fading the sticker reinforcer."
     },
     {
       "goal_id": "G2",
@@ -20,23 +19,24 @@
       "current_pct": 75,
       "target_pct": 75,
       "baseline_pct": 45,
-      "trend_summary": "Recovery from a mid-March dip (38%) to target (75%) over 3 weeks. Maya responds well to routine verbal directions but still needs support for novel two-step tasks. The visual checklist as a backup prompt has been effective.",
-      "confidence": "high",
-      "iep_meeting_note": "G2 target met — verbal cueing ('listen with your whole body') and visual checklist backup are working. Next step: gradually fade the visual checklist for routine directions while keeping it available for new tasks."
+      "trend_summary": "Initial volatility followed by a consistent climb to 75% accuracy.",
+      "confidence": "moderate",
+      "iep_meeting_note": "While the 75% target is met, Maya is currently relying on a visual checklist; the team needs to decide if we should update the goal to include visuals or prioritize fading them to meet the 'without visual supports' requirement."
     },
     {
       "goal_id": "G3",
       "domain": "self_regulation",
-      "status": "on_track",
+      "status": "met",
       "current_pct": 100,
       "target_pct": 100,
-      "baseline_pct": 40,
-      "trend_summary": "Dramatic improvement from 2.4 outbursts/day to 1/week. The weighted lap pad + noise-canceling headphones + fidget cube routine is the cornerstone. The fire drill week showed vulnerability to unexpected sensory events but strong recovery.",
+      "baseline_pct": 3.2,
+      "trend_summary": "Significant reduction in outburst frequency, dropping from 2.6/day to an average of 0.2/day in the final week.",
       "confidence": "high",
-      "iep_meeting_note": "G3 approaching mastery — outbursts down from 3.2/day baseline to ~1/week. Sensory toolkit (weighted vest, headphones, fidget cube) should be formalized as an accommodation rather than an intervention. Discuss transitioning G3 to a maintenance goal."
+      "iep_meeting_note": "The successful use of noise-canceling headphones and weighted tools has effectively mitigated environmental triggers like fluorescent lighting and loud noises."
     }
   ],
-  "cross_goal_patterns": "Maya's progress across all three goals accelerated once the sensory toolkit was established (late March). Self-regulation improvements appear to enable better attending, which supports both communication and direction-following. The Jurassic World interest-weaving keeps engagement high across all domains.",
-  "recommended_priority": "All three goals are at or above target. Priority for next IEP period: generalization — can Maya maintain these skills in less structured settings (cafeteria, playground, specials) and with less familiar adults?",
-  "thinking": "Let me analyze Maya's full semester data goal by goal.\n\nG1 Communication — peer greetings:\n- Baseline: 20% (Oct 2025)\n- March 15: 30% (peer buddy just starting)\n- March 22: 40% (responsive to familiar peers)\n- March 29: 60% (fire drill caused setback but 1:1 recovery was strong)\n- April 1: 70% (morning routine established)\n- April 3: 80% — TARGET MET\n- April 4: 80% (maintained)\n\nThis is a clean upward trajectory. 20% → 80% in about 5 months. The rate accelerated once the peer buddy became familiar. Dinosaur stickers as reinforcers are clearly effective.\n\nG2 Following Directions:\n- Baseline: 45%\n- March 15: 50% (reliant on visual schedule)\n- March 22: 38% — DIP (new peer buddy was distracting)\n- March 29: 50% (recovered with verbal cueing)\n- April 1: 63% (routine directions solid, novel tasks harder)\n- April 3: 75% — TARGET MET\n- April 4: 75% (maintained)\n\nThe March 22 dip is interesting — the peer buddy program that helped G1 temporarily hurt G2. But she recovered quickly. The visual checklist is functioning as a prompt-to-independence bridge.\n\nG3 Self-Regulation:\n- Baseline: 3.2 outbursts/day\n- March 15: 2.4/day (40% success rate on 5 monitoring days)\n- March 22: 2.6/day (40% — recess transitions hard)\n- March 29: 1.8/day (60% — fire drill caused 2 big meltdowns but weighted vest helped)\n- April 1: 1.2/day (80% — headphones during transitions)\n- April 3: 1/week (100% — full sensory toolkit in place)\n\nThis is the most dramatic improvement. The sensory toolkit establishment in late March was the inflection point.\n\nCross-goal pattern: Once G3 stabilized (late March), G1 and G2 both accelerated. This makes clinical sense — a regulated student can attend, communicate, and follow directions more consistently. The sensory toolkit is the foundation.\n\nFor the IEP meeting: all three goals met or nearly met. The conversation should shift to generalization and raising targets, not remediation."
+  "cross_goal_patterns": "There is a direct correlation between Maya's sensory regulation (G3) and her ability to perform in communication (G1) and direction-following (G2); as sensory supports were introduced, performance in all other domains accelerated.",
+  "recommended_priority": "Goal G2: Transitioning from visual prompts to purely verbal two-step directions to truly meet the goal's original intent.",
+  "thinking": "Trajectory Analyst for ClassLens ASD.\nAnalyze a student's (Maya) full semester of IEP trial data.\nJSON object with summary, goal details, cross-goal patterns, and recommended priority.\n\n        *   Name: Maya (Grade 3, ASD Level 2).\n        *   Communication: Verbal (3-4 word phrases), sight words.\n        *   Interests: Blue the Raptor, water, purple, counting.\n        *   Sensory: Seeks proprioceptive/deep pressure; Avoids loud noises/fluorescent lights/mushy foods.\n\n        *   *Baseline:* 20% -> *Target:* 80%\n        *   *Trend:* 30% -> 40% -> 60% -> 70% -> 80% -> 80% -> 80%\n        *   *Analysis:* Steady climb, reached target on 2026-04-03. Currently maintaining target.\n        *   *Status:* `met`\n        *   *Confidence:* High (3 consecutive sessions at target).\n        *   *Note:* Mention the peer buddy program and sticker reinforcers.\n\n        *   *Baseline:* 45% -> *Target:* 75%\n        *   *Trend:* 50% -> 38% -> 50% -> 63% -> 75% -> 75% -> 75%\n        *   *Analysis:* Initial dip, then steady improvement. Reached target on 2026-04-03. Currently maintaining.\n        *   *Status:* `met`\n        *   *Confidence:* High (3 consecutive sessions at target).\n        *   *Note:* Note that while the target is met, it was achieved with a visual checklist (prompt), but the goal description says \"without visual supports\". This is a critical discrepancy for the IEP team.\n\n        *   *Baseline:* 3.2 outbursts/day (Note: the \"Pct\" column in the provided data is a bit weird here, listed as 40%, 60%, 80%, 100%, but the notes clarify the actual frequency. I must look at the frequency/duration).\n        *   *Data Analysis:*\n            *   03-15: 2.4 outbursts/day\n            *   03-22: 2.6 outbursts/day\n            *   03-29: 1.8 outbursts/day\n            *   04-01: 1.2 outbursts/day\n            *   04-03: 1.0 outbursts/day (approx, \"1 outburst this week\" over 5 days = 0.2/day, but the prompt says \"1 outburst this week (down from 6 last week)\"). Let's look at the target: \"average of 1 or fewer per school day\".\n        *   *Trend:* Significant reduction in frequency.\n        *   *Status:* `met` (The latest data point shows 1 outburst per week, well below the target of 1 per day).\n        *   *Confidence:* High.\n        *   *Note:* Link the improvement to sensory supports (weighted vest, noise-canceling headphones, fidget cube).\n\n        *   *Sensory Link:* There is a strong correlation between sensory regulation and performance across all goals.\n        *   *Environmental Factors:* Fluorescent lights and noise (fire drill) caused spikes/dips, but the implementation of sensory tools (weighted vest, headphones) coincided with the jump in success across G1, G2, and G3.\n        *   *Generalization:* Maya is meeting targets, but often with supports (stickers, visual checklists, sensory tools).\n\n        *   Maya has met the quantitative targets for all current goals.\n        *   The next priority should be *generalization* and *fading prompts*. Specifically, for G2, she is meeting the target *with* visual supports, whereas the goal specifies *without*. This is the most urgent area for refinement.",
+  "student_id": "maya_2026"
 }

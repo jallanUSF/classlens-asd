@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { LevelBadge } from "@/components/ui/LevelBadge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Upload, UserPlus, Sparkles } from "lucide-react";
@@ -39,12 +40,6 @@ interface ProfilePreview {
   iep_goals?: ExtractedGoal[];
   accommodations?: string[];
 }
-
-const LEVEL_STYLES: Record<number, string> = {
-  1: "bg-level-1 text-level-1-foreground",
-  2: "bg-level-2 text-level-2-foreground",
-  3: "bg-level-3 text-level-3-foreground",
-};
 
 export default function NewStudentPage() {
   const router = useRouter();
@@ -227,12 +222,11 @@ export default function NewStudentPage() {
                     <span className="italic">Grade?</span>
                   )}
                   {preview.asd_level && (
-                    <Badge
-                      variant="secondary"
-                      className={`text-[10px] px-1.5 py-0 h-4 ${LEVEL_STYLES[preview.asd_level] || ""}`}
-                    >
-                      Level {preview.asd_level}
-                    </Badge>
+                    <LevelBadge
+                      level={preview.asd_level}
+                      format="long"
+                      className="text-[10px] px-1.5 py-0 h-4"
+                    />
                   )}
                 </div>
               </div>

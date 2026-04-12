@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Users, Plus, AlertTriangle } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Badge } from "@/components/ui/badge";
+import { LevelBadge } from "@/components/ui/LevelBadge";
 
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -25,12 +25,6 @@ interface Alert {
   student_id: string;
   alert_type: string;
 }
-
-const LEVEL_STYLES: Record<number, string> = {
-  1: "bg-level-1 text-level-1-foreground",
-  2: "bg-level-2 text-level-2-foreground",
-  3: "bg-level-3 text-level-3-foreground",
-};
 
 export function StudentSidebar() {
   const pathname = usePathname();
@@ -86,9 +80,14 @@ export function StudentSidebar() {
     <aside className="w-full md:w-60 border-r border-border bg-card flex flex-col h-full">
       {/* Header */}
       <div className="p-4 border-b border-border">
-        <Link href="/" className="flex items-center gap-2 text-primary font-semibold text-lg rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-          <Users className="h-5 w-5" />
-          ClassLens
+        <Link href="/" className="flex items-start gap-2 text-primary font-semibold text-lg rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+          <Users className="h-5 w-5 mt-1" />
+          <span className="flex flex-col leading-tight">
+            <span>ClassLens</span>
+            <span className="text-[11px] font-normal text-muted-foreground">
+              Powered by Gemma 4
+            </span>
+          </span>
         </Link>
       </div>
 
@@ -134,12 +133,10 @@ export function StudentSidebar() {
                         <span className="text-xs text-muted-foreground">
                           Grade {s.grade === 0 ? "K" : s.grade}
                         </span>
-                        <Badge
-                          variant="secondary"
-                          className={`text-[10px] px-1.5 py-0 h-4 ${LEVEL_STYLES[s.asd_level] || ""}`}
-                        >
-                          L{s.asd_level}
-                        </Badge>
+                        <LevelBadge
+                          level={s.asd_level}
+                          className="text-[10px] px-1.5 py-0 h-4"
+                        />
                       </div>
                     </div>
                   </Link>

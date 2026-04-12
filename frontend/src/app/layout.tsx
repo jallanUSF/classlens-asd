@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { StudentSidebar } from "@/components/sidebar/StudentSidebar";
-import { ChatPanel } from "@/components/chat/ChatPanel";
+import { DesktopChatSheet } from "@/components/chat/DesktopChatSheet";
 import { ChatProvider } from "@/context/ChatContext";
 import { MobileNav } from "@/components/layout/MobileNav";
 
@@ -31,9 +31,7 @@ export default function RootLayout({
             <StudentSidebar />
           </div>
           <main className="flex-1 overflow-y-auto pt-14 md:pt-0">{children}</main>
-          <div className="hidden md:flex md:flex-col md:h-full">
-            <ChatPanel />
-          </div>
+          <DesktopChatSheet />
         </ChatProvider>
       </body>
     </html>

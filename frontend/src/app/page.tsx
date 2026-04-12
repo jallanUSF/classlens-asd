@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { LevelBadge } from "@/components/ui/LevelBadge";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -91,6 +92,18 @@ export default function DashboardPage() {
 
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-8">
+      {/* Product explainer */}
+      <Card className="bg-muted/50 border-muted">
+        <CardContent className="p-4">
+          <div className="flex items-start gap-3">
+            <Sparkles className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
+            <p className="text-sm text-muted-foreground">
+              Photo of student work becomes structured IEP progress data. Powered by Gemma 4 with multimodal vision, function calling, and thinking mode.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Greeting */}
       <div>
         <h1 className="text-2xl font-semibold text-foreground">
@@ -180,12 +193,6 @@ export default function DashboardPage() {
                   : s.asd_level === 2
                     ? "border-l-level-2"
                     : "border-l-level-3";
-              const levelBg =
-                s.asd_level === 1
-                  ? "bg-level-1 text-level-1-foreground"
-                  : s.asd_level === 2
-                    ? "bg-level-2 text-level-2-foreground"
-                    : "bg-level-3 text-level-3-foreground";
               const avatarBg =
                 s.asd_level === 1
                   ? "bg-level-1/15 text-level-1"
@@ -209,12 +216,11 @@ export default function DashboardPage() {
                             {s.session_count} sessions
                           </p>
                         </div>
-                        <Badge
-                          variant="secondary"
-                          className={`text-xs shrink-0 ${levelBg}`}
-                        >
-                          Level {s.asd_level}
-                        </Badge>
+                        <LevelBadge
+                          level={s.asd_level}
+                          format="long"
+                          className="text-xs shrink-0"
+                        />
                       </div>
                     </CardContent>
                   </Card>
