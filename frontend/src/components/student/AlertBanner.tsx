@@ -4,6 +4,7 @@ import { AlertTriangle, X, FileText, Sparkles, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useCallback } from "react";
 import { consumeSseJob } from "@/lib/sseJob";
+import { sanitizeThinking } from "@/lib/sanitizeThinking";
 
 interface Alert {
   id: string;
@@ -196,7 +197,7 @@ export function AlertBanner({
                               Gemma&apos;s reasoning
                             </p>
                             <p className="mt-1 text-xs text-muted-foreground italic whitespace-pre-wrap">
-                              {analysis.thinking}
+                              {sanitizeThinking(analysis.thinking)}
                             </p>
                           </div>
                         ) : null}
@@ -205,7 +206,9 @@ export function AlertBanner({
                             Analysis
                           </p>
                           <p className="mt-1 text-sm whitespace-pre-wrap">
-                            {analysis.output || "No analysis returned."}
+                            {analysis.output
+                              ? sanitizeThinking(analysis.output)
+                              : "No analysis returned."}
                           </p>
                         </div>
                       </div>

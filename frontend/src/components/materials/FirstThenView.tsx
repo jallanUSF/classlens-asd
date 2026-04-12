@@ -104,16 +104,60 @@ function splitSections(raw: string): Sections {
   const notes = notesIdx >= 0 ? raw.slice(notesIdx, end).trim() : "";
 
   return {
-    header: header,
-    first: stripSectionHeading(first, /\bfirst\b/i),
-    then: stripSectionHeading(then, /\bthen\b/i),
+    header: stripCenterArrow(header),
+    first: stripCenterArrow(stripSectionHeading(first, /\bfirst\b/i)),
+    then: stripCenterArrow(stripSectionHeading(then, /\bthen\b/i)),
     notes: notes,
   };
+}
+
+/**
+ * Strip trailing (and leading) CENTER / arrow-marker blocks from a chunk.
+ * Gemma's first_then output typically puts a `**[CENTER]**` label plus a
+ * `⬇️ [Large purple arrow ...] ⬇️` line between the FIRST and THEN
+ * sections. That block is visual-design metadata for the teacher's art
+ * asset, not content the FirstThenView should render inside either card —
+ * the renderer already draws its own arrow between the two cards.
+ */
+function stripCenterArrow(chunk: string): string {
+  if (!chunk) return chunk;
+  const lines = chunk.split("\n");
+  const isArrowLine = (line: string): boolean => {
+    const s = line.trim();
+    if (!s) return false;
+    if (/^\*{0,2}\[?\s*center\s*\]?\*{0,2}\s*$/i.test(s)) return true;
+    // Any line dominated by arrow / down-pointer glyphs.
+    const stripped = s.replace(/[\s\*\[\]()`~_]/g, "");
+    if (!stripped) return false;
+    const arrowish = stripped.match(/[⬇↓⇓⇩▼]/gu) || [];
+    const letters = stripped.match(/[a-z]/gi) || [];
+    if (arrowish.length > 0 && letters.length === 0) return true;
+    // Descriptive "[Large purple arrow ...]" asset note.
+    if (/\barrow\b/i.test(s) && /[\[\(]/.test(s)) return true;
+    return false;
+  };
+
+  // Drop leading / trailing arrow lines; also drop blank lines they leave behind.
+  let start = 0;
+  let end = lines.length;
+  while (start < end && (!lines[start].trim() || isArrowLine(lines[start]))) start++;
+  while (end > start && (!lines[end - 1].trim() || isArrowLine(lines[end - 1]))) end--;
+
+  // Also drop any arrow block at the tail of the remaining content (Gemma
+  // sometimes puts CENTER *between* content lines and the next heading was
+  // already absorbed by the splitSections slice).
+  const kept: string[] = [];
+  for (let i = start; i < end; i++) {
+    kept.push(lines[i]);
+  }
+  return kept.join("\n").trim();
 }
 
 function findHeading(text: string, pattern: RegExp, from = 0): number {
   // Find the earliest line at-or-after `from` whose trimmed form contains the
   // pattern AND looks like a heading (starts with **, #, or is uppercase-ish).
+  // Reject lines where both FIRST and THEN appear (that's the document title
+  // "First-Then Board" / "FIRST-THEN BOARD", not a section heading).
   const lines = text.split("\n");
   let cursor = 0;
   for (let i = 0; i < lines.length; i++) {
@@ -122,6 +166,9 @@ function findHeading(text: string, pattern: RegExp, from = 0): number {
     if (lineStart < from) continue;
     const line = lines[i].trim();
     if (!pattern.test(line)) continue;
+    const hasFirst = /\bfirst\b/i.test(line);
+    const hasThen = /\bthen\b/i.test(line);
+    if (hasFirst && hasThen) continue;
     const looksLikeHeading =
       /^(\*\*|##?#?|\[)/.test(line) ||
       /^[^a-z]*$/.test(line.replace(/[^\w\s]/g, "").trim());
