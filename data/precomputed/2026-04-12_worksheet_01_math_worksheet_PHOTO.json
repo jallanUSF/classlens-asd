@@ -1,0 +1,92 @@
+{
+  "student_id": "maya_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\documents\\maya_2026\\2026-04-12_worksheet_01_math_worksheet_PHOTO.png",
+  "date": "2026-04-12",
+  "transcription": {
+    "observations": "Maya showed strong mastery of 2-digit addition with regrouping, scoring 9/10. The only error occurred in problem 4, where she likely forgot to carry the one to the tens place. The teacher provided positive reinforcement with the comment 'great regrouping!'. A thematic note 'Blue hunts best in packs' is written on the side of the page, reflecting the 'Blue the Raptor' theme of the worksheet.",
+    "work_type": "worksheet",
+    "completed_items": 10,
+    "total_items": 10,
+    "correct_items": 9,
+    "accuracy_percentage": 90,
+    "items": [
+      {
+        "correct_response": "72",
+        "student_response": "72",
+        "item_number": 1,
+        "is_correct": true,
+        "prompt": "27 + 45 ="
+      },
+      {
+        "correct_response": "64",
+        "student_response": "64",
+        "is_correct": true,
+        "prompt": "38 + 26 =",
+        "item_number": 2
+      },
+      {
+        "prompt": "49 + 17 =",
+        "is_correct": true,
+        "item_number": 3,
+        "student_response": "66",
+        "correct_response": "66"
+      },
+      {
+        "item_number": 4,
+        "is_correct": false,
+        "prompt": "58 + 34 =",
+        "student_response": "82",
+        "correct_response": "92",
+        "notes": "Teacher note: 'should be 92'"
+      },
+      {
+        "student_response": "94",
+        "correct_response": "94",
+        "prompt": "65 + 29 =",
+        "is_correct": true,
+        "item_number": 5
+      },
+      {
+        "prompt": "47 + 38 =",
+        "is_correct": true,
+        "item_number": 6,
+        "student_response": "85",
+        "correct_response": "85"
+      },
+      {
+        "correct_response": "83",
+        "student_response": "83",
+        "prompt": "56 + 27 =",
+        "is_correct": true,
+        "item_number": 7
+      },
+      {
+        "prompt": "39 + 44 =",
+        "is_correct": true,
+        "item_number": 8,
+        "student_response": "83",
+        "correct_response": "83"
+      },
+      {
+        "correct_response": "93",
+        "student_response": "93",
+        "prompt": "68 + 25 =",
+        "is_correct": true,
+        "item_number": 9
+      },
+      {
+        "correct_response": "82",
+        "student_response": "82",
+        "prompt": "47 + 35 =",
+        "is_correct": true,
+        "item_number": 10
+      }
+    ]
+  },
+  "goal_mapping": {
+    "matched_goals": [],
+    "student_id": "maya_2026"
+  },
+  "analyses": [],
+  "alerts": []
+}

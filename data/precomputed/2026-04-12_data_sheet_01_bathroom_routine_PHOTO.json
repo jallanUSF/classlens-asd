@@ -1,0 +1,99 @@
+{
+  "student_id": "marcus_2026",
+  "image_path": "C:\\Projects\\ClassLense\\data\\documents\\marcus_2026\\2026-04-12_data_sheet_01_bathroom_routine_PHOTO.png",
+  "date": "2026-04-12",
+  "transcription": {
+    "accuracy_percentage": 89.7,
+    "observations": "Student is exceeding his 80% independence goal. Step 7 (identified as the 'Wipe step') is the primary area for growth, requiring verbal prompts (VP) in 3 out of 7 sessions. A visual aid 'Bingo does a full check!' is being used to support this specific step. Marcus shows a positive trend toward full independence, achieving 9/9 on 4 of the 7 tracked sessions by the end of the week.",
+    "items": [
+      {
+        "student_response": "7/9",
+        "is_correct": true,
+        "item_number": 1,
+        "correct_response": "9/9",
+        "prompt": "Bathroom Routine - Mon 9:30",
+        "notes": "7 correct, 2 verbal prompts (Steps 7, 9)"
+      },
+      {
+        "is_correct": false,
+        "student_response": "8/9",
+        "prompt": "Bathroom Routine - Mon 11:15",
+        "correct_response": "9/9",
+        "item_number": 2,
+        "notes": "8 correct, 1 verbal prompt (Step 7)"
+      },
+      {
+        "notes": "All steps independent",
+        "student_response": "9/9",
+        "is_correct": true,
+        "correct_response": "9/9",
+        "item_number": 3,
+        "prompt": "Bathroom Routine - Tue 9:45"
+      },
+      {
+        "notes": "8 correct, 1 verbal prompt (Step 7)",
+        "is_correct": false,
+        "student_response": "8/9",
+        "prompt": "Bathroom Routine - Wed 9:30",
+        "item_number": 4,
+        "correct_response": "9/9"
+      },
+      {
+        "notes": "All steps independent",
+        "item_number": 5,
+        "correct_response": "9/9",
+        "prompt": "Bathroom Routine - Thu 9:30",
+        "student_response": "9/9",
+        "is_correct": true
+      },
+      {
+        "is_correct": true,
+        "student_response": "9/9",
+        "prompt": "Bathroom Routine - Fri 9:45",
+        "correct_response": "9/9",
+        "item_number": 6,
+        "notes": "All steps independent"
+      },
+      {
+        "is_correct": true,
+        "student_response": "9/9",
+        "prompt": "Bathroom Routine - Fri 1:45",
+        "item_number": 7,
+        "correct_response": "9/9",
+        "notes": "All steps independent"
+      }
+    ],
+    "work_type": "tally_sheet",
+    "completed_items": 63,
+    "total_items": 63,
+    "correct_items": 59
+  },
+  "goal_mapping": {
+    "student_id": "marcus_2026",
+    "matched_goals": [
+      {
+        "relevance": "primary",
+        "successes": 6,
+        "percentage": 85.7,
+        "reasoning": "The transcription is a direct data log of Marcus's bathroom routine across 7 sessions. The goal requires the routine to be completed with no more than 1 verbal prompt. In 6 out of 7 sessions (Mon 11:15, Tue 9:45, Wed 9:30, Thu 9:30, Fri 9:45, Fri 1:45), Marcus required 1 or 0 prompts. Only the Mon 9:30 session (2 prompts) failed the criteria.",
+        "trials": 7,
+        "goal_id": "G2"
+      }
+    ]
+  },
+  "analyses": [
+    {
+      "trend_direction": "improving",
+      "success_rate_percent": 54.1,
+      "progress_note": "Marcus has shown exceptional progress in his toileting routine, moving from a 20% baseline to a recent performance of 86%. He is now consistently meeting his goal of completing the routine with one or fewer prompts, a huge win! This success is closely linked to the implementation of Bluey-themed motivators, sensory adjustments (warm water), and the adapted wipe holder recommended by the OT, which helped him overcome motor planning challenges.",
+      "regression_alert": false,
+      "recommended_next_steps": "Since Marcus has now reached the target of 80% in his most recent trials, we should begin fading the Bluey visual sequence cards to ensure he can maintain independence without prompts. We also recommend generalizing this skill by practicing the routine in a different school bathroom to ensure the skill is stable across settings.",
+      "days_since_last_trial": 0,
+      "confidence_level": "high",
+      "thinking": "Progress Analyst agent for ClassLens ASD.\nMarcus (Grade 0, ASD Level 3, minimally verbal).\nIndependent completion of school toileting routine (7 steps) with $\\le 1$ verbal prompt.\nBaseline 20%, Target 80%.\n7 trial entries (dates from Feb 7 to Apr 12). Note: The last entry has 7 trials, the previous ones have 5.\n\n    *   *Feb 07:* 1/5 (20%) - Needs physical prompt (wipe) and verbal (flush). Sensory issues (cold water).\n    *   *Feb 21:* 2/5 (40% - though data says 35%, the math is $2/5 = 40\\%$. Let's look at the provided % in the table: 35%. Wait, $2/5$ is $40\\%$. I will use the raw counts for my calculation for accuracy). *Observation:* Bluey sticker helped flushing. Warm water helped washing.\n    *   *Mar 07:* 2/5 (40% - table says 45%). *Observation:* Bluey visual cards added. 5/7 steps independent. Wiping is the sticking point (motor planning).\n    *   *Mar 21:* 3/5 (60% - table says 55%). *Observation:* Only 1 prompt needed (wiping) on 3/5 trips.\n    *   *Apr 01:* 3/5 (60%). *Observation:* 4/5 trips meet criteria ($\\le 1$ prompt). Wait, if 4/5 met criteria, why is success listed as 3? Let's check the notes. \"4 out of 5 trips with $\\le 1$ prompt.\" This means the \"Success\" column in the table (3) might be counting something different, but the notes say 4/5. *Wait*, looking closer at the table: Feb 7 (1/5), Feb 21 (2/5), Mar 7 (2/5), Mar 21 (3/5), Apr 1 (3/5), Apr 4 (3/5), Apr 12 (6/7).\n    *   *Apr 04:* 3/5 (60% - table says 65%). *Observation:* Adapted wipe holder helped.\n    *   *Apr 12:* 6/7 (85.7% - table says 86%). *Observation:* Only 1 trial failed.\n\n    *Wait*, let's re-read the trial history table provided in the prompt.\n    - Feb 07: 5 trials, 1 success (20%)\n    - Feb 21: 5 trials, 2 successes (40% - Table says 35%)\n    - Mar 07: 5 trials, 2 successes (40% - Table says 45%)\n    - Mar 21: 5 trials, 3 successes (60% - Table says 55%)\n    - Apr 01: 5 trials, 3 successes (60%)\n    - Apr 04: 5 trials, 3 successes (60% - Table says 65%)\n    - Apr 12: 7 trials, 6 successes (85.7% - Table says 86%)\n\n    *Total Trials:* $5+5+5+5+5+5+7 = 37$ trials.\n    *Total Successes:* $1+2+2+3+3+3+6 = 20$ successes.\n    *Current success rate (overall):* $20/37 \\approx 54\\%$.\n    *Recent success rate (last trial set):* $6/7 = 85.7\\%$.\n\n    *Direction:* Clearly **improving**.\n    *Momentum:* Accelerating. He went from 20% $\\rightarrow$ 40% $\\rightarrow$ 60% $\\rightarrow$ 86%.\n    *Baseline Comparison:* Started at 20%, currently performing at 86% in the most recent session. This is a massive jump and meets/exceeds the target of 80%.\n\n    *   *Success Drivers:*\n        - Interest-based motivators (Bluey sticker, Bluey songs, Bluey visual cards).\n        - Sensory modifications (Warm water vs. cold).\n        - Assistive Tech/OT support (Adapted wipe holder).\n    *   *Challenge Areas:*\n        - Wiping (motor planning) was the primary barrier, now largely mitigated by the OT's adapted holder.\n        - Sensory aversion to wet textures (hand washing), now mitigated by temperature control and singing.\n    *   *Independence Shift:* He shifted from needing physical prompts $\\rightarrow$ verbal prompts $\\rightarrow$ independent (or $\\le 1$ prompt).\n    *   *Consistency:* The most recent trial (Apr 12) shows high consistency across different times of day (9:30, 11:15, 1:45).\n\n    *   3+ consecutive low performance? No.\n    *   Drop of >20%? No.\n    *   Loss of skills? No.\n    *   Interfering behaviors? No (hand washing resistance was solved).\n    *   *Regression Alert: False.*\n\n    *   *Drafting:* Marcus has made wonderful progress with his toileting routine! He has moved from needing significant help to completing the entire routine independently (or with just one reminder) in 6 out of 7 recent attempts. We've seen a great response to the Bluey-themed visuals and the adapted wiping tool provided by the OT. He is now consistently meeting his goal of 80% success.\n\n    *   Since he has hit the 80% target (86% in the latest trial), the next step is usually to generalize this across different bathrooms or fade the visual prompts to ensure it's fully internalized.\n\n    *   Last trial: 2026-04-12. Current date: (The prompt doesn't give a \"today's date\", but based on the sequence, I will assume today is shortly after Apr 12. Let's assume today is Apr 13 or similar. Actually, if I don't have a system date, I'll calculate based on the last provided date. I will assume \"today\" is the date of the analysis. Let's check if the system provides a date. It doesn't. I will state \"0\" or \"recent\" or use a placeholder like \"Calculated from April 12\"). Wait, usually I should use the date given in the trial. If today is Apr 13, it's 1 day. I'll assume the analysis is happening immediately after the last data entry.\n\n    *   *Trend:* improving.\n    *   *Success Rate:* $20 / 37 \\approx 54\\%$ (Overall) or $86\\%$ (Most recent). The prompt asks for \"success_rate_percent\". Usually, for progress reports, the *current* rate or the *weighted* rate is used. I'll provide the overall rate but mention the recent spike in the note. Actually, let's re-read: \"success_rate_percent (calculation of successes / total trials)\". That implies the total set. $20/37 = 54\\%$.\n    *   *Regression Alert:* False.\n    *   *Next Steps:* Fade visuals/Generalize.\n    *   *Confidence:* High (detailed notes and clear trend).",
+      "goal_id": "G2",
+      "student_id": "marcus_2026"
+    }
+  ],
+  "alerts": []
+}

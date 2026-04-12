@@ -1,0 +1,30 @@
+{
+  "student_id": "maya_2026",
+  "goal_id": "G1",
+  "material_type": "lesson_plan",
+  "created_date": "2026-04-12",
+  "status": "draft",
+  "content": {
+    "interest_integration": "The lesson is themed as 'Raptor Training.' Visuals feature Blue the Raptor, the primary cue card is purple, and the final reward is water table time.",
+    "warm_up": "Sensory Regulation: Maya starts with 2 minutes using her weighted lap pad and fidget cube while looking at a picture of Blue the Raptor to ground her focus.",
+    "assessment_check": "Teacher will use a tally sheet to record whether Maya independently initiates or responds to the greeting (Correct/Incorrect/Prompted). Success is defined as a verbal greeting (e.g., \"Hi [Name]\") or a gesture (wave) within 5 seconds of the peer's interaction.",
+    "independent_practice": "'The Greeting Mission': Maya is given a 'mission' to greet two different peers in the classroom using her purple greeting card as a reminder, without direct adult prompting.",
+    "guided_practice": "'Raptor Training' Roleplay: Maya and a peer use Blue the Raptor figurines. The teacher prompts the peer to say 'Hi Blue!' and Maya helps Blue respond with 'Hi [Peer's Name]!' using a purple visual cue card.",
+    "scaffolding_notes": "Provide a 'wait time' of 5 seconds before offering a verbal prompt. Use the purple visual card as a non-verbal prompt first. If Maya becomes overstimulated by classroom noise, provide noise-canceling headphones immediately.",
+    "lesson_title": "Blue the Raptor's Greeting Mission",
+    "goal_id": "communication_greeting_01",
+    "student_id": "Maya_Grade3_ASD2",
+    "objective": "Maya will initiate or respond to peer greetings (verbal or gesture-based) with 80% accuracy to align with her communication IEP goal.",
+    "materials_needed": [
+      "Figure of Blue the Raptor (Jurassic World)",
+      "Purple cardstock visual with sight words 'Hi' and 'Hello' and a picture of a waving hand",
+      "Weighted lap pad",
+      "Noise-canceling headphones",
+      "Dinosaur stickers (for immediate reinforcement)",
+      "Teacher observation tally sheet"
+    ],
+    "estimated_duration_minutes": 30,
+    "main_activity": "A multi-stage roleplay where Maya 'trains' with Blue the Raptor to practice greetings, transitioning from toy-based interaction to peer-to-peer interaction."
+  },
+  "language": "en"
+}

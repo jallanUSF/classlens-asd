@@ -1,0 +1,50 @@
+{
+  "student_id": "ethan_2026",
+  "goal_id": "",
+  "material_type": "admin_report",
+  "created_date": "2026-04-12",
+  "status": "draft",
+  "content": {
+    "executive_summary": "Ethan is demonstrating consistent positive growth across all three targeted domains (Communication, Fine Motor, and Social Reciprocity). He is making steady progress toward his communication and social goals. While his fine motor skills are improving, the gap between current performance (45%) and the annual target (80%) suggests a need for intensified intervention or a review of the target benchmark.",
+    "goal_summaries": [
+      {
+        "current": 58,
+        "target": 70,
+        "recommendation": "Continue current prompting hierarchy; begin introducing open-ended comment prompts.",
+        "baseline": 30,
+        "goal_id": "G1",
+        "narrative": "Ethan has shown a marked increase in spontaneous vocalizations, moving away from echolalia toward functional requesting.",
+        "goal_description": "Use spontaneous (non-echolalic) speech to make requests, comment, or express needs.",
+        "sessions_tracked": 6,
+        "trend": "Improving"
+      },
+      {
+        "trend": "Improving",
+        "sessions_tracked": 6,
+        "goal_description": "Form uppercase and lowercase letters legibly (recognizable to an unfamiliar adult).",
+        "recommendation": "Introduce multisensory tracing (sand/shaving cream) and modified pencil grips to increase precision.",
+        "target": 80,
+        "goal_id": "G2",
+        "baseline": 20,
+        "narrative": "Ethan is showing improved grip and letter formation, though consistency remains a challenge across different letter types.",
+        "current": 45
+      },
+      {
+        "sessions_tracked": 6,
+        "goal_description": "Engage in interactive play with a peer (turn-taking, sharing materials).",
+        "trend": "Improving",
+        "current": 45,
+        "narrative": "Ethan is increasingly willing to remain in the shared space with peers and is attempting turn-taking with adult facilitation.",
+        "recommendation": "Implement structured 5-minute peer-modeling sessions with a designated 'buddy' to increase independence.",
+        "target": 60,
+        "goal_id": "G3",
+        "baseline": 25
+      }
+    ],
+    "report_period": "Reporting period ending 2026-04-12",
+    "next_steps": "1. Maintain current strategies for Communication and Social Reciprocity. 2. Intensify Fine Motor support through daily 10-minute targeted tactile exercises. 3. Increase data probe frequency for G2 to bi-weekly. Next full IEP review: May 2026.",
+    "student_id": "ethan_2026",
+    "overall_assessment": "Improving; On Track for Communication/Social; Needs Support for Fine Motor."
+  },
+  "language": "en"
+}
